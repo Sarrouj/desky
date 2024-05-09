@@ -1,0 +1,32 @@
+// Packages
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+const app = express();
+dotenv.config({ path: ".env.local" });
+
+// Routes
+
+// Database connection
+mongoose
+  .connect(
+    `mongodb+srv://admin_fahd:${process.env.database_password}@desky.3gsnang.mongodb.net/Desky`
+  )
+  .then(() => {
+    console.log("Connected to database");
+    const PORT = process.env.PORT || 3001;
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Database connection error:", err);
+  });
+
+// Middlewares
+app.use(express.json());
+
+// Endpoints
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
