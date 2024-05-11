@@ -3,10 +3,12 @@ import express from "express";
 const router = express.Router();
 
 // Schemas
-import Depositors from "../mongoose/schemas/depositor.mjs";
+import Depositors from "../mongoose/schemas/Depositor.mjs";
+import Bidders from "../mongoose/schemas/Bidder.mjs";
+import Offers from "../mongoose/schemas/Offer.mjs";
 import AE from "../mongoose/schemas/AE.mjs";
-import Companies from "../mongoose/schemas/company.mjs";
-import Bidders from "../mongoose/schemas/bidder.mjs";
+import Companies from "../mongoose/schemas/Company.mjs";
+
 
 // Depositor profile info
 router.get("/depositor", async (req, res) => {
@@ -197,7 +199,7 @@ router.post("/rate/depositor/:bidder_id/:offer_id", async (req, res) => {
       return res.status(404).json({ error: "bidder not found" });
     }
 
-    const offer = await Bidders.findById(offer_id);
+    const offer = await Offers.findById(offer_id);
     if (!offer) {
       return res.status(404).json({ error: "offer not found" });
     }
