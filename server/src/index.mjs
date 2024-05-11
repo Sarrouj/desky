@@ -7,6 +7,7 @@ dotenv.config({ path: ".env.local" });
 
 // Routes
 import depositorRouter from "./routes/Depositor.mjs";
+import bidderRouter from "./routes/bidder.mjs";
 
 // Database connection
 mongoose
@@ -36,3 +37,4 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 app.use(depositorRouter);
+app.use(bidderRouter);
