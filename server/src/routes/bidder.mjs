@@ -1,86 +1,85 @@
-// Packages
 import express from "express";
 const router = express.Router();
 
 // Schemas
-import Depositors from "../mongoose/schemas/depositor.mjs";
+import Bidders from "../mongoose/schemas/bidder.mjs";
 import AE from "../mongoose/schemas/AE.mjs";
 import Companies from "../mongoose/schemas/company.mjs";
-import Bidders from "../mongoose/schemas/bidder.mjs";
+import Depositors from "../mongoose/schemas/depositor.mjs";
 
-// Depositor profile info
-router.get("/depositor", async (req, res) => {
-  const { id } = req.session.user;
+// Bidder profile info
+router.get("/bidder", async (req, res) => {
+  const { id } = rep.session.user;
   if (!id) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   try {
-    const depositor = await Depositors.findById(id);
-    if (!depositor) {
-      return res.status(404).json({ error: "Depositor not found" });
+    const bidder = await Bidders.findById(id);
+    if (!bidder) {
+      return res.status(404).json({ error: "Bidder not found" });
     }
 
-    res.status(200).json(depositor);
+    res.status(200).json(bidder);
   } catch (err) {
-    console.error("Error during getting depositor's information:", err);
+    console.error("Error during getting bidder's information:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-// Depositor info
-router.get("/depositor/:id", async (req, res) => {
+// Bidder info
+router.get("/bidder/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    const depositor = await Depositors.findById(id);
-    if (!depositor) {
-      return res.status(404).json({ error: "Depositor not found" });
+    const bidder = await Bidders.findById(id);
+    if (!bidder) {
+      return res.status(404).json({ error: "Bidder not found" });
     }
 
-    res.status(200).json({ success: depositor });
+    res.status(200).json({ success: bidder });
   } catch (err) {
-    console.error("Error during getting depositor's information:", err);
+    console.error("Error during getting bidder's information:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-// Depositor edit
-router.put("/edit/depositor", async (req, res) => {
+// bidder edit
+router.put("/edit/bidder", async (req, res) => {
   const { id } = req.session.user;
   if (!id) {
     return res.status(401).json({ error: "Unauthorized" });
   }
-  const { depositor_name, depositor_email, depositor_password } = req.body;
-  if (!depositor_name || !depositor_email || !depositor_password) {
+  const { bidder_name, bidder_email, bidder_password } = req.body;
+  if (!bidder_name || !bidder_email || !bidder_password) {
     return res.status(400).json({ message: "All the fields are required" });
   }
   try {
-    const depositor = await Depositors.findById(id);
-    if (!depositor) {
-      return res.status(404).json({ error: "Depositor not found" });
+    const bidder = await Bidders.findById(id);
+    if (!bidder) {
+      return res.status(404).json({ error: "Bidder not found" });
     }
 
-    if (depositor.depositor_name !== depositor_name) {
-      depositor.depositor_name = depositor_name;
+    if (bidder.bidder_name !== bidder_name) {
+      bidder.bidder_name = bidder_name;
     }
-    if (depositor.depositor_email !== depositor_email) {
-      depositor.depositor_email = depositor_email;
+    if (bidder.bidder_email !== bidder_email) {
+      bidder.bidder_email = bidder_email;
     }
-    if (depositor.depositor_password !== depositor_password) {
-      depositor.depositor_password = depositor_password;
+    if (bidder.bidder_password !== bidder_password) {
+      bidder.bidder_password = bidder_password;
     }
 
-    await depositor.save();
+    await bidder.save();
     res
       .status(201)
-      .json({ success: "Depositor's information updated successfully" });
+      .json({ success: "Bidder's information updated successfully" });
   } catch (err) {
-    console.error("Error during editing depositor's information:", err);
+    console.error("Error during editing bidder's information:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-// Depositor add AE info
-router.post("/add/depositor/AE", async (req, res) => {
+// Bidder add AE info
+router.post("/add/bidder/AE", async (req, res) => {
   const { id } = req.session.user;
   if (!id) {
     return res.status(401).json({ error: "Unauthorized" });
@@ -91,9 +90,9 @@ router.post("/add/depositor/AE", async (req, res) => {
     return res.status(400).json({ message: "All the fields are required" });
   }
   try {
-    const depositor = await Depositors.findById(id);
-    if (!depositor) {
-      return res.status(404).json({ error: "Depositor not found" });
+    const bidder = await Bidders.findById(id);
+    if (!bidder) {
+      return res.status(404).json({ error: "Bidder not found" });
     }
 
     const newAE = new AE({
@@ -111,15 +110,15 @@ router.post("/add/depositor/AE", async (req, res) => {
       .json({ success: "auto entrepreneur information added successfully" });
   } catch (err) {
     console.error(
-      "Error during adding depositor's auto entrepreneur information:",
+      "Error during adding bidder's auto entrepreneur information:",
       err
     );
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-// Depositor add company info
-router.post("/add/depositor/company", async (req, res) => {
+// Bidder add company info
+router.post("/add/bidder/company", async (req, res) => {
   const { id } = req.session.user;
   if (!id) {
     return res.status(401).json({ error: "Unauthorized" });
@@ -146,9 +145,9 @@ router.post("/add/depositor/company", async (req, res) => {
     return res.status(400).json({ message: "All the fields are required" });
   }
   try {
-    const depositor = await Depositors.findById(id);
-    if (!depositor) {
-      return res.status(404).json({ error: "Depositor not found" });
+    const bidder = await Bidders.findById(id);
+    if (!bidder) {
+      return res.status(404).json({ error: "bidder not found" });
     }
 
     const newCompany = new Companies({
@@ -167,13 +166,13 @@ router.post("/add/depositor/company", async (req, res) => {
       success: "company information added successfully",
     });
   } catch (err) {
-    console.error("Error during adding depositor's company information:", err);
+    console.error("Error during adding bidder's company information:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-// Depositor rate a bidder
-router.post("/rate/depositor/:bidder_id/:offer_id", async (req, res) => {
+// Bidder rate a depositor
+router.post("/rate/bidder/:depositor_id/:offer_id", async (req, res) => {
   const { id } = req.session.user;
   if (!id) {
     return res.status(401).json({ error: "Unauthorized" });
@@ -184,17 +183,17 @@ router.post("/rate/depositor/:bidder_id/:offer_id", async (req, res) => {
     return res.status(400).json({ message: "All the fields are required" });
   }
 
-  const { bidder_id, offer_id } = req.params;
+  const { depositor_id, offer_id } = req.params;
 
   try {
-    const depositor = await Depositors.findById(id);
-    if (!depositor) {
-      return res.status(404).json({ error: "Depositor not found" });
-    }
-
-    const bidder = await Bidders.findById(bidder_id);
+    const bidder = await Bidders.findById(id);
     if (!bidder) {
       return res.status(404).json({ error: "bidder not found" });
+    }
+
+    const depositor = await Depositors.findById(depositor_id);
+    if (!depositor) {
+      return res.status(404).json({ error: "Depositor not found" });
     }
 
     const offer = await Bidders.findById(offer_id);
@@ -203,75 +202,69 @@ router.post("/rate/depositor/:bidder_id/:offer_id", async (req, res) => {
     }
 
     if (
-      offer.depositor_id !== id &&
-      offer.bidder_id.includes(bidder_id) &&
+      offer.depositor_id !== depositor_id &&
+      offer.bidder_id.includes(id) &&
       offer.offer_state !== "finished"
     ) {
       return res.status(404).json({ error: "you cant rate this bidder" });
     }
 
     const newReview = {
-      depositor_id: id,
+      bidder_id: id,
       offer_id,
       rating,
       text,
       date: new Date(),
     };
 
-    bidder.bidder_review.push(newReview);
+    depositor.depositor_review.push(newReview);
 
-    await bidder.save();
+    await depositor.save();
     res.status(201).json({
       success: "rating added successfully",
     });
   } catch (err) {
-    console.error("Error during depositor's rating:", err);
+    console.error("Error during bidder's rating:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-// Depositor merge account
-router.post("/merge/depositor", async (req, res) => {
+// Bidder merge account
+router.post("/merge/bidder", async (req, res) => {
   const { id } = req.session.user;
   if (!id) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   try {
-    const depositor = await Depositors.findById(id);
-    if (!depositor) {
-      return res.status(404).json({ error: "Depositor not found" });
+    const bidder = await Bidders.findById(id);
+    if (!bidder) {
+      return res.status(404).json({ error: "bidder not found" });
     }
 
-    if (depositor.isTrusted == false) {
-      return res.status(401).json({
-        error: "need to fill auto entrepreneur or company information first",
-      });
-    }
-    const bidder = await Bidders.findById(id);
-    if (bidder) {
+    const depositor = await Depositors.findById(id);
+    if (depositor) {
       return res.status(401).json({
         error: "this account is already merged",
       });
     }
 
-    const newBidder = new Bidders({
+    const newDepositor = new Depositors({
       _id: id,
-      bidder_name: depositor.depositor_name,
-      bidder_email: depositor.depositor_email,
-      bidder_password: depositor.depositor_password || "",
-      bidder_review: [],
-      bidder_CB: depositor.depositor_CB,
+      depositor_name: bidder.bidder_name,
+      depositor_email: bidder.bidder_email,
+      depositor_password: depositor.depositor_password || "",
+      depositor_reviewers: [],
+      depositor_CB: bidder.bidder_CB,
       isTrusted: true,
-      image: depositor.image || {},
-      saved_offers: [],
+      image: bidder.image || {},
     });
 
-    await newBidder.save();
+    await newDepositor.save();
     res.status(201).json({
-      success: "depositor account merged successfully",
+      success: "bidder account merged successfully",
     });
   } catch (err) {
-    console.error("Error during depositor account merging:", err);
+    console.error("Error during bidder account merging:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
