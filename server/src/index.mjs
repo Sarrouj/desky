@@ -6,6 +6,7 @@ const app = express();
 dotenv.config({ path: ".env.local" });
 
 // Routes
+import depositorRouter from "./routes/Depositor.mjs";
 
 // Database connection
 mongoose
@@ -25,8 +26,13 @@ mongoose
 
 // Middlewares
 app.use(express.json());
+app.use((err, req, res, next) => {
+  console.error("Error:", err);
+  res.status(500).json({ error: "Internal server error" });
+});
 
-// Endpoints
+// Routes
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+app.use(depositorRouter);

@@ -52,26 +52,24 @@ const DepositorsSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
-    image: [
-      {
-        file_id: {
-          type: mongoose.Types.ObjectId,
-          required: true,
-        },
-        file_name: {
-          type: String,
-          required: true,
-        },
-        file_size: {
-          type: String,
-          required: true,
-        },
-        upload_date: {
-          type: Date,
-          required: true,
-        },
+    image: {
+      file_id: {
+        type: mongoose.Types.ObjectId,
+        required: true,
       },
-    ],
+      file_name: {
+        type: String,
+        required: true,
+      },
+      file_size: {
+        type: String,
+        required: true,
+      },
+      upload_date: {
+        type: Date,
+        required: true,
+      },
+    },
   },
   { collection: "Depositors" }
 );
