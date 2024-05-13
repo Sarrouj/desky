@@ -8,6 +8,7 @@ dotenv.config({ path: ".env.local" });
 // Routes
 import depositorRouter from "./routes/depositor.mjs";
 import bidderRouter from "./routes/bidder.mjs";
+import offerRouter from "./routes/offer.mjs";
 
 // Database connection
 mongoose
