@@ -7,7 +7,7 @@ interface CallToActionProps {
 
 const CallToAction: React.FC<CallToActionProps> = ({href, value}) => {
   return (
-    <Link href={href} className="text-white bg-primary py-2 px-5 rounded-md text-sm">{value}</Link>
+    <Link href={href} className="text-white bg-primaryOrange py-2 px-5 rounded-md text-sm">{value}</Link>
   )
 }
 

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const OfferCard = () => {
   return (
-    <div className="bg-white rounded-lg p-8 w-2/4">
+    <div className="bg-white rounded-lg p-8" style={{width : "49%"}}>
         <h2 className="text-xl font-bold">Imprimante 3D Résine Elego Saturn 3</h2>
         <div className="flex text-sm gap-5 mt-1 text-neutralGray">
             <p>Posted 2 days ago</p>

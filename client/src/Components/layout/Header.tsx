@@ -3,10 +3,10 @@ import CallToAction from "../common/CallToAction"
 
 const Header = () => {
   return (
-    <header className="flex items-center py-5 px-10 justify-between text-secondary">
-        <div className="text-2xl font-bold text-primary">Desky</div>
+    <header className="flex items-center py-3 px-10 justify-between text-secondaryDarkBlue">
+        <div className="text-2xl font-bold text-primaryOrange">Desky</div>
         <nav className="flex gap-8 text-sm font-medium">
-            <Link href={"/"} className="text-primary font-bold">Home</Link>
+            <Link href={"/"} className="text-primaryOrange font-bold">Home</Link>
             <Link href={"/"} >FAQ</Link>
             <Link href={"/"}>About Us</Link>
             <Link href={"/"}>Offers</Link>

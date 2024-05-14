@@ -8,17 +8,17 @@ export default function Home() {
   return (
     <>
       <Header/>
-      <main className="text-secondary">
+      <main className="text-secondaryDarkBlue">
         <section className="border-b-2 pb-10">
           <div className="pl-20 flex">
             <div className="w-2/4 mt-28">
               <h2 className="text-xl text-neutralGray">Growth Solution in a Single Platform.</h2>
-              <h1 className="text-6xl font-extrabold leading-tight mt-5">Desky, The First <br /> Platform <span className="text-primary">For Private </span><br /> Calls For Bids</h1>
+              <h1 className="text-6xl font-extrabold leading-tight mt-5">Desky, The First <br /> Platform <span className="text-primaryOrange">For Private </span><br /> Calls For Bids</h1>
               <p className="mt-5">Never at water me might. On formed merits hunted unable merely by mr whence or. Possession the unpleasing simplicity her uncommonly.</p>
               <div className="mt-20">
                 <div className="mb-8">
-                  <Link href={""} className="bg-primary text-white px-8 py-3 rounded-md mr-3">Submit an offer | +10</Link>
-                  <Link href={""} className="px-7 py-2 rounded-md border-4 border-primary text-primary font-semibold">See Calls</Link>
+                  <Link href={""} className="bg-primaryOrange text-white px-8 py-3 rounded-md mr-3">Submit an offer | +10</Link>
+                  <Link href={""} className="px-7 py-2 rounded-md border-4 border-primaryOrange text-primaryOrange font-semibold">See Calls</Link>
                 </div>
                 <div className="flex gap-5">
                   <div className="flex gap-2">
