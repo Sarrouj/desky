@@ -1,4 +1,5 @@
 import CallToAction from "@/Components/common/CallToAction";
+import Footer from "@/Components/layout/footer";
 import Header from "@/Components/layout/Header";
 import OfferCard from "@/Components/layout/OfferCard";
 import Image from "next/image";
@@ -61,8 +62,46 @@ export default function Home() {
             <CallToAction href={"/"} value={"See more"} />
           </div>
         </section>
+        <section>
+          <div className="px-32 py-10">
+            <div className="py-20 flex flex-col justify-center items-center gap-8">
+              <h1 className="text-4xl font-extrabold">Desky Crdibility System</h1>
+              <p>We offer a variety of interesting features that you can help increase yor productivity at work and manage your projrct esaly</p>
+            </div>
+            <div className="flex">
+              <div className="w-2/4">
+                <Image src={"/Credibility.svg"} alt={""} width={1000} height={1000} />
+              </div>
+              <div className="w-2/4 flex flex-col gap-8">
+                <div className="p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white">
+                  <div className="flex items-start justify-between">
+                    <h2 className="font-bold text-2xl mb-5">Legal Status</h2>
+                    <Image src={"/icons/arrow.svg"} alt={"icon"} width={28} height={28} />
+                  </div>
+                  <p className="text-sm w-11/12	">Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects.</p>
+                </div>
+                <div className="p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white">
+                  <div className="flex items-start justify-between">
+                    <h2 className="font-bold text-2xl mb-5">Rating System</h2>
+                    <Image src={"/icons/arrow.svg"} alt={"icon"} width={28} height={28} />
+                  </div>
+                  <p className="text-sm w-11/12	">Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs,
+                   ensuring you have access to the best options for your projects. ensuring you have access to the best options for your projects.
+                    ensuring you have access to the best options for your projects.</p>
+                </div>
+                <div className="p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white">
+                  <div className="flex items-start justify-between">
+                    <h2 className="font-bold text-2xl mb-5">Statistic</h2>
+                    <Image src={"/icons/arrow.svg"} alt={"icon"} width={28} height={28} />
+                  </div>
+                  <p className="text-sm w-11/12">Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
-      <footer></footer> 
+      <Footer/>
     </>
   );
 }
