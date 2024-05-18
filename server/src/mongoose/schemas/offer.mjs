@@ -16,6 +16,7 @@ const OffersSchema = new mongoose.Schema(
         {
           type: String,
           required: true,
+          unique: true,
         },
       ],
       required: true,
@@ -60,11 +61,11 @@ const OffersSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    bidder_id: [],
+    bidder_id: Array,
     offer_state: {
       type: String,
       required: true,
-      default: "pending"
+      default: "pending",
     },
   },
   { collection: "Offers" }

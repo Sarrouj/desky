@@ -45,7 +45,7 @@ const BiddersSchema = new mongoose.Schema(
     bidder_CB: {
       type: Number,
       required: true,
-      default: 1000,
+      default: 70,
     },
     isTrusted: {
       type: Boolean,
