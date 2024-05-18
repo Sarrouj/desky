@@ -45,7 +45,7 @@ const DepositorsSchema = new mongoose.Schema(
     depositor_CB: {
       type: Number,
       required: true,
-      default: 1000,
+      default: 70,
     },
     isTrusted: {
       type: Boolean,
