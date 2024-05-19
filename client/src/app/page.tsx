@@ -19,7 +19,7 @@ export default function Home() {
               <div className="mt-20">
                 <div className="mb-8">
                   <Link href={""} className="bg-primaryOrange text-white px-8 py-3 rounded-md mr-3">Submit an offer | +10</Link>
-                  <Link href={""} className="px-7 py-2 rounded-md border-4 border-primaryOrange text-primaryOrange font-semibold">See Calls</Link>
+                  <Link href={"/offers"} className="px-7 py-2 rounded-md border-4 border-primaryOrange text-primaryOrange font-semibold">See Calls</Link>
                 </div>
                 <div className="flex gap-5">
                   <div className="flex gap-2">

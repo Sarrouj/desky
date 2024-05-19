@@ -11,9 +11,7 @@ import bidderRouter from "./routes/bidder.mjs";
 
 // Database connection
 mongoose
-  .connect(
-    `mongodb+srv://admin_fahd:${process.env.database_password}@desky.3gsnang.mongodb.net/Desky`
-  )
+  .connect(process.env.database_connection)
   .then(() => {
     console.log("Connected to database");
     const PORT = process.env.PORT || 3001;
@@ -27,10 +25,6 @@ mongoose
 
 // Middlewares
 app.use(express.json());
-app.use((err, req, res, next) => {
-  console.error("Error:", err);
-  res.status(500).json({ error: "Internal server error" });
-});
 
 // Routes
 app.get("/", (req, res) => {
@@ -38,4 +32,3 @@ app.get("/", (req, res) => {
 });
 app.use(depositorRouter);
 app.use(bidderRouter);
-
