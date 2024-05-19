@@ -55,7 +55,13 @@ const config = {
         primaryOrange : "#F4761C",
         secondaryDarkBlue : "#213343",
         neutralBg: "#F7F7F7",
-        neutralGray: "#9D9D9D"
+        neutralGray: "#9D9D9D",
+        'custom-yellow': 'rgba(255,169,52,1)',
+        'custom-orange': 'rgba(244,118,28,1)',
+
+      },
+      backgroundImage: {
+        'custom-gradient': 'linear-gradient(18deg, rgba(255,169,52,1) 0%, rgba(244,118,28,1) 100%)',
       },
       borderRadius: {
         lg: "var(--radius)",

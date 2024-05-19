@@ -9,11 +9,11 @@ const Header = () => {
             <Link href={"/"} className="text-primaryOrange font-bold">Home</Link>
             <Link href={"/"} >FAQ</Link>
             <Link href={"/"}>About Us</Link>
-            <Link href={"/"}>Offers</Link>
+            <Link href={"/offers"}>Offers</Link>
         </nav>
         <nav className="flex gap-5 items-center text-sm font-medium	">
-          <Link href={"/"}>Sign In</Link>
-          <CallToAction href={"/"} value={"Sign Up"}/>
+          <Link href={"/login"}>Sign In</Link>
+          <CallToAction href={"/choose-type"} value={"Sign Up"}/>
         </nav>
       </header>
   )
