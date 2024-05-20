@@ -33,7 +33,7 @@ const ResetPassword = () => {
                   required
                 />
               </div>
-              <Link href={"/Forgot-Password/Reset-Password/Success"}>
+              <Link href={"/Forgot-Password/Email-Verification/Reset-Password/Success"}>
                 <Button type="submit" className="w-full text-white">
                   Reset Password
                 </Button>
