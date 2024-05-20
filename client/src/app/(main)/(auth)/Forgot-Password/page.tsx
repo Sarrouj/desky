@@ -26,7 +26,7 @@ const ForgotPassword = () => {
                   required
                 />
               </div>
-              <Link href={"/Forgot-Password/Reset-Password"}>
+              <Link href={"/Forgot-Password/Email-Verification"}>
                 <Button type="submit" className="w-full text-white">
                   Send
                 </Button>

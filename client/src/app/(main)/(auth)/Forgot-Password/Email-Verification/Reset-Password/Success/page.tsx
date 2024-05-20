@@ -2,8 +2,6 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { Button } from "@/Components/ui/Button"
-import { Input } from "@/Components/ui/input"
-import { Label } from "@/Components/ui/label"
 
 
 const ResetPassword = () => {
