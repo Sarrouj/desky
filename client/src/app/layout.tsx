@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lexend_Deca } from "next/font/google";
 import "./globals.css";
 
+
 const lexendDeca = Lexend_Deca({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
