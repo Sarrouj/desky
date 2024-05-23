@@ -1,8 +1,12 @@
+'use client'
+
+// React Hooks
+import { useEffect } from "react"
 // Components
 import CallToAction from "@/Components/common/CallToAction"
 import Header from "@/Components/layout/Header"     
 import OfferCard from "@/Components/layout/OfferCard"
-import Footer from "@/Components/layout/Footer"
+import Footer from "@/Components/layout/footer"
 // ShadCn UI
 import {
     Pagination,
@@ -15,9 +19,20 @@ import {
   } from "@/Components/ui/pagination"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/Components/ui/select"
 import { Input } from "@/Components/ui/input"
+// Data
+import { useBoundStore } from "@/lib/store"
 
+const Offers : React.FC = () => {
+    const offersData = useBoundStore((state) => state.offersData);
+    const fetchOffers = useBoundStore((state) => state.fetchOffers);
+    console.log(offersData);
 
-const Offers = () => {
+    useEffect(() => {
+        fetchOffers();
+    }, [fetchOffers]);
+    
+    if (offersData.length === 0) return <p>Loading...</p>;
+
   return (
     <>
         <div className="bg-white border-b-2 ">
@@ -75,14 +90,16 @@ const Offers = () => {
                         </Select>
                     </div>
                 <div className="flex flex-wrap gap-6">
-                    <OfferCard/>
-                    <OfferCard/>
-                    <OfferCard/>
-                    <OfferCard/>
-                    <OfferCard/>
-                    <OfferCard/>
-                    <OfferCard/>
-                    <OfferCard/>
+                {offersData.map((offer) => (
+                    <OfferCard 
+                        key={offer._id} 
+                        title={offer.offer_title} 
+                        date={offer.offer_deadLine} 
+                        location={offer.offer_location}
+                        budget={offer.offer_budget}
+                        Category={offer.offer_category}
+                    />
+                ))}
                 </div>
             </section>
             <section className="mt-5 flex justify-between">

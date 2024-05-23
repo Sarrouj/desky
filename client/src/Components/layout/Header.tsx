@@ -1,6 +1,7 @@
 import Link from "next/link"
 import CallToAction from "../common/CallToAction"
 
+
 const Header = () => {
   return (
     <header className="flex items-center py-3 px-10 justify-between text-secondaryDarkBlue">
