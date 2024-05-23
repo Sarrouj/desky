@@ -20,8 +20,8 @@ const BidderType = () => {
             <div className="flex flex-col gap-5">
               <Link href={'/choose-type/Sign-Up'} className="flex justify-between items-center shadow border hover:border-primary p-5 rounded accounType hover:bg-neutralBg">
                 <div className="flex items-center gap-5">
-                  <Image src={"/icons/bidderIocn.svg"} width={50} height={50} alt="shape" className="depositorIcon"/>
-                  <Image src={"/icons/HoverbidderIocn.svg"} width={50} height={50} alt="shape" className="hidden hoverDepositorIcon"/>
+                  <Image src={"/icons/bidderIcon.svg"} width={50} height={50} alt="shape" className="depositorIcon"/>
+                  <Image src={"/icons/HoverbidderIcon.svg"} width={50} height={50} alt="shape" className="hidden hoverDepositorIcon"/>
                   <div>
                     <h3 className="font-semibold">Auto entrepreneur</h3>
                     <p className="text-xs">Depose Offers and Manage Received Bids.</p>

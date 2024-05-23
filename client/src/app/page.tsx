@@ -1,11 +1,23 @@
+'use client'
 import CallToAction from "@/Components/common/CallToAction";
 import Footer from "@/Components/layout/footer";
 import Header from "@/Components/layout/Header";
 import OfferCard from "@/Components/layout/OfferCard";
 import Image from "next/image";
 import Link from "next/link";
+import { useBoundStore } from "@/lib/store";
+import { useEffect } from "react";
 
 export default function Home() {
+    const offersData = useBoundStore((state) => state.offersData);
+    const fetchOffers = useBoundStore((state) => state.fetchOffers);
+    const Limit = 0;
+
+    useEffect(() => {
+        fetchOffers();
+    }, [fetchOffers]);
+    
+    if (offersData.length === 0) return <p>Loading...</p>;
   return (
     <>
       <Header/>
@@ -56,8 +68,16 @@ export default function Home() {
           <div className="px-20 py-20 flex flex-col items-center gap-5">
             <h1 className="text-4xl font-extrabold mb-10">The Latest Private Calls Published</h1>
             <div className="flex gap-5">
-              <OfferCard />
-              <OfferCard />
+            {offersData.slice(0, 2).map((offer) => (
+                    <OfferCard 
+                        key={offer._id} 
+                        title={offer.offer_title} 
+                        date={offer.offer_deadLine} 
+                        location={offer.offer_location}
+                        budget={offer.offer_budget}
+                        Category={offer.offer_category}
+                    />
+                ))}
             </div>
             <CallToAction href={"/"} value={"See more"} />
           </div>
