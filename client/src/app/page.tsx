@@ -68,7 +68,7 @@ export default function Home() {
           <div className="px-20 py-20 flex flex-col items-center gap-5">
             <h1 className="text-4xl font-extrabold mb-10">The Latest Private Calls Published</h1>
             <div className="flex gap-5">
-            {offersData.slice(0, 2).map((offer) => (
+            {offersData.slice(0, 2).map((offer, index) => (
                     <OfferCard 
                         key={offer._id} 
                         title={offer.offer_title} 
@@ -76,6 +76,8 @@ export default function Home() {
                         location={offer.offer_location}
                         budget={offer.offer_budget}
                         Category={offer.offer_category}
+                        Desc={offer.offer_description}
+                        offerNumber={index + 1}
                     />
                 ))}
             </div>

@@ -90,7 +90,7 @@ const Offers : React.FC = () => {
                         </Select>
                     </div>
                 <div className="flex flex-wrap gap-6">
-                {offersData.map((offer) => (
+                {offersData.map((offer, index) => (
                     <OfferCard 
                         key={offer._id} 
                         title={offer.offer_title} 
@@ -98,6 +98,8 @@ const Offers : React.FC = () => {
                         location={offer.offer_location}
                         budget={offer.offer_budget}
                         Category={offer.offer_category}
+                        Desc={offer.offer_description}
+                        offerNumber={index + 1}
                     />
                 ))}
                 </div>
