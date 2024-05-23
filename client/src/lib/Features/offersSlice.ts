@@ -2,9 +2,9 @@ import { StateCreator } from "zustand";
 import axios from 'axios';
 
 export interface Offer {
-  _id: string;
+  _id: string & number;
   offer_title: string & Number;
-  offer_description: string;
+  offer_description: string & Number;
   offer_category: string[];
   offer_DoP: string;
   offer_deadLine: Date & String & Number;
