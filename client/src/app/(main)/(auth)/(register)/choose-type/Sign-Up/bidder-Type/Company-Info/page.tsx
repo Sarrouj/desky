@@ -93,9 +93,23 @@ const companyInfo = () => {
                   </SelectContent>
                 </Select>
               </div>
-              <Button type="submit" className="w-full text-white">
-                Next
-              </Button>
+              <div className="grid gap-2">
+                <Label htmlFor="email">Phone Number</Label>
+                  <div className="flex border border-black rounded-lg">
+                    <div className="px-5 py-2 border-r border-black">+212</div>
+                    <input type="tel" className="w-4/5 h-10 px-5 rounded focus:outline-0 text-sm" placeholder="61 45 99 19 89"/> 
+                  </div>
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="email">Company Activities</Label>
+                <div className="flex">
+                  <Input id="text" type="text" required placeholder="Activity..."/>
+                  <button></button>
+                </div>
+              </div>
+                <Button type="submit" className="w-full text-white">
+                  Next
+                </Button>
             </div>
           </div>
         <p className="w-10/12 mx-auto text-sm">© 2024 Desky.ma. All Rights Reserved</p>
