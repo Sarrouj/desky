@@ -7,7 +7,7 @@ const BidderType = () => {
   return (
     <div className="flex flex-col py-8 justify-between">
         <div className="w-10/12 mx-auto text-xs text-end"> 
-           <p className="text-gray-400">STEP 01/03</p>
+           <p className="text-gray-400">STEP 01/02</p>
            <p className="font-semibold">Legal Info</p>
         </div>
           <div className="mx-auto grid w-7/12 gap-6 mb-10">
@@ -18,7 +18,7 @@ const BidderType = () => {
               </p>
             </div>
             <div className="flex flex-col gap-5">
-              <Link href={'/choose-type/Sign-Up'} className="flex justify-between items-center shadow border hover:border-primary p-5 rounded accounType hover:bg-neutralBg">
+              <Link href={'/choose-type/Sign-Up/bidder-Type/AutoEntrepreneur-Info'} className="flex justify-between items-center shadow border hover:border-primary p-5 rounded accounType hover:bg-neutralBg">
                 <div className="flex items-center gap-5">
                   <Image src={"/icons/bidderIcon.svg"} width={50} height={50} alt="shape" className="depositorIcon"/>
                   <Image src={"/icons/HoverbidderIcon.svg"} width={50} height={50} alt="shape" className="hidden hoverDepositorIcon"/>

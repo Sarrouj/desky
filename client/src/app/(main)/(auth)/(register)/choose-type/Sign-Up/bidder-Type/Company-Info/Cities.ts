@@ -3,7 +3,7 @@ interface cities {
     label : string;
   }
   
-  export const Cities = [
+  export const Cities  = [
     {
         value: "casablanca",
         label: "Casablanca",

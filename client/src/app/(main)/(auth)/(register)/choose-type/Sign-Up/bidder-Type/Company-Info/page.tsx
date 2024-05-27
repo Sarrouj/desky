@@ -64,7 +64,7 @@ const CompanyInfo = () => {
                 <p className="font-semibold">Back</p>
               </Link>
               <div>
-                <p className="text-gray-400">STEP 01/03</p>
+                <p className="text-gray-400">STEP 02/02</p>
                 <p className="font-semibold">Legal Info</p>
               </div>
           </div>

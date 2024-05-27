@@ -4,7 +4,6 @@
 import { useEffect } from "react"
 // Components
 import CallToAction from "@/Components/common/CallToAction"
-import Header from "@/Components/layout/Header"     
 import OfferCard from "@/Components/layout/OfferCard"
 import Footer from "@/Components/layout/footer"
 // ShadCn UI
@@ -25,7 +24,6 @@ import { useBoundStore } from "@/lib/store"
 const Offers : React.FC = () => {
     const offersData = useBoundStore((state) => state.offersData);
     const fetchOffers = useBoundStore((state) => state.fetchOffers);
-    console.log(offersData);
 
     useEffect(() => {
         fetchOffers();
@@ -35,9 +33,6 @@ const Offers : React.FC = () => {
 
   return (
     <>
-        <div className="bg-white border-b-2 ">
-            <Header/>
-        </div>
         <main className="py-10 px-10 bg-neutralBg text-secondaryDarkBlue h-full">
             <section className="pt-5">
                 <div className="flex justify-between items-center">
