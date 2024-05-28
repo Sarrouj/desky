@@ -60,6 +60,7 @@ UML (Unified Modeling Language) diagrams are crucial for visualizing the system'
 *Status : Done.*
 
 - **UML diagrams**: [View the UML Diagrams]([https://www.figma.com/design/XFfxW4zdqu1ZmTJwAUC84S/Desky?node-id=320-1732&t=lEn0TOA2jkAXyeLG-1](https://lucid.app/lucidchart/64d2bf22-ce7f-4301-9327-9e75193a2ba4/edit?viewport_loc=-3729%2C-926%2C12591%2C7907%2C0_0&invitationId=inv_ea83448b-8e3a-41ed-bf4c-e9a3f66da366))
+
 ## UI System
 
 The UI system defines the design components and patterns used throughout the application. It establishes consistency and visual coherence across different pages and screens.
