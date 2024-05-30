@@ -365,7 +365,9 @@ router.post(
       }
 
       if (bidder.bidder_CB < 10) {
-        return res.status(403).json({ error: "You don't have enough Connects" });
+        return res
+          .status(403)
+          .json({ error: "You don't have enough Connects" });
       }
 
       const offer = await Offers.findById(offerId);

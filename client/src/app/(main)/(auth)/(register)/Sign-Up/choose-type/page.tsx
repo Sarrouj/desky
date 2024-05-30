@@ -1,13 +1,36 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
 import "./style.css";
 
 const Type = () => {
-  const handleTypeChoosing = (userType: string) => {
-    const signUpUrl = `/choose-type/Sign-Up?userType=${userType}`;
+  const handleTypeChoosing = async (userType: string) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/auth/register/user",
+        {
+          userType,
+        }
+      );
 
-    window.location.href = signUpUrl;
+      if (response && response.data && response.data.success) {
+        console.log(response.data.success);
+        if (userType == "depositor") {
+          window.location.href = "/";
+        } else {
+          setTimeout(() => {
+            window.location.href = "/Sign-Up/choose-type/bidder-Type";
+          }, 2000);
+        }
+      }
+    } catch (error: any) {
+      if (error.response && error.response.data && error.response.data.error) {
+        console.error(error.response.data.error);
+      } else {
+        console.error("API Error:", error);
+      }
+    }
   };
 
   return (
@@ -46,7 +69,7 @@ const Type = () => {
           <div className="flex flex-col gap-5">
             <div
               className="flex justify-between items-center shadow border hover:border-primary p-5 rounded accounType hover:bg-neutralBg cursor-pointer"
-              onClick={() => handleTypeChoosing("Depositor")}
+              onClick={() => handleTypeChoosing("depositor")}
             >
               <div className="flex items-center gap-5">
                 <Image
@@ -80,7 +103,7 @@ const Type = () => {
             </div>
             <div
               className="flex justify-between items-center shadow border hover:border-primary p-5 rounded accounType hover:bg-neutralBg cursor-pointer"
-              onClick={() => handleTypeChoosing("Bidder")}
+              onClick={() => handleTypeChoosing("bidder")}
             >
               <div className="flex items-center gap-5">
                 <Image
@@ -91,7 +114,7 @@ const Type = () => {
                   className="depositorIcon"
                 />
                 <Image
-                  src={"/icons/HoverbidderIcon.svg"}
+                  src={"/icons/HoverBidderIcon.svg"}
                   width={50}
                   height={50}
                   alt="shape"

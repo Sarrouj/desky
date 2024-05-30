@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
@@ -13,29 +14,30 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      window.location.href = "/";
+    }
+  }, [status]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     setSuccess("");
 
-    try {
-      const result = await signIn("credentials", {
-        redirect: false,
-        email,
-        password,
-      });
+    const result = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
 
-      console.log("SignIn Result: ", result);
-
-      if (result?.error) {
-        setError(result.error);
-      } else if (result?.ok) {
-        setSuccess("Login successful!");
-      }
-    } catch (err) {
-      console.error("SignIn Error: ", err);
-      setError("An unexpected error occurred");
+    if (result?.error) {
+      setError(result.error);
+    } else {
+      setSuccess("Login successful!");
+      window.location.href = "/";
     }
   };
 
@@ -48,7 +50,7 @@ const Login = () => {
         >
           Desky
         </Link>
-        <form onSubmit={handleSubmit} className="mx-auto grid w-7/12 gap-6 ">
+        <form onSubmit={handleSubmit} className="mx-auto grid w-7/12 gap-6">
           <div className="grid gap-2">
             <h1 className="text-3xl font-bold">Login</h1>
             <p className="text-balance text-muted-foreground">
@@ -90,13 +92,6 @@ const Login = () => {
             <Button type="submit" className="w-full text-white">
               Login
             </Button>
-            <Button
-              variant="outline"
-              className="w-full"
-              onClick={() => signIn("google")}
-            >
-              Login with Google
-            </Button>
           </div>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
@@ -105,11 +100,18 @@ const Login = () => {
             </Link>
           </div>
         </form>
+        <Button
+          variant="outline"
+          className="w-full"
+          onClick={() => signIn("google")}
+        >
+          Login with Google
+        </Button>
         <p className="w-10/12 mx-auto text-sm">
           © 2024 Desky.ma. All Rights Reserved
         </p>
       </div>
-      <div className=" bg-muted lg:block rounded-lg m-5 bg-gradient-to-r from-custom-yellow to-custom-orange flex flex-col justify-end items-end ">
+      <div className="bg-muted lg:block rounded-lg m-5 bg-gradient-to-r from-custom-yellow to-custom-orange flex flex-col justify-end items-end">
         <div className="h-2/4 text-custom-yellow">r</div>
         <div className="h-2/4 flex justify-end px-8">
           <Image

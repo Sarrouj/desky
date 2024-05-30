@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
+import { signIn } from "next-auth/react";
 
-import { Button } from "@/Components/ui/Button";    
+import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 
@@ -18,44 +19,23 @@ const SignUp = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    const params = Object.fromEntries(urlSearchParams.entries());
-    const { userType } = params;
-
     try {
-      let response;
-      if (userType === "Depositor") {
-        response = await axios.post(
-          "http://localhost:3001/auth/register/depositor",
-          {
-            depositor_name: name,
-            depositor_email: email,
-            depositor_password: password,
-          }
-        );
-      } else if (userType === "Bidder") {
-        response = await axios.post(
-          "http://localhost:3001/auth/register/bidder",
-          {
-            bidder_name: name,
-            bidder_email: email,
-            bidder_password: password,
-          }
-        );
-      }
+      const response = await axios.post(
+        "http://localhost:3001/auth/register/tempUser",
+        {
+          name,
+          email,
+          password,
+        }
+      );
 
       if (response && response.data && response.data.success) {
-        setError("");
         setSuccess(response.data.success);
         setTimeout(() => {
-          window.location.href = "/login";
+          window.location.href = "/Sign-Up/choose-type";
         }, 2000);
-      } else if (response && response.data && response.data.success) {
-        setError(response.data.error);
-        setSuccess("");
       } else {
-        setError("Failed to register. Please try again.");
-        setSuccess("");
+        setError(response.data.error);
       }
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.error) {
@@ -64,7 +44,6 @@ const SignUp = () => {
         console.error("API Error:", error);
         setError("Failed to register. Please try again.");
       }
-      setSuccess("");
     }
   };
 
@@ -123,9 +102,6 @@ const SignUp = () => {
             <Button type="submit" className="w-full text-white">
               Register
             </Button>
-            <Button variant="outline" className="w-full">
-              Register with Google
-            </Button>
           </div>
           <div className="mt-4 text-center text-sm">
             already have an account?{" "}
@@ -134,6 +110,13 @@ const SignUp = () => {
             </Link>
           </div>
         </form>
+        <Button
+          variant="outline"
+          className="w-full"
+          onClick={() => signIn("google")}
+        >
+          Register with Google
+        </Button>
         <p className="w-10/12 mx-auto text-sm">
           © 2024 Desky.ma. All Rights Reserved
         </p>

@@ -1,13 +1,13 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -52,16 +52,16 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        primaryOrange : "#F4761C",
-        secondaryDarkBlue : "#213343",
+        primaryOrange: "#F4761C",
+        secondaryDarkBlue: "#213343",
         neutralBg: "#F7F7F7",
         neutralGray: "#9D9D9D",
-        'custom-yellow': 'rgba(255,169,52,1)',
-        'custom-orange': 'rgba(244,118,28,1)',
-
+        "custom-yellow": "rgba(255,169,52,1)",
+        "custom-orange": "rgba(244,118,28,1)",
       },
       backgroundImage: {
-        'custom-gradient': 'linear-gradient(18deg, rgba(255,169,52,1) 0%, rgba(244,118,28,1) 100%)',
+        "custom-gradient":
+          "linear-gradient(18deg, rgba(255,169,52,1) 0%, rgba(244,118,28,1) 100%)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -85,6 +85,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
