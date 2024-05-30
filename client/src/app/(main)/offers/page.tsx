@@ -95,6 +95,7 @@ const Offers : React.FC = () => {
                         Category={offer.offer_category}
                         Desc={offer.offer_description}
                         offerNumber={index + 1}
+                        id={offer._id}
                     />
                 ))}
                 </div>

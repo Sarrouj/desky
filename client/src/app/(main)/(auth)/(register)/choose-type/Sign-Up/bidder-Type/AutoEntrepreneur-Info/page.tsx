@@ -10,15 +10,6 @@ import { Cities } from "../Company-Info/Cities"
 import { Button } from "@/Components/ui/Button"
 import { Input } from "@/Components/ui/input"
 import { Label } from "@/Components/ui/label"
-import { 
-  Select, 
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue, 
-} from "@/Components/ui/select"
 import { cn } from "@/lib/utils"
 import {
   Command,
