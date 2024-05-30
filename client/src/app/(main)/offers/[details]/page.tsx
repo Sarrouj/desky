@@ -1,47 +1,57 @@
+'use client'
 import CategoryBtn from "@/Components/common/CategoryBtn"
 import Image from "next/image"
+import { useBoundStore } from "@/lib/store"
+import { useEffect } from "react"
+import { timeSince } from "@/Components/common/timeSince"
 
-const page = ({ params } : { params : any}) => {
+const Details= ({ params } : { params : any}) => {
+  const { details } = params;
+  const detailsData = useBoundStore((state) => state.offerData);
+  const getOfferID = useBoundStore((state) => state.getOfferID);
+  const fetchDetails = useBoundStore((state)=> state.fetchOfferDetails);
+  const CategoriesElement = detailsData.offer_category;
+  
+  useEffect(()=> {
+    if(details){
+      getOfferID(details);
+      fetchDetails();
+    }
+  }, [details, fetchDetails, getOfferID])
+
+  
+
   return (
     <main className='py-16 px-20 bg-neutralBg text-secondaryDarkBlue'>
       <section className='flex'>
         <div className=' w-9/12 border-r-2'>
           <div className="border-b-2 pb-12 pr-12">
-            <h1 className='text-3xl font-bold mb-2'>Recherche matériaux de construction</h1>
+            <h1 className='text-3xl font-bold mb-2'>{detailsData.offer_title}</h1>
             <div className='flex gap-10 text-neutralGray'>
-              <p>Posted 2 days ago</p>
+              <p>{timeSince(detailsData.offer_DoP)}</p>
               <div className='flex gap-2'>
                 <p>Targetd Location: </p>
                 <ul className='flex gap-1.5'>
-                  <li >Casablanca,</li>
-                  <li>Tangier,</li>
-                  <li>Rabat</li>
+                  <li >{detailsData.offer_location}</li>
                 </ul>
               </div>
             </div>
             <div className="flex gap-3 items-center mt-8">
               <h6 className="font-semibold">Category : </h6>
               <ul className="flex gap-2">
-                <CategoryBtn value="Construction"/>
-                <CategoryBtn value="Matériaux"/>
+                {CategoriesElement ? CategoriesElement.map((c, index)=>(
+                  <CategoryBtn value={c} key={index}/>
+                )) : <CategoryBtn value={"Loading ..."}/>}
               </ul>
             </div>
           </div>
           <div className="py-12 pr-12 border-b-2">
-            <p className="">Bonjour, pour le compte de notre entreprise de construction,
-               nous sommes à la recherche de fournisseurs pour divers matériaux de construction.
-                Nous aimerions recevoir un devis pour les matériaux suivants : <br /><br />Béton prêt à lemploi :
-                 Nous avons besoin de 200 mètres cubes de béton prêt à lemploi pour notre projet en cours.
-                 uiles de toiture en céramique : <br /><br />Nous prévoyons de refaire la toiture de plusieurs maisons et 
-                 nous aurions besoin de 10 000 tuiles en céramique de couleur terre cuite <br /><br />Bois de construction : 
-                 Nous avons besoin de 50 poutres en bois de 4 mètres de long et 100 planches de bois de 2 mètres de lo
-                 ng pour notre projet. <br /><br />Fenêtres en PVC : Nous cherchons à acheter 30 fenêtres en PVC de dimensions
-                  standard pour les installer dans les maisons que nous rénovons.</p>
+            <p className="">{detailsData.offer_description}</p>
             </div>
             <div className="py-16 flex items-center justify-between	pr-72	border-b-2">
               <div className="flex items-center gap-2">
                 <Image src={"/icons/coin.svg"} width={22} height={22} alt="shape" className=""/>
-                <h6 className="font-bold">Est.budget: <span className="font-medium">3000.00 DH</span></h6>
+                <h6 className="font-bold">Est.budget: <span className="font-medium">{detailsData.offer_budget} DH</span></h6>
               </div>
               <div className="flex items-center gap-2">
                 <Image src={"/icons/clock.svg"} width={20} height={20} alt="shape" className=""/>
@@ -164,4 +174,4 @@ const page = ({ params } : { params : any}) => {
   )
 }
 
-export default page
+export default Details
