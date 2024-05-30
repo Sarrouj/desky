@@ -56,14 +56,14 @@ const SignUp = () => {
         >
           Desky
         </Link>
-        <form onSubmit={handleSubmit} className="mx-auto grid w-7/12 gap-6 ">
+        <div className="mx-auto grid w-7/12 gap-6 ">
           <div className="grid gap-2">
             <h1 className="text-3xl font-bold">Sign Up</h1>
             <p className="text-balance text-muted-foreground">
               Enter your information to create an account
             </p>
           </div>
-          <div className="grid gap-4">
+          <form onSubmit={handleSubmit} className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="name">Full name</Label>
               <Input
@@ -102,21 +102,22 @@ const SignUp = () => {
             <Button type="submit" className="w-full text-white">
               Register
             </Button>
-          </div>
+          </form>
+          <p className="text-center"> -OR- </p>
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => signIn("google")}
+          >
+            Register with Google
+          </Button>
           <div className="mt-4 text-center text-sm">
             already have an account?{" "}
             <Link href="/login" className="underline">
-              Sign In
+              Login
             </Link>
           </div>
-        </form>
-        <Button
-          variant="outline"
-          className="w-full"
-          onClick={() => signIn("google")}
-        >
-          Register with Google
-        </Button>
+        </div>
         <p className="w-10/12 mx-auto text-sm">
           © 2024 Desky.ma. All Rights Reserved
         </p>

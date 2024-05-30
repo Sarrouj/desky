@@ -8,6 +8,7 @@ import { signIn, useSession } from "next-auth/react";
 import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
+import { Forum } from "next/font/google";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -50,14 +51,14 @@ const Login = () => {
         >
           Desky
         </Link>
-        <form onSubmit={handleSubmit} className="mx-auto grid w-7/12 gap-6">
+        <div className="mx-auto grid w-7/12 gap-6">
           <div className="grid gap-2">
             <h1 className="text-3xl font-bold">Login</h1>
             <p className="text-balance text-muted-foreground">
               Enter your information to login
             </p>
           </div>
-          <div className="grid gap-4">
+          <form onSubmit={handleSubmit} className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -92,21 +93,22 @@ const Login = () => {
             <Button type="submit" className="w-full text-white">
               Login
             </Button>
-          </div>
+          </form>
+          <p className="text-center"> -OR- </p>
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => signIn("google")}
+          >
+            Login with Google
+          </Button>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
-            <Link href="/choose-type" className="underline">
+            <Link href="/Sign-Up" className="underline">
               Sign Up
             </Link>
           </div>
-        </form>
-        <Button
-          variant="outline"
-          className="w-full"
-          onClick={() => signIn("google")}
-        >
-          Login with Google
-        </Button>
+        </div>
         <p className="w-10/12 mx-auto text-sm">
           © 2024 Desky.ma. All Rights Reserved
         </p>
