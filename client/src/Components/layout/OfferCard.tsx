@@ -2,6 +2,7 @@ import CategoryBtn from "@/Components/common/CategoryBtn";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import { timeSince } from "../common/timeSince";
 
 interface OfferCardProps {
   title: string & Number;
@@ -12,39 +13,11 @@ interface OfferCardProps {
   Desc: string & Number;
   key : number
   offerNumber : number;
-  // id: string & Number;
+  id: string & Number;
   // index : Number;
 }
 
-const OfferCard : React.FC<OfferCardProps> = ({ title, date, location, budget , Category, Desc, offerNumber}) => {
-// Convert Date to Text Format
-
-  function timeSince(date : Date) {
-    const now : number | any = new Date();
-    const postDate : number | any = new Date(date);
-    const seconds  = Math.floor((now - postDate) / 1000);
-    let interval = Math.floor(seconds / 31536000);
-    if (interval >= 1) {
-        return interval === 1 ? ' a year ago' : ` ${interval} years ago`;
-    }
-    interval = Math.floor(seconds / 2592000);
-    if (interval >= 1) {
-        return interval === 1 ? ' a month ago' : ` ${interval} months ago`;
-    }
-    interval = Math.floor(seconds / 86400);
-    if (interval >= 1) {
-        return interval === 1 ? ' a day ago' : ` ${interval} days ago`;
-    }
-    interval = Math.floor(seconds / 3600);
-    if (interval >= 1) {
-        return interval === 1 ? ' an hour ago' : ` ${interval} hours ago`;
-    }
-    interval = Math.floor(seconds / 60);
-    if (interval >= 1) {
-        return interval === 1 ? ' a minute ago' : ` ${interval} minutes ago`;
-    }
-    return ' just now';
-}
+const OfferCard : React.FC<OfferCardProps> = ({ title, date, location, budget , Category, Desc, offerNumber, id}) => {
 
   const pRef = useRef<HTMLParagraphElement>(null);
   useEffect(()=>{
@@ -59,7 +32,7 @@ const OfferCard : React.FC<OfferCardProps> = ({ title, date, location, budget , 
     }
   },[])
   return (
-    <Link href={`./offers/${offerNumber}`}  style={{width : "49%"}}>
+    <Link href={`./offers/${id}`}  style={{width : "49%"}}>
       <div className="bg-white rounded-lg p-8">
         <h2 className="text-xl font-bold">{title}</h2>
         <div className="flex text-sm gap-5 mt-1 text-neutralGray">
