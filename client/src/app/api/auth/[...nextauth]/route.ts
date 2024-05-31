@@ -102,6 +102,29 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.id;
       }
+
+      if (account?.provider === "google") {
+        try {
+          const response = await axios.post(
+            "http://localhost:3001/auth/google",
+            {
+              name: profile?.name,
+              email: profile?.email,
+            }
+          );
+
+          if (response.status === 200 && response.data) {
+            token.id = response.data.id;
+            token.email = response.data.email;
+          } else {
+            throw new Error("Failed to register user with Google");
+          }
+        } catch (error) {
+          console.error("Google registration error:", error);
+          throw new Error("Google registration failed");
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {

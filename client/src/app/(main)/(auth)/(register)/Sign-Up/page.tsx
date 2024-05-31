@@ -54,7 +54,6 @@ const SignUp = () => {
       }
     }
   };
-
   const handleGoogleSignIn = async () => {
     const result = await signIn("google", { redirect: false });
 
