@@ -25,6 +25,7 @@ import {
   PopoverTrigger,
 } from "@/Components/ui/popover"
 
+
 const AutoEntreprenurInfo = () => {
     let [activity , setActivity] = useState('');
     let [activities, setActivites] = useState< (string | number)[]>([]);
