@@ -18,7 +18,7 @@ const BidderType = () => {
         </div>
         <div className="flex flex-col gap-5">
           <Link
-            href={"/choose-type/Sign-Up"}
+            href={"/Sign-Up/choose-type/bidder-Type/AutoEntrepreneur-Info"}
             className="flex justify-between items-center shadow border hover:border-primary p-5 rounded accounType hover:bg-neutralBg"
           >
             <div className="flex items-center gap-5">
@@ -52,7 +52,7 @@ const BidderType = () => {
             />
           </Link>
           <Link
-            href={"/choose-type/Sign-Up/bidder-Type/Company-Info"}
+            href={"/Sign-Up/choose-type/bidder-Type/Company-Info"}
             className="flex justify-between items-center shadow border hover:border-primary p-5 rounded accounType hover:bg-neutralBg"
           >
             <div className="flex items-center gap-5">
