@@ -53,6 +53,29 @@ router.get("/bidder/:id", checkObjectId, async (req, res, next) => {
   }
 });
 
+// Bidder AE or Company info
+router.get("/bidder/:id", checkObjectId, async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const bidder = await Bidders.findById(id);
+    if (!bidder) {
+      return res.status(404).json({ error: "Bidder not found" });
+    }
+
+    const ae = await AE.findById(id);
+    if (ae) {
+      return res.status(404).json({ success: ae });
+    }
+
+    const company = await Companies.findById(id);
+    if (company) {
+      return res.status(404).json({ success: company });
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
 // bidder edit
 router.put(
   "/edit/bidder",

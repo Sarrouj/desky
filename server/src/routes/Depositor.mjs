@@ -53,6 +53,29 @@ router.get("/depositor/:id", checkObjectId, async (req, res, next) => {
   }
 });
 
+// Depositor AE or Company info
+router.get("/depositor/:id", checkObjectId, async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const depositor = await Depositors.findById(id);
+    if (!depositor) {
+      return res.status(404).json({ error: "Depositor not found" });
+    }
+
+    const ae = await AE.findById(id);
+    if (ae) {
+      return res.status(404).json({ success: ae });
+    }
+
+    const company = await Companies.findById(id);
+    if (company) {
+      return res.status(404).json({ success: company });
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
 // Depositor edit
 router.put(
   "/edit/depositor",

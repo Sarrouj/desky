@@ -19,9 +19,7 @@ const Type = () => {
         if (userType == "depositor") {
           window.location.href = "/";
         } else {
-          setTimeout(() => {
-            window.location.href = "/Sign-Up/choose-type/bidder-Type";
-          }, 2000);
+          window.location.href = "/Sign-Up/choose-type/bidder-Type";
         }
       }
     } catch (error: any) {

@@ -52,7 +52,6 @@ export const authOptions: NextAuthOptions = {
             throw new Error("Invalid login credentials");
           }
         } catch (error) {
-          console.error("Login error:", error);
           throw new Error("Login failed");
         }
       },
@@ -62,18 +61,46 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
   ],
-  pages: {
-    signIn: "/(main)/(auth)/login",
-    error: "/(main)/(auth)/login",
-  },
   session: {
     strategy: "jwt",
   },
   callbacks: {
-    async jwt({ token, user, account, profile }) {
+    async signIn({ user, account, profile, email, credentials }) {
+      if (account?.provider === "google") {
+        try {
+          const response = await axios.post(
+            "http://localhost:3001/auth/google",
+            {
+              email: user.email,
+              name: user.name,
+            }
+          );
+
+          if (response.status === 200) {
+            if (response.data.success === "Registered successfully") {
+              return `/Sign-Up/choose-type`;
+            }
+            if (response.data.success === "Login successful") {
+              user.id = response.data.id;
+              return true;
+            }
+          }
+        } catch (error) {
+          console.error("Google sign-in error:", error);
+          return false;
+        }
+      }
+      return true;
+    },
+    async redirect({ url, baseUrl }) {
+      if (url === "/Sign-Up/choose-type") {
+        return `${baseUrl}${url}`;
+      }
+      return baseUrl;
+    },
+    async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.email = user.email;
       }
 
       if (account?.provider === "google") {
@@ -103,7 +130,6 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       if (token) {
         session.id = token.id;
-        session.email = token.email;
       }
       return session;
     },

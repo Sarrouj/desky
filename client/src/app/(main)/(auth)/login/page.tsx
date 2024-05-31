@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { signIn, useSession } from "next-auth/react";
 
 import { Button } from "@/Components/ui/button";
@@ -36,9 +36,23 @@ const Login = () => {
 
     if (result?.error) {
       setError(result.error);
-    } else {
+    } else if (result) {
       setSuccess("Login successful!");
       window.location.href = "/";
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    const result = await signIn("google", { redirect: false });
+
+    if (result?.error) {
+      setError(result.error);
+    } else if (result?.url) {
+      if (result.url.includes("choose-type")) {
+        window.location.href = "/(main)/(register)/Sign-Up/choose-type";
+      } else {
+        window.location.href = "/";
+      }
     }
   };
 
@@ -98,7 +112,7 @@ const Login = () => {
           <Button
             variant="outline"
             className="w-full"
-            onClick={() => signIn("google")}
+            onClick={handleGoogleSignIn}
           >
             Login with Google
           </Button>
