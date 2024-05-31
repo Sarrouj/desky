@@ -5,21 +5,39 @@ import { useBoundStore } from "@/lib/store"
 import { useEffect } from "react"
 import { timeSince } from "@/Components/common/timeSince"
 
+
 const Details= ({ params } : { params : any}) => {
+  // Offer Data fetching
   const { details } = params;
-  const detailsData = useBoundStore((state) => state.offerData);
+  const detailsData  = useBoundStore((state) => state.offerData);
   const getOfferID = useBoundStore((state) => state.getOfferID);
   const fetchDetails = useBoundStore((state)=> state.fetchOfferDetails);
   const CategoriesElement = detailsData.offer_category;
+  const OfferAttachements = detailsData.offer_attachments;
   
+  // Depositor Info fetching
+  const getDespositorID = useBoundStore((state) => state.getDepositorID);
+  const fetDepositorData = useBoundStore((state) => state.fetchDepositorData);
+  const DespositorData = useBoundStore((state) => state. DespositorData);
+
+  // Despositor Info
+  const fullName = DespositorData.length !== 0 ? DespositorData.depositor_name : "Loading...";
+  const SeparateName = fullName.split(" ");
+  const FirstName = SeparateName[0];
+  const LastName = SeparateName[1];
+
+
   useEffect(()=> {
     if(details){
       getOfferID(details);
       fetchDetails();
+      if(detailsData.depositor_id){
+        getDespositorID(detailsData.depositor_id);
+        fetDepositorData();
+      }
     }
-  }, [details, fetchDetails, getOfferID])
+  }, [detailsData.depositor_id , details])
 
-  
 
   return (
     <main className='py-16 px-20 bg-neutralBg text-secondaryDarkBlue'>
@@ -59,15 +77,16 @@ const Details= ({ params } : { params : any}) => {
               </div>
             </div>
             <div className="py-10 pr-20">
-              <h3 className="font-bold text-lg mb-8">Attachements <span className="text-primary font-medium">(2)</span></h3>
-              <div className="flex items-center gap-2 cursor-pointer mb-2">
-                <Image src={"/icons/file.svg"} width={13} height={13} alt="shape" className=""/>
-                <p className="text-primary underline underline-offset-1">Screenshot 2567-04-25 at 13.38.59.png <span>(2.1MB)</span></p>
+              <h3 className="font-bold text-lg mb-8">Attachements <span className="text-primary font-medium">({OfferAttachements ? OfferAttachements.length : "Loading..."})</span></h3>
+              {OfferAttachements ? OfferAttachements.map((attachement, index) => (
+                <div className="flex items-center gap-2 cursor-pointer mb-2" key={index}>
+                  <Image src={"/icons/file.svg"} width={13} height={13} alt="shape" className=""/>
+                <p className="text-primary underline underline-offset-1">{attachement['file_name']}<span>({attachement['file_size']})</span></p>
               </div>
-              <div className="flex items-center gap-2 cursor-pointer mb-2">
-                <Image src={"/icons/file.svg"} width={13} height={13} alt="shape" className=""/>
-                <p className="text-primary underline underline-offset-1">files.pdf <span>(1KB)</span></p>
-              </div>
+              )): <div className="flex items-center gap-2 cursor-pointer mb-2">
+                    <Image src={"/icons/file.svg"} width={13} height={13} alt="shape" className=""/>
+                    <p className="text-primary underline underline-offset-1">Loading...</p>
+                  </div>}
             </div>
         </div>
         <div className='pl-12 w-3/12 '>
@@ -77,7 +96,7 @@ const Details= ({ params } : { params : any}) => {
              w-24 h-24 flex items-center
              justify-center text-4xl">SZ</div>
             <div className="text-center">
-              <h2 className="font-bold text-2xl">Sarrouj <span className="text-primary">Zaid</span></h2>
+              <h2 className="font-bold text-2xl">{LastName} <span className="text-primary">{FirstName}</span></h2>
               <h4 className="font-semibold">M.D.M S.A.R.L</h4>
             </div>
           </div>
@@ -123,9 +142,9 @@ const Details= ({ params } : { params : any}) => {
             <div>
               <div className="flex items-center gap-3">
                 <div className="rounded-full
-            bg-slate-200 text-blue-400
-             w-10 h-10 flex items-center
-             justify-center">AK</div>
+                bg-slate-200 text-blue-400
+                  w-10 h-10 flex items-center
+                  justify-center">AK</div>
                 <h6 className="font-semibold">Alex k.</h6>
               </div>
               <div className="flex justify-between items-center mt-3">
