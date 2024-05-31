@@ -1,5 +1,3 @@
-// models/TempUser.mjs
-
 import mongoose from "mongoose";
 
 const tempUserSchema = new mongoose.Schema(
@@ -17,10 +15,6 @@ const tempUserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    type: {
-      type: String,
-      required: true,
-    },
     token: {
       type: String,
       required: true,
@@ -28,6 +22,11 @@ const tempUserSchema = new mongoose.Schema(
     tokenExpires: {
       type: Date,
       required: true,
+    },
+    isVerified: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
   },
   { collection: "TempUser" }

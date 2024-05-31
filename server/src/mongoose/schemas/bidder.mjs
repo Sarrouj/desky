@@ -1,6 +1,6 @@
+// models/Bidder.mjs
 import mongoose from "mongoose";
 
-// Define the schema for the bidder collection
 const BiddersSchema = new mongoose.Schema(
   {
     bidder_name: {
@@ -12,7 +12,10 @@ const BiddersSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    bidder_password: String,
+    bidder_password: {
+      type: String,
+      required: true,
+    },
     bidder_review: [
       {
         _id: {
@@ -86,7 +89,4 @@ const BiddersSchema = new mongoose.Schema(
   { collection: "Bidders" }
 );
 
-// Create a model for the bidder collection using the schema
-const Bidders = mongoose.model("Bidder", BiddersSchema);
-// Export the model to be used in other parts of your application
-export default Bidders;
+export default mongoose.model("Bidder", BiddersSchema);

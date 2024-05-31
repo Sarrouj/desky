@@ -21,13 +21,13 @@ export interface OffersState {
     offerData: OfferType[];
     fetchOfferDetails: () => Promise<void>;
 }
-  
+
 export interface OfferIDState {
-    OfferID: number | null;
+  OfferID: number | null;
 }
-  
+
 export interface OfferIDActions {
-    getOfferID: (id: number | null ) => void;
+  getOfferID: (id: number | null) => void;
 }
 
 export interface OfferDetails extends OfferIDState, OfferIDActions, OffersState {}

@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-// Define the schema for the depositor collection
 const DepositorsSchema = new mongoose.Schema(
   {
     depositor_name: {
@@ -12,7 +11,10 @@ const DepositorsSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    depositor_password: String,
+    depositor_password: {
+      type: String,
+      required: true,
+    },
     depositor_review: [
       {
         _id: {
@@ -39,6 +41,7 @@ const DepositorsSchema = new mongoose.Schema(
         date: {
           type: Date,
           required: true,
+          default: Date.now,
         },
       },
     ],
@@ -53,28 +56,13 @@ const DepositorsSchema = new mongoose.Schema(
       default: false,
     },
     image: {
-      file_id: {
-        type: mongoose.Types.ObjectId,
-        required: true,
-      },
-      file_name: {
-        type: String,
-        required: true,
-      },
-      file_size: {
-        type: String,
-        required: true,
-      },
-      upload_date: {
-        type: Date,
-        required: true,
-      },
+      file_id: mongoose.Types.ObjectId,
+      file_name: String,
+      file_size: String,
+      upload_date: Date,
     },
   },
   { collection: "Depositors" }
 );
 
-// Create a model for the depositor collection using the schema
-const Depositors = mongoose.model("Depositor", DepositorsSchema);
-// Export the model to be used in other parts of your application
-export default Depositors;
+export default mongoose.model("Depositor", DepositorsSchema);
