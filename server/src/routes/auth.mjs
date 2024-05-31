@@ -181,16 +181,15 @@ router.post("/auth/register/user", async (req, res, next) => {
       return res.status(400).json({ error: "No verified user found" });
     }
 
-    let createdUser;
-    if (userType.toLowerCase() === "depositor") {
-      createdUser = await Depositor.create({
+    if (userType === "depositor") {
+      await Depositor.create({
         depositor_name: tempUser.name,
         depositor_email: tempUser.email,
         depositor_password: tempUser.password,
         image: tempUser.image || {},
       });
-    } else if (userType.toLowerCase() === "bidder") {
-      createdUser = await Bidder.create({
+    } else if (userType === "bidder") {
+      await Bidder.create({
         bidder_name: tempUser.name,
         bidder_email: tempUser.email,
         bidder_password: tempUser.password,
@@ -205,7 +204,6 @@ router.post("/auth/register/user", async (req, res, next) => {
       success: `${
         userType.charAt(0).toUpperCase() + userType.slice(1)
       } registered successfully`,
-      createdUser,
     });
   } catch (err) {
     next(err);
@@ -222,14 +220,14 @@ router.post("/auth/google", async (req, res, next) => {
   try {
     const user = await findUserByEmail(email);
     if (!user) {
-      const token = jwt.sign({ email }, process.env.JWT_SECRET, {
-        expiresIn: "1h",
-      });
-
       const existingTempUser = await TempUser.findOne({ email });
       if (existingTempUser) {
         await TempUser.deleteOne(existingTempUser);
       }
+
+      const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
 
       const tempUser = await TempUser.create({
         name,
@@ -244,14 +242,14 @@ router.post("/auth/google", async (req, res, next) => {
         id: tempUser._id,
         email: tempUser.email,
       });
+    } else {
+      res.status(200).json({
+        success: "Login successfully",
+        id: user._id,
+        email: user.email,
+        role: user.role,
+      });
     }
-
-    res.status(200).json({
-      success: "Login successful",
-      id: user._id,
-      email: user.email,
-      role: user.role,
-    });
   } catch (err) {
     next(err); // Pass any errors to the error handling middleware
   }

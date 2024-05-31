@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
@@ -15,6 +16,13 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      window.location.href = "/";
+    }
+  }, [status]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,7 +40,7 @@ const SignUp = () => {
       if (response && response.data && response.data.success) {
         setSuccess(response.data.success);
         setTimeout(() => {
-          window.location.href = "/Sign-Up/choose-type";
+          window.location.href = "/(main)/(register)/Sign-Up/choose-type";
         }, 2000);
       } else {
         setError(response.data.error);
@@ -43,6 +51,20 @@ const SignUp = () => {
       } else {
         console.error("API Error:", error);
         setError("Failed to register. Please try again.");
+      }
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    const result = await signIn("google", { redirect: false });
+
+    if (result?.error) {
+      setError(result.error);
+    } else if (result?.url) {
+      if (result.url.includes("choose-type")) {
+        window.location.href = "/(main)/(register)/Sign-Up/choose-type";
+      } else {
+        window.location.href = "/";
       }
     }
   };
@@ -107,7 +129,7 @@ const SignUp = () => {
           <Button
             variant="outline"
             className="w-full"
-            onClick={() => signIn("google")}
+            onClick={handleGoogleSignIn}
           >
             Register with Google
           </Button>
