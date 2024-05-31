@@ -1,9 +1,24 @@
 import { StateCreator } from "zustand";
-import { Offer } from "./offersSlice";
 import axios from "axios";
 
+
+export interface OfferType {
+  _id: string;
+  offer_title: string;
+  offer_description: string;
+  offer_category: string[];
+  offer_DoP: string;
+  offer_location: string;
+  offer_deadLine: string;
+  offer_budget: number;
+  offer_attachments: string[];
+  depositor_id: string;
+  bidder_id: string[];
+  offer_state: string;
+}
+
 export interface OffersState {
-    offerData: Offer[];
+    offerData: OfferType[];
     fetchOfferDetails: () => Promise<void>;
 }
   
@@ -17,9 +32,9 @@ export interface OfferIDActions {
 
 export interface OfferDetails extends OfferIDState, OfferIDActions, OffersState {}
   
-export const createOfferDetailsSlice : StateCreator<OfferDetails> = (set, get)=>({
+export const createOfferDetailsSlice : StateCreator<OfferDetails & OffersState> = (set, get)=>({
     OfferID : null,
-    offerData: [],
+    offerData : [],
     getOfferID  : (id) => set({ OfferID : id }),
     fetchOfferDetails: async () => {
         const { OfferID } = get();
@@ -31,4 +46,4 @@ export const createOfferDetailsSlice : StateCreator<OfferDetails> = (set, get)=>
         console.error('Error fetching offers:', error);
       }
     },
-  })
+})
