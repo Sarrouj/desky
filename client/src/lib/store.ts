@@ -8,6 +8,7 @@ import { CitiesDataSlice } from "./Features/CitiesData";
 import { Cities } from "./Features/CitiesData";
 import { CategoriesDataSlice } from "./Features/CategoriesData";
 import { Categories } from "./Features/CategoriesData";
+import { SearchSlice } from "./Features/SearchSlice";
 
 
 
@@ -17,6 +18,7 @@ export const useBoundStore = create<OffersState & OfferDetails & Cities & Catego
   ...createOfferDetailsSlice(...a),
   ...getDepositorDataSlice(...a),
   ...CitiesDataSlice(...a),
-  ...CategoriesDataSlice(...a)
+  ...CategoriesDataSlice(...a),
+  ...SearchSlice(...a)
 }))
 

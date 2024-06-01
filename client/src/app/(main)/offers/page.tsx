@@ -21,10 +21,12 @@ import { Input } from "@/Components/ui/input"
 import { useBoundStore } from "@/lib/store"
 import PopoverCom from "@/Components/common/PopoverComponent"
 
+
+
 const Offers : React.FC = () => {
     const [categoryValue, categorySetValue] = React.useState<string>("");
     const [cityValue, citySetValue] = React.useState<string>("");
-    // filters
+    // filters UI
     let [filter , setFilter] = useState< (string | number)[]>([]);
     let [searchValue, setSearchValue] = useState('');
   
@@ -32,6 +34,7 @@ const Offers : React.FC = () => {
     const fetchOffers = useBoundStore((state) => state.fetchOffers);
     const Cities  = useBoundStore((state) => state.Cities);
     const Categories : any  = useBoundStore((state) => state.Categories);
+    const getSearchValue = useBoundStore((state) => state.getSearchValue);
 
 
     useEffect(()=>{
@@ -39,22 +42,26 @@ const Offers : React.FC = () => {
             if (cityValue !== "") {
                 if (searchValue !== "") {
                     setFilter([categoryValue, cityValue, searchValue]);
+                    getSearchValue(searchValue);
                 } else {
                     setFilter([categoryValue, cityValue]);
                 }
             } else if (searchValue !== "") {
                 setFilter([categoryValue, searchValue]);
+                getSearchValue(searchValue);
             } else {
                 setFilter([categoryValue]);
             }
         } else if (cityValue !== "") {
             if (searchValue !== "") {
                 setFilter([cityValue, searchValue]);
+                getSearchValue(searchValue);
             } else {
                 setFilter([cityValue]);
             }
         } else if (searchValue !== "") {
             setFilter([searchValue]);
+            getSearchValue(searchValue);
         }
     }, [categoryValue, cityValue, searchValue])
 
