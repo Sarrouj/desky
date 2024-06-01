@@ -153,17 +153,43 @@ router.get("/auth/verify/:token", async (req, res, next) => {
       return res.status(400).json({ error: "Invalid or expired token" });
     }
 
-    // Move the user information to the appropriate main collection
-    let newUser;
-    if (tempUser.type === "depositor") {
-      newUser = await Depositor.create({
+    if (tempUser.isVerified) {
+      return res.status(400).json({ error: "Email already verified" });
+    }
+
+    tempUser.isVerified = true;
+    await tempUser.save();
+
+    res.status(200).json({
+      success: `Email verified successfully.`,
+    });
+  } catch (err) {
+    next(err); // Pass any errors to the error handling middleware
+  }
+});
+
+// Register route for depositor or bidder
+router.post("/auth/register/user", async (req, res, next) => {
+  const { userType } = req.body;
+  if (!userType) {
+    return res.status(400).json({ error: "User type is required" });
+  }
+
+  try {
+    const tempUser = await TempUser.findOne({ isVerified: true });
+    if (!tempUser) {
+      return res.status(400).json({ error: "No verified user found" });
+    }
+
+    if (userType === "depositor") {
+      await Depositor.create({
         depositor_name: tempUser.name,
         depositor_email: tempUser.email,
         depositor_password: tempUser.password,
         image: tempUser.image || {},
       });
-    } else if (tempUser.type === "bidder") {
-      newUser = await Bidder.create({
+    } else if (userType === "bidder") {
+      await Bidder.create({
         bidder_name: tempUser.name,
         bidder_email: tempUser.email,
         bidder_password: tempUser.password,
@@ -175,57 +201,55 @@ router.get("/auth/verify/:token", async (req, res, next) => {
 
     await tempUser.deleteOne();
     res.status(200).json({
-      success: `Email verified successfully. ${
-        tempUser.type.charAt(0).toUpperCase() + tempUser.type.slice(1)
-      } registered.`,
+      success: `${
+        userType.charAt(0).toUpperCase() + userType.slice(1)
+      } registered successfully`,
     });
   } catch (err) {
     next(err);
   }
 });
 
-// Login
-router.post("/auth/login", loginValidationFields, async (req, res, next) => {
-  const { email, password } = req.body;
+// GoogleProvider route
+router.post("/auth/google", async (req, res, next) => {
+  const { email, name } = req.body; // Extract email and name from request body
+  if (!email || !name) {
+    return res.status(400).json({ error: "Email and name are required" });
+  }
+
   try {
-    let user = {};
+    const user = await findUserByEmail(email);
+    if (!user) {
+      const existingTempUser = await TempUser.findOne({ email });
+      if (existingTempUser) {
+        await TempUser.deleteOne(existingTempUser);
+      }
 
-    const admin = await Admin.findOne({ email });
-    if (admin) {
-      user = admin;
-      user.role = "admin";
+      const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
+
+      const tempUser = await TempUser.create({
+        name,
+        email,
+        password: await bcrypt.hash(name + email, 10), // Create a dummy password
+        token,
+        tokenExpires: new Date() + 3600000,
+        isVerified: true,
+      });
+      return res.status(200).json({
+        success: "Registered successfully",
+        id: tempUser._id,
+        email: tempUser.email,
+      });
+    } else {
+      res.status(200).json({
+        success: "Login successfully",
+        id: user._id,
+        email: user.email,
+        role: user.role,
+      });
     }
-
-    const depositor = await Depositor.findOne({ email });
-    if (depositor) {
-      user = depositor;
-      user.role = "depositor";
-    }
-
-    const bidder = await Bidder.findOne({ email });
-    if (bidder) {
-      user = bidder;
-      user.role = "bidder";
-    }
-
-    if (!user._id) {
-      return res.status(401).json({ error: "Wrong email" });
-    }
-
-    const passwordMatch = await bcrypt.compare(
-      password,
-      user.depositor_password || user.bidder_password || user.admin_password
-    );
-    if (!passwordMatch) {
-      return res.status(401).json({ error: "Wrong password" });
-    }
-
-    // Respond with the user object
-    res.status(200).json({
-      id: user._id,
-      email: user.email,
-      role: user.role,
-    });
   } catch (err) {
     next(err); // Pass any errors to the error handling middleware
   }
