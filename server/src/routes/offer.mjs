@@ -45,21 +45,28 @@ router.get("/offer/:id", checkObjectId, async (req, res, next) => {
 });
 
 // Offer search
-router.get("/search/offer/:search/:category", async (req, res, next) => {
-  const { search, category } = req.params;
+router.get("/search/offer", async (req, res, next) => {
+  const { search, category, location } = req.query;
   try {
     let query = {};
+
     if (search) {
       query.$or = [
         { offer_title: { $regex: search, $options: "i" } },
         { offer_description: { $regex: search, $options: "i" } },
       ];
     }
+
     if (category) {
       query.offer_category = category;
     }
 
+    if (location) {
+      query.offer_location = { $regex: location, $options: "i" };
+    }
+
     const offers = await Offers.find(query);
+
     if (offers.length === 0) {
       return res.status(404).json({ error: "No offers found" });
     }
