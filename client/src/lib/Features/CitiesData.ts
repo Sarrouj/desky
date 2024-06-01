@@ -1,12 +1,19 @@
-interface cities {
+import { StateCreator } from "zustand";
+
+interface City {
     value : string;
     label : string;
-  }
-  
-  export const Cities : cities[]  = [
+}
+export  interface Cities {
+    Cities : City[]
+}
+
+export const CitiesDataSlice : StateCreator<Cities> = () =>({
+    Cities : [
+
     {
-        value: "casablanca",
-        label: "Casablanca",
+        value: "All Cities",
+        label: "All Cities",
     },
     {
         value: "rabat",
@@ -331,5 +338,5 @@ interface cities {
     {
         value: "zagora",
         label: "Zagora",
-    }
-];
+    }]
+})
