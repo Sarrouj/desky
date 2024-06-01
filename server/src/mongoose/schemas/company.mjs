@@ -3,6 +3,10 @@ import mongoose from "mongoose";
 // Define the schema for the company collection
 const CompaniesSchema = new mongoose.Schema(
   {
+    company_type: {
+      type: String,
+      required: true,
+    },
     company_name: {
       type: String,
       required: true,
