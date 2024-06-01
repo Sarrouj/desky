@@ -3,6 +3,7 @@ import axios from "axios";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+// Extend the NextAuth types
 declare module "next-auth" {
   interface Session {
     id?: string;
@@ -22,6 +23,7 @@ declare module "next-auth/jwt" {
   }
 }
 
+// Configure NextAuth
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -31,7 +33,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials: any) {
+      async authorize(credentials) {
         try {
           const response = await axios.post(
             "http://localhost:3001/auth/login",
@@ -68,11 +70,34 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, account, profile }) {
       if (user) {
         token.id = user.id;
         token.email = user.email;
       }
+
+      if (account?.provider === "google") {
+        try {
+          const response = await axios.post(
+            "http://localhost:3001/auth/google",
+            {
+              name: profile?.name,
+              email: profile?.email,
+            }
+          );
+
+          if (response.status === 200 && response.data) {
+            token.id = response.data.id;
+            token.email = response.data.email;
+          } else {
+            throw new Error("Failed to register user with Google");
+          }
+        } catch (error) {
+          console.error("Google registration error:", error);
+          throw new Error("Google registration failed");
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {
@@ -85,4 +110,5 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-export default NextAuth(authOptions);
+export const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };

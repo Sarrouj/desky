@@ -2,16 +2,16 @@ import { check } from "express-validator";
 import handleValidationErrors from "../middlewares/validationMiddleware.mjs";
 
 const loginValidationFields = [
-  check("depositor_email")
+  check("email")
     .notEmpty()
-    .withMessage("Depositor email is required")
+    .withMessage("Email is required")
     .isEmail()
-    .withMessage("Depositor email must be a valid email"),
-  check("depositor_password")
+    .withMessage("Email must be a valid email"),
+  check("password")
     .notEmpty()
-    .withMessage("Depositor password is required")
+    .withMessage("Password is required")
     .isString()
-    .withMessage("Depositor password must be a string"),
+    .withMessage("Password must be a string"),
   handleValidationErrors,
 ];
 
