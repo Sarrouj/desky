@@ -7,7 +7,7 @@ import { Check, ChevronsUpDown } from "lucide-react"
 import { Cities } from "./Cities"
 
 // Shadcn UI
-import { Button } from "@/Components/ui/Button"
+import { Button } from "@/Components/ui/button"
 import { Input } from "@/Components/ui/input"
 import { Label } from "@/Components/ui/label"
 import { 
@@ -38,29 +38,29 @@ import {
 
 const CompanyInfo = () => {
   let [activity , setActivity] = useState('');
-  let [activities, setActivites] = useState< (string | number)[]>([]);
+  let [activities, setActivities] = useState< (string | number)[]>([]);
 
   const [open, setOpen] = React.useState<boolean>(false)
   const [value, setValue] = React.useState<string>("")
 
   function addActivity() {
     if (activity.trim() !== '') {
-      setActivites((prevActivities) => [...prevActivities, activity]);
+      setActivities((prevActivities) => [...prevActivities, activity]);
       // console.log([...activities, activity]); 
       setActivity('');
     }
   }
 
   function removeActivity(i : number){
-    let filterdActivities = activities.filter((act, index) => index !== i );
-    setActivites(filterdActivities);
+    let filteredActivities = activities.filter((act, index) => index !== i );
+    setActivities(filteredActivities);
   }
 
   return (
     <div className="flex flex-col py-8 gap-20">
           <div className="w-full text-xs text-end flex justify-between px-5"> 
-              <Link className="flex items-center gap-2" href={"/choose-type/Sign-Up/bidder-Type"}>
-                <Image src={"/icons/arrowback.svg"} width={13} height={13} alt="shape" className=""/>
+              <Link className="flex items-center gap-2" href={"/Sign-Up/choose-type/bidder-Type"}>
+                <Image src={"/icons/arrowBack.svg"} width={13} height={13} alt="shape" className=""/>
                 <p className="font-semibold">Back</p>
               </Link>
               <div>
@@ -110,7 +110,7 @@ const CompanyInfo = () => {
                       className="w-[100%] justify-between"
                     >
                       {value
-                        ? Cities.find((citie) => citie.value === value)?.label
+                        ? Cities.find((city) => city.value === value)?.label
                         : "Select your Company City..."}
                       <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
@@ -121,10 +121,10 @@ const CompanyInfo = () => {
                       <CommandEmpty>No City found.</CommandEmpty>
                       <CommandGroup>
                         <CommandList>
-                        {Cities.map((citie, index) => (
+                        {Cities.map((city, index) => (
                           <CommandItem
                             key={index}
-                            value={citie.value}
+                            value={city.value}
                             onSelect={(currentValue) => {
                               setValue(currentValue === value ? "" : currentValue)
                               setOpen(false)
@@ -133,10 +133,10 @@ const CompanyInfo = () => {
                             <Check
                               className={cn(
                                 "mr-2 h-4 w-4",
-                                value === citie.value ? "opacity-100" : "opacity-0"
+                                value === city.value ? "opacity-100" : "opacity-0"
                               )}
                             />
-                            {citie.label}
+                            {city.label}
                           </CommandItem>
                           
                         ))}
@@ -147,7 +147,7 @@ const CompanyInfo = () => {
               </Popover>
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="password">Company Adresse</Label>
+                <Label htmlFor="password">Company Address</Label>
                 <Input id="text" type="text" required placeholder="m@gmail.com"/>
               </div>
               <div className="grid gap-2">
