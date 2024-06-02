@@ -28,7 +28,6 @@ import {
 // import Zustand Store
 import { useBoundStore } from "@/lib/store"
 
-
 const AutoEntrepreneurInfo = () => {
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("");
@@ -36,9 +35,11 @@ const AutoEntrepreneurInfo = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   let [activity, setActivity] = useState("");
   let [activities, setActivities] = useState<(string | number)[]>([]);
-
-   // Zustand Store
-   const Cities = useBoundStore((state) => state.Cities);
+  
+  const Cities = useBoundStore((state) => state.Cities);
+  
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,7 +56,30 @@ const AutoEntrepreneurInfo = () => {
         }
       );
     } catch (error: any) {
-      
+
+      const response = await axios.post("http://localhost:3001/add/bidder/AE", {
+        AE_CIN: cin,
+        AE_phoneNumber: phoneNumber,
+        AE_DoA: activities,
+        AE_address: address,
+        AE_location: location,
+      });
+
+      if (response && response.data && response.data.success) {
+        setSuccess(response.data.success);
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
+      } else {
+        setError(response.data.error);
+      }
+    } catch (error: any) {
+      if (error.response && error.response.data && error.response.data.error) {
+        setError(error.response.data.error);
+      } else {
+        console.error("API Error:", error);
+        setError("Failed to register. Please try again.");
+      }
     }
   };
 
@@ -218,6 +242,8 @@ const AutoEntrepreneurInfo = () => {
               ))}
             </ul>
           </div>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {success && <p className="text-green-500 text-sm">{success}</p>}
           <Button type="submit" className="w-full text-white">
             Submit
           </Button>

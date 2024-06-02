@@ -114,48 +114,40 @@ router.put(
 );
 
 // Bidder add AE info
-router.post(
-  "/add/bidder/AE",
-  validateSessionUser,
-  AEValidationFields,
-  async (req, res, next) => {
-    const { id } = req.session.user;
-    const { AE_CIN, AE_phoneNumber, AE_DoA, AE_address, AE_location } =
-      req.body;
+router.post("/add/bidder/AE", AEValidationFields, async (req, res, next) => {
+  const { AE_CIN, AE_phoneNumber, AE_DoA, AE_address, AE_location } = req.body;
 
-    try {
-      const bidder = await Bidders.findById(id);
-      if (!bidder) {
-        return res.status(404).json({ error: "Bidder not found" });
-      }
-
-      const newAE = new AE({
-        _id: id,
-        AE_CIN,
-        AE_phoneNumber,
-        AE_DoA,
-        AE_address,
-        AE_location,
-      });
-
-      await newAE.save();
-      res
-        .status(201)
-        .json({ success: "auto entrepreneur information added successfully" });
-    } catch (err) {
-      next(err);
+  try {
+    const lastBidder = await Bidders.findOne().sort({ _id: -1 });
+    if (!lastBidder) {
+      return res.status(404).json({ error: "No bidders found" });
     }
+
+    const newAE = new AE({
+      _id: lastBidder._id,
+      AE_CIN,
+      AE_phoneNumber,
+      AE_DoA,
+      AE_address,
+      AE_location,
+    });
+
+    await newAE.save();
+    res
+      .status(201)
+      .json({ success: "Auto entrepreneur information added successfully" });
+  } catch (err) {
+    next(err);
   }
-);
+});
 
 // Bidder add company info
 router.post(
   "/add/bidder/company",
-  validateSessionUser,
   companyValidationFields,
   async (req, res, next) => {
-    const { id } = req.session.user;
     const {
+      company_type,
       company_name,
       company_phoneNumber,
       company_address,
@@ -166,9 +158,9 @@ router.post(
     } = req.body;
 
     try {
-      const bidder = await Bidders.findById(id);
-      if (!bidder) {
-        return res.status(404).json({ error: "bidder not found" });
+      const lastBidder = await Bidders.findOne().sort({ _id: -1 });
+      if (!lastBidder) {
+        return res.status(404).json({ error: "No bidders found" });
       }
 
       const newCompany = new Companies({

@@ -54,7 +54,8 @@ router.get("/depositor/:id", checkObjectId, async (req, res, next) => {
 });
 
 // Depositor AE or Company info
-router.get("/depositor/:id", checkObjectId, async (req, res, next) => {
+
+router.get("/depositor/info/:id", checkObjectId, async (req, res, next) => {
   const { id } = req.params;
   try {
     const depositor = await Depositors.findById(id);
@@ -158,6 +159,7 @@ router.post(
   async (req, res, next) => {
     const { id } = req.session.user;
     const {
+      company_type,
       company_name,
       company_phoneNumber,
       company_address,
