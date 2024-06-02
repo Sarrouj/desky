@@ -10,7 +10,6 @@ import { CategoriesDataSlice } from "./Features/CategoriesData";
 import { Categories } from "./Features/CategoriesData";
 import { SearchSlice } from "./Features/SearchSlice";
 
-
 export const useBoundStore = create<OffersState & OfferDetails & Cities & Categories>((...a) => ({
   ...createOffersSlice(...a),
   ...createOfferDetailsSlice(...a),
