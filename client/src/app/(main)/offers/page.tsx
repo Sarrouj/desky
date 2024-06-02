@@ -123,6 +123,14 @@ const Offers : React.FC = () => {
                 </div>
             </section>
             <section className="mt-5 flex flex-col items-end gap-3">
+                <div className="flex justify-between items-end w-full">
+                    <div className="flex gap-1 text-sm">
+                        <p>{searchedData.length}</p>
+                        {searchedData.length > 1  ?
+                            <p> Results</p> :
+                            <p> Result</p>
+                        }
+                    </div>
                     <div className="flex items-center gap-2">
                         <p className="text-xs">Sort by</p>
                         <Select>
@@ -134,38 +142,31 @@ const Offers : React.FC = () => {
                             </SelectContent>
                         </Select>
                     </div>
-                <div className="flex flex-wrap gap-6">
+                </div>
+                <div className="flex justify-start items-start flex-wrap gap-6 w-full min-h-screen">
                 {
-                    searchedData.map((offer, index) => (
-                        <OfferCard 
-                            key={offer._id} 
-                            title={offer.offer_title} 
-                            date={offer.offer_deadLine} 
-                            location={offer.offer_location}
-                            budget={offer.offer_budget}
-                            Category={offer.offer_category}
-                            Desc={offer.offer_description}
-                            offerNumber={index + 1}
-                            id={offer._id}
-                        />
-                    ))
+                    searchedData.length !== 0 ? 
+                        searchedData.map((offer, index) => (
+                            <OfferCard 
+                                key={offer._id} 
+                                title={offer.offer_title} 
+                                date={offer.offer_deadLine} 
+                                location={offer.offer_location}
+                                budget={offer.offer_budget}
+                                Category={offer.offer_category}
+                                Desc={offer.offer_description}
+                                offerNumber={index + 1}
+                                id={offer._id}
+                            /> 
+                        )) : 
+                        <div className="container mx-auto px-4 py-20 text-center">
+                            <h2 className="text-2xl font-bold mb-4">No Results Found</h2>
+                            <p className="text-gray-600">We couldn't find any matches for your search criteria. Please try again with different keywords or filters.</p>
+                        </div>
                 }
                 </div>
             </section>
-            <section className="mt-5 flex justify-between">
-                <div className="flex items-center gap-2">
-                    <p className="text-xs">Offers Per Page</p>
-                    <Select>
-                        <SelectTrigger className="w-[60px] h-[32px] border-2 text-xs">
-                            <SelectValue placeholder="10" />
-                        </SelectTrigger>
-                        <SelectContent className="w-[60px]">
-                            <SelectItem value="10" >10 Offers</SelectItem>
-                            <SelectItem value="20" >20 Offers</SelectItem>
-                            <SelectItem value="30" >30 Offers</SelectItem>
-                        </SelectContent>
-                    </Select>
-                </div>
+            <section className="mt-5 flex justify-end">
                 <div>
                     <Pagination>
                         <PaginationContent className="gap-1">

@@ -37,12 +37,6 @@ import {
 // import Zustand Store
 import { useBoundStore } from "@/lib/store"
 
-
-const CompanyInfo = () => {
-  let [activity , setActivity] = useState('');
-  let [activities, setActivities] = useState< (string | number)[]>([]);
-} from "@/Components/ui/popover";
-
 const CompanyInfo = () => {
   const [type, setType] = useState("");
   const [name, setName] = useState("");
