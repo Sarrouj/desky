@@ -10,11 +10,6 @@ export  interface Cities {
 
 export const CitiesDataSlice : StateCreator<Cities> = () =>({
     Cities : [
-
-    {
-        value: "All Cities",
-        label: "All Cities",
-    },
     {
         value: "rabat",
         label: "Rabat",
@@ -64,7 +59,7 @@ export const CitiesDataSlice : StateCreator<Cities> = () =>({
         label: "Mohammedia",
     },
     {
-        value: "el_jadida",
+        value: "el jadida",
         label: "El Jadida",
     },
     {
@@ -108,8 +103,8 @@ export const CitiesDataSlice : StateCreator<Cities> = () =>({
         label: "Tiznit",
     },
     {
-        value: "tan-tan",
-        label: "Tan-Tan",
+        value: "tan tan",
+        label: "Tan Tan",
     },
     {
         value: "essaouira",
@@ -176,11 +171,11 @@ export const CitiesDataSlice : StateCreator<Cities> = () =>({
         label: "Azilal",
     },
     {
-        value: "beni_ansar",
+        value: "beni ansar",
         label: "Beni Ansar",
     },
     {
-        value: "beni_tajite",
+        value: "beni tajite",
         label: "Beni Tajite",
     },
     {
@@ -192,7 +187,7 @@ export const CitiesDataSlice : StateCreator<Cities> = () =>({
         label: "Chichaoua",
     },
     {
-        value: "el_kelaa_des_sraghna",
+        value: "el kelaa des sraghna",
         label: "El Kelaa des Sraghna",
     },
     {
@@ -212,11 +207,11 @@ export const CitiesDataSlice : StateCreator<Cities> = () =>({
         label: "Jerada",
     },
     {
-        value: "kalaa_seraghna",
+        value: "kalaa seraghna",
         label: "Kalaa Seraghna",
     },
     {
-        value: "kasba_tadla",
+        value: "kasba tadla",
         label: "Kasba Tadla",
     },
     {
@@ -224,11 +219,11 @@ export const CitiesDataSlice : StateCreator<Cities> = () =>({
         label: "Khouribga",
     },
     {
-        value: "kelaa_mgouna",
+        value: "kelaa mgouna",
         label: "Kelaa Mgouna",
     },
     {
-        value: "ksar_el_kebir",
+        value: "ksar el kebir",
         label: "Ksar el Kebir",
     },
     {
@@ -268,11 +263,11 @@ export const CitiesDataSlice : StateCreator<Cities> = () =>({
         label: "Ouazzane",
     },
     {
-        value: "oued_zem",
+        value: "oued zem",
         label: "Oued Zem",
     },
     {
-        value: "oulad_teima",
+        value: "oulad teima",
         label: "Oulad Teima",
     },
     {
@@ -280,15 +275,15 @@ export const CitiesDataSlice : StateCreator<Cities> = () =>({
         label: "Rissani",
     },
     {
-        value: "sidi_bennour",
+        value: "sidi bennour",
         label: "Sidi Bennour",
     },
     {
-        value: "sidi_ifni",
+        value: "sidi ifni",
         label: "Sidi Ifni",
     },
     {
-        value: "sidi_rahhal",
+        value: "sidi rahhal",
         label: "Sidi Rahhal",
     },
     {

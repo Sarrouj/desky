@@ -35,40 +35,53 @@ const Offers : React.FC = () => {
     const Cities  = useBoundStore((state) => state.Cities);
     const Categories : any  = useBoundStore((state) => state.Categories);
     const getSearchValue = useBoundStore((state) => state.getSearchValue);
+    const getCategoryValue = useBoundStore((state) => state.getCategoryValue);
+    const getCityValue = useBoundStore((state) => state.getCityValue);
+    const fetchSearchedOffers = useBoundStore((state)=> state.fetchSearchedOffers);
+    const searchedData = useBoundStore((state)=> state.searchedData);
 
 
+    // add Filter
     useEffect(()=>{
         if (categoryValue !== "") {
             if (cityValue !== "") {
                 if (searchValue !== "") {
                     setFilter([categoryValue, cityValue, searchValue]);
-                    getSearchValue(searchValue);
                 } else {
                     setFilter([categoryValue, cityValue]);
                 }
             } else if (searchValue !== "") {
                 setFilter([categoryValue, searchValue]);
-                getSearchValue(searchValue);
+
             } else {
                 setFilter([categoryValue]);
             }
         } else if (cityValue !== "") {
             if (searchValue !== "") {
                 setFilter([cityValue, searchValue]);
-                getSearchValue(searchValue);
             } else {
                 setFilter([cityValue]);
             }
         } else if (searchValue !== "") {
             setFilter([searchValue]);
-            getSearchValue(searchValue);
+        }else{
+            setFilter([]);
         }
+
+    getSearchValue(searchValue);
+    getCategoryValue(categoryValue);
+    getCityValue(cityValue);
+    fetchSearchedOffers();
+
     }, [categoryValue, cityValue, searchValue])
 
+
+    // Fetch Offers
     useEffect(() => {
-        fetchOffers();
+        fetchOffers()
     }, [fetchOffers]);
 
+    // Clear Filters UI
     function clearFilters(){
         setFilter([]);
         categorySetValue("");
@@ -122,19 +135,21 @@ const Offers : React.FC = () => {
                         </Select>
                     </div>
                 <div className="flex flex-wrap gap-6">
-                {offersData.map((offer, index) => (
-                    <OfferCard 
-                        key={offer._id} 
-                        title={offer.offer_title} 
-                        date={offer.offer_deadLine} 
-                        location={offer.offer_location}
-                        budget={offer.offer_budget}
-                        Category={offer.offer_category}
-                        Desc={offer.offer_description}
-                        offerNumber={index + 1}
-                        id={offer._id}
-                    />
-                ))}
+                {
+                    searchedData.map((offer, index) => (
+                        <OfferCard 
+                            key={offer._id} 
+                            title={offer.offer_title} 
+                            date={offer.offer_deadLine} 
+                            location={offer.offer_location}
+                            budget={offer.offer_budget}
+                            Category={offer.offer_category}
+                            Desc={offer.offer_description}
+                            offerNumber={index + 1}
+                            id={offer._id}
+                        />
+                    ))
+                }
                 </div>
             </section>
             <section className="mt-5 flex justify-between">

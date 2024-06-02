@@ -4,11 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { Cities } from "../Company-Info/Cities";
 import axios from "axios";
 
 // Shadcn UI
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/Components/ui/Button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { cn } from "@/lib/utils";
@@ -26,6 +25,10 @@ import {
   PopoverTrigger,
 } from "@/Components/ui/popover";
 
+// import Zustand Store
+import { useBoundStore } from "@/lib/store"
+
+
 const AutoEntrepreneurInfo = () => {
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("");
@@ -33,6 +36,9 @@ const AutoEntrepreneurInfo = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   let [activity, setActivity] = useState("");
   let [activities, setActivities] = useState<(string | number)[]>([]);
+
+   // Zustand Store
+   const Cities = useBoundStore((state) => state.Cities);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

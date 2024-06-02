@@ -4,10 +4,9 @@ import Image from "next/image"
 import Link from "next/link"
 import * as React from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
-import { Cities } from "./Cities"
 
 // Shadcn UI
-import { Button } from "@/Components/ui/button"
+import { Button } from "@/Components/ui/Button"
 import { Input } from "@/Components/ui/input"
 import { Label } from "@/Components/ui/label"
 import { 
@@ -34,14 +33,19 @@ import {
   PopoverTrigger,
 } from "@/Components/ui/popover"
 
+// import Zustand Store
+import { useBoundStore } from "@/lib/store"
 
 
 const CompanyInfo = () => {
   let [activity , setActivity] = useState('');
   let [activities, setActivities] = useState< (string | number)[]>([]);
 
-  const [open, setOpen] = React.useState<boolean>(false)
-  const [value, setValue] = React.useState<string>("")
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [value, setValue] = React.useState<string>("");
+
+  // Zustand Store
+  const Cities = useBoundStore((state) => state.Cities);
 
   function addActivity() {
     if (activity.trim() !== '') {

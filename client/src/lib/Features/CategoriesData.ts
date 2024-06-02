@@ -11,10 +11,6 @@ export interface Categories{
 
 export const CategoriesDataSlice : StateCreator<Categories> = () =>({
     Categories : [
-        {
-            value: "all categories",
-            label: "All categories",
-          },
           {
             value: "agriculture and food",
             label: "Agriculture and food",
@@ -24,7 +20,7 @@ export const CategoriesDataSlice : StateCreator<Categories> = () =>({
             label: "Construction and real estate",
           },
           {
-            value: "energy",
+            value: "Energy",
             label: "Energy",
           },
           {
