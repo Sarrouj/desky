@@ -4,11 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { Cities } from "../Company-Info/Cities";
 import axios from "axios";
 
 // Shadcn UI
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/Components/ui/Button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { cn } from "@/lib/utils";
@@ -26,13 +25,19 @@ import {
   PopoverTrigger,
 } from "@/Components/ui/popover";
 
+// import Zustand Store
+import { useBoundStore } from "@/lib/store"
+
 const AutoEntrepreneurInfo = () => {
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("");
   const [cin, setCin] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [activity, setActivity] = useState("");
-  const [activities, setActivities] = useState<(string | number)[]>([]);
+  let [activity, setActivity] = useState("");
+  let [activities, setActivities] = useState<(string | number)[]>([]);
+  
+  const Cities = useBoundStore((state) => state.Cities);
+  
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -40,6 +45,18 @@ const AutoEntrepreneurInfo = () => {
     e.preventDefault();
 
     try {
+      const response = await axios.post(
+        "http://localhost:3001/auth/register/tempUser",
+        {
+          location,
+          address,
+          cin,
+          phoneNumber,
+          activities
+        }
+      );
+    } catch (error: any) {
+
       const response = await axios.post("http://localhost:3001/add/bidder/AE", {
         AE_CIN: cin,
         AE_phoneNumber: phoneNumber,
@@ -195,6 +212,7 @@ const AutoEntrepreneurInfo = () => {
               <Input
                 id="text"
                 type="text"
+                required
                 placeholder="Activity..."
                 onChange={(e) => setActivity(e.target.value)}
                 value={activity}

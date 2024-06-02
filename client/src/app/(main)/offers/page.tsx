@@ -1,11 +1,11 @@
 'use client'
 
 // React Hooks
-import { useEffect } from "react"
+import * as React from "react"
+import { useEffect, useState } from "react"
 // Components
 import CallToAction from "@/Components/common/CallToAction"
 import OfferCard from "@/Components/layout/OfferCard"
-import Footer from "@/Components/layout/footer"
 // ShadCn UI
 import {
     Pagination,
@@ -16,18 +16,78 @@ import {
     PaginationNext,
     PaginationPrevious,
   } from "@/Components/ui/pagination"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/Components/ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/Components/ui/select"
 import { Input } from "@/Components/ui/input"
-// Data
 import { useBoundStore } from "@/lib/store"
+import PopoverCom from "@/Components/common/PopoverComponent"
+
+
 
 const Offers : React.FC = () => {
+    const [categoryValue, categorySetValue] = React.useState<string>("");
+    const [cityValue, citySetValue] = React.useState<string>("");
+    // filters UI
+    let [filter , setFilter] = useState< (string | number)[]>([]);
+    let [searchValue, setSearchValue] = useState('');
+  
     const offersData = useBoundStore((state) => state.offersData);
     const fetchOffers = useBoundStore((state) => state.fetchOffers);
+    const Cities  = useBoundStore((state) => state.Cities);
+    const Categories : any  = useBoundStore((state) => state.Categories);
+    const getSearchValue = useBoundStore((state) => state.getSearchValue);
+    const getCategoryValue = useBoundStore((state) => state.getCategoryValue);
+    const getCityValue = useBoundStore((state) => state.getCityValue);
+    const fetchSearchedOffers = useBoundStore((state)=> state.fetchSearchedOffers);
+    const searchedData = useBoundStore((state)=> state.searchedData);
 
+
+    // add Filter
+    useEffect(()=>{
+        if (categoryValue !== "") {
+            if (cityValue !== "") {
+                if (searchValue !== "") {
+                    setFilter([categoryValue, cityValue, searchValue]);
+                } else {
+                    setFilter([categoryValue, cityValue]);
+                }
+            } else if (searchValue !== "") {
+                setFilter([categoryValue, searchValue]);
+
+            } else {
+                setFilter([categoryValue]);
+            }
+        } else if (cityValue !== "") {
+            if (searchValue !== "") {
+                setFilter([cityValue, searchValue]);
+            } else {
+                setFilter([cityValue]);
+            }
+        } else if (searchValue !== "") {
+            setFilter([searchValue]);
+        }else{
+            setFilter([]);
+        }
+
+    getSearchValue(searchValue);
+    getCategoryValue(categoryValue);
+    getCityValue(cityValue);
+    fetchSearchedOffers();
+
+    }, [categoryValue, cityValue, searchValue])
+
+
+    // Fetch Offers
     useEffect(() => {
-        fetchOffers();
+        fetchOffers()
     }, [fetchOffers]);
+
+    // Clear Filters UI
+    function clearFilters(){
+        setFilter([]);
+        categorySetValue("");
+        citySetValue("");
+        setSearchValue("");
+    }
     
     if (offersData.length === 0) return <p>Loading...</p>;
 
@@ -42,32 +102,22 @@ const Offers : React.FC = () => {
                 <div className="mt-8 flex justify-between items-end">
                     <div className="">
                         <div className="flex gap-2">
-                            <Input placeholder="Search" className="w-[400px] h-[35px]  border-2"/>
-                            <Select>
-                                <SelectTrigger className="w-[160px] h-[35px] border-2 text-sm">
-                                    <SelectValue placeholder="Categories"/>
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="light">Light</SelectItem>
-                                    <SelectItem value="dark">Dark</SelectItem>
-                                    <SelectItem value="system">System</SelectItem>
-                                </SelectContent>
-                            </Select>
-                            <Select>
-                                <SelectTrigger className="w-[160px] h-[35px] border-2 text-sm">
-                                    <SelectValue placeholder="Location" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="Tangier">Tangier</SelectItem>
-                                    <SelectItem value="Rabat">Rabat</SelectItem>
-                                    <SelectItem value="Casablanca">Casablanca</SelectItem>
-                                </SelectContent>
-                            </Select>
+                            <Input placeholder="Search" className="w-[400px] h-[35px]  border-2" value={searchValue} onChange={(e) => setSearchValue(e.target.value)}/>
+                            <PopoverCom data={Categories} type={"Categories"} value={categoryValue} setValue={categorySetValue}/>
+                            <PopoverCom data={Cities} type={"Location"} value={cityValue} setValue={citySetValue}/>
                         </div>
                         <ul className="flex items-center gap-2 text-sm mt-2">
-                            <li className="bg-orange-300 text-white py-1.5 px-3.5 rounded-full cursor-pointer">Tangier</li>
-                            <li className="bg-orange-300 text-white py-1.5 px-3.5 rounded-full cursor-pointer">Casablanca</li>
-                            <li className="cursor-pointer text-primaryOrange font-semibold text-sm"><a href="">Clear Filters</a></li>
+                            {filter.map((act, index)=> (
+                                <li key={index} className="bg-orange-300 text-white py-1.5 px-3.5 rounded-full cursor-pointer">
+                                    <p className="text-sm text-white">{act}</p>
+                                </li>
+                            ))}
+                            {
+                                filter.length !== 0 ? (
+                                    <li className="cursor-pointer text-primaryOrange font-semibold text-sm " onClick={() => clearFilters()}>Clear Filters</li>
+                                )
+                                : null
+                            }
                         </ul>
                     </div>
                 </div>
@@ -85,19 +135,21 @@ const Offers : React.FC = () => {
                         </Select>
                     </div>
                 <div className="flex flex-wrap gap-6">
-                {offersData.map((offer, index) => (
-                    <OfferCard 
-                        key={offer._id} 
-                        title={offer.offer_title} 
-                        date={offer.offer_deadLine} 
-                        location={offer.offer_location}
-                        budget={offer.offer_budget}
-                        Category={offer.offer_category}
-                        Desc={offer.offer_description}
-                        offerNumber={index + 1}
-                        id={offer._id}
-                    />
-                ))}
+                {
+                    searchedData.map((offer, index) => (
+                        <OfferCard 
+                            key={offer._id} 
+                            title={offer.offer_title} 
+                            date={offer.offer_deadLine} 
+                            location={offer.offer_location}
+                            budget={offer.offer_budget}
+                            Category={offer.offer_category}
+                            Desc={offer.offer_description}
+                            offerNumber={index + 1}
+                            id={offer._id}
+                        />
+                    ))
+                }
                 </div>
             </section>
             <section className="mt-5 flex justify-between">
@@ -140,9 +192,6 @@ const Offers : React.FC = () => {
                 </div>
             </section>
         </main>
-        <div className="bg-neutralBg pt-10">
-            <Footer/>
-        </div>
     </>
   )
 }
