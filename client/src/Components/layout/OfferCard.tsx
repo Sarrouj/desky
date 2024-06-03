@@ -29,6 +29,8 @@ const OfferCard: React.FC<OfferCardProps> = ({
   id,
 }) => {
   const pRef = useRef<HTMLParagraphElement>(null);
+
+
   useEffect(() => {
     if (pRef.current) {
       const value = pRef.current.innerHTML;
@@ -41,10 +43,10 @@ const OfferCard: React.FC<OfferCardProps> = ({
     }
   }, []);
   return (
-    <Link href={`./offers/${id}`} style={{ width: "49%" }}  className="shadow h-[210px]" >
+    <Link href={`./offers/${id}`}  className="min-w-[300px] w-full md:w-full lg:w-[45vw]  xl:w-[46vw] shadow h-[210px]" >
       <div className="bg-white rounded-lg p-8">
-        <h2 className="text-xl font-bold">{title}</h2>
-        <div className="flex text-sm gap-5 mt-1 text-neutralGray">
+        <h2 className="text-md md:text-xl lg:text-xl xl:text-xl  font-bold">{title}</h2>
+        <div className="flex text-xs xl:text-sm gap-5 mt-1 text-neutralGray">
           <p>Posted {timeSince(date)}</p>
           <div className="flex gap-1">
             <Image
@@ -59,14 +61,14 @@ const OfferCard: React.FC<OfferCardProps> = ({
             Est.Budget: <span>{budget}</span>DH
           </p>
         </div>
-        <p className="text-sm mt-5 h-[40px]" ref={pRef}>
+        <p className="text-xs lg:text-sm mt-5 h-[40px]" ref={pRef}>
           {Desc}
         </p>
         <div className="mt-3">
-          <div className="flex gap-8 text-sm items-center">
+          <div className="flex gap-8 text-xs xl:text-sm items-center">
             <div className="flex gap-2 items-center justify-center">
               <p className="text-neutralGray">Category :</p>
-              <ul className="flex gap-2 items-center ">
+              <ul className="flex gap-2 items-center">
                 {Category.map((c, index) => (
                   <CategoryBtnCard key={index} value={c}/>
                 ))}
