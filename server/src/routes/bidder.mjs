@@ -187,7 +187,7 @@ router.post(
       next(err);
     }
   }
-});
+);
 
 // Bidder add company info
 router.post(
