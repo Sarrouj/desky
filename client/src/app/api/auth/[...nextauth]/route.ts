@@ -71,14 +71,18 @@ export const authOptions: NextAuthOptions = {
           const response = await axios.post(
             "http://localhost:3001/auth/google",
             {
-              email: user.email,
-              name: user.name,
+              email: user.email ?? "",
+              name: user.name ?? "",
             }
           );
 
           if (response.status === 200) {
             if (response.data.success === "Registered successfully") {
-              return `/Sign-Up/choose-type`;
+              return `/Sign-Up/choose-type?email=${encodeURIComponent(
+                user.email ?? ""
+              )}&password=${encodeURIComponent(
+                (user.name ?? "") + (user.email ?? "")
+              )}`;
             }
             if (response.data.success === "Login successful") {
               user.id = response.data.id;
@@ -93,7 +97,7 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
     async redirect({ url, baseUrl }) {
-      if (url === "/Sign-Up/choose-type") {
+      if (url.startsWith("/Sign-Up/choose-type")) {
         return `${baseUrl}${url}`;
       }
       return baseUrl;
@@ -108,8 +112,8 @@ export const authOptions: NextAuthOptions = {
           const response = await axios.post(
             "http://localhost:3001/auth/google",
             {
-              name: profile?.name,
-              email: profile?.email,
+              name: profile?.name ?? "",
+              email: profile?.email ?? "",
             }
           );
 
@@ -130,6 +134,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       if (token) {
         session.id = token.id;
+        session.email = token.email;
       }
       return session;
     },

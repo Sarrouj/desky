@@ -8,7 +8,6 @@ import { signIn, useSession } from "next-auth/react";
 import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
-import { Forum } from "next/font/google";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -38,7 +37,6 @@ const Login = () => {
       setError(result.error);
     } else if (result) {
       setSuccess("Login successful!");
-      window.location.href = "/";
     }
   };
 

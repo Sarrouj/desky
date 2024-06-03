@@ -29,24 +29,50 @@ import {
 const AutoEntrepreneurInfo = () => {
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("");
-  const [cin, setCin] = useState("");
+  const [cin, setCin] = useState<File | null>(null);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [activity, setActivity] = useState("");
   const [activities, setActivities] = useState<(string | number)[]>([]);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [value, setValue] = React.useState<string>("");
+
+  function addActivity() {
+    if (activity.trim() !== "") {
+      setActivities((prevActivities) => [...prevActivities, activity]);
+      setActivity("");
+    }
+  }
+
+  function removeActivity(i: number) {
+    let filteredActivities = activities.filter((act, index) => index !== i);
+    setActivities(filteredActivities);
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const formData = new FormData();
+    if (cin) {
+      formData.append("AE_CIN", cin);
+    }
+    formData.append("AE_phoneNumber", phoneNumber);
+    formData.append("AE_DoA", JSON.stringify(activities));
+    formData.append("AE_address", address);
+    formData.append("AE_location", location);
+
     try {
-      const response = await axios.post("http://localhost:3001/add/bidder/AE", {
-        AE_CIN: cin,
-        AE_phoneNumber: phoneNumber,
-        AE_DoA: activities,
-        AE_address: address,
-        AE_location: location,
-      });
+      const response = await axios.post(
+        "http://localhost:3001/add/bidder/AE",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       if (response && response.data && response.data.success) {
         setSuccess(response.data.success);
@@ -56,8 +82,13 @@ const AutoEntrepreneurInfo = () => {
       } else {
         setError(response.data.error);
       }
-    } catch (error: any) {
-      if (error.response && error.response.data && error.response.data.error) {
+    } catch (error: unknown) {
+      if (
+        axios.isAxiosError(error) &&
+        error.response &&
+        error.response.data &&
+        error.response.data.error
+      ) {
         setError(error.response.data.error);
       } else {
         console.error("API Error:", error);
@@ -65,22 +96,6 @@ const AutoEntrepreneurInfo = () => {
       }
     }
   };
-
-  const [open, setOpen] = React.useState<boolean>(false);
-  const [value, setValue] = React.useState<string>("");
-
-  function addActivity() {
-    if (activity.trim() !== "") {
-      setActivities((prevActivities) => [...prevActivities, activity]);
-      // console.log([...activities, activity]);
-      setActivity("");
-    }
-  }
-
-  function removeActivity(i: number) {
-    let filteredActivities = activities.filter((act, index) => index !== i);
-    setActivities(filteredActivities);
-  }
 
   return (
     <div className="flex flex-col py-8 gap-20">
@@ -138,9 +153,8 @@ const AutoEntrepreneurInfo = () => {
                           key={index}
                           value={city.value}
                           onSelect={(currentValue) => {
-                            setValue(
-                              currentValue === value ? "" : currentValue
-                            );
+                            setValue(currentValue);
+                            setLocation(city.label);
                             setOpen(false);
                           }}
                         >
@@ -174,7 +188,11 @@ const AutoEntrepreneurInfo = () => {
             <Input
               id="picture"
               type="file"
-              onChange={(e) => setCin(e.target.value)}
+              onChange={(e) => {
+                if (e.target.files && e.target.files[0]) {
+                  setCin(e.target.files[0]);
+                }
+              }}
             />
           </div>
           <div className="grid gap-2">
@@ -200,7 +218,7 @@ const AutoEntrepreneurInfo = () => {
                 value={activity}
               />
               <Button
-                type="submit"
+                type="button"
                 className="bg-primary text-white text-xs px-3 rounded"
                 onClick={() => addActivity()}
               >
