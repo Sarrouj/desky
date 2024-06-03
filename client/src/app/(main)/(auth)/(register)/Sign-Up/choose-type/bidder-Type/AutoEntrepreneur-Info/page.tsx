@@ -4,11 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { Cities } from "../Company-Info/Cities";
 import axios from "axios";
 
 // Shadcn UI
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/Components/ui/Button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { cn } from "@/lib/utils";
@@ -25,6 +24,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/Components/ui/popover";
+
+// import Zustand Store
+import { useBoundStore } from "@/lib/store"
 
 const AutoEntrepreneurInfo = () => {
   const [location, setLocation] = useState("");
