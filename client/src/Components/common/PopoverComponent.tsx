@@ -42,7 +42,11 @@ const PopoverCom : React.FC<PopoverProps> = ({data, type, value, setValue}) => {
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-[300px] h-[35px]  justify-between border-2"
+            className="w-[150px] md:w-[200px] 
+            lg:w-[200px] xl:w-[300px] h-[30px] 
+            md:h-[30px] lg:h-[32px] xl:h-[35px] 
+            justify-between border-2
+            text-xs md:text-xs lg:text-sm xl:text-md"
         >
             {value
             ? data.find((d) => d.value === value)?.label
@@ -50,10 +54,11 @@ const PopoverCom : React.FC<PopoverProps> = ({data, type, value, setValue}) => {
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
         </PopoverTrigger>
-        <PopoverContent className="p-0">
+        <PopoverContent className="p-0 w-[150px] md:w-[200px] 
+            lg:w-[200px] xl:w-[300px] ">
         <Command>
-            <CommandInput placeholder="Search..." />
-            <CommandEmpty>No City found.</CommandEmpty>
+            <CommandInput placeholder="Search..." className="text-xs md:text-xs lg:text-sm xl:text-md"/>
+            <CommandEmpty className="text-xs md:text-xs lg:text-sm xl:text-md">No City found.</CommandEmpty>
             <CommandGroup>
             <CommandList>
             {data.map((d, index) => (
@@ -64,6 +69,7 @@ const PopoverCom : React.FC<PopoverProps> = ({data, type, value, setValue}) => {
                     setValue(currentValue === value ? "" : currentValue)
                     setOpen(false)
                 }}
+                className="text-xs md:text-xs lg:text-sm xl:text-md"
                 >
                 <Check
                     className={cn(

@@ -46,7 +46,7 @@ const Details= ({ params } : { params : any}) => {
           <div className="border-b-2 pb-12 pr-12">
             <h1 className='text-3xl font-bold mb-2'>{detailsData.offer_title}</h1>
             <div className='flex gap-10 text-neutralGray'>
-              <p>{timeSince(detailsData.offer_DoP)}</p>
+              <p>Posted {timeSince(detailsData.offer_DoP)}</p>
               <div className='flex gap-2'>
                 <p>Targetd Location: </p>
                 <ul className='flex gap-1.5'>

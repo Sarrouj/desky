@@ -96,13 +96,15 @@ const Offers : React.FC = () => {
         <main className="py-10 px-10 bg-neutralBg text-secondaryDarkBlue h-full">
             <section className="pt-5">
                 <div className="flex justify-between items-center">
-                    <h1 className="text-3xl font-semibold">Find The Best Deal For Your Business</h1>
-                    <CallToAction href={""} value={"Post an offer | +10"}/>
+                    <h1 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl  font-semibold">Find The Best Deal For Your Business</h1>
+                    <CallToAction href={""} value={"Post an offer | +10"} />
                 </div>
                 <div className="mt-8 flex justify-between items-end">
                     <div className="">
                         <div className="flex gap-2">
-                            <Input placeholder="Search" className="w-[400px] h-[35px]  border-2" value={searchValue} onChange={(e) => setSearchValue(e.target.value)}/>
+                            <Input placeholder="Search" className="w-[200px] md:w-[250px] lg:w-[300px] xl:w-[400px]
+                              h-[30px] md:h-[30px] lg:h-[32px] xl:h-[35px]  border-2 text-xs md:text-xs lg:text-sm xl:text-md
+                              " value={searchValue} onChange={(e) => setSearchValue(e.target.value)}/>
                             <PopoverCom data={Categories} type={"Categories"} value={categoryValue} setValue={categorySetValue}/>
                             <PopoverCom data={Cities} type={"Location"} value={cityValue} setValue={citySetValue}/>
                         </div>
@@ -124,7 +126,7 @@ const Offers : React.FC = () => {
             </section>
             <section className="mt-5 flex flex-col items-end gap-3">
                 <div className="flex justify-between items-end w-full">
-                    <div className="flex gap-1 text-sm">
+                    <div className="flex gap-1 text-xs  lg:text-sm xl:text-sm">
                         <p>{searchedData.length}</p>
                         {searchedData.length > 1  ?
                             <p> Results</p> :
@@ -134,7 +136,7 @@ const Offers : React.FC = () => {
                     <div className="flex items-center gap-2">
                         <p className="text-xs">Sort by</p>
                         <Select>
-                            <SelectTrigger className="w-[90px] h-[32px] border-2 text-xs">
+                            <SelectTrigger className="w-[80px] md:w-[90px] xl:w-[90px] h-[28px] md:h-[28px] lg:h-[30px] xl:h-[32px] border-2 text-[10px] md:text-xs">
                                 <SelectValue placeholder="Newest"/>
                             </SelectTrigger>
                             <SelectContent >
