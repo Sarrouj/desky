@@ -1,7 +1,14 @@
 // Packages
 import express from "express";
 import bcrypt from "bcrypt";
-const router = express.Router();
+import mongoose from "mongoose";
+import multer from "multer";
+import { GridFsStorage } from "multer-gridfs-storage";
+import { GridFSBucket } from "mongodb";
+import path from "path";
+import crypto from "crypto";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
 
 // Middlewares
 import {
@@ -20,6 +27,37 @@ import Depositors from "../mongoose/schemas/Depositor.mjs";
 import Offers from "../mongoose/schemas/Offer.mjs";
 import AE from "../mongoose/schemas/AE.mjs";
 import Companies from "../mongoose/schemas/Company.mjs";
+
+const router = express.Router();
+const conn = mongoose.connection;
+
+let gridFSBucket;
+
+conn.once("open", () => {
+  gridFSBucket = new GridFSBucket(conn.db, {
+    bucketName: "uploads",
+  });
+});
+
+const storage = new GridFsStorage({
+  url: process.env.database_connection,
+  file: (req, file) => {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(16, (err, buf) => {
+        if (err) {
+          return reject(err);
+        }
+        const filename = buf.toString("hex") + path.extname(file.originalname);
+        const fileInfo = {
+          filename: filename,
+        };
+        resolve(fileInfo);
+      });
+    });
+  },
+});
+
+const upload = multer({ storage });
 
 // Bidder profile info
 router.get("/bidder", validateSessionUser, async (req, res, next) => {
@@ -54,7 +92,7 @@ router.get("/bidder/:id", checkObjectId, async (req, res, next) => {
 });
 
 // Bidder AE or Company info
-router.get("/bidder/:id", checkObjectId, async (req, res, next) => {
+router.get("/bidder/info/:id", checkObjectId, async (req, res, next) => {
   const { id } = req.params;
   try {
     const bidder = await Bidders.findById(id);
@@ -114,30 +152,40 @@ router.put(
 );
 
 // Bidder add AE info
-router.post("/add/bidder/AE", AEValidationFields, async (req, res, next) => {
-  const { AE_CIN, AE_phoneNumber, AE_DoA, AE_address, AE_location } = req.body;
+router.post(
+  "/add/bidder/AE",
+  AEValidationFields,
+  upload.single("AE_CIN"),
+  async (req, res, next) => {
+    const { AE_phoneNumber, AE_DoA, AE_address, AE_location } = req.body;
 
-  try {
-    const lastBidder = await Bidders.findOne().sort({ _id: -1 });
-    if (!lastBidder) {
-      return res.status(404).json({ error: "No bidders found" });
+    try {
+      const lastBidder = await Bidders.findOne().sort({ _id: -1 });
+      if (!lastBidder) {
+        return res.status(404).json({ error: "No bidders found" });
+      }
+
+      const newAE = new AE({
+        _id: lastBidder._id,
+        AE_CIN: {
+          file_id: req.file.id,
+          file_name: req.file.filename,
+          file_size: req.file.size,
+          upload_date: req.file.uploadDate,
+        },
+        AE_phoneNumber,
+        AE_DoA: JSON.parse(AE_DoA),
+        AE_address,
+        AE_location,
+      });
+
+      await newAE.save();
+      res
+        .status(201)
+        .json({ success: "Auto entrepreneur information added successfully" });
+    } catch (err) {
+      next(err);
     }
-
-    const newAE = new AE({
-      _id: lastBidder._id,
-      AE_CIN,
-      AE_phoneNumber,
-      AE_DoA,
-      AE_address,
-      AE_location,
-    });
-
-    await newAE.save();
-    res
-      .status(201)
-      .json({ success: "Auto entrepreneur information added successfully" });
-  } catch (err) {
-    next(err);
   }
 });
 

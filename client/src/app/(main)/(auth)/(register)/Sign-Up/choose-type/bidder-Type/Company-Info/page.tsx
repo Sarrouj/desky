@@ -1,17 +1,19 @@
 
-'use client'
-import { useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import * as React from "react"
-import { Check, ChevronsUpDown } from "lucide-react"
+"use client";
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import * as React from "react";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { Cities } from "./Cities";
+import axios from "axios";
 
 // Shadcn UI
-import { Button } from "@/Components/ui/Button"
-import { Input } from "@/Components/ui/input"
-import { Label } from "@/Components/ui/label"
-import { 
-  Select, 
+import { Button } from "@/Components/ui/button";
+import { Input } from "@/Components/ui/input";
+import { Label } from "@/Components/ui/label";
+import {
+  Select,
   SelectContent,
   SelectGroup,
   SelectItem,
@@ -27,15 +29,12 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/Components/ui/command"
+} from "@/Components/ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/Components/ui/popover"
-
-// import Zustand Store
-import { useBoundStore } from "@/lib/store"
+} from "@/Components/ui/popover";
 
 const CompanyInfo = () => {
   const [type, setType] = useState("");
@@ -89,19 +88,16 @@ const CompanyInfo = () => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
 
-  // Zustand Store
-  const Cities = useBoundStore((state) => state.Cities);
-
   function addActivity() {
-    if (activity.trim() !== '') {
+    if (activity.trim() !== "") {
       setActivities((prevActivities) => [...prevActivities, activity]);
-      // console.log([...activities, activity]); 
-      setActivity('');
+      // console.log([...activities, activity]);
+      setActivity("");
     }
   }
 
-  function removeActivity(i : number){
-    let filteredActivities = activities.filter((act, index) => index !== i );
+  function removeActivity(i: number) {
+    let filteredActivities = activities.filter((act, index) => index !== i);
     setActivities(filteredActivities);
   }
 

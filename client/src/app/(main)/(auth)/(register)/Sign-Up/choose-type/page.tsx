@@ -1,10 +1,27 @@
 "use client";
+import React, { useEffect, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 import "./style.css";
 
 const Type = () => {
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email");
+  const password = searchParams.get("password");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      console.log("User authenticated, redirecting to /");
+      window.location.href = "/";
+    }
+  }, [status]);
+
   const handleTypeChoosing = async (userType: string) => {
     try {
       const response = await axios.post(
@@ -15,18 +32,28 @@ const Type = () => {
       );
 
       if (response && response.data && response.data.success) {
-        console.log(response.data.success);
-        if (userType == "depositor") {
-          window.location.href = "/";
+        if (userType === "depositor") {
+          const result = await signIn("credentials", {
+            redirect: false,
+            email,
+            password,
+          });
+
+          if (result?.error) {
+            setError(result.error);
+          } else if (result) {
+            setSuccess("registered successfully");
+            window.location.href = "/";
+          }
         } else {
           window.location.href = "/Sign-Up/choose-type/bidder-Type";
         }
       }
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.error) {
-        console.error(error.response.data.error);
+        setError(error.response.data.error);
       } else {
-        console.error("API Error:", error);
+        setError("API Error");
       }
     }
   };
@@ -51,10 +78,6 @@ const Type = () => {
       </div>
       <div className="flex flex-col py-8 justify-between">
         <div className="w-10/12 mx-auto text-sm text-end">
-          Already have an account?{" "}
-          <Link href="/login" className="underline text-primary">
-            Sign In
-          </Link>
         </div>
         <div className="mx-auto grid w-7/12 gap-6 ">
           <div className="grid gap-2">
@@ -133,6 +156,8 @@ const Type = () => {
                 className="arrowRight hidden"
               />
             </div>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {success && <p className="text-green-500 text-sm">{success}</p>}
           </div>
         </div>
         <p className="w-10/12 mx-auto text-sm">
