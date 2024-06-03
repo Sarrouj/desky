@@ -6,10 +6,12 @@ export const SearchSlice: StateCreator<> = (set, get) => ({
     CategoryValue: "",
     CityValue: "",
     searchedData: [],
+    offerIsLoading : false,
     getSearchValue: (value) => set({ searchValue: value }),
     getCategoryValue: (value) => set({ CategoryValue: value }),
     getCityValue: (value) => set({ CityValue: value }),
     fetchSearchedOffers: async () => {
+        set({ offerIsLoading: true });
         const { searchValue, CategoryValue, CityValue } = get();
         let url = 'http://localhost:3001/search/offer?';
 
@@ -33,9 +35,9 @@ export const SearchSlice: StateCreator<> = (set, get) => ({
         try {
             const response = await axios.get(url);
             const data = response.data.success;
-            set({ searchedData: data });
+            set({ searchedData: data , offerIsLoading: false});
         } catch (error) {
-            set({ searchedData: [] });
+            set({ searchedData: [] , offerIsLoading: false});
             console.error('Error fetching offers:', error);
         }
     },

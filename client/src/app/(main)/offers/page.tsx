@@ -20,6 +20,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@
 import { Input } from "@/Components/ui/input"
 import { useBoundStore } from "@/lib/store"
 import PopoverCom from "@/Components/common/PopoverComponent"
+import OfferCardSkeleton from "@/Components/layout/OfferCardSkeleton"
 
 
 
@@ -39,6 +40,7 @@ const Offers : React.FC = () => {
     const getCityValue = useBoundStore((state) => state.getCityValue);
     const fetchSearchedOffers = useBoundStore((state)=> state.fetchSearchedOffers);
     const searchedData = useBoundStore((state)=> state.searchedData);
+    const offersIsLoadig = useBoundStore((state)=> state.offerIsLoading);
 
 
     // add Filter
@@ -76,11 +78,6 @@ const Offers : React.FC = () => {
     }, [categoryValue, cityValue, searchValue])
 
 
-    // Fetch Offers
-    useEffect(() => {
-        fetchOffers()
-    }, [fetchOffers]);
-
     // Clear Filters UI
     function clearFilters(){
         setFilter([]);
@@ -89,7 +86,10 @@ const Offers : React.FC = () => {
         setSearchValue("");
     }
     
-    if (offersData.length === 0) return <p>Loading...</p>;
+    useEffect(()=>{
+        offersIsLoadig;
+    }, [searchedData])
+    
 
   return (
     <>
@@ -145,6 +145,7 @@ const Offers : React.FC = () => {
                 </div>
                 <div className="flex justify-start items-start flex-wrap gap-6 w-full min-h-screen">
                 {
+                    offersIsLoadig == false ? 
                     searchedData.length !== 0 ? 
                         searchedData.map((offer, index) => (
                             <OfferCard 
@@ -158,11 +159,19 @@ const Offers : React.FC = () => {
                                 offerNumber={index + 1}
                                 id={offer._id}
                             /> 
-                        )) : 
-                        <div className="container mx-auto px-4 py-20 text-center">
-                            <h2 className="text-2xl font-bold mb-4">No Results Found</h2>
-                            <p className="text-gray-600">We couldn't find any matches for your search criteria. Please try again with different keywords or filters.</p>
-                        </div>
+                        )) : ( filter.length !== 0 ?
+                            <div className="container mx-auto px-4 py-20 text-center">
+                                <h2 className="text-2xl font-bold mb-4">No Results Found</h2>
+                                <p className="text-gray-600">We couldn&apos;t find any matches for your search criteria. Please try again with different keywords or filters.</p>
+                            </div> :   Array.from({ length: 10 }).map((_, index) => (
+                                <OfferCardSkeleton key={index} />
+                                ))
+                        )
+                    : 
+                    Array.from({ length: 10 }).map((_, index) => (
+                        <OfferCardSkeleton key={index} />
+                    ))
+                
                 }
                 </div>
             </section>
