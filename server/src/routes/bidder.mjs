@@ -1,12 +1,12 @@
 // Packages
 import express from "express";
 import bcrypt from "bcrypt";
-import mongoose from "mongoose";
-import multer from "multer";
-import { GridFsStorage } from "multer-gridfs-storage";
-import { GridFSBucket } from "mongodb";
-import path from "path";
-import crypto from "crypto";
+// import mongoose from "mongoose";
+// import multer from "multer";
+// import { GridFsStorage } from "multer-gridfs-storage";
+// import { GridFSBucket } from "mongodb";
+// import path from "path";
+// import crypto from "crypto";
 import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
@@ -29,35 +29,36 @@ import AE from "../mongoose/schemas/AE.mjs";
 import Companies from "../mongoose/schemas/Company.mjs";
 
 const router = express.Router();
-const conn = mongoose.connection;
+// const conn = mongoose.connection;
 
-let gridFSBucket;
+// let gridFSBucket;
 
-conn.once("open", () => {
-  gridFSBucket = new GridFSBucket(conn.db, {
-    bucketName: "uploads",
-  });
-});
+// conn.once("open", () => {
+//   gridFSBucket = new GridFSBucket(conn.db, {
+//     bucketName: "uploads",
+//   });
+// });
 
-const storage = new GridFsStorage({
-  url: process.env.database_connection,
-  file: (req, file) => {
-    return new Promise((resolve, reject) => {
-      crypto.randomBytes(16, (err, buf) => {
-        if (err) {
-          return reject(err);
-        }
-        const filename = buf.toString("hex") + path.extname(file.originalname);
-        const fileInfo = {
-          filename: filename,
-        };
-        resolve(fileInfo);
-      });
-    });
-  },
-});
+// const storage = new GridFsStorage({
+//   url: process.env.database_connection,
+//   file: (req, file) => {
+//     return new Promise((resolve, reject) => {
+//       crypto.randomBytes(16, (err, buf) => {
+//         if (err) {
+//           return reject(err);
+//         }
+//         const filename = buf.toString("hex") + path.extname(file.originalname);
+//         const fileInfo = {
+//           filename: filename,
+//           bucketName: "uploads",
+//         };
+//         resolve(fileInfo);
+//       });
+//     });
+//   },
+// });
 
-const upload = multer({ storage });
+// const upload = multer({ storage });
 
 // Bidder profile info
 router.get("/bidder", validateSessionUser, async (req, res, next) => {
@@ -151,43 +152,56 @@ router.put(
   }
 );
 
-// Bidder add AE info
-router.post(
-  "/add/bidder/AE",
-  AEValidationFields,
-  upload.single("AE_CIN"),
-  async (req, res, next) => {
-    const { AE_phoneNumber, AE_DoA, AE_address, AE_location } = req.body;
+// // Bidder add AE info
+// router.post(
+//   "/add/bidder/AE",
+//   upload.single("AE_CIN"),
+//   AEValidationFields,
+//   async (req, res, next) => {
+//     console.log("hi");
 
-    try {
-      const lastBidder = await Bidders.findOne().sort({ _id: -1 });
-      if (!lastBidder) {
-        return res.status(404).json({ error: "No bidders found" });
-      }
+//     const { AE_phoneNumber, AE_DoA, AE_address, AE_location } = req.body;
 
-      const newAE = new AE({
-        _id: lastBidder._id,
-        AE_CIN: {
-          file_id: req.file.id,
-          file_name: req.file.filename,
-          file_size: req.file.size,
-          upload_date: req.file.uploadDate,
-        },
-        AE_phoneNumber,
-        AE_DoA: JSON.parse(AE_DoA),
-        AE_address,
-        AE_location,
-      });
+//     if (!req.file) {
+//       return res.status(400).json({ error: "File upload failed." });
+//     }
 
-      await newAE.save();
-      res
-        .status(201)
-        .json({ success: "Auto entrepreneur information added successfully" });
-    } catch (err) {
-      next(err);
-    }
-  }
-);
+//     console.log("AE_CIN:", req.file);
+//     console.log("AE_phoneNumber:", AE_phoneNumber);
+//     console.log("AE_DoA:", AE_DoA);
+//     console.log("AE_address:", AE_address);
+//     console.log("AE_location:", AE_location);
+
+//     // try {
+//     //   const lastBidder = await Bidders.findOne().sort({ _id: -1 });
+//     //   if (!lastBidder) {
+//     //     return res.status(404).json({ error: "No bidders found" });
+//     //   }
+
+//     //   const newAE = new AE({
+//     //     _id: lastBidder._id,
+//     //     AE_CIN: {
+//     //       file_id: req.file.id,
+//     //       file_name: req.file.filename,
+//     //       file_size: req.file.size,
+//     //       upload_date: req.file.uploadDate,
+//     //     },
+//     //     AE_phoneNumber,
+//     //     AE_DoA: JSON.parse(AE_DoA),
+//     //     AE_address,
+//     //     AE_location,
+//     //   });
+
+//     //   await newAE.save();
+//     //   res
+//     //     .status(201)
+//     //     .json({ success: "Auto entrepreneur information added successfully" });
+//     // } catch (err) {
+//     //   console.error("Error adding AE info:", err); // Log error details
+//     //   next(err);
+//     // }
+//   }
+// );
 
 // Bidder add company info
 router.post(
