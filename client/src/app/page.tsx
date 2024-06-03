@@ -141,21 +141,22 @@ export default function Home() {
           </div>
         </section>
         <section className="bg-neutralBg">
-          <div className="px-20 py-20 flex flex-col items-center gap-5">
+          <div className="px-16 py-20 flex flex-col items-center gap-5">
             <h1 className="text-4xl font-extrabold mb-10">
               The Latest Private Calls Published
             </h1>
             <div className="flex gap-5">
               {offersData.slice(0, 2).map((offer, index) => (
-                <OfferCard
-                  key={offer._id}
-                  title={offer.offer_title}
-                  date={offer.offer_deadLine}
+                <OfferCard 
+                  key={offer._id} 
+                  title={offer.offer_title} 
+                  date={offer.offer_deadLine} 
                   location={offer.offer_location}
                   budget={offer.offer_budget}
                   Category={offer.offer_category}
                   Desc={offer.offer_description}
                   offerNumber={index + 1}
+                  id={offer._id}
                 />
               ))}
             </div>

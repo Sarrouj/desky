@@ -1,8 +1,9 @@
-import CategoryBtn from "@/Components/common/CategoryBtn";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { timeSince } from "../common/timeSince";
+import CategoryBtnCard from "../common/CategoryBtnCard";
 
 interface OfferCardProps {
   title: string & Number;
@@ -40,7 +41,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
     }
   }, []);
   return (
-    <Link href={`./offers/${id}`} style={{ width: "49%" }}>
+    <Link href={`./offers/${id}`} style={{ width: "49%" }}  className="shadow h-[210px]" >
       <div className="bg-white rounded-lg p-8">
         <h2 className="text-xl font-bold">{title}</h2>
         <div className="flex text-sm gap-5 mt-1 text-neutralGray">
@@ -58,7 +59,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
             Est.Budget: <span>{budget}</span>DH
           </p>
         </div>
-        <p className="text-sm mt-5" ref={pRef}>
+        <p className="text-sm mt-5 h-[40px]" ref={pRef}>
           {Desc}
         </p>
         <div className="mt-3">
@@ -67,7 +68,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
               <p className="text-neutralGray">Category :</p>
               <ul className="flex gap-2 items-center ">
                 {Category.map((c, index) => (
-                  <CategoryBtn key={index} value={c} />
+                  <CategoryBtnCard key={index} value={c}/>
                 ))}
               </ul>
             </div>
