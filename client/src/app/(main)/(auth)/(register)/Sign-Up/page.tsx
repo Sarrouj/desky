@@ -40,8 +40,10 @@ const SignUp = () => {
       if (response && response.data && response.data.success) {
         setSuccess(response.data.success);
         setTimeout(() => {
-          window.location.href = "/(main)/(register)/Sign-Up/choose-type";
-        }, 2000);
+          window.location.href = `/Sign-Up/choose-type?email=${encodeURIComponent(
+            email
+          )}&password=${encodeURIComponent(password)}`;
+        }, 1000);
       } else {
         setError(response.data.error);
       }
@@ -54,17 +56,25 @@ const SignUp = () => {
       }
     }
   };
-  const handleGoogleSignIn = async () => {
-    const result = await signIn("google", { redirect: false });
 
-    if (result?.error) {
-      setError(result.error);
-    } else if (result?.url) {
-      if (result.url.includes("choose-type")) {
-        window.location.href = "/(main)/(register)/Sign-Up/choose-type";
-      } else {
-        window.location.href = "/";
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signIn("google", { redirect: false });
+
+      if (result?.error) {
+        setError(result.error);
+      } else if (result?.url) {
+        if (result.url.includes("/choose-type")) {
+          window.location.href = `/Sign-Up/choose-type?email=${encodeURIComponent(
+            email
+          )}&password=${encodeURIComponent(password)}`;
+        } else {
+          window.location.href = "/";
+        }
       }
+    } catch (error) {
+      console.error("Google sign-in error:", error);
+      setError("Failed to sign in with Google. Please try again.");
     }
   };
 

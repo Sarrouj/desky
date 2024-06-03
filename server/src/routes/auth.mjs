@@ -11,10 +11,10 @@ dotenv.config({ path: ".env.local" }); // Load environment variables from .env.l
 import { handleErrors } from "../middlewares/errorMiddleware.mjs"; // Error handling middleware
 import loginValidationFields from "../utils/loginValidationFields.mjs"; // Validation middleware for login
 import registerValidationFields from "../utils/registerValidationFields.mjs"; // Validation middleware for registration
+import findUserByEmail from "../middlewares/findUserByEmail.mjs"; // Middleware to find user by email
 
 // Schemas
 import TempUser from "../mongoose/schemas/TempUser.mjs"; // TempUser schema
-import Admin from "../mongoose/schemas/Admin.mjs"; // Admin schema
 import Depositor from "../mongoose/schemas/Depositor.mjs"; // Depositor schema
 import Bidder from "../mongoose/schemas/Bidder.mjs"; // Bidder schema
 
@@ -27,65 +27,50 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Helper function to find a user by email
-const findUserByEmail = async (email) => {
-  let user = null;
-
-  const admin = await Admin.findOne({ admin_email: email });
-  if (admin) {
-    user = admin;
-    user.role = "admin";
-  }
-
-  const depositor = await Depositor.findOne({ depositor_email: email });
-  if (depositor) {
-    user = depositor;
-    user.role = "depositor";
-  }
-
-  const bidder = await Bidder.findOne({ bidder_email: email });
-  if (bidder) {
-    user = bidder;
-    user.role = "bidder";
-  }
-
-  return user;
-};
-
 // Login route
-router.post("/auth/login", loginValidationFields, async (req, res, next) => {
-  const { email, password } = req.body; // Extract email and password from request body
-  try {
-    const user = await findUserByEmail(email);
-    if (!user) {
-      return res.status(401).json({ error: "Wrong email" });
-    }
+router.post(
+  "/auth/login",
+  loginValidationFields,
+  findUserByEmail,
+  async (req, res, next) => {
+    const { password } = req.body; // Extract password from request body
+    try {
+      const user = req.user; // Get the user from the middleware
+      if (!user) {
+        return res.status(401).json({ error: "Wrong email" });
+      }
 
-    const passwordMatch = await bcrypt.compare(password, user.password);
-    if (!passwordMatch) {
-      return res.status(401).json({ error: "Wrong password" });
-    }
+      if (!user.password) {
+        return res.status(500).json({ error: "User password is missing" });
+      }
 
-    res.status(200).json({
-      success: "Login successful",
-      id: user._id,
-      email: user.email,
-      role: user.role,
-    });
-  } catch (err) {
-    next(err); // Pass any errors to the error handling middleware
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      if (!passwordMatch) {
+        return res.status(401).json({ error: "Wrong password" });
+      }
+
+      res.status(200).json({
+        success: "Login successful",
+        id: user._id,
+        email: user.email,
+        role: user.role,
+      });
+    } catch (err) {
+      next(err); // Pass any errors to the error handling middleware
+    }
   }
-});
+);
 
 // Register route for temporary users
 router.post(
   "/auth/register/tempUser",
   registerValidationFields,
+  findUserByEmail,
   async (req, res, next) => {
     const { name, email, password } = req.body;
 
     try {
-      const existingUser = await findUserByEmail(email);
+      const existingUser = req.user; // Get the user from the middleware
       if (existingUser) {
         return res.status(400).json({ error: "Email already exists" });
       }
@@ -118,12 +103,10 @@ router.post(
 
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-          console.log(error);
           return res
             .status(500)
             .json({ error: "Failed to send verification email" });
         }
-        console.log("Email sent: " + info.response);
         res.status(200).json({
           success: "Verification email sent. Please check your inbox.",
         });
@@ -181,15 +164,16 @@ router.post("/auth/register/user", async (req, res, next) => {
       return res.status(400).json({ error: "No verified user found" });
     }
 
+    let createdUser;
     if (userType === "depositor") {
-      await Depositor.create({
+      createdUser = await Depositor.create({
         depositor_name: tempUser.name,
         depositor_email: tempUser.email,
         depositor_password: tempUser.password,
         image: tempUser.image || {},
       });
     } else if (userType === "bidder") {
-      await Bidder.create({
+      createdUser = await Bidder.create({
         bidder_name: tempUser.name,
         bidder_email: tempUser.email,
         bidder_password: tempUser.password,
@@ -200,10 +184,15 @@ router.post("/auth/register/user", async (req, res, next) => {
     }
 
     await tempUser.deleteOne();
+
     res.status(200).json({
       success: `${
         userType.charAt(0).toUpperCase() + userType.slice(1)
       } registered successfully`,
+      data: {
+        email: createdUser.depositor_email || createdUser.bidder_email,
+        password: createdUser.depositor_password || createdUser.bidder_password,
+      },
     });
   } catch (err) {
     next(err);
@@ -211,14 +200,14 @@ router.post("/auth/register/user", async (req, res, next) => {
 });
 
 // GoogleProvider route
-router.post("/auth/google", async (req, res, next) => {
-  const { email, name } = req.body; // Extract email and name from request body
+router.post("/auth/google", findUserByEmail, async (req, res, next) => {
+  const { email, name } = req.body;
   if (!email || !name) {
     return res.status(400).json({ error: "Email and name are required" });
   }
 
   try {
-    const user = await findUserByEmail(email);
+    const user = req.user;
     if (!user) {
       const existingTempUser = await TempUser.findOne({ email });
       if (existingTempUser) {
@@ -234,26 +223,29 @@ router.post("/auth/google", async (req, res, next) => {
         email,
         password: await bcrypt.hash(name + email, 10), // Create a dummy password
         token,
-        tokenExpires: new Date() + 3600000,
+        tokenExpires: new Date(Date.now() + 3600000),
         isVerified: true,
       });
       return res.status(200).json({
         success: "Registered successfully",
         id: tempUser._id,
+        name: tempUser.name,
         email: tempUser.email,
       });
     } else {
-      res.status(200).json({
+      return res.status(200).json({
         success: "Login successfully",
         id: user._id,
+        name: user.name,
         email: user.email,
         role: user.role,
       });
     }
   } catch (err) {
-    next(err); // Pass any errors to the error handling middleware
+    next(err);
   }
 });
+
 
 // Middleware to handle errors
 router.use(handleErrors);
