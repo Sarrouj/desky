@@ -7,7 +7,7 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import axios from "axios";
 
 // Shadcn UI
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { cn } from "@/lib/utils";
@@ -26,7 +26,7 @@ import {
 } from "@/Components/ui/popover";
 
 // import Zustand Store
-import { useBoundStore } from "@/lib/store"
+import { useBoundStore } from "@/lib/store";
 
 const AutoEntrepreneurInfo = () => {
   const [location, setLocation] = useState("");
@@ -40,6 +40,8 @@ const AutoEntrepreneurInfo = () => {
 
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
+
+  const Cities = useBoundStore((state)=> state.Cities)
 
   function addActivity() {
     if (activity.trim() !== "") {
