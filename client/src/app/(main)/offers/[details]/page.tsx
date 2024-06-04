@@ -30,8 +30,9 @@ const Details = ({ params }: { params: any }) => {
 
   // Depositor Info fetching
   const getDespositorID = useBoundStore((state) => state.getDepositorID);
-  const fetDepositorData = useBoundStore((state) => state.fetchDepositorData);
+  const fetchDepositorData = useBoundStore((state) => state.fetchDepositorData);
   const DespositorData = useBoundStore((state) => state.DespositorData);
+  const depositorInfoIsLoading = useBoundStore((state) => state.depositorInfoIsLoading);
 
   // Despositor Info
   const fullName =
@@ -46,7 +47,8 @@ const Details = ({ params }: { params: any }) => {
       fetchDetails();
       if (detailsData.depositor_id) {
         getDespositorID(detailsData.depositor_id);
-        fetDepositorData();
+        fetchDepositorData();
+        DespositorData;
       }
     }
   }, [detailsData.depositor_id, details]);
