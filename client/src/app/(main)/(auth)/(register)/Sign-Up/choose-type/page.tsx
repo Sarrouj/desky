@@ -77,8 +77,7 @@ const Type = () => {
         </div>
       </div>
       <div className="flex flex-col py-8 justify-between">
-        <div className="w-10/12 mx-auto text-sm text-end">
-        </div>
+        <div className="w-10/12 mx-auto text-sm text-end"></div>
         <div className="mx-auto grid w-7/12 gap-6 ">
           <div className="grid gap-2">
             <h1 className="text-3xl font-bold">Join Us!</h1>
