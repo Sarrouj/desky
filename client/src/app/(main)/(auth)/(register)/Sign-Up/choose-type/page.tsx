@@ -1,16 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 import "./style.css";
 
 const Type = () => {
-  const searchParams = useSearchParams();
-  const email = searchParams.get("email");
-  const password = searchParams.get("password");
+  const email = localStorage.getItem("email");
+  const password = localStorage.getItem("password");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { data: session, status } = useSession();
@@ -43,6 +41,8 @@ const Type = () => {
             setError(result.error);
           } else if (result) {
             setSuccess("registered successfully");
+            localStorage.removeItem("email");
+            localStorage.removeItem("password");
             window.location.href = "/";
           }
         } else {
@@ -77,8 +77,7 @@ const Type = () => {
         </div>
       </div>
       <div className="flex flex-col py-8 justify-between">
-        <div className="w-10/12 mx-auto text-sm text-end">
-        </div>
+        <div className="w-10/12 mx-auto text-sm text-end"></div>
         <div className="mx-auto grid w-7/12 gap-6 ">
           <div className="grid gap-2">
             <h1 className="text-3xl font-bold">Join Us!</h1>

@@ -2,6 +2,11 @@ import { check } from "express-validator";
 import handleValidationErrors from "../middlewares/validationMiddleware.mjs";
 
 const companyValidationFields = [
+  check("company_type")
+    .notEmpty()
+    .withMessage("company_type is required")
+    .isString()
+    .withMessage("company_type must be a string"),
   check("company_name")
     .notEmpty()
     .withMessage("Company name is required")
@@ -30,8 +35,8 @@ const companyValidationFields = [
   check("company_DoA")
     .notEmpty()
     .withMessage("Company DoA is required")
-    .isISO8601()
-    .withMessage("Company DoA must be a valid date"),
+    .isArray()
+    .withMessage("Company DoA must be at least one"),
   check("company_size")
     .notEmpty()
     .withMessage("Company size is required")

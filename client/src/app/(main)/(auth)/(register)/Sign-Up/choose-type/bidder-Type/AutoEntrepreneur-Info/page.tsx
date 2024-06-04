@@ -7,7 +7,7 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import axios from "axios";
 
 // Shadcn UI
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/Components/ui/Button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { cn } from "@/lib/utils";
@@ -41,7 +41,7 @@ const AutoEntrepreneurInfo = () => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
 
-  const Cities = useBoundStore((state)=> state.Cities)
+  const Cities = useBoundStore((state) => state.Cities);
 
   function addActivity() {
     if (activity.trim() !== "") {
@@ -58,12 +58,32 @@ const AutoEntrepreneurInfo = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!phoneNumber.trim()) {
+      setError("Phone number is required.");
+      return;
+    }
+    if (!address.trim()) {
+      setError("Address is required.");
+      return;
+    }
+    if (!location.trim()) {
+      setError("Location is required.");
+      return;
+    }
+    if (activities.length === 0) {
+      setError("At least one activity is required.");
+      return;
+    }
+
+    const DoA = JSON.stringify(activities);
     const formData = new FormData();
-    if (cin) {
+
+    // Append form data correctly
+    if (cin !== null) {
       formData.append("AE_CIN", cin);
     }
     formData.append("AE_phoneNumber", phoneNumber);
-    formData.append("AE_DoA", JSON.stringify(activities));
+    formData.append("AE_DoA", DoA);
     formData.append("AE_address", address);
     formData.append("AE_location", location);
 

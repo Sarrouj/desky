@@ -4,11 +4,18 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, useSession, SignInResponse } from "next-auth/react";
 
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/Components/ui/Button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
+
+interface CustomSignInResponse extends SignInResponse {
+  email?: string;
+  name?: string;
+  url?: string;
+  error?: string | null;
+}
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -29,7 +36,7 @@ const SignUp = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/auth/register/tempUser",
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/register/tempUser`,
         {
           name,
           email,
@@ -37,18 +44,18 @@ const SignUp = () => {
         }
       );
 
-      if (response && response.data && response.data.success) {
+      if (response?.data?.success) {
         setSuccess(response.data.success);
         setTimeout(() => {
-          window.location.href = `/Sign-Up/choose-type?email=${encodeURIComponent(
-            email
-          )}&password=${encodeURIComponent(password)}`;
+          localStorage.setItem("email", email);
+          localStorage.setItem("password", password);
+          window.location.href = `/Sign-Up/choose-type`;
         }, 1000);
       } else {
         setError(response.data.error);
       }
     } catch (error: any) {
-      if (error.response && error.response.data && error.response.data.error) {
+      if (error.response?.data?.error) {
         setError(error.response.data.error);
       } else {
         console.error("API Error:", error);
@@ -59,18 +66,19 @@ const SignUp = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      const result = await signIn("google", { redirect: false });
+      const result = (await signIn("google", {
+        redirect: false,
+      })) as CustomSignInResponse;
 
-      if (result?.error) {
+      if (result.error) {
         setError(result.error);
-      } else if (result?.url) {
-        if (result.url.includes("/choose-type")) {
-          window.location.href = `/Sign-Up/choose-type?email=${encodeURIComponent(
-            email
-          )}&password=${encodeURIComponent(password)}`;
-        } else {
-          window.location.href = "/";
-        }
+      } else if (result.url) {
+        localStorage.setItem("email", result.email ?? "");
+        localStorage.setItem(
+          "password",
+          `${result.name ?? ""}${result.email ?? ""}`
+        );
+        window.location.href = result.url;
       }
     } catch (error) {
       console.error("Google sign-in error:", error);
@@ -87,7 +95,7 @@ const SignUp = () => {
         >
           Desky
         </Link>
-        <div className="mx-auto grid w-7/12 gap-6 ">
+        <div className="mx-auto grid w-7/12 gap-6">
           <div className="grid gap-2">
             <h1 className="text-3xl font-bold">Sign Up</h1>
             <p className="text-balance text-muted-foreground">
@@ -153,7 +161,7 @@ const SignUp = () => {
           © 2024 Desky.ma. All Rights Reserved
         </p>
       </div>
-      <div className=" bg-muted lg:block rounded-lg m-5 bg-gradient-to-r from-custom-yellow to-custom-orange flex flex-col justify-end items-end ">
+      <div className=" bg-muted lg:block rounded-lg m-5 bg-gradient-to-r from-custom-yellow to-custom-orange flex flex-col justify-end items-end">
         <div className="h-2/4 text-custom-yellow">r</div>
         <div className="h-2/4 flex justify-end px-8">
           <Image

@@ -98,7 +98,7 @@ router.post(
         to: email,
         subject: "Verify Your Email",
         text: "Please click the link to verify your email.",
-        html: `<p>Please <a href="http://localhost:3001/auth/verify/${token}">click here</a> to verify your email.</p>`,
+        html: `<p>click <b><a href="http://localhost:3001/auth/verify/${token}">here</a> </b> to verify your email.</p>`,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
@@ -245,7 +245,6 @@ router.post("/auth/google", findUserByEmail, async (req, res, next) => {
     next(err);
   }
 });
-
 
 // Middleware to handle errors
 router.use(handleErrors);

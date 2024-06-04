@@ -1,15 +1,15 @@
-
 "use client";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import * as React from "react";
+import { useSearchParams } from "next/navigation";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { Cities } from "./Cities";
 import axios from "axios";
 
 // Shadcn UI
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/Components/ui/Button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import {
@@ -37,6 +37,9 @@ import {
 } from "@/Components/ui/popover";
 
 const CompanyInfo = () => {
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email");
+  const password = searchParams.get("password");
   const [type, setType] = useState("");
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -48,9 +51,36 @@ const CompanyInfo = () => {
   const [activities, setActivities] = useState<(string | number)[]>([]);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      console.log("User authenticated, redirecting to /");
+      window.location.href = "/";
+    }
+  }, [status]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!phoneNumber.trim()) {
+      setError("Phone number is required.");
+      return;
+    }
+    if (!address.trim()) {
+      setError("Address is required.");
+      return;
+    }
+    if (!location.trim()) {
+      setError("Location is required.");
+      return;
+    }
+    if (activities.length === 0) {
+      setError("At least one activity is required.");
+      return;
+    }
+
+    const DoA = JSON.stringify(activities);
 
     try {
       const response = await axios.post(
@@ -62,18 +92,26 @@ const CompanyInfo = () => {
           company_address: address,
           company_location: location,
           company_CR: cr,
-          company_DoA: activities,
+          company_DoA: DoA,
           company_size: size,
         }
       );
 
       if (response && response.data && response.data.success) {
-        setSuccess(response.data.success);
-        setTimeout(() => {
+        const result = await signIn("credentials", {
+          redirect: false,
+          email,
+          password,
+        });
+
+        if (result?.error) {
+          setError(result.error);
+        } else if (result) {
+          setSuccess("registered successfully");
+          localStorage.removeItem("email");
+          localStorage.removeItem("password");
           window.location.href = "/";
-        }, 2000);
-      } else {
-        setError(response.data.error);
+        }
       }
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.error) {
@@ -91,7 +129,6 @@ const CompanyInfo = () => {
   function addActivity() {
     if (activity.trim() !== "") {
       setActivities((prevActivities) => [...prevActivities, activity]);
-      // console.log([...activities, activity]);
       setActivity("");
     }
   }
@@ -281,7 +318,6 @@ const CompanyInfo = () => {
               <Input
                 id="activity"
                 type="text"
-                required
                 placeholder="Activity..."
                 onChange={(e) => setActivity(e.target.value)}
                 value={activity}
