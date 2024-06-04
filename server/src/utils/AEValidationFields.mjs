@@ -2,11 +2,6 @@ import { check } from "express-validator";
 import handleValidationErrors from "../middlewares/validationMiddleware.mjs";
 
 const AEValidationFields = [
-  check("AE_CIN")
-    .notEmpty()
-    .withMessage("AE CIN is required")
-    .isString()
-    .withMessage("AE CIN must be a string"),
   check("AE_phoneNumber")
     .notEmpty()
     .withMessage("AE phone number is required")
@@ -15,8 +10,8 @@ const AEValidationFields = [
   check("AE_DoA")
     .notEmpty()
     .withMessage("AE DoA is required")
-    .isISO8601()
-    .withMessage("AE DoA must be a valid date"),
+    .isArray()
+    .withMessage("AE DoA must be an array"),
   check("AE_address")
     .notEmpty()
     .withMessage("AE address is required")

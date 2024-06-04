@@ -64,13 +64,15 @@ router.get("/depositor/info/:id", checkObjectId, async (req, res, next) => {
 
     const ae = await AE.findById(id);
     if (ae) {
-      return res.status(404).json({ success: ae });
+      return res.status(200).json({ success: ae });
     }
 
     const company = await Companies.findById(id);
     if (company) {
-      return res.status(404).json({ success: company });
+      return res.status(200).json({ success: company });
     }
+
+    res.status(404).json({ error: "Depositor info not found" });
   } catch (err) {
     next(err);
   }
@@ -176,6 +178,7 @@ router.post(
 
       const newCompany = new Companies({
         _id: id,
+        company_type,
         company_name,
         company_phoneNumber,
         company_address,
