@@ -1,16 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 import "./style.css";
 
 const Type = () => {
-  const searchParams = useSearchParams();
-  const email = searchParams.get("email");
-  const password = searchParams.get("password");
+  const email = localStorage.getItem("email");
+  const password = localStorage.getItem("password");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { data: session, status } = useSession();
@@ -43,6 +41,8 @@ const Type = () => {
             setError(result.error);
           } else if (result) {
             setSuccess("registered successfully");
+            localStorage.removeItem("email");
+            localStorage.removeItem("password");
             window.location.href = "/";
           }
         } else {

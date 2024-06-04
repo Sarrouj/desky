@@ -227,6 +227,7 @@ router.post(
 
       const newCompany = new Companies({
         _id: id,
+        company_type,
         company_name,
         company_phoneNumber,
         company_address,

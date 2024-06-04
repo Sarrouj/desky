@@ -1,5 +1,5 @@
 // Packages
-import express, { text } from "express";
+import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
@@ -80,9 +80,7 @@ router.post(
         await TempUser.deleteOne(tempUser);
       }
 
-      const code = Math.floor(100000 + Math.random() * 900000);
-
-      const token = jwt.sign({ email, code }, process.env.JWT_SECRET, {
+      const token = jwt.sign({ email }, process.env.JWT_SECRET, {
         expiresIn: "1h",
       });
 
@@ -99,7 +97,8 @@ router.post(
         from: "Desky",
         to: email,
         subject: "Verify Your Email",
-        html: `Your verification code is <b>${code}</b>`,
+        text: "Please click the link to verify your email.",
+        html: `<p>click <b><a href="http://localhost:3001/auth/verify/${token}">here</a> </b> to verify your email.</p>`,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
@@ -109,7 +108,6 @@ router.post(
             .json({ error: "Failed to send verification email" });
         }
         res.status(200).json({
-          token,
           success: "Verification email sent. Please check your inbox.",
         });
       });
@@ -132,7 +130,7 @@ router.get("/auth/verify/:token", async (req, res, next) => {
 
     if (
       !tempUser ||
-      tempUser.token.code !== token.code ||
+      tempUser.token !== token ||
       tempUser.tokenExpires < Date.now()
     ) {
       return res.status(400).json({ error: "Invalid or expired token" });
