@@ -15,16 +15,18 @@ const Type = () => {
 
   useEffect(() => {
     if (status === "authenticated") {
-      console.log("User authenticated, redirecting to /");
       window.location.href = "/";
     }
   }, [status]);
 
   const handleTypeChoosing = async (userType: string) => {
+    setSuccess("");
+    setError("");
     try {
       const response = await axios.post(
         "http://localhost:3001/auth/register/user",
         {
+          email,
           userType,
         }
       );

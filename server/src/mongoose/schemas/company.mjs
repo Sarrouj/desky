@@ -37,7 +37,7 @@ const CompaniesSchema = new mongoose.Schema(
       required: true,
     },
     company_size: {
-      type: String,
+      type: Number,
       required: true,
     },
   },
@@ -46,5 +46,6 @@ const CompaniesSchema = new mongoose.Schema(
 
 // Create a model for the company collection using the schema
 const Companies = mongoose.model("Company", CompaniesSchema);
+
 // Export the model to be used in other parts of your application
 export default Companies;

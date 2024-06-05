@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { Cities } from "./Cities";
 import axios from "axios";
@@ -37,9 +36,8 @@ import {
 } from "@/Components/ui/popover";
 
 const CompanyInfo = () => {
-  const searchParams = useSearchParams();
-  const email = searchParams.get("email");
-  const password = searchParams.get("password");
+  const email = localStorage.getItem("email");
+  const password = localStorage.getItem("password");
   const [type, setType] = useState("");
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -63,64 +61,62 @@ const CompanyInfo = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!phoneNumber.trim()) {
-      setError("Phone number is required.");
-      return;
-    }
-    if (!address.trim()) {
-      setError("Address is required.");
-      return;
-    }
-    if (!location.trim()) {
-      setError("Location is required.");
-      return;
-    }
     if (activities.length === 0) {
       setError("At least one activity is required.");
       return;
     }
-
     const DoA = JSON.stringify(activities);
 
-    try {
-      const response = await axios.post(
-        "http://localhost:3001/add/bidder/company",
-        {
-          company_type: type,
-          company_name: name,
-          company_phoneNumber: phoneNumber,
-          company_address: address,
-          company_location: location,
-          company_CR: cr,
-          company_DoA: DoA,
-          company_size: size,
-        }
-      );
+    console.log(email);
+    console.log(type);
+    console.log(name);
+    console.log(phoneNumber);
+    console.log(address);
+    console.log(location);
+    console.log(cr);
+    console.log(DoA);
+    console.log(size);
 
-      if (response && response.data && response.data.success) {
-        const result = await signIn("credentials", {
-          redirect: false,
-          email,
-          password,
-        });
+    // try {
+    //   const response = await axios.post(
+    //     "http://localhost:3001/add/bidder/company",
+    //     {
+    //       email,
+    //       company_type: type,
+    //       company_name: name,
+    //       company_phoneNumber: phoneNumber,
+    //       company_address: address,
+    //       company_location: location,
+    //       company_CR: cr,
+    //       company_DoA: DoA,
+    //       company_size: size,
+    //     }
+    //   );
 
-        if (result?.error) {
-          setError(result.error);
-        } else if (result) {
-          setSuccess("registered successfully");
-          localStorage.removeItem("email");
-          localStorage.removeItem("password");
-          window.location.href = "/";
-        }
-      }
-    } catch (error: any) {
-      if (error.response && error.response.data && error.response.data.error) {
-        setError(error.response.data.error);
-      } else {
-        console.error("API Error:", error);
-        setError("Failed to register. Please try again.");
-      }
-    }
+    //   if (response && response.data && response.data.success) {
+    //     const result = await signIn("credentials", {
+    //       redirect: false,
+    //       email,
+    //       password,
+    //     });
+
+    //     if (result?.error) {
+    //       setError(result.error);
+    //     } else if (result) {
+    //       setSuccess("registered successfully");
+    //       localStorage.removeItem("email");
+    //       localStorage.removeItem("password");
+    //       window.location.href = "/";
+    //     }
+    //   }
+    // } catch (error: any) {
+    //   if (error.response && error.response.data && error.response.data.error) {
+    //     setError(error.response.data.error);
+    //   } else {
+    //     console.error("API Error:", error);
+    //     setError("Failed to register. Please try again.");
+    //   }
+    // }
   };
 
   const [open, setOpen] = React.useState<boolean>(false);
