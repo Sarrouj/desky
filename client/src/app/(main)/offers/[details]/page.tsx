@@ -27,6 +27,15 @@ const Details= ({ params } : { params : any}) => {
   const FirstName = SeparateName[0];
   const LastName = SeparateName[1];
 
+  // Depositor Legal Info
+  const depositorLegalInfoIsLoading = useBoundStore((state) => state.depositorLegalInfoIsLoading);
+  const getDepositorLegalDataID = useBoundStore((state) => state.getDepositorLegalDataID);
+  const fetchDepositorLegalData = useBoundStore((state) => state.fetchDepositorLegalData);
+  const DespositorLegalData = useBoundStore((state) => state.DespositorLegalData);
+  console.log(DespositorLegalData);
+  const DepositorLegalID = useBoundStore((state) => state.DepositorLegalID);
+  console.log(DepositorLegalID)
+
 
   useEffect(()=> {
     if(details){
@@ -34,13 +43,17 @@ const Details= ({ params } : { params : any}) => {
       fetchDetails();
       if(detailsData.depositor_id){
         getDespositorID(detailsData.depositor_id);
+        getDepositorLegalDataID(detailsData.depositor_id);
         fetchDepositorData();
+        fetchDepositorLegalData();
         DespositorData;
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [detailsData.depositor_id , details])
 
+        console.log(DespositorData);
+        console.log(DespositorLegalData)
 
   return (
     <main className='py-16 px-20 bg-neutralBg text-secondaryDarkBlue'>
