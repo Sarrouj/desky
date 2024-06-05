@@ -37,7 +37,7 @@ const CompaniesSchema = new mongoose.Schema(
       required: true,
     },
     company_size: {
-      type: Number,
+      type: String, // Change this to String
       required: true,
     },
   },

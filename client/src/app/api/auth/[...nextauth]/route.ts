@@ -1,7 +1,40 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, {
+  NextAuthOptions,
+  DefaultSession,
+  User as NextAuthUser,
+} from "next-auth";
 import axios from "axios";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+
+// Extend the default session interface
+declare module "next-auth" {
+  interface Session {
+    id: string;
+    user: {
+      name: string;
+      email: string;
+      role: string;
+    };
+  }
+
+  interface User {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+  }
+}
+
+// Extend the JWT interface
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -26,6 +59,8 @@ export const authOptions: NextAuthOptions = {
             return {
               id: response.data.id,
               email: response.data.email,
+              role: response.data.role,
+              name: response.data.name,
             };
           } else {
             throw new Error("Invalid login credentials");
@@ -44,7 +79,7 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ user, account, profile }) {
       if (account?.provider === "google") {
         try {
           const response = await axios.post(
@@ -63,8 +98,11 @@ export const authOptions: NextAuthOptions = {
                 (user.name ?? "") + (user.email ?? "")
               )}`;
             }
-            if (response.data.success === "Login successful") {
+            if (response.data.success === "Login successfully") {
               user.id = response.data.id;
+              user.name = response.data.name;
+              user.email = response.data.email;
+              user.role = response.data.role;
               return true;
             }
           }
@@ -84,6 +122,9 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user, account, profile }) {
       if (user) {
         token.id = user.id;
+        token.name = user.name;
+        token.email = user.email;
+        token.role = user.role;
       }
 
       if (account?.provider === "google") {
@@ -98,7 +139,9 @@ export const authOptions: NextAuthOptions = {
 
           if (response.status === 200 && response.data) {
             token.id = response.data.id;
+            token.name = response.data.name;
             token.email = response.data.email;
+            token.role = response.data.role;
           } else {
             throw new Error("Failed to register user with Google");
           }
@@ -113,7 +156,11 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       if (token) {
         session.id = token.id;
-        session.email = token.email;
+        session.user = {
+          name: token.name,
+          email: token.email,
+          role: token.role,
+        };
       }
       return session;
     },
