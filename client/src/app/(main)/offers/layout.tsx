@@ -13,7 +13,9 @@ export default function offers({
             <Header/>
         </div>
         {children}
+        <div className="bg-neutralBg pt-10">
         <Footer/>
+        </div>
     </>
     )
 }
