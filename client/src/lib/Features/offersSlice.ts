@@ -23,11 +23,13 @@ export interface OffersState {
 
 export const createOffersSlice : StateCreator<OffersState> = (set)=>({
   offersData: [],
+  offersDataIsLoading : false,
   fetchOffers: async () => {
+    set({ offersDataIsLoading: true });
     try {
       const response = await axios.get('http://localhost:3001/offers');
       const data = response.data.success;
-      set({ offersData: data });
+      set({ offersData: data , offersDataIsLoading : false});
     } catch (error) {
       console.error('Error fetching offers:', error);
     }
