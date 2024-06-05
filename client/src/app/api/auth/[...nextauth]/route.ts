@@ -78,11 +78,7 @@ export const authOptions: NextAuthOptions = {
 
           if (response.status === 200) {
             if (response.data.success === "Registered successfully") {
-              return `/Sign-Up/choose-type?email=${encodeURIComponent(
-                user.email ?? ""
-              )}&password=${encodeURIComponent(
-                (user.name ?? "") + (user.email ?? "")
-              )}`;
+              return `/Sign-Up/choose-type`;
             }
             if (response.data.success === "Login successful") {
               user.id = response.data.id;
