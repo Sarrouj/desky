@@ -36,7 +36,7 @@ const companyValidationFields = [
     .notEmpty()
     .withMessage("Company DoA is required")
     .isArray()
-    .withMessage("Company DoA must be at least one"),
+    .withMessage("Company DoA must be an array"),
   check("company_size")
     .notEmpty()
     .withMessage("Company size is required")

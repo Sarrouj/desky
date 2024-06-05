@@ -153,6 +153,7 @@ router.put(
 );
 
 // // Bidder add AE info
+
 // router.post(
 //   "/add/bidder/AE",
 //   upload.single("AE_CIN"),
@@ -209,6 +210,7 @@ router.post(
   companyValidationFields,
   async (req, res, next) => {
     const {
+      email,
       company_type,
       company_name,
       company_phoneNumber,
@@ -220,13 +222,13 @@ router.post(
     } = req.body;
 
     try {
-      const lastBidder = await Bidders.findOne().sort({ _id: -1 });
-      if (!lastBidder) {
+      const bidder = await Bidders.findOne({ bidder_email: email });
+      if (!bidder) {
         return res.status(404).json({ error: "No bidders found" });
       }
 
       const newCompany = new Companies({
-        _id: id,
+        _id: bidder.id,
         company_type,
         company_name,
         company_phoneNumber,
