@@ -4,7 +4,7 @@ import Image from "next/image"
 const Footer = () => {
   return (
     <footer className="px-10 py-5">
-        <div className="flex justify-between items-center border-b border-secondaryDarkBlue pb-5">
+        <div className="flex justify-between items-center border-b border-secondaryDarkBlue pb-10">
             <div>
                 <h1 className="font-bold text-3xl text-primaryOrange">Desky</h1>
             </div>
@@ -15,18 +15,12 @@ const Footer = () => {
                 <li><Link href={""}>FAQ</Link></li>
             </ul>
         </div>
-        <div className="flex justify-between  items-center pt-5">
+        <div className="flex justify-between  items-center pt-10">
             <p className="text-sm">All rights reserved ® Desky.ma  | Terms and conditions apply!</p>
             <ul className="flex gap-2">
-                <li className="rounded-full bg-primaryOrange w-8 h-8 flex justify-center items-center">
-                    <Image src={"/icons/linkeding.svg"} alt={""} width={15} height={15} />
-                </li>
-                <li className="rounded-full bg-primaryOrange w-8 h-8 flex justify-center items-center">
-                    <Image src={"/icons/linkeding.svg"} alt={""} width={15} height={15} />
-                </li>
-                <li className="rounded-full bg-primaryOrange w-8 h-8 flex justify-center items-center">
-                    <Image src={"/icons/linkeding.svg"} alt={""} width={15} height={15} />
-                </li>
+                <Image src={"/icons/instagram.svg"} alt={""} width={30} height={30} />
+                <Image src={"/icons/flickr.svg"} alt={""} width={30} height={30} />
+                <Image src={"/icons/twitter.svg"} alt={""} width={30} height={30} />
             </ul>
         </div>
     </footer>

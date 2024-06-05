@@ -56,6 +56,7 @@ const Header = () => {
   const userName = session ? session.user?.name : null;
   const userImage : string | null | undefined= session ? session.user?.image : null ;
 
+  console.log(userName)
   useEffect(() => {
     if (status === "authenticated") {
       setIsLoggedIn(true); // Update isLoggedIn state using useState setter function
