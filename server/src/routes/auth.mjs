@@ -40,10 +40,6 @@ router.post(
         return res.status(401).json({ error: "Wrong email" });
       }
 
-      if (!user.password) {
-        return res.status(500).json({ error: "User password is missing" });
-      }
-
       const passwordMatch = await bcrypt.compare(password, user.password);
       if (!passwordMatch) {
         return res.status(401).json({ error: "Wrong password" });
@@ -51,7 +47,8 @@ router.post(
 
       res.status(200).json({
         success: "Login successful",
-        id: user._id,
+        id: user.id,
+        name: user.name,
         email: user.email,
         role: user.role,
       });
@@ -234,7 +231,7 @@ router.post("/auth/google", findUserByEmail, async (req, res, next) => {
     } else {
       return res.status(200).json({
         success: "Login successfully",
-        id: user._id,
+        id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,

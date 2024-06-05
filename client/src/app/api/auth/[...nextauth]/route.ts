@@ -10,8 +10,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 // Extend the default session interface
 declare module "next-auth" {
   interface Session {
-    id: string;
     user: {
+      id: string;
       name: string;
       email: string;
       role: string;
@@ -58,9 +58,9 @@ export const authOptions: NextAuthOptions = {
           if (response.status === 200 && response.data) {
             return {
               id: response.data.id,
+              name: response.data.name,
               email: response.data.email,
               role: response.data.role,
-              name: response.data.name,
             };
           } else {
             throw new Error("Invalid login credentials");
@@ -155,8 +155,8 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (token) {
-        session.id = token.id;
         session.user = {
+          id: token.id,
           name: token.name,
           email: token.email,
           role: token.role,
