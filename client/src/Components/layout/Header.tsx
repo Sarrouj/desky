@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import CallToAction from "../common/CallToAction";
 import Image from "next/image";
@@ -63,6 +63,10 @@ const Header = () => {
       setIsLoggedIn(false); // Reset isLoggedIn state if not authenticated
     }
   }, [status]);
+
+  const handleLogout = () => {
+    signOut();
+  };
 
   return (
     <header className="flex items-center py-3 px-10 justify-between text-secondaryDarkBlue">
@@ -137,7 +141,7 @@ const Header = () => {
                 </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Log out</span>
                   <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
