@@ -17,7 +17,7 @@ const Footer = () => {
         </div>
         <div className="flex justify-between  items-center pt-10">
             <p className="text-sm">All rights reserved ® Desky.ma  | Terms and conditions apply!</p>
-            <ul className="flex gap-2">
+            <ul className="flex gap-3">
                 <Image src={"/icons/instagram.svg"} alt={""} width={30} height={30} />
                 <Image src={"/icons/flickr.svg"} alt={""} width={30} height={30} />
                 <Image src={"/icons/twitter.svg"} alt={""} width={30} height={30} />
