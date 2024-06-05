@@ -3,6 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+import jwt from "jsonwebtoken";
 const app = express();
 dotenv.config({ path: ".env.local" });
 
@@ -40,6 +41,23 @@ app.use(bidderRouter);
 app.use(offerRouter);
 app.use(adminRouter);
 app.use(authRouter);
+
+// JWT Authentication (development only)
+app.post("/decode-jwt", (req, res) => {
+  const { token } = req.session;
+  const secret = process.env.JWT_SECRET;
+
+  if (!token) {
+    return res.status(400).json({ error: "Token is required" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, secret);
+    res.status(200).json({ decoded });
+  } catch (err) {
+    res.status(401).json({ error: "Invalid or expired token" });
+  }
+});
 
 connectToDatabase().then(() => {
   const PORT = process.env.PORT || 3001;

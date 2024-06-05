@@ -40,8 +40,8 @@ const companyValidationFields = [
   check("company_size")
     .notEmpty()
     .withMessage("Company size is required")
-    .isNumeric()
-    .withMessage("Company size must be a number"),
+    .isString()
+    .withMessage("Company size must be a string"),
   handleValidationErrors,
 ];
 

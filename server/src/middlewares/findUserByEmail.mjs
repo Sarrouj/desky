@@ -29,7 +29,7 @@ const findUserByEmail = async (req, res, next) => {
     }
 
     if (user) {
-      req.user = user; // Attach user to the request object
+      req.user = user;
     }
 
     next();

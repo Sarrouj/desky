@@ -65,58 +65,47 @@ const CompanyInfo = () => {
       setError("At least one activity is required.");
       return;
     }
-    const DoA = JSON.stringify(activities);
 
-    console.log(email);
-    console.log(type);
-    console.log(name);
-    console.log(phoneNumber);
-    console.log(address);
-    console.log(location);
-    console.log(cr);
-    console.log(DoA);
-    console.log(size);
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/add/bidder/company",
+        {
+          email,
+          company_type: type,
+          company_name: name,
+          company_phoneNumber: phoneNumber,
+          company_address: address,
+          company_location: location,
+          company_CR: cr,
+          company_DoA: activities,
+          company_size: size,
+        }
+      );
 
-    // try {
-    //   const response = await axios.post(
-    //     "http://localhost:3001/add/bidder/company",
-    //     {
-    //       email,
-    //       company_type: type,
-    //       company_name: name,
-    //       company_phoneNumber: phoneNumber,
-    //       company_address: address,
-    //       company_location: location,
-    //       company_CR: cr,
-    //       company_DoA: DoA,
-    //       company_size: size,
-    //     }
-    //   );
+      if (response && response.data && response.data.success) {
+        const result = await signIn("credentials", {
+          redirect: false,
+          email,
+          password,
+        });
 
-    //   if (response && response.data && response.data.success) {
-    //     const result = await signIn("credentials", {
-    //       redirect: false,
-    //       email,
-    //       password,
-    //     });
-
-    //     if (result?.error) {
-    //       setError(result.error);
-    //     } else if (result) {
-    //       setSuccess("registered successfully");
-    //       localStorage.removeItem("email");
-    //       localStorage.removeItem("password");
-    //       window.location.href = "/";
-    //     }
-    //   }
-    // } catch (error: any) {
-    //   if (error.response && error.response.data && error.response.data.error) {
-    //     setError(error.response.data.error);
-    //   } else {
-    //     console.error("API Error:", error);
-    //     setError("Failed to register. Please try again.");
-    //   }
-    // }
+        if (result?.error) {
+          setError(result.error);
+        } else if (result) {
+          setSuccess("registered successfully");
+          localStorage.removeItem("email");
+          localStorage.removeItem("password");
+          window.location.href = "/";
+        }
+      }
+    } catch (error: any) {
+      if (error.response && error.response.data && error.response.data.error) {
+        setError(error.response.data.error);
+      } else {
+        console.error("API Error:", error);
+        setError("Failed to register. Please try again.");
+      }
+    }
   };
 
   const [open, setOpen] = React.useState<boolean>(false);

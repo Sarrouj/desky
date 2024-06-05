@@ -35,8 +35,7 @@ const Details = ({ params }: { params: any }) => {
   const depositorInfoIsLoading = useBoundStore((state) => state.depositorInfoIsLoading);
 
   // Despositor Info
-  const fullName =
-    DespositorData.length !== 0 ? DespositorData.depositor_name : "Loading...";
+  const fullName = DespositorData.length !== 0 ? DespositorData.depositor_name : "Loading...";
   const SeparateName = fullName.split(" ");
   const FirstName = SeparateName[0];
   const LastName = SeparateName[1];
@@ -46,10 +45,15 @@ const Details = ({ params }: { params: any }) => {
   const getDepositorLegalDataID = useBoundStore((state) => state.getDepositorLegalDataID);
   const fetchDepositorLegalData = useBoundStore((state) => state.fetchDepositorLegalData);
   const DespositorLegalData = useBoundStore((state) => state.DespositorLegalData);
-  console.log(DespositorLegalData);
   const DepositorLegalID = useBoundStore((state) => state.DepositorLegalID);
-  console.log(DepositorLegalID)
+  const CompanyType = DespositorLegalData.length !== 0 ? DespositorLegalData.data.success.company_type : "";
+  const CompanyName = DespositorLegalData.length !== 0 ? DespositorLegalData.data.success.company_name : "Loading...";
+  const CompanyAdress = DespositorLegalData.length !== 0 ?  DespositorLegalData.data.success.company_address : "Loading...";
+  const CompanyCity = DespositorLegalData.length !== 0 ?  DespositorLegalData.data.success.company_location : "Loading...";
+  const CompanyIndustry =  DespositorLegalData.length !== 0 ?  DespositorLegalData.data.success.company_DoA : "Loading...";
 
+  console.log(DespositorLegalData)
+  console.log(CompanyIndustry)
 
   useEffect(()=> {
     if(details){
@@ -66,8 +70,6 @@ const Details = ({ params }: { params: any }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [detailsData.depositor_id , details])
 
-        console.log(DespositorData);
-        console.log(DespositorLegalData)
 
   return (
     <main className="py-16 px-20 bg-neutralBg text-secondaryDarkBlue">
@@ -78,7 +80,7 @@ const Details = ({ params }: { params: any }) => {
               {detailsData.offer_title}
             </h1>
             <div className="flex gap-10 text-neutralGray">
-              <p>{timeSince(detailsData.offer_DoP)}</p>
+              <p>Posted {timeSince(detailsData.offer_DoP)}</p>
               <div className="flex gap-2">
                 <p>Targetd Location: </p>
                 <ul className="flex gap-1.5">
@@ -187,7 +189,7 @@ const Details = ({ params }: { params: any }) => {
               <h2 className="font-bold text-2xl">
                 {LastName} <span className="text-primary">{FirstName}</span>
               </h2>
-              <h4 className="font-semibold">M.D.M S.A.R.L</h4>
+              <h4 className="font-semibold">{CompanyName} {CompanyType}</h4>
             </div>
           </div>
           <div className="mt-16 flex flex-col gap-5">
@@ -233,12 +235,14 @@ const Details = ({ params }: { params: any }) => {
               <p>4.97 of 25 reviews</p>
             </div>
             <div>
-              <p className="font-bold">Tech & IT</p>
+              {CompanyIndustry !== "Loading..." ? CompanyIndustry.map((ind, index)=>(
+                 <p className="font-bold" key={index}>{ind}</p>
+              )) : 'Loading...'}
               <p>Small Company (2-9 people) </p>
             </div>
             <div>
-              <p className="font-bold">Casablanca</p>
-              <p>Avenue Sidi Boukhari N° 26 Casablanca</p>
+              <p className="font-bold">{CompanyCity}</p>
+              <p>{CompanyAdress}</p>
             </div>
             <div>
               <p className="font-bold">9 Offers posted</p>
