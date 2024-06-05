@@ -9,6 +9,7 @@ import { Cities } from "./Features/CitiesData";
 import { CategoriesDataSlice } from "./Features/CategoriesData";
 import { Categories } from "./Features/CategoriesData";
 import { SearchSlice } from "./Features/SearchSlice";
+import { getDepositorLegalDataSlice } from "./Features/DepositorLegalInfo";
 
 
 export const useBoundStore = create<OffersState & OfferDetails & Cities & Categories>((...a) => ({
@@ -17,6 +18,7 @@ export const useBoundStore = create<OffersState & OfferDetails & Cities & Catego
   ...getDepositorDataSlice(...a),
   ...CitiesDataSlice(...a),
   ...CategoriesDataSlice(...a),
-  ...SearchSlice(...a)
+  ...SearchSlice(...a),
+  ...getDepositorLegalDataSlice(...a)
 }))
 
