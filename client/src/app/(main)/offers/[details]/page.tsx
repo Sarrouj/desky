@@ -51,9 +51,8 @@ const Details = ({ params }: { params: any }) => {
   const CompanyAdress = DespositorLegalData.length !== 0 ?  DespositorLegalData.data.success.company_address : "Loading...";
   const CompanyCity = DespositorLegalData.length !== 0 ?  DespositorLegalData.data.success.company_location : "Loading...";
   const CompanyIndustry =  DespositorLegalData.length !== 0 ?  DespositorLegalData.data.success.company_DoA : "Loading...";
-
-  console.log(DespositorLegalData)
-  console.log(CompanyIndustry)
+  const Ind1 = CompanyIndustry[0];
+  const Ind2 = CompanyIndustry[1] ? ` & ${CompanyIndustry[1]}` : null;
 
   useEffect(()=> {
     if(details){
@@ -235,9 +234,7 @@ const Details = ({ params }: { params: any }) => {
               <p>4.97 of 25 reviews</p>
             </div>
             <div>
-              {CompanyIndustry !== "Loading..." ? CompanyIndustry.map((ind, index)=>(
-                 <p className="font-bold" key={index}>{ind}</p>
-              )) : 'Loading...'}
+              <p className="font-bold" >{Ind1}{Ind2}</p>
               <p>Small Company (2-9 people) </p>
             </div>
             <div>
