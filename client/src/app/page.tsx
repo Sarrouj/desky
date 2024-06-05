@@ -11,7 +11,6 @@ import { useEffect } from "react";
 export default function Home() {
   const offersData = useBoundStore((state) => state.offersData);
   const fetchOffers = useBoundStore((state) => state.fetchOffers);
-  const Limit = 0;
 
   useEffect(() => {
     fetchOffers();
@@ -28,10 +27,8 @@ export default function Home() {
               <h2 className="text-xl text-neutralGray">
                 Growth Solution in a Single Platform.
               </h2>
-              <h1 className="text-6xl font-extrabold leading-tight mt-5">
-                Desky, The First <br /> Platform{" "}
-                <span className="text-primaryOrange">For Private </span>
-                <br /> Calls For Bids
+              <h1 className="text-4xl lg:text-5xl xl:text-[55px]  font-extrabold leading-tight mt-5">
+                Desky, The First Platform{" "}<span className="text-primaryOrange">For Private </span> Calls For Bids
               </h1>
               <p className="mt-5">
                 Never at water me might. On formed merits hunted unable merely
