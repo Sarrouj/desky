@@ -7,16 +7,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useBoundStore } from "@/lib/store";
 import { useEffect } from "react";
+import OfferCardSkeleton from "@/Components/layout/OfferCardSkeleton";
 
 export default function Home() {
   const offersData = useBoundStore((state) => state.offersData);
   const fetchOffers = useBoundStore((state) => state.fetchOffers);
+  const offersDataIsLoading = useBoundStore((state) => state.offersDataIsLoading);
 
   useEffect(() => {
     fetchOffers();
   }, [fetchOffers]);
 
-  if (offersData.length === 0) return <p>Loading...</p>;
   return (
     <>
       <Header />
@@ -138,26 +139,31 @@ export default function Home() {
           </div>
         </section>
         <section className="bg-neutralBg">
-          <div className="px-16 py-20 flex flex-col items-center gap-5">
-            <h1 className="text-4xl font-extrabold mb-10">
+          <div className="px-16 py-20 flex flex-col items-center gap-16">
+            <h1 className="text-4xl font-extrabold">
               The Latest Private Calls Published
             </h1>
             <div className="flex gap-5">
-              {offersData.slice(0, 2).map((offer, index) => (
-                <OfferCard 
-                  key={offer._id} 
-                  title={offer.offer_title} 
-                  date={offer.offer_deadLine} 
-                  location={offer.offer_location}
-                  budget={offer.offer_budget}
-                  Category={offer.offer_category}
-                  Desc={offer.offer_description}
-                  offerNumber={index + 1}
-                  id={offer._id}
-                />
-              ))}
+              { offersData.length !== 0  ? 
+                offersData.slice(0, 2).map((offer, index) => (
+                  <OfferCard 
+                    key={offer._id} 
+                    title={offer.offer_title} 
+                    date={offer.offer_deadLine} 
+                    location={offer.offer_location}
+                    budget={offer.offer_budget}
+                    Category={offer.offer_category}
+                    Desc={offer.offer_description}
+                    offerNumber={index + 1}
+                    id={offer._id}
+                /> )) :
+                <>
+                   <OfferCardSkeleton/>
+                   <OfferCardSkeleton/>
+                </>
+                }
             </div>
-            <CallToAction href={"/"} value={"See more"} />
+            <CallToAction href={"/offers"} value={"See more"} />
           </div>
         </section>
         <section>
