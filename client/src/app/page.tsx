@@ -12,7 +12,6 @@ import OfferCardSkeleton from "@/Components/layout/OfferCardSkeleton";
 export default function Home() {
   const offersData = useBoundStore((state) => state.offersData);
   const fetchOffers = useBoundStore((state) => state.fetchOffers);
-  const offersDataIsLoading = useBoundStore((state) => state.offersDataIsLoading);
 
   useEffect(() => {
     fetchOffers();
@@ -28,9 +27,11 @@ export default function Home() {
               <h2 className="text-xl text-neutralGray">
                 Growth Solution in a Single Platform.
               </h2>
-              <h1 className="text-4xl lg:text-5xl xl:text-[55px]  font-extrabold leading-tight mt-5">
-                Desky, The First Platform{" "}<span className="text-primaryOrange">For Private </span> Calls For Bids
-              </h1>
+              <p style={{ lineHeight: '1.30' }} className="text-4xl lg:text-5xl xl:text-[55px] font-extrabold mt-5">
+                Desky, The First Platform{" "}
+                <span className="text-primaryOrange">For Private </span>
+                Calls For Bids
+              </p>
               <p className="mt-5">
                 Never at water me might. On formed merits hunted unable merely
                 by mr whence or. Possession the unpleasing simplicity her
