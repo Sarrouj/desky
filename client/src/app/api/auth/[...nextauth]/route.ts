@@ -3,27 +3,6 @@ import axios from "axios";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-// Extend the NextAuth types
-declare module "next-auth" {
-  interface Session {
-    id?: string;
-    email?: string;
-  }
-
-  interface User {
-    id?: string;
-    email?: string;
-  }
-}
-
-declare module "next-auth/jwt" {
-  interface JWT {
-    id?: string;
-    email?: string;
-  }
-}
-
-// Configure NextAuth
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -78,7 +57,11 @@ export const authOptions: NextAuthOptions = {
 
           if (response.status === 200) {
             if (response.data.success === "Registered successfully") {
-              return `/Sign-Up/choose-type`;
+              return `/process-google-signIn?email=${encodeURIComponent(
+                user.email ?? ""
+              )}&password=${encodeURIComponent(
+                (user.name ?? "") + (user.email ?? "")
+              )}`;
             }
             if (response.data.success === "Login successful") {
               user.id = response.data.id;
@@ -93,7 +76,7 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
     async redirect({ url, baseUrl }) {
-      if (url.startsWith("/Sign-Up/choose-type")) {
+      if (url.startsWith("/auth/process-google-signIn")) {
         return `${baseUrl}${url}`;
       }
       return baseUrl;

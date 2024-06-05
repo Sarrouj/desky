@@ -98,7 +98,7 @@ router.post(
         to: email,
         subject: "Verify Your Email",
         text: "Please click the link to verify your email.",
-        html: `<p>click <b><a href="http://localhost:3001/auth/verify/${token}">here</a> </b> to verify your email.</p>`,
+        html: `<p>Please <a href="http://localhost:3001/auth/verify/${token}">click here</a> to verify your email.</p>`,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
@@ -153,13 +153,16 @@ router.get("/auth/verify/:token", async (req, res, next) => {
 
 // Register route for depositor or bidder
 router.post("/auth/register/user", async (req, res, next) => {
-  const { userType } = req.body;
-  if (!userType) {
+  const { userType, email } = req.body;
+  if (!userType || !email) {
     return res.status(400).json({ error: "User type is required" });
   }
 
   try {
-    const tempUser = await TempUser.findOne({ isVerified: true });
+    const tempUser = await TempUser.findOne({
+      email,
+      isVerified: true,
+    });
     if (!tempUser) {
       return res.status(400).json({ error: "No verified user found" });
     }
@@ -189,10 +192,6 @@ router.post("/auth/register/user", async (req, res, next) => {
       success: `${
         userType.charAt(0).toUpperCase() + userType.slice(1)
       } registered successfully`,
-      data: {
-        email: createdUser.depositor_email || createdUser.bidder_email,
-        password: createdUser.depositor_password || createdUser.bidder_password,
-      },
     });
   } catch (err) {
     next(err);
