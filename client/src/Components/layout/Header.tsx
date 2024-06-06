@@ -53,10 +53,10 @@ const Header = () => {
   const { data: session, status } = useSession();
   console.log(session)
   // User Data
-  const userName = session ? session.user?.name : null;
+  const userName : string | null = session ? session.user?.name : null;
   const userImage : string | null | undefined= session ? session.user?.image : null ;
+  const userType : string | null = session ? session.user?.role : null;
 
-  console.log(userName)
   useEffect(() => {
     if (status === "authenticated") {
       setIsLoggedIn(true); // Update isLoggedIn state using useState setter function
@@ -91,7 +91,7 @@ const Header = () => {
                   </Avatar>
                   <div className="flex flex-col justify-start items-start">
                     <h4 className="text-secondaryDarkBlue">{userName}</h4>
-                    <p className="text-xs text-primary">Depositor Account</p>
+                    <p className="text-xs text-primary">{userType} Account</p>
                   </div>
                   <Image src={'/icons/arrow-down.svg'} width={18} height={18} alt="ArrowDown"/>
                 </Button>
