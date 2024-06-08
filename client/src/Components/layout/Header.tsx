@@ -44,12 +44,11 @@ import {
 
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Manage isLoggedIn state using useState
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const { data: session, status } = useSession();
   console.log(session)
   // User Data
   const userName : string | null = session ? session.user?.name : null;
-  const userImage : string | null | undefined= session ? session.user?.image : null ;
   const userType : string | null = session ? session.user?.role : null;
 
   useEffect(() => {
@@ -63,6 +62,8 @@ const Header = () => {
   const handleLogout = () => {
     signOut();
   };
+
+  console.log(userType)
 
   return (
     <header className="flex items-center py-3 px-10 justify-between text-secondaryDarkBlue">
@@ -81,7 +82,7 @@ const Header = () => {
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="border-0 flex items-center gap-2 hover:bg-white hover:text-primary ">
                   <Avatar className="w-9 h-9">
-                    <AvatarImage src={userImage} alt="@shadcn" />
+                    {/* <AvatarImage src={userImage} alt="@shadcn" /> */}
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col justify-start items-start">
@@ -100,7 +101,7 @@ const Header = () => {
                     <span>Profile</span>
                     <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                   </DropdownMenuItem>
-                  {userType == "dipositor" ? <Link href={'/Dashboard'}>
+                  {userType == "depositor" ? <Link href={'/Dashboard'}>
                     <DropdownMenuItem>
                         <Package2 className="mr-2 h-4 w-4" />
                         <span>Dashboard</span>
