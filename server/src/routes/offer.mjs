@@ -80,10 +80,9 @@ router.get("/search/offer", async (req, res, next) => {
 // Add Offer
 router.post(
   "/add/offer",
-  validateSessionUser,
+  // validateSessionUser,
   offerValidationFields,
   async (req, res, next) => {
-    const { id } = req.session.user;
     const {
       offer_title,
       offer_description,
@@ -91,7 +90,7 @@ router.post(
       offer_location,
       offer_deadLine,
       offer_budget,
-      offer_attachments,
+      id,
     } = req.body;
 
     try {
@@ -108,7 +107,6 @@ router.post(
         offer_location,
         offer_deadLine,
         offer_budget,
-        offer_attachments,
         depositor_id: id,
         bidder_id: [],
         offer_state: "pending",

@@ -9,8 +9,8 @@ export const checkObjectId = (req, res, next) => {
 };
 
 export const validateSessionUser = (req, res, next) => {
-  if (!req.session.user || !req.session.user.id) {
+  if (!req.session || !req.session.user || !req.session.user.id) {
     return res.status(401).json({ error: "Unauthorized access" });
   }
   next();
-};
+};  
