@@ -1,8 +1,9 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import {
   ChevronLeft,
-  File,
   Home,
   LineChart,
   ListFilter,
@@ -101,8 +102,30 @@ import {
   TooltipProvider
 } from "@/Components/ui/tooltip"
 
+import React, { useEffect, useState} from "react";
+import { useSession, signOut } from "next-auth/react";
 
-const page = () => {
+
+const DespoeitorDashboard = () => {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const { data: session, status } = useSession();
+
+  // User Data
+  const userName : string | null = session ? session.user?.name : null;
+  const userType : string | null = session ? session.user?.role : null;
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      setIsLoggedIn(true); // Update isLoggedIn state using useState setter function
+    } else {
+      setIsLoggedIn(false); // Reset isLoggedIn state if not authenticated
+    }
+  }, [status]);
+
+  const handleLogout = () => {
+    signOut();
+  };
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40 text-secondaryDarkBlue">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -313,8 +336,8 @@ const page = () => {
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col justify-start items-start">
-                    <h4 className="text-secondaryDarkBlue">Zaid Sarrouj</h4>
-                    <p className="text-xs text-primary">Dipoitor Account</p>
+                    <h4 className="text-secondaryDarkBlue">{userName}</h4>
+                    <p className="text-xs text-primary">{userType} Account</p>
                   </div>
                   <Image src={'/icons/arrow-down.svg'} width={18} height={18} alt="ArrowDown"/>
                 </Button>
@@ -370,7 +393,7 @@ const page = () => {
                 </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Log out</span>
                   <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
@@ -392,7 +415,9 @@ const page = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
-                  <Button className="text-white">Create New Offer</Button>
+                  <Button className="text-white">
+                        <Link href={"/Create-Offer"}>Create New Offer</Link>
+                  </Button>
                 </CardFooter>
               </Card>
               <Card className="flex flex-col justify-between">
@@ -800,6 +825,6 @@ const page = () => {
   )
 }
 
-export default page
+export default  DespoeitorDashboard
 
 

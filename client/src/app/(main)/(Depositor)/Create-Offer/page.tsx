@@ -120,9 +120,12 @@ import {
 } from "@/Components/ui/command";
 
 import { Check, ChevronsUpDown } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useBoundStore } from "@/lib/store"
 import { cn } from "@/lib/utils";
+
+
+import { useSession, signOut } from "next-auth/react";
 
 
 const CreateOffer = () => {
@@ -130,10 +133,72 @@ const CreateOffer = () => {
     const [value, setValue] = React.useState<string>("");
     const [categoryOpen, categorySetOpen] = React.useState<boolean>(false);
     const [CategoryValue, CategorySetValue] = React.useState<string>("");
-    const [location, setLocation] = useState("");
 
     const Cities = useBoundStore((state) => state.Cities);
     const Categories = useBoundStore((state) => state.Categories);
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false); 
+    const { data: session, status } = useSession();
+   
+    // User Data
+    const userName : string | null = session ? session.user?.name : null;
+    const userType : string | null = session ? session.user?.role : null;
+
+
+    useEffect(() => {
+        if (status === "authenticated") {
+        setIsLoggedIn(true); // Update isLoggedIn state using useState setter function
+        } else {
+        setIsLoggedIn(false); // Reset isLoggedIn state if not authenticated
+        }
+    }, [status]);
+
+    const handleLogout = () => {
+        signOut();
+    };
+
+    // Offers Value
+    const [title, setTtitle] = useState('');
+    const [desc, setDesc] = useState('');
+    const [location, setLocation] = useState("");
+    const [category, setCategory] = useState("");
+    const [budget, setBudget] = useState('');
+    const [deadline, setDeadline] = useState('');
+
+    const getOfferDataPosting = useBoundStore((state) => state.getOfferDataPosting);
+    const postOffer = useBoundStore((state) => state.postOffer);
+
+    // const postData = {
+    //     offer_title: title,
+    //     offer_description: desc,
+    //     offer_category: category,
+    //     offer_location: location,
+    //     offer_deadLine: deadline,
+    //     offer_budget: budget,
+    //     offer_attachments: "attachment1", // Array of attachments
+    //   };
+
+      const postData  = {
+        offer_title: "Your Offer Title",
+        offer_description: "Your Offer Description",
+        offer_category: "Your Offer Category",
+        offer_location: "Your Offer Location",
+        offer_deadLine: "Your Offer Deadline",
+        offer_budget: "Your Offer Budget",
+        offer_attachments: ["attachment1", "attachment2"], // Array of attachments
+      };
+
+
+    useEffect(() => {
+        getOfferDataPosting(postData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [postData])
+
+    function addOffer(e){
+        e.preventDefault();
+        postOffer();
+        console.log('added')
+    }
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40 text-secondaryDarkBlue">
@@ -345,8 +410,8 @@ const CreateOffer = () => {
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col justify-start items-start">
-                    <h4 className="text-secondaryDarkBlue">Zaid Sarrouj</h4>
-                    <p className="text-xs text-primary">Dipoitor Account</p>
+                    <h4 className="text-secondaryDarkBlue">{userName}</h4>
+                    <p className="text-xs text-primary">{userType} Account</p>
                   </div>
                   <Image src={'/icons/arrow-down.svg'} width={18} height={18} alt="ArrowDown"/>
                 </Button>
@@ -402,7 +467,7 @@ const CreateOffer = () => {
                 </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Log out</span>
                   <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
@@ -423,11 +488,13 @@ const CreateOffer = () => {
                             type="text"
                             placeholder="Type your title here."
                             required
+                            value={title}
+                            onChange={(e) => setTtitle(e.target.value)}
                             />
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="title" className="text-lg font-semibold">Description</Label>
-                            <Textarea placeholder="Type your description here." required/>
+                            <Textarea placeholder="Type your description here." required value={desc} onChange={(e) => setDesc(e.target.value)}/>
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="title" className="text-lg font-semibold">Location</Label>
@@ -512,9 +579,9 @@ const CreateOffer = () => {
                                                 CategorySetValue(
                                                 currentValue === CategoryValue ? "" : currentValue
                                                 );
-                                                // setLocation(
-                                                // currentValue === value ? "" : currentValue
-                                                // );
+                                                setCategory(
+                                                currentValue === CategoryValue ? "" : currentValue
+                                                );
                                                 categorySetOpen(false);
                                             }}
                                             >
@@ -540,28 +607,32 @@ const CreateOffer = () => {
                             type="number"
                             placeholder="Type your Budget Here"
                             required
+                            value={budget}
+                            onChange={(e) => setBudget(e.target.value)}
                             />
                         </div>
                         <div className="grid gap-2">
-                            <Label htmlFor="Budget" className="text-lg font-semibold">Deadline</Label>
+                            <Label htmlFor="Deadline" className="text-lg font-semibold">Deadline</Label>
                             <Input
-                            id="Budget"
-                            type="number"
+                            id="Deadline"
+                            type="date"
                             placeholder="Type your Budget Here"
                             required
+                            value={deadline}
+                            onChange={(e) => setDeadline(e.target.value)}
                             />
                         </div>
                         <div className="grid gap-2">
-                            <Label htmlFor="Budget" className="text-lg font-semibold">Attachement</Label>
+                            <Label htmlFor="Attachement" className="text-lg font-semibold">Attachement</Label>
                             <Input
-                            id="Budget"
+                            id="Attachement"
                             type="file"
                             className="cursor-pointer"
                             required
                             />
                         </div>
                         <Link href={""}>
-                            <Button type="submit" className="w-full text-white">
+                            <Button type="submit" className="w-full text-white" onClick={(e) => addOffer(e)}>
                             ADD
                             </Button>
                         </Link>

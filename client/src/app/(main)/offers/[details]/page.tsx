@@ -28,6 +28,8 @@ const Details = ({ params }: { params: any }) => {
   const CategoriesElement = detailsData.offer_category;
   const OfferAttachements = detailsData.offer_attachments;
 
+  console.log(CategoriesElement)
+
   // Depositor Info fetching
   const getDespositorID = useBoundStore((state) => state.getDepositorID);
   const fetchDepositorData = useBoundStore((state) => state.fetchDepositorData);
