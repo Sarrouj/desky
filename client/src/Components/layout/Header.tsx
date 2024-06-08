@@ -17,6 +17,7 @@ import {
   Settings,
   User,
   UserPlus,
+  Package2
 } from "lucide-react"
  
 import { Button } from "@/Components/ui/Button"
@@ -99,6 +100,19 @@ const Header = () => {
                     <span>Profile</span>
                     <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                   </DropdownMenuItem>
+                  {userType == "dipositor" ? <Link href={'/Dashboard'}>
+                    <DropdownMenuItem>
+                        <Package2 className="mr-2 h-4 w-4" />
+                        <span>Dashboard</span>
+                        <DropdownMenuShortcut>⇧⌘D</DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                  </Link> :  <Link href={'#'}>
+                    <DropdownMenuItem>
+                        <Package2 className="mr-2 h-4 w-4" />
+                        <span>Dashboard</span>
+                        <DropdownMenuShortcut>⇧⌘D</DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                  </Link> }
                   <DropdownMenuSub>
                     <DropdownMenuSubTrigger>
                       <UserPlus className="mr-2 h-4 w-4" />
