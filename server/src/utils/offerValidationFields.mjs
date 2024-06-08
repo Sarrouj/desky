@@ -1,5 +1,4 @@
 import { check } from "express-validator";
-import mongoose from "mongoose";
 import handleValidationErrors from "../middlewares/validationMiddleware.mjs";
 
 const offerValidationFields = [
@@ -33,31 +32,9 @@ const offerValidationFields = [
     .withMessage("Offer budget is required")
     .isNumeric()
     .withMessage("Offer budget must be a number"),
-  check("offer_attachments")
+  check("id")
     .notEmpty()
-    .withMessage("Offer attachments are required")
-    .isArray()
-    .withMessage("Offer attachments must be an array"),
-  check("offer_attachments.*.file_id")
-    .notEmpty()
-    .withMessage("File ID is required")
-    .custom((value) => mongoose.Types.ObjectId.isValid(value))
-    .withMessage("Invalid file ID"),
-  check("offer_attachments.*.file_name")
-    .notEmpty()
-    .withMessage("File name is required")
-    .isString()
-    .withMessage("File name must be a string"),
-  check("offer_attachments.*.file_size")
-    .notEmpty()
-    .withMessage("File size is required")
-    .isString()
-    .withMessage("File size must be a string"),
-  check("offer_attachments.*.upload_date")
-    .notEmpty()
-    .withMessage("Upload date is required")
-    .isISO8601()
-    .withMessage("Upload date must be a valid date"),
+    .withMessage("Offer budget is required"),
   handleValidationErrors,
 ];
 
