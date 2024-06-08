@@ -9,20 +9,14 @@ import Image from "next/image";
 // Shadcn/UI
 
 import {
-  Cloud,
-  CreditCard,
-  Github,
-  Keyboard,
   LifeBuoy,
   LogOut,
   Mail,
   MessageSquare,
-  Plus,
   PlusCircle,
   Settings,
   User,
   UserPlus,
-  Users,
 } from "lucide-react"
  
 import { Button } from "@/Components/ui/Button"
@@ -82,7 +76,7 @@ const Header = () => {
       </nav>
       <nav className="flex gap-5 items-center text-sm font-medium">
         {isLoggedIn ? (
-              <DropdownMenu>
+            <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="border-0 flex items-center gap-2 hover:bg-white hover:text-primary ">
                   <Avatar className="w-9 h-9">
