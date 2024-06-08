@@ -115,6 +115,7 @@ import { useBoundStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
 import { useSession, signOut } from "next-auth/react";
+import { useToast } from "@/Components/ui/use-toast"
 
 const CreateOffer = () => {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -128,6 +129,7 @@ const CreateOffer = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { data: session, status } = useSession();
 
+  const { toast } = useToast()
   // User Data
   const userName: string | null = session ? session.user?.name : null;
   const userType: string | null = session ? session.user?.role : null;
@@ -158,25 +160,18 @@ const CreateOffer = () => {
   );
   const postOffer = useBoundStore((state) => state.postOffer);
 
-  // const postData = {
-  //     offer_title: title,
-  //     offer_description: desc,
-  //     offer_category: category,
-  //     offer_location: location,
-  //     offer_deadLine: deadline,
-  //     offer_budget: budget,
-  //     offer_attachments: "attachment1", // Array of attachments
-  //   };
+
 
   const postData = {
-    offer_title: "Your Offer Title",
-    offer_description: "Your Offer Description",
-    offer_category: ["Your Offer Category1", "Your Offer Category2"],
-    offer_location: "Your Offer Location",
-    offer_deadLine: "2024-12-30",
-    offer_budget: 10000,
-    id,
+    "offer_title": title,
+    "offer_description": desc,
+    "offer_category": [category, "Your Offer Category2"],
+    "offer_location": location,
+    "offer_deadLine": deadline,
+    "offer_budget": Number(budget),
+    "id" : session?.user.id,
   };
+
 
   useEffect(() => {
     getOfferDataPosting(postData);
@@ -187,9 +182,13 @@ const CreateOffer = () => {
     e.preventDefault();
     postOffer();
     console.log("added");
+    toast({
+      description: "Your message has been sent.",
+    })
   }
 
   return (
+    
     <div className="flex min-h-screen w-full flex-col bg-muted/40 text-secondaryDarkBlue">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
         <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
