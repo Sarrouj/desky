@@ -22,6 +22,14 @@ import { useBoundStore } from "@/lib/store"
 import PopoverCom from "@/Components/common/PopoverComponent"
 import OfferCardSkeleton from "@/Components/layout/OfferCardSkeleton"
 
+import { useSession } from "next-auth/react";
+
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+    TooltipProvider
+  } from "@/Components/ui/tooltip"
 
 
 const Offers : React.FC = () => {
@@ -41,6 +49,12 @@ const Offers : React.FC = () => {
     const fetchSearchedOffers = useBoundStore((state)=> state.fetchSearchedOffers);
     const searchedData = useBoundStore((state)=> state.searchedData);
     const offersIsLoadig = useBoundStore((state)=> state.offerIsLoading);
+
+    // Session
+    const { data: session, status } = useSession();
+    const userRole = session ? session?.user.role : null;
+
+
 
 
     // add Filter
@@ -97,7 +111,19 @@ const Offers : React.FC = () => {
             <section className="pt-5">
                 <div className="flex justify-between items-center">
                     <h1 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl  font-semibold">Find The Best Deal For Your Business</h1>
-                    <CallToAction href={""} value={"Post an offer | +10"} />
+                    {userRole == 'depositor' ? 
+                        <CallToAction href={"/Create-Offer"} value={"Post an offer | +10"} />
+                    : 
+                    <TooltipProvider>
+                    <Tooltip>
+                    <TooltipTrigger>
+                        <CallToAction href={""} value={"Post an offer | +10"} /> 
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="text-xs">Login or Register to Depositor <br /> Account to Post an Offer</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                 }
+                        
                 </div>
                 <div className="mt-8 flex justify-between items-end">
                     <div className="">

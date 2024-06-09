@@ -80,7 +80,7 @@ router.get("/search/offer", async (req, res, next) => {
 // Add Offer
 router.post(
   "/add/offer",
-  validateSessionUser,
+  // validateSessionUser,
   offerValidationFields,
   async (req, res, next) => {
     const { id } = req.user;
