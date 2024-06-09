@@ -8,9 +8,9 @@ export const createOfferSlice : StateCreator<> = (set, get)=>({
     offerDataPostingIsLoading : false,
     postOffer: async () => {
       set({ offerDataPostingIsLoading: true });
-      const { offerData } = get();
+      const { offerDataPosting } = get();
       try {
-        const response = await axios.post('http://localhost:3001/add/offer', offerData);
+        const response = await axios.post('http://localhost:3001/add/offer', offerDataPosting);
         console.log(response.data);
         set({ offerDataPostingIsLoading : false});
       } catch (error) {
