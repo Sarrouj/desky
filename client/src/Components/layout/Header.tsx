@@ -46,7 +46,7 @@ import {
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const { data: session, status } = useSession();
-  console.log(session)
+  
   // User Data
   const userName : string | null = session ? session.user?.name : null;
   const userType : string | null = session ? session.user?.role : null;
@@ -63,7 +63,7 @@ const Header = () => {
     signOut();
   };
 
-  console.log(userType)
+  
 
   return (
     <header className="flex items-center py-3 px-10 justify-between text-secondaryDarkBlue">
@@ -107,7 +107,7 @@ const Header = () => {
                         <span>Dashboard</span>
                         <DropdownMenuShortcut>⇧⌘D</DropdownMenuShortcut>
                     </DropdownMenuItem>
-                  </Link> :  <Link href={'#'}>
+                  </Link> :  <Link href={'/Dashboard-B'}>
                     <DropdownMenuItem>
                         <Package2 className="mr-2 h-4 w-4" />
                         <span>Dashboard</span>
