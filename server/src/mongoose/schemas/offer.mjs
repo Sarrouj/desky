@@ -24,6 +24,7 @@ const OffersSchema = new mongoose.Schema(
     offer_DoP: {
       type: Date,
       required: true,
+      default: Date.now,
     },
     offer_location: {
       type: String,
@@ -61,7 +62,19 @@ const OffersSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    bidder_id: Array,
+    offer_apply: [
+      {
+        bidder_id: {
+          type: String,
+          required: true,
+        },
+        date: {
+          type: Date,
+          required: true,
+          default: Date.now,
+        },
+      },
+    ],
     offer_state: {
       type: String,
       required: true,
@@ -73,5 +86,6 @@ const OffersSchema = new mongoose.Schema(
 
 // Create a model for the offer collection using the schema
 const Offers = mongoose.model("Offer", OffersSchema);
+
 // Export the model to be used in other parts of your application
 export default Offers;

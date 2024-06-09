@@ -175,7 +175,6 @@ const CreateOffer = () => {
     offer_location: "Your Offer Location",
     offer_deadLine: "2024-12-30",
     offer_budget: 10000,
-    id,
   };
 
   useEffect(() => {

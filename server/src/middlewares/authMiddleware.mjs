@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
 
 export const checkObjectId = (req, res, next) => {
   const { id } = req.params;
@@ -9,8 +12,17 @@ export const checkObjectId = (req, res, next) => {
 };
 
 export const validateSessionUser = (req, res, next) => {
-  if (!req.session || !req.session.user || !req.session.user.id) {
-    return res.status(401).json({ error: "Unauthorized access" });
+  const token = req.cookies["next-auth.session-token"];
+
+  if (!token) {
+    return res.status(401).json({ error: "Access denied. No token provided." });
   }
-  next();
-};  
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    res.status(400).json({ error: "Invalid token." });
+  }
+};

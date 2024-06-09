@@ -22,7 +22,7 @@ router.put(
   checkObjectId,
   validateSessionUser,
   async (req, res, next) => {
-    const { id } = req.session.user;
+    const { id } = req.user;
     const { bidder_id } = req.params;
     try {
       const admin = await Bidders.findById(id);
@@ -55,7 +55,7 @@ router.put(
   checkObjectId,
   validateSessionUser,
   async (req, res, next) => {
-    const { id } = req.session.user;
+    const { id } = req.user;
     const { bidder_id } = req.params;
 
     try {
@@ -84,7 +84,7 @@ router.put(
   checkObjectId,
   validateSessionUser,
   async (req, res, next) => {
-    const { id } = req.session.user;
+    const { id } = req.user;
     const { depositor_id } = req.params;
 
     try {
@@ -117,7 +117,7 @@ router.put(
   checkObjectId,
   validateSessionUser,
   async (req, res, next) => {
-    const { id } = req.session.user;
+    const { id } = req.user;
     const { depositor_id } = req.params;
     try {
       const admin = await Bidders.findById(id);
@@ -153,7 +153,7 @@ router.put(
   checkObjectId,
   validateSessionUser,
   async (req, res, next) => {
-    const { id } = req.session.user;
+    const { id } = req.user;
     const { offer_id } = req.params;
     try {
       const offer = await Offers.findById(offer_id);
@@ -185,7 +185,7 @@ router.put(
   checkObjectId,
   validateSessionUser,
   async (req, res, next) => {
-    const { id } = req.session.user;
+    const { id } = req.user;
     const { offer_id } = req.params;
     try {
       const offer = await Offers.findById(offer_id);
@@ -213,7 +213,7 @@ router.post(
   validateSessionUser,
   adminValidationFields,
   async (req, res, next) => {
-    const { id } = req.session.user;
+    const { id } = req.user;
     const { admin_name, admin_email, admin_password } = req.body;
     try {
       const admin = await Bidders.findMany(admin_email);

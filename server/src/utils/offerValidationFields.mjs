@@ -32,9 +32,6 @@ const offerValidationFields = [
     .withMessage("Offer budget is required")
     .isNumeric()
     .withMessage("Offer budget must be a number"),
-  check("id")
-    .notEmpty()
-    .withMessage("Offer budget is required"),
   handleValidationErrors,
 ];
 

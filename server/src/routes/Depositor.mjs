@@ -23,7 +23,7 @@ import Companies from "../mongoose/schemas/Company.mjs";
 
 // Depositor profile info
 router.get("/depositor", validateSessionUser, async (req, res, next) => {
-  const { id } = req.session.user;
+  const { id } = req.user;
 
   try {
     const depositor = await Depositors.findById(id);
@@ -84,7 +84,7 @@ router.put(
   validateSessionUser,
   depositorValidationFields,
   async (req, res, next) => {
-    const { id } = req.session.user;
+    const { id } = req.user;
     const { depositor_name, depositor_email, depositor_password } = req.body;
 
     try {
@@ -123,7 +123,7 @@ router.post(
   validateSessionUser,
   AEValidationFields,
   async (req, res, next) => {
-    const { id } = req.session.user;
+    const { id } = req.user;
     const { AE_CIN, AE_phoneNumber, AE_DoA, AE_address, AE_location } =
       req.body;
 
@@ -158,7 +158,7 @@ router.post(
   validateSessionUser,
   companyValidationFields,
   async (req, res, next) => {
-    const { id } = req.session.user;
+    const { id } = req.user;
     const {
       company_type,
       company_name,
@@ -205,7 +205,7 @@ router.post(
   ratingValidationFields,
   checkObjectId,
   async (req, res, next) => {
-    const { id } = req.session.user;
+    const { id } = req.user;
     const { rating, text } = req.body;
     const { bidder_id, offer_id } = req.params;
 
@@ -253,7 +253,7 @@ router.post(
 
 // Depositor merge account
 router.post("/merge/depositor", validateSessionUser, async (req, res, next) => {
-  const { id } = req.session.user;
+  const { id } = req.user;
   try {
     const depositor = await Depositors.findById(id);
     if (!depositor) {
@@ -285,6 +285,21 @@ router.post("/merge/depositor", validateSessionUser, async (req, res, next) => {
 
     await newBidder.save();
     res.status(201).json({ success: "Depositor account merged successfully" });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Depositor's offers
+router.get("/depositor/offers", validateSessionUser, async (req, res, next) => {
+  const { id } = req.user;
+  try {
+    const offers = Offers.findOne({ depositor_id: id });
+    if (!offers) {
+      return res.status(404).json({ error: "Offers not found" });
+    }
+
+    res.status(200).json(offers);
   } catch (err) {
     next(err);
   }
