@@ -117,7 +117,7 @@ import { cn } from "@/lib/utils";
 import { useSession, signOut } from "next-auth/react";
 import { useToast } from "@/Components/ui/use-toast"
 
-const CreateOffer = () => {
+const CreateOffer :  React.FC = () => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
   const [categoryOpen, categorySetOpen] = React.useState<boolean>(false);
