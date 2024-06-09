@@ -361,9 +361,9 @@ const DespoeitorDashboard = () => {
             </DropdownMenu>
         </header>
         <main className=" items-start gap-4 p-4 sm:px-6 sm:py-0">
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-2">
+            <div className="flex items-center gap-5">
                 <Card
-                className="sm:col-span-2 " x-chunk="dashboard-05-chunk-0"
+                className="" x-chunk="dashboard-03-chunk-0"
                 >
                 <CardHeader className="pb-3">
                     <CardTitle>Bidder</CardTitle>
@@ -378,216 +378,354 @@ const DespoeitorDashboard = () => {
                     </Button>
                 </CardFooter>
                 </Card>
-                <Card className="flex flex-col justify-between">
+                <Card className="flex flex-col justify-between w-3/12	">
                 <CardHeader className="flex flex-col ">
-                    <CardDescription>Total of Bids Received</CardDescription>
+                    <CardDescription>Total of Bids Rejected</CardDescription>
                     <CardTitle className="flex items-end justify-between ">
                     <p className="text-4xl">120</p>
-                    <CardDescription className="">.Today</CardDescription>
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="py-0">
-                    <div className="text-xs text-muted-foreground mb-2">
-                    60 Recieved  Yesterday
-                    </div>
-                </CardContent>
-                <CardFooter className="">
-                    <Progress value={100} aria-label="25% increase" />
-                </CardFooter>
-                </Card>
-                <Card className="flex flex-col justify-between">
-                <CardHeader className="flex flex-col ">
-                    <CardDescription>Total of Bids Received</CardDescription>
-                    <CardTitle className="flex items-end justify-between ">
-                    <p className="text-4xl">3000</p>
                     <CardDescription className="">.Month</CardDescription>
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="py-0">
                     <div className="text-xs text-muted-foreground mb-2">
-                    2500 Recieved Last Month
+                    60 Rejected Last Month
                     </div>
                 </CardContent>
                 <CardFooter className="">
                     <Progress value={100} aria-label="25% increase" />
                 </CardFooter>
                 </Card>
-            </div>
-        </main>
-        <Tabs defaultValue="week">
-              <div className="flex items-center">
-                <TabsList>
-                  <TabsTrigger value="week">Today</TabsTrigger>
-                  <TabsTrigger value="month">Yesterday</TabsTrigger>
-                </TabsList>
-                <div className="ml-auto flex items-center gap-2">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="h-7 gap-1 text-sm"
-                  >
-                    <span className="sr-only sm:not-sr-only">See More ...</span>
-                    {/* <ChevronRight className="h-3.5 w-3.5" /> */}
-                  </Button>
-                </div>
-              </div>
-              <TabsContent value="week">
-                <Card x-chunk="dashboard-05-chunk-3">
-                  <CardHeader className="px-7">
-                    <CardTitle>Bids</CardTitle>
-                    <CardDescription>
-                      Recent Bids from your Offers.
-                    </CardDescription>
+                <Card className="flex flex-col justify-between w-3/12	">
+                <CardHeader className="flex flex-col ">
+                    <CardDescription>Total of Bids Accepted</CardDescription>
+                    <CardTitle className="flex items-end justify-between ">
+                    <p className="text-4xl">5</p>
+                    <CardDescription className="">.Month</CardDescription>
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="py-0">
+                    <div className="text-xs text-muted-foreground mb-2">
+                    20 Accepted Last Month
+                    </div>
+                </CardContent>
+                <CardFooter className="">
+                    <Progress value={100} aria-label="25% increase" />
+                </CardFooter>
+                </Card>
+                <Card className="flex flex-col justify-between w-3/12	">
+                  <CardHeader className="flex flex-col ">
+                      <CardDescription>Total of Bids</CardDescription>
+                      <CardTitle className="flex items-end justify-between ">
+                      <p className="text-4xl">125</p>
+                      <CardDescription className="">.Month</CardDescription>
+                      </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <Table>
-                      <TableHeader className="">
-                        <TableRow className="hover:bg-white">
-                          <TableHead>Bidder</TableHead>
-                          <TableHead className="hidden sm:table-cell">
-                            Rank
-                          </TableHead>
-                          <TableHead className="hidden sm:table-cell">
-                            T.O.C
-                          </TableHead>
-                          <TableHead className="hidden md:table-cell">
-                            Date
-                          </TableHead>
-                          <TableHead className="text-right">Status</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        <TableRow>
-                          <TableCell>
-                            <div className="font-medium">Liam Johnson</div>
-                            <div className="hidden text-sm text-muted-foreground md:inline">
-                              Nike S.A.R.L
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            <div className="flex items-center">
-                                <p>3.5</p>
-                                <Star className="h-4 w-4 text-primary"/>
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            350
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            2024-06-12
-                          </TableCell>
-                          <TableCell className="text-right">
-                            <Badge className="text-xs" variant="outline">
-                              Active
-                            </Badge>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>
-                            <div className="font-medium">Liam Johnson</div>
-                            <div className="hidden text-sm text-muted-foreground md:inline">
-                              Nike S.A.R.L
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            <div className="flex items-center">
-                                <p>3.5</p>
-                                <Star className="h-4 w-4 text-primary"/>
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            350
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            2024-06-12
-                          </TableCell>
-                          <TableCell className="text-right">
-                            <Badge className="text-xs" variant="outline">
-                              Deactive
-                            </Badge>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>
-                            <div className="font-medium">Liam Johnson</div>
-                            <div className="hidden text-sm text-muted-foreground md:inline">
-                              Nike S.A.R.L
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            <div className="flex items-center">
-                                <p>3.5</p>
-                                <Star className="h-4 w-4 text-primary"/>
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            350
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            2024-06-12
-                          </TableCell>
-                          <TableCell className="text-right">
-                            <Badge className="text-xs" variant="outline">
-                              Active
-                            </Badge>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>
-                            <div className="font-medium">Liam Johnson</div>
-                            <div className="hidden text-sm text-muted-foreground md:inline">
-                              Nike S.A.R.L
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            <div className="flex items-center">
-                                <p>3.5</p>
-                                <Star className="h-4 w-4 text-primary"/>
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            350
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            2024-06-12
-                          </TableCell>
-                          <TableCell className="text-right">
-                            <Badge className="text-xs" variant="outline">
-                              Active
-                            </Badge>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>
-                            <div className="font-medium">Liam Johnson</div>
-                            <div className="hidden text-sm text-muted-foreground md:inline">
-                              Nike S.A.R.L
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            <div className="flex items-center">
-                                <p>3.5</p>
-                                <Star className="h-4 w-4 text-primary"/>
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            350
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            2024-06-12
-                          </TableCell>
-                          <TableCell className="text-right">
-                            <Badge className="text-xs" variant="outline">
-                              Active
-                            </Badge>
-                          </TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
+                  <CardContent className="py-0">
+                      <div className="text-xs text-muted-foreground mb-2">
+                      300 bids Last Month
+                      </div>
+                  </CardContent>
+                  <CardFooter className="">
+                      <Progress value={100} aria-label="25% increase" />
+                  </CardFooter>
+                </Card>
+            </div>
+            <div className="flex items-center gap-5 mt-5">
+              <Tabs defaultValue="week" className="w-8/12">
+                {/* <div className="flex items-center">
+                  <TabsList>
+                    <TabsTrigger value="week">Today</TabsTrigger>
+                    <TabsTrigger value="month">Yesterday</TabsTrigger>
+                  </TabsList>
+                  <div className="ml-auto flex items-center gap-2">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="h-7 gap-1 text-sm"
+                    >
+                      <span className="sr-only sm:not-sr-only">See More ...</span>
+                      
+                    </Button>
+                  </div>
+                </div> */}
+                <TabsContent value="week">
+                  <Card x-chunk="dashboard-05-chunk-3">
+                    <CardHeader className="px-7">
+                      <div className="flex justify-between">
+                        <div>
+                          <CardTitle>Bids</CardTitle>
+                          <CardDescription>
+                          My Recent Bids.
+                          </CardDescription>
+                        </div>
+                        <div>
+                        <Button
+                            size="sm"
+                            variant="outline"
+                            className="h-7 gap-1 text-sm"
+                          >
+                            <span className="sr-only sm:not-sr-only">See More ...</span>
+                          </Button>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <Table>
+                        <TableHeader className="">
+                          <TableRow className="hover:bg-white">
+                            <TableHead>Offer Title</TableHead>
+                            <TableHead className="hidden sm:table-cell">
+                              Rank
+                            </TableHead>
+                            <TableHead className="hidden md:table-cell">
+                              Date
+                            </TableHead>
+                            <TableHead className="text-right">Status</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          <TableRow>
+                            <TableCell>
+                              <div className="font-medium">Building a SAS Projects</div>
+                              <div className="hidden text-sm text-muted-foreground md:inline">
+                                Nike S.A.R.L
+                              </div>
+                            </TableCell>
+                            <TableCell className="hidden sm:table-cell">
+                              <div className="flex items-center">
+                                  <p>3.5</p>
+                                  <Star className="h-4 w-4 text-primary"/>
+                              </div>
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              2024-06-12
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <Badge className="text-xs" variant="outline">
+                                Acctepted
+                              </Badge>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>
+                              <div className="font-medium">S.E.0 Projects</div>
+                              <div className="hidden text-sm text-muted-foreground md:inline">
+                                Nike S.A.R.L
+                              </div>
+                            </TableCell>
+                            <TableCell className="hidden sm:table-cell">
+                              <div className="flex items-center">
+                                  <p>3.5</p>
+                                  <Star className="h-4 w-4 text-primary"/>
+                              </div>
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              2024-06-12
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <Badge className="text-xs" variant="outline">
+                                Pending
+                              </Badge>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>
+                              <div className="font-medium">MARKET TO A SMALL buiness</div>
+                              <div className="hidden text-sm text-muted-foreground md:inline">
+                                Nike S.A.R.L
+                              </div>
+                            </TableCell>
+                            <TableCell className="hidden sm:table-cell">
+                              <div className="flex items-center">
+                                  <p>3.5</p>
+                                  <Star className="h-4 w-4 text-primary"/>
+                              </div>
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              2024-06-12
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <Badge className="text-xs" variant="outline">
+                                Rejected
+                              </Badge>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>
+                              <div className="font-medium">S.E.O Projects</div>
+                              <div className="hidden text-sm text-muted-foreground md:inline">
+                                Nike S.A.R.L
+                              </div>
+                            </TableCell>
+                            <TableCell className="hidden sm:table-cell">
+                              <div className="flex items-center">
+                                  <p>3.5</p>
+                                  <Star className="h-4 w-4 text-primary"/>
+                              </div>
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              2024-06-12
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <Badge className="text-xs" variant="outline">
+                                Rejected
+                              </Badge>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>
+                              <div className="font-medium">Software Solution for Accounting Agency</div>
+                              <div className="hidden text-sm text-muted-foreground md:inline">
+                                Nike S.A.R.L
+                              </div>
+                            </TableCell>
+                            <TableCell className="hidden sm:table-cell">
+                              <div className="flex items-center">
+                                  <p>3.5</p>
+                                  <Star className="h-4 w-4 text-primary"/>
+                              </div>
+                            </TableCell>
+                            <TableCell className="hidden md:table-cell">
+                              2024-06-12
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <Badge className="text-xs" variant="outline">
+                                Pending
+                              </Badge>
+                            </TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              </Tabs>
+              <div className="w-4/12">
+                <Card
+                  className="overflow-hidden" x-chunk=""
+                >
+                  <CardHeader className="flex flex-row items-start bg-muted/50">
+                    <div className="grid gap-0.5">
+                      <CardTitle className="group flex items-center gap-2 text-lg">
+                        Reviews History <span className="text-primary">(10)</span>
+                      </CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6 text-sm">
+                    <div>
+                        <div className="flex items-center font-semibold">
+                            <h6 className="w-1/2">Reviewer</h6>
+                            <h6 className="w-1/2 text-end">Rate</h6>
+                        </div>
+                        <div className="mt-5">
+                            <Link href={"#"} className="border-0 flex items-center gap-2 hover:bg-white hover:text-primary ">
+                                <Avatar className="w-9 h-9">
+                                    <AvatarImage src={"/"} alt="@shadcn" />
+                                    <AvatarFallback>HB</AvatarFallback>
+                                </Avatar>
+                                <div className="flex flex-col justify-start items-start w-1/2">
+                                    <h4 className="text-secondaryDarkBlue">Houssame Brihi</h4>
+                                    <p className="text-xs text-primary">S.A.R.L</p>
+                                </div>
+                                <div className="w-1/2 flex items-end justify-end">
+                                    <div className="mr-2 flex items-center justify-end">
+                                        <p className="">5</p>
+                                        <Star className="h-4 w-4 text-primary"/>
+                                    </div>
+                                </div>
+                            </Link>
+                            <Separator className="my-4" />
+                            <Link href={"#"} className="border-0 flex items-center gap-2 hover:bg-white hover:text-primary ">
+                                <Avatar className="w-9 h-9">
+                                    <AvatarImage src={"/"} alt="@shadcn" />
+                                    <AvatarFallback>FS</AvatarFallback>
+                                </Avatar>
+                                <div className="flex flex-col justify-start items-start w-1/2">
+                                    <h4 className="text-secondaryDarkBlue">Fahd Souirita</h4>
+                                    <p className="text-xs text-primary">S.A</p>
+                                </div>
+                                <div className="w-1/2 flex items-end justify-end">
+                                    <div className="mr-2 flex items-center justify-end">
+                                        <p className="">4.9</p>
+                                        <Star className="h-4 w-4 text-primary"/>
+                                    </div>
+                                </div>
+                            </Link>
+                            <Separator className="my-4" />
+                            <Link href={"#"} className="border-0 flex items-center gap-2 hover:bg-white hover:text-primary ">
+                                <Avatar className="w-9 h-9">
+                                    <AvatarImage src={"/"} alt="@shadcn" />
+                                    <AvatarFallback>SZ</AvatarFallback>
+                                </Avatar>
+                                <div className="flex flex-col justify-start items-start w-1/2">
+                                    <h4 className="text-secondaryDarkBlue">Sarrouj Zaid</h4>
+                                    <p className="text-xs text-primary">S.A.S</p>
+                                </div>
+                                <div className="w-1/2 flex items-end justify-end">
+                                    <div className="mr-2 flex items-center justify-end">
+                                        <p className="">4.5</p>
+                                        <Star className="h-4 w-4 text-primary"/>
+                                    </div>
+                                </div>
+                            </Link>
+                            <Separator className="my-4" />
+                            <Link href={"#"} className="border-0 flex items-center gap-2 hover:bg-white hover:text-primary ">
+                                <Avatar className="w-9 h-9">
+                                    <AvatarImage src={"/"} alt="@shadcn" />
+                                    <AvatarFallback>AZ</AvatarFallback>
+                                </Avatar>
+                                <div className="flex flex-col justify-start items-start w-1/2">
+                                    <h4 className="text-secondaryDarkBlue">Azizi Zakaria</h4>
+                                    <p className="text-xs text-primary">S.A.R.L</p>
+                                </div>
+                                <div className="w-1/2 flex items-end justify-end">
+                                    <div className="mr-2 flex items-center justify-end">
+                                        <p className="">4.5</p>
+                                        <Star className="h-4 w-4 text-primary"/>
+                                    </div>
+                                </div>
+                            </Link>
+                            <Separator className="my-4" />
+                            <Link href={"#"} className="border-0 flex items-center gap-2 hover:bg-white hover:text-primary ">
+                                <Avatar className="w-9 h-9">
+                                    <AvatarImage src={"/"} alt="@shadcn" />
+                                    <AvatarFallback>TR</AvatarFallback>
+                                </Avatar>
+                                <div className="flex flex-col justify-start items-start w-1/2">
+                                    <h4 className="text-secondaryDarkBlue">Touil Reda</h4>
+                                    <p className="text-xs text-primary">S.C.S</p>
+                                </div>
+                                <div className="w-1/2 flex items-end justify-end">
+                                    <div className="mr-2 flex items-center justify-end">
+                                        <p className="">4.5</p>
+                                        <Star className="h-4 w-4 text-primary"/>
+                                    </div>
+                                </div>
+                            </Link>
+                            <Separator className="my-4" />
+                            <Link href={"#"} className="border-0 flex items-center gap-2 hover:bg-white hover:text-primary ">
+                                <Avatar className="w-9 h-9">
+                                    <AvatarImage src={"/"} alt="@shadcn" />
+                                    <AvatarFallback>TA</AvatarFallback>
+                                </Avatar>
+                                <div className="flex flex-col justify-start items-start w-1/2">
+                                    <h4 className="text-secondaryDarkBlue">Tribak Ayoub</h4>
+                                    <p className="text-xs text-primary">S.C.A</p>
+                                </div>
+                                <div className="w-1/2 flex items-end justify-end">
+                                    <div className="mr-2 flex items-center justify-end">
+                                        <p className="">4</p>
+                                        <Star className="h-4 w-4 text-primary"/>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
                   </CardContent>
                 </Card>
-              </TabsContent>
-            </Tabs>
+              </div>
+            </div>
+        </main>
       </div>
     </div>
   )
