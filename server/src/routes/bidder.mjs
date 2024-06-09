@@ -62,7 +62,7 @@ const router = express.Router();
 
 // Bidder profile info
 router.get("/bidder", validateSessionUser, async (req, res, next) => {
-  const { id } = req.session.user;
+  const { id } = req.user;
 
   try {
     const bidder = await Bidders.findById(id);
@@ -121,7 +121,7 @@ router.put(
   validateSessionUser,
   bidderValidationFields,
   async (req, res, next) => {
-    const { id } = req.session.user;
+    const { id } = req.user;
     const { bidder_name, bidder_email, bidder_password } = req.body;
 
     try {
@@ -256,7 +256,7 @@ router.post(
   ratingValidationFields,
   checkObjectId,
   async (req, res, next) => {
-    const { id } = req.session.user;
+    const { id } = req.user;
     const { rating, text } = req.body;
     const { depositor_id, offer_id } = req.params;
 
@@ -306,7 +306,7 @@ router.post(
 
 // Bidder merge account
 router.post("/merge/bidder", validateSessionUser, async (req, res, next) => {
-  const { id } = req.session.user;
+  const { id } = req.user;
 
   try {
     const bidder = await Bidders.findById(id);
