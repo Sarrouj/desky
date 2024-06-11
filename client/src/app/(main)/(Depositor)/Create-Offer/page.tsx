@@ -115,9 +115,10 @@ import { useBoundStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
 import { useSession, signOut } from "next-auth/react";
-import { useToast } from "@/Components/ui/use-toast"
+import { toast } from "sonner"
 
-const CreateOffer :  React.FC = () => {
+
+const CreateOffer :   React.FC = () => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
   const [categoryOpen, categorySetOpen] = React.useState<boolean>(false);
@@ -129,7 +130,6 @@ const CreateOffer :  React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { data: session, status } = useSession();
 
-  const { toast } = useToast()
   // User Data
   const userName: string | null = session ? session.user?.name : null;
   const userType: string | null = session ? session.user?.role : null;
@@ -181,15 +181,17 @@ const CreateOffer :  React.FC = () => {
   function addOffer(e) {
     e.preventDefault();
     postOffer();
-    console.log("added");
-    toast({
-      description: "Your message has been sent.",
-    })
+    setTtitle("");
+    setDesc("");
+    setLocation("");
+    setCategory("");
+    setBudget("");
+    setDeadline("");
+    toast("Offer Are Added Successfully.");
   }
 
   return (
-    
-    <div className="flex min-h-screen w-full flex-col bg-muted/40 text-secondaryDarkBlue">
+    <>
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
         <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
           <Link
@@ -885,7 +887,8 @@ const CreateOffer :  React.FC = () => {
           </div>
         </main>
       </div>
-    </div>
+    </>
+   
   );
 };
 
