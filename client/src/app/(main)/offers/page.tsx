@@ -50,6 +50,7 @@ const Offers : React.FC = () => {
     const searchedData = useBoundStore((state)=> state.searchedData);
     const offersIsLoadig = useBoundStore((state)=> state.offerIsLoading);
 
+    console.log(searchedData)
     // Session
     const { data: session, status } = useSession();
     const userRole = session ? session?.user.role : null;

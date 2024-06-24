@@ -28,13 +28,10 @@ const Details = ({ params }: { params: any }) => {
   const CategoriesElement = detailsData.offer_category;
   const OfferAttachements = detailsData.offer_attachments;
 
-  console.log(CategoriesElement)
-
   // Depositor Info fetching
   const getDespositorID = useBoundStore((state) => state.getDepositorID);
   const fetchDepositorData = useBoundStore((state) => state.fetchDepositorData);
   const DespositorData = useBoundStore((state) => state.DespositorData);
-  const depositorInfoIsLoading = useBoundStore((state) => state.depositorInfoIsLoading);
 
   // Despositor Info
   const fullName = DespositorData.length !== 0 ? DespositorData.depositor_name : "Loading...";

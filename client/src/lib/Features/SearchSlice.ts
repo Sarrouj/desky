@@ -1,7 +1,22 @@
 import { StateCreator } from "zustand";
 import axios from "axios";
+// offer Interface
+import { Offer } from "./offersSlice";
 
-export const SearchSlice: StateCreator<> = (set, get) => ({
+
+export interface searchState{
+    searchValue: string | number & string;
+    CategoryValue: string;
+    CityValue : string;
+    searchedData: Array<Offer>;
+    offerIsLoading : boolean;
+    getSearchValue : (value: string | number & string) => void;
+    getCategoryValue : (value : string) => void;
+    getCityValue : (value : string) => void;
+    fetchSearchedOffers : () => Promise<void>;
+}
+
+export const SearchSlice: StateCreator<searchState> = (set, get) => ({
     searchValue: "",
     CategoryValue: "",
     CityValue: "",
