@@ -172,15 +172,6 @@ const CreateOffer :   React.FC = () => {
     "id" : session?.user.id,
   };
 
-  const postData = {
-    offer_title: "Your Offer Title",
-    offer_description: "Your Offer Description",
-    offer_category: ["Your Offer Category1", "Your Offer Category2"],
-    offer_location: "Your Offer Location",
-    offer_deadLine: "2024-12-30",
-    offer_budget: 10000,
-    id,
-  };
 
   useEffect(() => {
     getOfferDataPosting(postData);

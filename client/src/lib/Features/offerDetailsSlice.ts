@@ -2,24 +2,33 @@ import { StateCreator } from "zustand";
 import axios from "axios";
 
 
+interface Attachements {
+  _id: string & number,
+  file_id: string & number,
+  file_name: any,
+  file_size: string & number,
+  upload_date: Date
+}
+
 export interface OfferType {
-  _id: string;
-  offer_title: string;
-  offer_description: string;
-  offer_category: string[];
-  offer_DoP: string;
-  offer_location: string;
-  offer_deadLine: string;
-  offer_budget: number;
-  offer_attachments: string[];
-  depositor_id: string;
-  bidder_id: string[];
-  offer_state: string;
+  _id: string & number,
+  offer_title: string | string & number,
+  offer_description: string | string & number,
+  offer_category: string[],
+  offer_DoP: any,
+  offer_location: string | string & number,
+  offer_deadLine: Date,
+  offer_budget: number,
+  offer_attachments: Array<Attachements>,
+  depositor_id: string & number,
+  bidder_id: any[],
+  offer_state: string,
+  offer_apply: any[]
 }
 
 export interface OfferDetails {
   OfferID: number & string | number | null;
-  offerData: OfferType | null[];
+  offerData: OfferType | Array<null>;
   fetchOfferDetails: () => Promise<void>;
   getOfferID: (id: number | null) => void;
 }

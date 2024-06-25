@@ -83,7 +83,6 @@ router.post(
   // validateSessionUser,
   offerValidationFields,
   async (req, res, next) => {
-    const { id } = req.user;
     const {
       offer_title,
       offer_description,
@@ -91,6 +90,7 @@ router.post(
       offer_location,
       offer_deadLine,
       offer_budget,
+      id,
     } = req.body;
 
     try {
