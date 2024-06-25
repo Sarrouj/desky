@@ -1,6 +1,31 @@
 {
-    "Index": {
-      "title": "Hello world!"
+    "Home": {
+      "Hero" : {
+        "headlineAbove": "Growth Solution in a Single Platform.",
+        "mainHeadline1" : "Desky, The First Platform",
+        "mainHeadline2" : "For Private",
+        "mainHeadline3" : "Calls For Bids",
+        "heroDescription" : "Never at water me might. On formed merits hunted unable merely by mr whence or. Possession the unpleasing simplicity her uncommonly.",
+        "SubmitCallToAction" : "Submit an offer",
+        "SeeCallsCallToAction" : "See Calls",
+        "trust1" : "Get started free",
+        "trust2" : "Submit an offer and get Connects credit"
+      },
+      "CompaniesSection" : "Over 1000 Businesses Growing With Desky",
+      "LatestSection" : {
+        "title" : "The Latest Private Calls Published",
+        "CallToAction" : "See more"
+      },
+      "Credibility" : {
+        "title" : "Desky Crdibility System",
+        "description" : "We offer a variety of interesting features that you can help increase yor productivity at work and manage your projrct esaly",
+        "LegalStatus" : "Legal Status",
+        "LegalStatusDesc" : " Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects.",
+        "RatingSystem" : "Rating System",
+        "RatingSystemDesc" : "Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects. ensuring you have access to the best options for your projects. ensuring you have access to the best options for your projects.",
+        "Statistic" : "Statistic",
+        "StatisticDesc" : "Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects."
+      }
     }
 }
 

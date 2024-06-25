@@ -14,7 +14,7 @@ import {useTranslations} from 'next-intl';
 export default function Home() {
   const offersData = useBoundStore((state) => state.offersData);
   const fetchOffers = useBoundStore((state) => state.fetchOffers);
-  const t = useTranslations('Index');
+  const Content = useTranslations('Home');
 
   useEffect(() => {
     fetchOffers();
@@ -22,24 +22,21 @@ export default function Home() {
 
   return (
     <>
-    <h1>{t('title')}</h1>
       <Header />
         <main className="text-secondaryDarkBlue">
           <section className="border-b-2 pb-10">
             <div className="pl-20 flex">
               <div className="w-2/4 mt-28">
                 <h2 className="text-xl text-neutralGray">
-                  Growth Solution in a Single Platform.
+                  {Content('Hero.headlineAbove')}
                 </h2>
                 <p style={{ lineHeight: '1.30' }} className="text-4xl lg:text-5xl xl:text-[55px] font-extrabold mt-5">
-                  Desky, The First Platform{" "}
-                  <span className="text-primaryOrange">For Private </span>
-                  Calls For Bids
+                  {Content('Hero.mainHeadline1')}{" "}
+                  <span className="text-primaryOrange">{Content('Hero.mainHeadline2')} </span>
+                  {Content('Hero.mainHeadline3')}
                 </p>
                 <p className="mt-5">
-                  Never at water me might. On formed merits hunted unable merely
-                  by mr whence or. Possession the unpleasing simplicity her
-                  uncommonly.
+                  {Content('Hero.heroDescription')}
                 </p>
                 <div className="mt-20">
                   <div className="mb-8">
@@ -47,13 +44,13 @@ export default function Home() {
                       href={""}
                       className="bg-primaryOrange text-white px-8 py-3 rounded-md mr-3"
                     >
-                      Submit an offer | +10
+                      {Content('Hero.SubmitCallToAction')} | +10
                     </Link>
                     <Link
                       href={"/offers"}
                       className="px-7 py-2 rounded-md border-4 border-primaryOrange text-primaryOrange font-semibold"
                     >
-                      See Calls
+                       {Content('Hero.SeeCallsCallToAction')}
                     </Link>
                   </div>
                   <div className="flex gap-5">
@@ -64,7 +61,7 @@ export default function Home() {
                         width={18}
                         height={18}
                       />
-                      <p className="text-sm">Get started free</p>
+                      <p className="text-sm">{Content('Hero.trust1')}</p>
                     </div>
                     <div className="flex gap-2">
                       <Image
@@ -75,7 +72,7 @@ export default function Home() {
                         className=""
                       />
                       <p className="text-sm">
-                        Submit an offer and get Connects credit
+                        {Content('Hero.trust2')}
                       </p>
                     </div>
                   </div>
@@ -95,7 +92,7 @@ export default function Home() {
           <section className="border-b-2">
             <div className="px-20 py-10 gap-10 flex flex-col justify-center items-center">
               <h2 className="text-lg font-medium">
-                Over 1000 Businesses Growing With Desky
+                {Content('CompaniesSection')}
               </h2>
               <div className="flex gap-10 justify-center">
                 <Image
@@ -146,7 +143,7 @@ export default function Home() {
           <section className="bg-neutralBg">
             <div className="px-16 py-20 flex flex-col items-center gap-16">
               <h1 className="text-4xl font-extrabold">
-                The Latest Private Calls Published
+                {Content('LatestSection.title')}
               </h1>
               <div className="flex gap-5">
                 { offersData.length !== 0  ? 
@@ -168,18 +165,17 @@ export default function Home() {
                   </>
                   }
               </div>
-              <CallToAction href={"/offers"} value={"See more"} />
+              <CallToAction href={"/offers"} value={Content('LatestSection.CallToAction')} />
             </div>
           </section>
           <section>
             <div className="px-32 py-10">
               <div className="py-20 flex flex-col justify-center items-center gap-8">
                 <h1 className="text-4xl font-extrabold">
-                  Desky Crdibility System
+                  {Content('Credibility.title')}
                 </h1>
                 <p>
-                  We offer a variety of interesting features that you can help
-                  increase yor productivity at work and manage your projrct esaly
+                  {Content('Credibility.description')}
                 </p>
               </div>
               <div className="flex">
@@ -194,7 +190,7 @@ export default function Home() {
                 <div className="w-2/4 flex flex-col gap-8">
                   <div className="p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white">
                     <div className="flex items-start justify-between">
-                      <h2 className="font-bold text-2xl mb-5">Legal Status</h2>
+                      <h2 className="font-bold text-2xl mb-5">{Content('Credibility.LegalStatus')}</h2>
                       <Image
                         src={"/icons/arrow.svg"}
                         alt={"icon"}
@@ -203,14 +199,12 @@ export default function Home() {
                       />
                     </div>
                     <p className="text-sm w-11/12	">
-                      Each bidder has a legal status: Desky connects you with
-                      top-tier companies and skilled entrepreneurs, ensuring you
-                      have access to the best options for your projects.
+                      {Content('Credibility.LegalStatusDesc')}
                     </p>
                   </div>
                   <div className="p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white">
                     <div className="flex items-start justify-between">
-                      <h2 className="font-bold text-2xl mb-5">Rating System</h2>
+                      <h2 className="font-bold text-2xl mb-5">{Content('Credibility.RatingSystem')}</h2>
                       <Image
                         src={"/icons/arrow.svg"}
                         alt={"icon"}
@@ -219,17 +213,12 @@ export default function Home() {
                       />
                     </div>
                     <p className="text-sm w-11/12	">
-                      Each bidder has a legal status: Desky connects you with
-                      top-tier companies and skilled entrepreneurs, ensuring you
-                      have access to the best options for your projects. ensuring
-                      you have access to the best options for your projects.
-                      ensuring you have access to the best options for your
-                      projects.
+                      {Content('Credibility.RatingSystemDesc')}
                     </p>
                   </div>
                   <div className="p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white">
                     <div className="flex items-start justify-between">
-                      <h2 className="font-bold text-2xl mb-5">Statistic</h2>
+                      <h2 className="font-bold text-2xl mb-5">{Content('Credibility.Statistic')}</h2>
                       <Image
                         src={"/icons/arrow.svg"}
                         alt={"icon"}
@@ -238,9 +227,7 @@ export default function Home() {
                       />
                     </div>
                     <p className="text-sm w-11/12">
-                      Each bidder has a legal status: Desky connects you with
-                      top-tier companies and skilled entrepreneurs, ensuring you
-                      have access to the best options for your projects.
+                      {Content('Credibility.StatisticDesc')}
                     </p>
                   </div>
                 </div>

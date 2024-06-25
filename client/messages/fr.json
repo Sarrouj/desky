@@ -1,6 +1,31 @@
 {
-    "Index": {
-      "title": "Bonjour!"
+  "Home": {
+    "Hero": {
+      "headlineAbove": "Solution de croissance sur une plateforme unique.",
+      "mainHeadline1": "Desky, La Première",
+      "mainHeadline2": "Plateforme Pour les ",
+      "mainHeadline3": "Appels d'Offres",
+      "heroDescription": "Jamais à l'eau, nous pourrions. Sur les mérites formés chassés simplement par M. d'où ou. Possession la simplicité déplaisante extraordinairement la sienne.",
+      "SubmitCallToAction": "Soumettre une offre",
+      "SeeCallsCallToAction": "Voir les appels",
+      "trust1": "Commencez gratuitement",
+      "trust2": "Soumettez une offre et obtenez des crédits Connects"
+    },
+    "CompaniesSection": "Plus de 1000 entreprises grandissent avec Desky",
+    "LatestSection": {
+      "title": "Les Derniers Appels Privés Publiés",
+      "CallToAction": "Voir plus"
+    },
+    "Credibility": {
+      "title": "Système de crédibilité de Desky",
+      "description": "Nous offrons une variété de fonctionnalités intéressantes qui peuvent vous aider à augmenter votre productivité au travail et à gérer facilement vos projets.",
+      "LegalStatus": "Statut légal",
+      "LegalStatusDesc": "Chaque soumissionnaire a un statut légal : Desky vous met en relation avec des entreprises de premier plan et des entrepreneurs qualifiés, vous garantissant ainsi un accès aux meilleures options pour vos projets.",
+      "RatingSystem": "Système de notation",
+      "RatingSystemDesc": "Chaque soumissionnaire dispose d'un statut légal : Desky vous met en relation avec des entreprises de premier plan et des entrepreneurs qualifiés, vous garantissant ainsi un accès aux meilleures options pour vos projets.",
+      "Statistic": "Statistique",
+      "StatisticDesc": "Chaque soumissionnaire a un statut légal : Desky vous met en relation avec des entreprises de premier plan et des entrepreneurs qualifiés, vous garantissant ainsi un accès aux meilleures options pour vos projets."
     }
-}
 
+  }
+}
