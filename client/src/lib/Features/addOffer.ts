@@ -5,6 +5,7 @@ export interface addOfferState {
   offerDataPosting : null;
   getOfferDataPosting : (data : any) => void;
   offerDataPostingIsLoading : boolean;
+  postOffer : () => Promise<void>;
 }
 
 
