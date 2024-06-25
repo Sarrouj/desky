@@ -11,9 +11,22 @@ import { Categories } from "./Features/CategoriesData";
 import { SearchSlice } from "./Features/SearchSlice";
 import { getDepositorLegalDataSlice } from "./Features/DepositorLegalInfo";
 import { createOfferSlice } from "./Features/addOffer";
+import { searchState } from "./Features/SearchSlice";
+import { depositorDataInfoType } from "./Features/getDepositorInfo";
+import { DepositorLegalData } from "./Features/DepositorLegalInfo";
+import { addOfferState } from "./Features/addOffer";
 
+export interface CombinedState extends 
+  OffersState, 
+  OfferDetails,
+  Cities,
+  Categories,
+  searchState,
+  depositorDataInfoType,
+  DepositorLegalData,
+  addOfferState {}
 
-export const useBoundStore = create<OffersState & OfferDetails & Cities & Categories>((...a) => ({
+export const useBoundStore = create<CombinedState>((...a) => ({
   ...createOffersSlice(...a),
   ...createOfferDetailsSlice(...a),
   ...getDepositorDataSlice(...a),

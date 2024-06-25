@@ -1,8 +1,14 @@
 import { StateCreator } from "zustand";
 import axios from 'axios';
 
+export interface addOfferState {
+  offerDataPosting : null;
+  getOfferDataPosting : (data : any) => void;
+  offerDataPostingIsLoading : boolean;
+}
 
-export const createOfferSlice : StateCreator<> = (set, get)=>({
+
+export const createOfferSlice : StateCreator<addOfferState> = (set, get)=>({
     offerDataPosting: null,
     getOfferDataPosting  : (data) => set({ offerDataPosting : data }),
     offerDataPostingIsLoading : false,

@@ -17,22 +17,15 @@ export interface OfferType {
   offer_state: string;
 }
 
-export interface OffersState {
-    offerData: OfferType[];
-    fetchOfferDetails: () => Promise<void>;
-}
-
-export interface OfferIDState {
-  OfferID: number | null;
-}
-
-export interface OfferIDActions {
+export interface OfferDetails {
+  OfferID: number & string | number | null;
+  offerData: OfferType | null[];
+  fetchOfferDetails: () => Promise<void>;
   getOfferID: (id: number | null) => void;
 }
 
-export interface OfferDetails extends OfferIDState, OfferIDActions, OffersState {}
   
-export const createOfferDetailsSlice : StateCreator<OfferDetails & OffersState> = (set, get)=>({
+export const createOfferDetailsSlice : StateCreator<OfferDetails> = (set, get)=>({
     OfferID : null,
     offerData : [],
     getOfferID  : (id) => set({ OfferID : id }),

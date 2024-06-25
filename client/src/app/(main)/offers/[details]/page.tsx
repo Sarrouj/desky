@@ -28,33 +28,31 @@ const Details = ({ params }: { params: any }) => {
   const CategoriesElement = detailsData.offer_category;
   const OfferAttachements = detailsData.offer_attachments;
 
-  console.log(CategoriesElement)
+  console.log(detailsData);
 
   // Depositor Info fetching
   const getDespositorID = useBoundStore((state) => state.getDepositorID);
   const fetchDepositorData = useBoundStore((state) => state.fetchDepositorData);
   const DespositorData = useBoundStore((state) => state.DespositorData);
-  const depositorInfoIsLoading = useBoundStore((state) => state.depositorInfoIsLoading);
 
   // Despositor Info
-  const fullName = DespositorData.length !== 0 ? DespositorData.depositor_name : "Loading...";
+  const fullName = DespositorData? DespositorData.depositor_name : "Loading...";
   const SeparateName = fullName.split(" ");
   const FirstName = SeparateName[0];
   const LastName = SeparateName[1];
 
   // Depositor Legal Info
-  const depositorLegalInfoIsLoading = useBoundStore((state) => state.depositorLegalInfoIsLoading);
   const getDepositorLegalDataID = useBoundStore((state) => state.getDepositorLegalDataID);
   const fetchDepositorLegalData = useBoundStore((state) => state.fetchDepositorLegalData);
   const DespositorLegalData = useBoundStore((state) => state.DespositorLegalData);
-  const DepositorLegalID = useBoundStore((state) => state.DepositorLegalID);
-  const CompanyType = DespositorLegalData.length !== 0 ? DespositorLegalData.data.success.company_type : "";
-  const CompanyName = DespositorLegalData.length !== 0 ? DespositorLegalData.data.success.company_name : "Loading...";
-  const CompanyAdress = DespositorLegalData.length !== 0 ?  DespositorLegalData.data.success.company_address : "Loading...";
-  const CompanyCity = DespositorLegalData.length !== 0 ?  DespositorLegalData.data.success.company_location : "Loading...";
-  const CompanyIndustry =  DespositorLegalData.length !== 0 ?  DespositorLegalData.data.success.company_DoA : "Loading...";
+  const CompanyType = DespositorLegalData ? DespositorLegalData.company_type : "";
+  const CompanyName = DespositorLegalData ? DespositorLegalData.company_name : "Loading...";
+  const CompanyAdress = DespositorLegalData ?  DespositorLegalData.company_address : "Loading...";
+  const CompanyCity = DespositorLegalData  ?  DespositorLegalData.company_location : "Loading...";
+  const CompanyIndustry =  DespositorLegalData ?  DespositorLegalData.company_DoA : "Loading...";
   const Ind1 = CompanyIndustry[0];
   const Ind2 = CompanyIndustry[1] ? ` & ${CompanyIndustry[1]}` : null;
+
 
   useEffect(()=> {
     if(details){
