@@ -25,11 +25,15 @@ const Details = ({ params }: { params: any }) => {
   const detailsData = useBoundStore((state) => state.offerData);
   const getOfferID = useBoundStore((state) => state.getOfferID);
   const fetchDetails = useBoundStore((state) => state.fetchOfferDetails);
-  const CategoriesElement = detailsData.offer_category;
-  const OfferAttachements = detailsData.offer_attachments;
-
-  console.log(detailsData.offer_category);
-
+  const CategoriesElement = detailsData && !(detailsData instanceof Array) ? detailsData.offer_category : null;
+  const OfferAttachements = detailsData && !(detailsData instanceof Array) ?  detailsData.offer_attachments : null;
+  const DepositorId = detailsData && !(detailsData instanceof Array) ? detailsData.depositor_id : null;
+  const OfferTitle = detailsData && !(detailsData instanceof Array) ? detailsData.offer_title : null ;
+  const OfferDateOfPosting = detailsData && !(detailsData instanceof Array) ? detailsData.offer_DoP : null;
+  const OfferLocation = detailsData && !(detailsData instanceof Array) ?  detailsData.offer_location : null;
+  const OfferDescription = detailsData && !(detailsData instanceof Array) ? detailsData.offer_description : null;
+  const OfferBudget = detailsData && !(detailsData instanceof Array) ?  detailsData.offer_budget : null;
+  
   // Depositor Info fetching
   const getDespositorID = useBoundStore((state) => state.getDepositorID);
   const fetchDepositorData = useBoundStore((state) => state.fetchDepositorData);
@@ -58,16 +62,16 @@ const Details = ({ params }: { params: any }) => {
     if(details){
       getOfferID(details);
       fetchDetails();
-      if (detailsData.depositor_id) {
-        getDespositorID(detailsData.depositor_id);
-        getDepositorLegalDataID(detailsData.depositor_id);
+      if (DepositorId) {
+        getDespositorID(DepositorId);
+        getDepositorLegalDataID(DepositorId);
         fetchDepositorData();
         fetchDepositorLegalData();
         DespositorData;
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [detailsData.depositor_id , details])
+  }, [DepositorId , details])
 
 
   return (
@@ -76,14 +80,14 @@ const Details = ({ params }: { params: any }) => {
         <div className=" w-9/12 border-r-2">
           <div className="border-b-2 pb-12 pr-12">
             <h1 className="text-3xl font-bold mb-2">
-              {detailsData.offer_title}
+              {OfferTitle}
             </h1>
             <div className="flex gap-10 text-neutralGray">
-              <p>Posted {timeSince(detailsData.offer_DoP)}</p>
+              <p>Posted {timeSince(OfferDateOfPosting)}</p>
               <div className="flex gap-2">
                 <p>Targetd Location: </p>
                 <ul className="flex gap-1.5">
-                  <li>{detailsData.offer_location}</li>
+                  <li>{OfferLocation}</li>
                 </ul>
               </div>
             </div>
@@ -101,7 +105,7 @@ const Details = ({ params }: { params: any }) => {
             </div>
           </div>
           <div className="py-12 pr-12 border-b-2">
-            <p className="">{detailsData.offer_description}</p>
+            <p className="">{OfferDescription}</p>
           </div>
           <div className="py-16 flex items-center justify-between	pr-72	border-b-2">
             <div className="flex items-center gap-2">
@@ -115,7 +119,7 @@ const Details = ({ params }: { params: any }) => {
               <h6 className="font-bold">
                 Est.budget:{" "}
                 <span className="font-medium">
-                  {detailsData.offer_budget} DH
+                  {OfferBudget} DH
                 </span>
               </h6>
             </div>
