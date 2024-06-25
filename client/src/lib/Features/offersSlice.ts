@@ -18,6 +18,7 @@ export interface Offer {
 
 export interface OffersState {
   offersData: Offer[];
+  offersDataIsLoading : boolean;
   fetchOffers: () => Promise<void>;
 }
 

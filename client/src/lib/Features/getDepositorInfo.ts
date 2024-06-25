@@ -1,9 +1,27 @@
 import { StateCreator } from "zustand";
 import axios from "axios";
 
-export const getDepositorDataSlice : StateCreator<> = (set, get)=>({
+export interface DespositorData{
+  _id: string & number,
+  depositor_name: string,
+  depositor_email: any,
+  depositor_password: any,
+  depositor_CB: number,
+  isTrusted: boolean,
+  depositor_review: Array<>,
+}
+
+export interface depositorDataInfoType {
+  DepositorID : number | null;
+  DespositorData : DespositorData | null ;
+  depositorInfoIsLoading : boolean;
+  getDepositorID : (id : number) => void;
+  fetchDepositorData: () => Promise<void>;
+}
+
+export const getDepositorDataSlice : StateCreator<depositorDataInfoType> = (set, get)=>({
     DepositorID : null,
-    DespositorData : [],
+    DespositorData : null,
     depositorInfoIsLoading : false,
     getDepositorID  : (id) => set({ DepositorID : id }),
     fetchDepositorData: async () => {

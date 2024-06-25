@@ -35,22 +35,20 @@ import {
 const Offers : React.FC = () => {
     const [categoryValue, categorySetValue] = React.useState<string>("");
     const [cityValue, citySetValue] = React.useState<string>("");
+
     // filters UI
     let [filter , setFilter] = useState< (string | number)[]>([]);
     let [searchValue, setSearchValue] = useState('');
-  
-    const offersData = useBoundStore((state) => state.offersData);
-    const fetchOffers = useBoundStore((state) => state.fetchOffers);
-    const Cities  = useBoundStore((state) => state.Cities);
+     const Cities  = useBoundStore((state) => state.Cities);
     const Categories : any  = useBoundStore((state) => state.Categories);
-    const getSearchValue = useBoundStore((state) => state.getSearchValue);
+    const getSearchValue  = useBoundStore((state) => state.getSearchValue);
     const getCategoryValue = useBoundStore((state) => state.getCategoryValue);
     const getCityValue = useBoundStore((state) => state.getCityValue);
     const fetchSearchedOffers = useBoundStore((state)=> state.fetchSearchedOffers);
     const searchedData = useBoundStore((state)=> state.searchedData);
     const offersIsLoadig = useBoundStore((state)=> state.offerIsLoading);
 
-    console.log(searchedData)
+    
     // Session
     const { data: session, status } = useSession();
     const userRole = session ? session?.user.role : null;
@@ -90,6 +88,7 @@ const Offers : React.FC = () => {
     getCityValue(cityValue);
     fetchSearchedOffers();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [categoryValue, cityValue, searchValue])
 
 
@@ -103,6 +102,7 @@ const Offers : React.FC = () => {
     
     useEffect(()=>{
         offersIsLoadig;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchedData])
     
 
