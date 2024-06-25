@@ -2,7 +2,7 @@
   "extends": "next/core-web-vitals",
   "overrides": [
     {
-      "files": ["*.js"],
+      "files": ["*.js", "*.mjs"],
       "parser": "babel-eslint"
     }
   ]

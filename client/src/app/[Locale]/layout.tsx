@@ -5,6 +5,9 @@ import "./globals.css";
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/utils/SessionProvider";
 
+import {NextIntlClientProvider} from 'next-intl';
+import {getMessages} from 'next-intl/server';
+
 const lexendDeca = Lexend_Deca({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -14,16 +17,21 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
+  params: {locale}
 }: Readonly<{
   children: React.ReactNode;
+  params: {locale: string};
 }>) {
   const session = await getServerSession();
+  const messages = await getMessages();
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={lexendDeca.className}>
+      <NextIntlClientProvider messages={messages}>
         <SessionProvider session={session}>
-          <main>{children}</main>
+            <main>{children}</main>
         </SessionProvider>
+      </NextIntlClientProvider>
       </body>
     </html>
   );
