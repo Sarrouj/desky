@@ -1,12 +1,12 @@
-// Packages
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
-import cors from "cors";
 import cookieParser from "cookie-parser";
-import jwt from "jsonwebtoken";
-const app = express();
+import cors from "cors";
+import dotenv from "dotenv";
+
 dotenv.config({ path: ".env.local" });
+
+const app = express();
 
 // Routes
 import depositorRouter from "./routes/depositor.mjs";
@@ -44,6 +44,7 @@ app.use(offerRouter);
 app.use(adminRouter);
 app.use(authRouter);
 
+// Start server after database connection
 connectToDatabase().then(() => {
   const PORT = process.env.PORT || 3001;
   app.listen(PORT, () => {

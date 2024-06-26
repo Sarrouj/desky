@@ -1,11 +1,7 @@
-import NextAuth, {
-  NextAuthOptions,
-  DefaultSession,
-  User as NextAuthUser,
-} from "next-auth";
-import axios from "axios";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import axios from "axios";
 
 // Extend the default session interface
 declare module "next-auth" {
@@ -77,6 +73,9 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: "jwt",
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET,
   },
   callbacks: {
     async signIn({ user, account, profile }) {
