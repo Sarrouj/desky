@@ -11,10 +11,8 @@ import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
 // Middlewares
-import {
-  checkObjectId,
-  validateSessionUser,
-} from "../middlewares/authMiddleware.mjs";
+import { checkObjectId } from "../middlewares/checkObjectId.mjs";
+import { checkSessionId } from "../middlewares/checkSessionId.mjs";
 import { handleErrors } from "../middlewares/errorMiddleware.mjs";
 import bidderValidationFields from "../utils/bidderValidationFields.mjs";
 import AEValidationFields from "../utils/AEValidationFields.mjs";
@@ -61,7 +59,7 @@ const router = express.Router();
 // const upload = multer({ storage });
 
 // Bidder profile info
-router.get("/bidder", validateSessionUser, async (req, res, next) => {
+router.get("/bidder", checkSessionId, async (req, res, next) => {
   const { id } = req.user;
 
   try {
@@ -118,7 +116,7 @@ router.get("/bidder/info/:id", checkObjectId, async (req, res, next) => {
 // bidder edit
 router.put(
   "/edit/bidder",
-  validateSessionUser,
+  checkSessionId,
   bidderValidationFields,
   async (req, res, next) => {
     const { id } = req.user;
@@ -252,7 +250,7 @@ router.post(
 // Bidder rate a depositor
 router.post(
   "/rate/bidder/:depositor_id/:offer_id",
-  validateSessionUser,
+  checkSessionId,
   ratingValidationFields,
   checkObjectId,
   async (req, res, next) => {
@@ -305,7 +303,7 @@ router.post(
 );
 
 // Bidder merge account
-router.post("/merge/bidder", validateSessionUser, async (req, res, next) => {
+router.post("/merge/bidder", checkSessionId, async (req, res, next) => {
   const { id } = req.user;
 
   try {

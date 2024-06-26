@@ -3,10 +3,8 @@ import express from "express";
 const router = express.Router();
 
 // Middlewares
-import {
-  checkObjectId,
-  validateSessionUser,
-} from "../middlewares/authMiddleware.mjs";
+import { checkObjectId } from "../middlewares/checkObjectId.mjs";
+import { checkSessionId } from "../middlewares/checkSessionId.mjs";
 import { handleErrors } from "../middlewares/errorMiddleware.mjs";
 import offerValidationFields from "../utils/offerValidationFields.mjs";
 import offerStateValidationFields from "../utils/offerStateValidationFields.mjs";
@@ -16,7 +14,9 @@ import Depositors from "../mongoose/schemas/Depositor.mjs";
 import Bidders from "../mongoose/schemas/Bidder.mjs";
 import Offers from "../mongoose/schemas/Offer.mjs";
 
-// All Offers
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Get All The Offers
 router.get("/offers", async (req, res, next) => {
   try {
     const offers = await Offers.find();
@@ -30,10 +30,14 @@ router.get("/offers", async (req, res, next) => {
   }
 });
 
-// Offer's info
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Get Offer's Info
 router.get("/offer/:id", checkObjectId, async (req, res, next) => {
+  const { id } = req.params;
+
   try {
-    const offer = await Offers.findById(req.params.id);
+    const offer = await Offers.findById(id);
     if (!offer) {
       return res.status(404).json({ error: "Offer not found" });
     }
@@ -44,7 +48,9 @@ router.get("/offer/:id", checkObjectId, async (req, res, next) => {
   }
 });
 
-// Offer search
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Search And Filter Offers
 router.get("/search/offer", async (req, res, next) => {
   const { search, category, location } = req.query;
   try {
@@ -77,10 +83,12 @@ router.get("/search/offer", async (req, res, next) => {
   }
 });
 
-// Add Offer
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Add An Offer
 router.post(
   "/add/offer",
-  // validateSessionUser,
+  checkSessionId,
   offerValidationFields,
   async (req, res, next) => {
     const {
@@ -90,11 +98,11 @@ router.post(
       offer_location,
       offer_deadLine,
       offer_budget,
-      id,
+      user_id,
     } = req.body;
 
     try {
-      const depositor = await Depositors.findById(id);
+      const depositor = await Depositors.findById(user_id);
       if (!depositor) {
         return res.status(404).json({ error: "Depositor not found" });
       }
@@ -106,7 +114,7 @@ router.post(
         offer_location,
         offer_deadLine,
         offer_budget,
-        depositor_id: id,
+        depositor_id: user_id,
         offer_apply: [],
       });
 
@@ -118,14 +126,15 @@ router.post(
   }
 );
 
-// Offer edit
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Edit an Offer
 router.put(
-  "/edit/offer/:offer_id",
-  validateSessionUser,
+  "/edit/offer/:id",
   offerValidationFields,
+  checkSessionId,
   checkObjectId,
   async (req, res, next) => {
-    const { id } = req.user;
     const {
       offer_title,
       offer_description,
@@ -134,23 +143,25 @@ router.put(
       offer_deadLine,
       offer_budget,
       offer_attachments,
+      user_id,
     } = req.body;
-    const { offer_id } = req.params;
+    const { id } = req.params;
 
     try {
-      const depositor = await Depositors.findById(id);
+      const depositor = await Depositors.findById(user_id);
       if (!depositor) {
         return res.status(404).json({ error: "Depositor not found" });
       }
 
-      const offer = await Offers.findById(offer_id);
+      const offer = await Offers.findById(id);
       if (!offer) {
         return res.status(404).json({ error: "Offer not found" });
       }
 
       if (
-        offer.depositor_id.toString() !== id ||
-        offer.offer_apply.length > 0
+        offer.depositor_id.toString() !== user_id ||
+        offer.offer_apply.length > 0 ||
+        offer.offer_state == "finished"
       ) {
         return res.status(403).json({ error: "You can't edit this offer" });
       }
@@ -173,29 +184,30 @@ router.put(
   }
 );
 
-// Offer state edit
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Edit Offer's State
 router.put(
-  "/edit/offer/state/:offer_id",
-  validateSessionUser,
+  "/edit/offer/state/:id",
   offerStateValidationFields,
+  checkSessionId,
   checkObjectId,
   async (req, res, next) => {
-    const { id } = req.user;
-    const { offer_state } = req.body;
-    const { offer_id } = req.params;
+    const { offer_state, user_id } = req.body;
+    const { id } = req.params;
 
     try {
-      const depositor = await Depositors.findById(id);
+      const depositor = await Depositors.findById(user_id);
       if (!depositor) {
         return res.status(404).json({ error: "Depositor not found" });
       }
 
-      const offer = await Offers.findById(offer_id);
+      const offer = await Offers.findById(id);
       if (!offer) {
         return res.status(404).json({ error: "Offer not found" });
       }
 
-      if (offer.depositor_id.toString() !== id) {
+      if (offer.depositor_id.toString() !== user_id) {
         return res.status(403).json({ error: "You can't edit this offer" });
       }
 
@@ -209,27 +221,32 @@ router.put(
   }
 );
 
-// Offer delete
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Delete an Offer
 router.delete(
-  "/delete/offer/:offer_id",
-  validateSessionUser,
+  "/delete/offer/:id",
+  checkSessionId,
   checkObjectId,
   async (req, res, next) => {
-    const { id } = req.user;
-    const { offer_id } = req.params;
+    const { user_id } = req.body;
+    const { id } = req.params;
 
     try {
-      const depositor = await Depositors.findById(id);
+      const depositor = await Depositors.findById(user_id);
       if (!depositor) {
         return res.status(404).json({ error: "Depositor not found" });
       }
 
-      const offer = await Offers.findById(offer_id);
+      const offer = await Offers.findById(id);
       if (!offer) {
         return res.status(404).json({ error: "Offer not found" });
       }
 
-      if (offer.depositor_id.toString() !== id) {
+      if (
+        offer.depositor_id.toString() !== user_id ||
+        offer.offer_apply.length > 0
+      ) {
         return res.status(403).json({ error: "You can't delete this offer" });
       }
 
@@ -241,17 +258,19 @@ router.delete(
   }
 );
 
-// Offer save
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Save an Offer
 router.post(
-  "/save/offer/:offer_id",
-  validateSessionUser,
+  "/save/offer/:id",
+  checkSessionId,
   checkObjectId,
   async (req, res, next) => {
-    const { id } = req.user;
-    const { offer_id } = req.params;
+    const { user_id } = req.body;
+    const { id } = req.params;
 
     try {
-      const bidder = await Bidders.findById(id);
+      const bidder = await Bidders.findById(user_id);
       if (!bidder) {
         return res.status(404).json({ error: "Bidder not found" });
       }
@@ -260,21 +279,21 @@ router.post(
         return res.status(403).json({ error: "You can't save offers" });
       }
 
-      const offer = await Offers.findById(offer_id);
+      const offer = await Offers.findById(id);
       if (!offer) {
         return res.status(404).json({ error: "Offer not found" });
       }
 
       if (
         bidder.saved_offers.some(
-          (savedOffer) => savedOffer.offer_id === offer_id
+          (savedOffer) => savedOffer.offer_id === id
         )
       ) {
         return res.status(403).json({ error: "You already saved this offer" });
       }
 
       const savedOffers = {
-        offer_id,
+        offer_id: id,
         date: new Date(),
       };
 
@@ -288,23 +307,25 @@ router.post(
   }
 );
 
-// Offer unsave
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Unsave an Offer
 router.delete(
-  "/unsave/offer/:offer_id",
-  validateSessionUser,
+  "/unsave/offer/:id",
+  checkSessionId,
   checkObjectId,
   async (req, res, next) => {
-    const { id } = req.user;
-    const { offer_id } = req.params;
+    const { user_id } = req.body;
+    const { id } = req.params;
 
     try {
-      const bidder = await Bidders.findById(id);
+      const bidder = await Bidders.findById(user_id);
       if (!bidder) {
         return res.status(404).json({ error: "Bidder not found" });
       }
 
       const savedIndex = bidder.saved_offers.findIndex(
-        (savedOffer) => savedOffer.offer_id === offer_id
+        (savedOffer) => savedOffer.offer_id === id
       );
       if (savedIndex === -1) {
         return res.status(403).json({ error: "You haven't saved this offer" });
@@ -319,17 +340,19 @@ router.delete(
   }
 );
 
-// Offer apply
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Apply to an Offer
 router.post(
-  "/apply/offer/:offerId",
-  validateSessionUser,
+  "/apply/offer/:id",
+  checkSessionId,
   checkObjectId,
   async (req, res, next) => {
-    const { id } = req.user;
-    const { offerId } = req.params;
+    const { user_id } = req.body;
+    const { id } = req.params;
 
     try {
-      const bidder = await Bidders.findById(id);
+      const bidder = await Bidders.findById(user_id);
       if (!bidder) {
         return res.status(404).json({ error: "Bidder not found" });
       }
@@ -346,12 +369,12 @@ router.post(
           .json({ error: "You don't have enough Connects" });
       }
 
-      const offer = await Offers.findById(offerId);
+      const offer = await Offers.findById(id);
       if (!offer) {
         return res.status(404).json({ error: "Offer not found" });
       }
 
-      if (offer.offer_apply.some((apply) => apply.bidder_id === id)) {
+      if (offer.offer_apply.some((apply) => apply.bidder_id === user_id)) {
         return res
           .status(403)
           .json({ error: "You already applied for this offer" });
@@ -360,7 +383,7 @@ router.post(
       bidder.bidder_CB -= 10;
       await bidder.save();
 
-      const newOfferApply = { bidder_id: id, date: new Date() };
+      const newOfferApply = { bidder_id: user_id, date: new Date() };
       offer.offer_apply.push(newOfferApply);
       await offer.save();
       res.status(200).json({ success: "Offer applied successfully" });
@@ -370,28 +393,30 @@ router.post(
   }
 );
 
-// Delete offer apply
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Delete an Apply to an Offer
 router.delete(
-  "/delete/apply/offer/:offerId",
-  validateSessionUser,
+  "/delete/apply/offer/:id",
+  checkSessionId,
   checkObjectId,
   async (req, res, next) => {
-    const { id } = req.user;
-    const { offerId } = req.params;
+    const { user_id } = req.body;
+    const { id } = req.params;
 
     try {
-      const bidder = await Bidders.findById(id);
+      const bidder = await Bidders.findById(user_id);
       if (!bidder) {
         return res.status(404).json({ error: "Bidder not found" });
       }
 
-      const offer = await Offers.findById(offerId);
+      const offer = await Offers.findById(id);
       if (!offer) {
         return res.status(404).json({ error: "Offer not found" });
       }
 
       const index = offer.offer_apply.findIndex(
-        (apply) => apply.bidder_id === id
+        (apply) => apply.bidder_id === user_id
       );
       if (index === -1) {
         return res
@@ -413,6 +438,8 @@ router.delete(
     }
   }
 );
+
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 // Error handling middleware
 router.use(handleErrors);

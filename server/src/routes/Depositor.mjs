@@ -4,10 +4,8 @@ import bcrypt from "bcrypt";
 const router = express.Router();
 
 // Middlewares
-import {
-  checkObjectId,
-  validateSessionUser,
-} from "../middlewares/authMiddleware.mjs";
+import { checkObjectId } from "../middlewares/checkObjectId.mjs";
+import { checkSessionId } from "../middlewares/checkSessionId.mjs";
 import { handleErrors } from "../middlewares/errorMiddleware.mjs";
 import depositorValidationFields from "../utils/depositorValidationFields.mjs";
 import AEValidationFields from "../utils/AEValidationFields.mjs";
@@ -22,7 +20,7 @@ import AE from "../mongoose/schemas/AE.mjs";
 import Companies from "../mongoose/schemas/Company.mjs";
 
 // Depositor profile info
-router.get("/depositor", validateSessionUser, async (req, res, next) => {
+router.get("/depositor", checkSessionId, async (req, res, next) => {
   const { id } = req.user;
 
   try {
@@ -81,7 +79,7 @@ router.get("/depositor/info/:id", checkObjectId, async (req, res, next) => {
 // Depositor edit
 router.put(
   "/edit/depositor",
-  validateSessionUser,
+  checkSessionId,
   depositorValidationFields,
   async (req, res, next) => {
     const { id } = req.user;
@@ -120,7 +118,7 @@ router.put(
 // Depositor add AE info
 router.post(
   "/add/depositor/AE",
-  validateSessionUser,
+  checkSessionId,
   AEValidationFields,
   async (req, res, next) => {
     const { id } = req.user;
@@ -155,7 +153,7 @@ router.post(
 // Depositor add company info
 router.post(
   "/add/depositor/company",
-  validateSessionUser,
+  checkSessionId,
   companyValidationFields,
   async (req, res, next) => {
     const { id } = req.user;
@@ -201,7 +199,7 @@ router.post(
 // Depositor rate a bidder
 router.post(
   "/rate/depositor/:bidder_id/:offer_id",
-  validateSessionUser,
+  checkSessionId,
   ratingValidationFields,
   checkObjectId,
   async (req, res, next) => {
@@ -252,7 +250,7 @@ router.post(
 );
 
 // Depositor merge account
-router.post("/merge/depositor", validateSessionUser, async (req, res, next) => {
+router.post("/merge/depositor", checkSessionId, async (req, res, next) => {
   const { id } = req.user;
   try {
     const depositor = await Depositors.findById(id);
@@ -291,15 +289,15 @@ router.post("/merge/depositor", validateSessionUser, async (req, res, next) => {
 });
 
 // Depositor's offers
-router.get("/depositor/offers", validateSessionUser, async (req, res, next) => {
-  const { id } = req.user;
+router.post("/depositor/offers", async (req, res, next) => {
+  const { id } = req.body;
   try {
-    const offers = Offers.findOne({ depositor_id: id });
+    const offers = Offers.find({ depositor_id: id });
     if (!offers) {
       return res.status(404).json({ error: "Offers not found" });
     }
 
-    res.status(200).json(offers);
+    res.status(200).json({ success: offers });
   } catch (err) {
     next(err);
   }

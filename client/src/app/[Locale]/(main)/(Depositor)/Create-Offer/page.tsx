@@ -148,7 +148,7 @@ const CreateOffer :   React.FC = () => {
 
   // Offers Value
   const id: string | null = session ? session.user?.id : null;
-  const [title, setTtitle] = useState("");
+  const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [location, setLocation] = useState("");
   const [category, setCategory] = useState("");
@@ -169,7 +169,7 @@ const CreateOffer :   React.FC = () => {
     "offer_location": location,
     "offer_deadLine": deadline,
     "offer_budget": Number(budget),
-    "id" : session?.user.id,
+    "user_id" : session?.user.id,
   };
 
 
@@ -181,7 +181,7 @@ const CreateOffer :   React.FC = () => {
   function addOffer(e) {
     e.preventDefault();
     postOffer();
-    setTtitle("");
+    setTitle("");
     setDesc("");
     setLocation("");
     setCategory("");
@@ -489,7 +489,7 @@ const CreateOffer :   React.FC = () => {
                       placeholder="Type your title here."
                       required
                       value={title}
-                      onChange={(e) => setTtitle(e.target.value)}
+                      onChange={(e) => setTitle(e.target.value)}
                     />
                   </div>
                   <div className="grid gap-2">
