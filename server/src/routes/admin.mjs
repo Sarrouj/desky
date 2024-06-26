@@ -4,10 +4,8 @@ import bcrypt from "bcrypt";
 const router = express.Router();
 
 // Middlewares
-import {
-  checkObjectId,
-  validateSessionUser,
-} from "../middlewares/authMiddleware.mjs";
+import { checkObjectId } from "../middlewares/checkObjectId.mjs";
+import { checkSessionId } from "../middlewares/checkSessionId.mjs";
 import { handleErrors } from "../middlewares/errorMiddleware.mjs";
 import adminValidationFields from "../utils/adminValidationFields.mjs";
 
@@ -20,7 +18,7 @@ import Offers from "../mongoose/schemas/Offer.mjs";
 router.put(
   "/admin/bidder/verify/:bidder_id",
   checkObjectId,
-  validateSessionUser,
+  checkSessionId,
   async (req, res, next) => {
     const { id } = req.user;
     const { bidder_id } = req.params;
@@ -53,7 +51,7 @@ router.put(
 router.put(
   "/admin/bidder/refuse/:bidder_id",
   checkObjectId,
-  validateSessionUser,
+  checkSessionId,
   async (req, res, next) => {
     const { id } = req.user;
     const { bidder_id } = req.params;
@@ -82,7 +80,7 @@ router.put(
 router.put(
   "/admin/depositor/verify/:depositor_id",
   checkObjectId,
-  validateSessionUser,
+  checkSessionId,
   async (req, res, next) => {
     const { id } = req.user;
     const { depositor_id } = req.params;
@@ -115,7 +113,7 @@ router.put(
 router.put(
   "/admin/depositor/refuse/:depositor_id",
   checkObjectId,
-  validateSessionUser,
+  checkSessionId,
   async (req, res, next) => {
     const { id } = req.user;
     const { depositor_id } = req.params;
@@ -151,7 +149,7 @@ router.put(
 router.put(
   "/admin/offer/verify/:offer_id",
   checkObjectId,
-  validateSessionUser,
+  checkSessionId,
   async (req, res, next) => {
     const { id } = req.user;
     const { offer_id } = req.params;
@@ -183,7 +181,7 @@ router.put(
 router.put(
   "/admin/offer/refuse/:offer_id",
   checkObjectId,
-  validateSessionUser,
+  checkSessionId,
   async (req, res, next) => {
     const { id } = req.user;
     const { offer_id } = req.params;
@@ -210,7 +208,7 @@ router.put(
 // Add Admin
 router.post(
   "/admin/add",
-  validateSessionUser,
+  checkSessionId,
   adminValidationFields,
   async (req, res, next) => {
     const { id } = req.user;
