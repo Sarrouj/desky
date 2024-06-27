@@ -285,9 +285,7 @@ router.post(
       }
 
       if (
-        bidder.saved_offers.some(
-          (savedOffer) => savedOffer.offer_id === id
-        )
+        bidder.saved_offers.some((savedOffer) => savedOffer.offer_id === id)
       ) {
         return res.status(403).json({ error: "You already saved this offer" });
       }
@@ -348,13 +346,32 @@ router.post(
   checkSessionId,
   checkObjectId,
   async (req, res, next) => {
-    const { user_id } = req.body;
+    const { user_id, role } = req.body;
     const { id } = req.params;
 
     try {
+      if (role !== "bidder") {
+        return res.status(403).json({ error: "You can't apply to offers" });
+      }
+
       const bidder = await Bidders.findById(user_id);
       if (!bidder) {
         return res.status(404).json({ error: "Bidder not found" });
+      }
+
+      const offer = await Offers.findById(id);
+      if (!offer) {
+        return res.status(404).json({ error: "Offer not found" });
+      }
+
+      const offer_depositor = await Depositors.findOne({
+        _id: offer.depositor_id,
+        depositor_id: user_id,
+      });
+      if (offer_depositor) {
+        return res
+          .status(403)
+          .json({ error: "You can't apply to your own offers" });
       }
 
       if (!bidder.isTrusted) {
@@ -367,11 +384,6 @@ router.post(
         return res
           .status(403)
           .json({ error: "You don't have enough Connects" });
-      }
-
-      const offer = await Offers.findById(id);
-      if (!offer) {
-        return res.status(404).json({ error: "Offer not found" });
       }
 
       if (offer.offer_apply.some((apply) => apply.bidder_id === user_id)) {
