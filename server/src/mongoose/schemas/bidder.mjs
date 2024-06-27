@@ -1,4 +1,3 @@
-// models/Bidder.mjs
 import mongoose from "mongoose";
 
 const BiddersSchema = new mongoose.Schema(
