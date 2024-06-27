@@ -15,7 +15,7 @@ app.use(router);
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Mock middleware functions and Schemas
+// Mock Middleware Functions and Schemas
 jest.mock('../middlewares/checkObjectId.mjs', () => ({
   checkObjectId: jest.fn((req, res, next) => next()),
 }));
@@ -53,6 +53,7 @@ jest.mock('../mongoose/schemas/Offer.mjs');
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
+// Tests
 describe('Offers', () => {
   afterEach(() => {
     jest.clearAllMocks();
