@@ -21,7 +21,7 @@ import Companies from "../mongoose/schemas/Company.mjs";
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Get Depositor Profile Info
+// Post Depositor's Profile Info
 router.post("/depositor", checkSessionId, async (req, res, next) => {
   const { user_id } = req.body;
 
@@ -39,7 +39,7 @@ router.post("/depositor", checkSessionId, async (req, res, next) => {
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Get Depositor Info
+// Get Depositor's Info
 router.get("/depositor/:id", checkObjectId, async (req, res, next) => {
   const { id } = req.params;
 
@@ -84,7 +84,7 @@ router.get("/depositor/info/:id", checkObjectId, async (req, res, next) => {
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Get Depositor's offers
+// Post Depositor's offers
 router.post("/depositor/offers", checkSessionId, async (req, res, next) => {
   const { user_id } = req.body;
 
@@ -102,7 +102,7 @@ router.post("/depositor/offers", checkSessionId, async (req, res, next) => {
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Depositor edit
+// Edit Depositor's Info
 router.put(
   "/edit/depositor",
   checkSessionId,
@@ -141,7 +141,7 @@ router.put(
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Depositor add AE info
+// Add Depositor's AE info
 router.post(
   "/add/depositor/AE",
   checkSessionId,
@@ -189,7 +189,7 @@ router.post(
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Depositor add company info
+// Add Depositor's company info
 router.post(
   "/add/depositor/company",
   checkSessionId,
@@ -249,7 +249,7 @@ router.post(
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Depositor rate a bidder
+// Depositor Rates a Bidder
 router.post(
   "/rate/depositor/:bidder_id/:offer_id",
   checkSessionId,
@@ -305,7 +305,7 @@ router.post(
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Depositor merge account
+// Merge Depositor Account
 router.post("/merge/depositor", checkSessionId, async (req, res, next) => {
   const { user_id } = req.body;
   try {

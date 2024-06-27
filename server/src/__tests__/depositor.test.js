@@ -198,8 +198,6 @@ describe("Depositors", () => {
         user_id: "123",
       });
 
-      console.log(res.body);
-
       expect(res.statusCode).toBe(404);
       expect(res.body.error).toBe("Offers not found");
     });
@@ -443,8 +441,6 @@ describe("Depositors", () => {
       const res = await request(app).post("/merge/depositor").send({
         user_id: "123",
       });
-
-      console.log(res.body.error);
 
       expect(res.statusCode).toBe(201);
       expect(res.body.success).toBe("Depositor account merged successfully");
