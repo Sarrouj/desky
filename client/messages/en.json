@@ -96,7 +96,20 @@
         "Already": "already have an account?",
         "Login": "Login",
         "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved"
-      }, 
+      },
+        "EmailVerification" : {
+          "title" : "Verify your Email",
+          "Desc" : "We have sent a verification email to",
+          "resendMsg" : "Didn’t receive the email? Check spam or ",
+          "ResendEmail" : "Resend Email",
+          "BackToLogin" : "Back to Login",
+          "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved",
+          "verified" : {
+            "title" : "Email Verified Successfully",
+            "CallToAction" : "Complete Registration",
+            "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved"
+          }
+        },
       "ChooseType" : {
         "title" : "Join Us!",
         "Desc" : "To begin this journey, tell us what type of account you'd be opening.",
