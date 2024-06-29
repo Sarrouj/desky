@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -11,7 +11,7 @@ import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 
 // Internationalization
-import {useTranslations} from 'next-intl';
+import { useTranslations } from "next-intl";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -23,13 +23,13 @@ const SignUp = () => {
   const [Language, setLanguage] = useState();
 
   // Content
-  const SignUPContent = useTranslations('Auth.SignUp');
+  const SignUPContent = useTranslations("Auth.SignUp");
 
   // Language
-  useEffect(()=>{
-    let lg = JSON.parse(localStorage.getItem('lg'));
+  useEffect(() => {
+    let lg = JSON.parse(localStorage.getItem("lg"));
     setLanguage(lg);
-  }, [Language])
+  }, [Language]);
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -55,7 +55,7 @@ const SignUp = () => {
         localStorage.setItem("email", email);
         localStorage.setItem("password", password);
         setTimeout(() => {
-          window.location.href = `${Language}/Sign-Up/choose-type`;
+          window.location.href = `/${Language}/Sign-Up/choose-type`;
         }, 1000);
       } else {
         setError(response.data.error);
@@ -96,14 +96,14 @@ const SignUp = () => {
         </Link>
         <div className="mx-auto grid w-7/12 gap-6 ">
           <div className="grid gap-2">
-            <h1 className="text-3xl font-bold">{SignUPContent('title')}</h1>
+            <h1 className="text-3xl font-bold">{SignUPContent("title")}</h1>
             <p className="text-balance text-muted-foreground">
-              {SignUPContent('Description')}
+              {SignUPContent("Description")}
             </p>
           </div>
           <form onSubmit={handleSubmit} className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="name">{SignUPContent('FullName')}</Label>
+              <Label htmlFor="name">{SignUPContent("FullName")}</Label>
               <Input
                 id="name"
                 value={name}
@@ -113,7 +113,7 @@ const SignUp = () => {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="email">{SignUPContent('Email')}</Label>
+              <Label htmlFor="email">{SignUPContent("Email")}</Label>
               <Input
                 id="email"
                 type="email"
@@ -125,7 +125,7 @@ const SignUp = () => {
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
-                <Label htmlFor="password">{SignUPContent('Password')}</Label>
+                <Label htmlFor="password">{SignUPContent("Password")}</Label>
               </div>
               <Input
                 id="password"
@@ -138,27 +138,25 @@ const SignUp = () => {
             {error && <p className="text-red-500 text-sm">{error}</p>}
             {success && <p className="text-green-500 text-sm">{success}</p>}
             <Button type="submit" className="w-full text-white">
-              {SignUPContent('CallToAction')}
+              {SignUPContent("CallToAction")}
             </Button>
           </form>
-          <p className="text-center">{SignUPContent('OR')}</p>
+          <p className="text-center">{SignUPContent("OR")}</p>
           <Button
             variant="outline"
             className="w-full"
             onClick={handleGoogleSignIn}
           >
-            {SignUPContent('RGoogle')}
+            {SignUPContent("RGoogle")}
           </Button>
           <div className="mt-4 text-center text-sm">
-            {SignUPContent('Already')}{" "}
+            {SignUPContent("Already")}{" "}
             <Link href={`/${Language}/login`} className="underline">
-              {SignUPContent('Login')}
+              {SignUPContent("Login")}
             </Link>
           </div>
         </div>
-        <p className="w-10/12 mx-auto text-sm">
-          {SignUPContent('CopyWrite')}
-        </p>
+        <p className="w-10/12 mx-auto text-sm">{SignUPContent("CopyWrite")}</p>
       </div>
       <div className=" bg-muted lg:block rounded-lg m-5 bg-gradient-to-r from-custom-yellow to-custom-orange flex flex-col justify-end items-end ">
         <div className="h-2/4 text-custom-yellow">r</div>
