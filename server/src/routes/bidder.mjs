@@ -13,6 +13,8 @@ import bidderValidationFields from "../utils/bidderValidationFields.mjs";
 import AEValidationFields from "../utils/AEValidationFields.mjs";
 import companyValidationFields from "../utils/companyValidationFields.mjs";
 import ratingValidationFields from "../utils/ratingValidationFields.mjs";
+import { transporter } from "../utils/emailSend.mjs";
+
 
 // Schemas
 import Bidders from "../mongoose/schemas/Bidder.mjs";
@@ -121,52 +123,47 @@ router.put(
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 // Add Bidder's AE Info
-// router.post(
-//   "/add/bidder/AE",
-//   upload.single("AE_CIN"),
-//   AEValidationFields,
-//   async (req, res, next) => {
-//     const { AE_phoneNumber, AE_DoA, AE_address, AE_location } = req.body;
-//     if (!req.file) {
-//       return res.status(400).json({ error: "File upload failed." });
-//     }
+router.post("/add/bidder/AE", AEValidationFields, async (req, res, next) => {
+  const { email, AE_CIN, AE_phoneNumber, AE_DoA, AE_address, AE_location } =
+    req.body;
+  try {
+    const bidder = await Bidders.findOne({ bidder_email: email });
+    if (!bidder) {
+      return res.status(404).json({ error: "No bidders found" });
+    }
 
-//     console.log("AE_CIN:", req.file);
-//     console.log("AE_phoneNumber:", AE_phoneNumber);
-//     console.log("AE_DoA:", AE_DoA);
-//     console.log("AE_address:", AE_address);
-//     console.log("AE_location:", AE_location);
+    const newAE = new AE({
+      _id: bidder.id,
+      AE_CIN,
+      AE_phoneNumber,
+      AE_DoA,
+      AE_address,
+      AE_location,
+    });
 
-//     try {
-//       const lastBidder = await Bidders.findOne().sort({ _id: -1 });
-//       if (!lastBidder) {
-//         return res.status(404).json({ error: "No bidders found" });
-//       }
+    await newAE.save();
 
-//       const newAE = new AE({
-//         _id: lastBidder._id,
-//         AE_CIN: {
-//           file_id: req.file.id,
-//           file_name: req.file.filename,
-//           file_size: req.file.size,
-//           upload_date: req.file.uploadDate,
-//         },
-//         AE_phoneNumber,
-//         AE_DoA: JSON.parse(AE_DoA),
-//         AE_address,
-//         AE_location,
-//       });
+    const mailOptions = {
+      from: "Desky",
+      to: email,
+      subject: "Your Account Status",
+      text: `Hello ${bidder.bidder_name}`,
+      html: `Your account need to be verified by the admin, it will take 24 hours to be verified,
+      thank you for your patience.`,
+    };
 
-//       await newAE.save();
-//       res
-//         .status(201)
-//         .json({ success: "Auto entrepreneur information added successfully" });
-//     } catch (err) {
-//       console.error("Error adding AE info:", err); // Log error details
-//       next(err);
-//     }
-//   }
-// );
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return res.status(500).json({ error: "Failed to send email" });
+      }
+      res.status(201).json({
+        success: "Auto entrepreneur information added successfully",
+      });
+    });
+  } catch (err) {
+    next(err);
+  }
+});
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
@@ -206,14 +203,31 @@ router.post(
       });
 
       await newCompany.save();
-      res.status(201).json({
-        success: "company information added successfully",
+
+      const mailOptions = {
+        from: "Desky",
+        to: email,
+        subject: "Your Account Status",
+        text: `Hello ${bidder.bidder_name}`,
+        html: `Your account need to be verified by the admin, it will take 24 hours to be verified,
+        thank you for your patience.`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return res.status(500).json({ error: "Failed to send email" });
+        }
+        res.status(201).json({
+          success: "Company information added successfully",
+        });
       });
     } catch (err) {
       next(err);
     }
   }
 );
+
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 // Bidder Rates a Depositor
 router.post(
@@ -246,7 +260,7 @@ router.post(
         offer.bidder_id.includes(user_id) &&
         offer.offer_state !== "finished"
       ) {
-        return res.status(404).json({ error: "you cant rate this bidder" });
+        return res.status(404).json({ error: "You can't rate this depositor" });
       }
 
       const newReview = {
@@ -268,6 +282,8 @@ router.post(
     }
   }
 );
+
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 // Merge Bidder Account
 router.post("/merge/bidder", checkSessionId, async (req, res, next) => {
@@ -305,6 +321,8 @@ router.post("/merge/bidder", checkSessionId, async (req, res, next) => {
     next(err);
   }
 });
+
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 // Error handling middleware
 router.use(handleErrors);
