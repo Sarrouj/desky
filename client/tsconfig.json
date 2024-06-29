@@ -23,10 +23,13 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
     "**/*.tsx",
+    "**/*.ts",
     ".next/types/**/*.ts",
     "src/app/[Locale]/(main)/(auth)/(register)/Sign-Up/choose-type/bidder-Type"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "**/Cities.ts" 
+  ]
 }
