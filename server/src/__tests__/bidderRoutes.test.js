@@ -85,6 +85,15 @@ jest.mock("../utils/ratingValidationFields.mjs", () => ({
     (req, res, next) => next(),
   ],
 }));
+jest.mock("../utils/emailSend.mjs", () => ({
+  transporter: jest.requireActual("nodemailer").createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  }),
+}));
 
 jest.mock("../mongoose/schemas/Depositor.mjs");
 jest.mock("../mongoose/schemas/Bidder.mjs");
@@ -245,13 +254,13 @@ describe("Bidders", () => {
     // it("should add Auto entrepreneur info", async () => {
     //   Bidders.findOne.mockResolvedValue({
     //     _id: "123",
-    //     bidder_email: "test@example.com",
+    //     bidder_name: "test",
+    //     bidder_email: "fahd.suirita@gmail.com",
     //   });
 
     //   const res = await request(app)
     //     .post("/add/bidder/AE")
     //     .send({
-    //       email: "test@example.com",
     //       AE_CIN: "CIN",
     //       company_name: "name",
     //       AE_phoneNumber: "123456789",
@@ -292,11 +301,11 @@ describe("Bidders", () => {
     // it("should add Company info", async () => {
     //   Bidders.findOne.mockResolvedValue({
     //     _id: "123",
-    //     bidder_email: "test@example.com",
+    //     bidder_name: "test",
+    //     bidder_email: "fahd.suirita@gmail.com",
     //   });
 
     //   const res = await request(app).post("/add/bidder/company").send({
-    //     email: "test@example.com",
     //     company_type: "type",
     //     company_name: "name",
     //     company_phoneNumber: "123456789",

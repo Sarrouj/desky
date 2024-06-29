@@ -82,6 +82,15 @@ jest.mock("../utils/ratingValidationFields.mjs", () => ({
     (req, res, next) => next(),
   ],
 }));
+jest.mock("../utils/emailSend.mjs", () => ({
+  transporter: jest.requireActual("nodemailer").createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  }),
+}));
 
 jest.mock("../mongoose/schemas/Depositor.mjs");
 jest.mock("../mongoose/schemas/Bidder.mjs");
@@ -267,7 +276,7 @@ describe("Depositors", () => {
     //   Depositors.findById.mockResolvedValue({
     //     _id: "123",
     //     depositor_name: "test",
-    //     depositor_email: "test@example.com",
+    //     depositor_email: "fahd.suirita@gmail.com",
     //   });
     //   AE.findById.mockResolvedValue(null);
     //   Companies.findById.mockResolvedValue(null);
@@ -282,6 +291,8 @@ describe("Depositors", () => {
     //       AE_address: "address",
     //       AE_location: "location",
     //     });
+
+    //     console.log(res.body)
 
     //   expect(res.statusCode).toBe(201);
     //   expect(res.body.success).toBe(
@@ -333,7 +344,7 @@ describe("Depositors", () => {
     //   Depositors.findById.mockResolvedValue({
     //     _id: "123",
     //     depositor_name: "test",
-    //     depositor_email: "test@example.com",
+    //     depositor_email: "fahd.suirita@gmail.com",
     //   });
     //   Companies.findById.mockResolvedValue(null);
     //   AE.findById.mockResolvedValue(null);
@@ -350,9 +361,10 @@ describe("Depositors", () => {
     //     company_size: "size",
     //   });
 
+    //   console.log(res.body)
+
     //   expect(res.statusCode).toBe(201);
     //   expect(res.body.success).toBe("Company information added successfully");
-    //   expect(mockSendMail).toHaveBeenCalled();
     // });
 
     it("should return 404 if depositor not found", async () => {
