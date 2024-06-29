@@ -161,7 +161,7 @@ router.put(
       if (
         offer.depositor_id.toString() !== user_id ||
         offer.offer_apply.length > 0 ||
-        offer.offer_state == "finished"
+        offer.offer_state !== "open"
       ) {
         return res.status(403).json({ error: "You can't edit this offer" });
       }
@@ -350,10 +350,6 @@ router.post(
     const { id } = req.params;
 
     try {
-      if (role !== "bidder") {
-        return res.status(403).json({ error: "You can't apply to offers" });
-      }
-
       const bidder = await Bidders.findById(user_id);
       if (!bidder) {
         return res.status(404).json({ error: "Bidder not found" });
