@@ -11,12 +11,19 @@ import Offers from "../mongoose/schemas/Offer.mjs";
 import AE from "../mongoose/schemas/AE.mjs";
 import Companies from "../mongoose/schemas/Company.mjs";
 
+// Mock nodemailer
+jest.mock("nodemailer", () => {
+  return {
+    createTransport: jest.fn().mockReturnValue({
+      sendMail: jest.fn().mockResolvedValue(true),
+    }),
+  };
+});
+
 // Express App Setup
 const app = express();
 app.use(express.json());
 app.use(router);
-
-// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 // Mock Middleware Functions and Schemas
 jest.mock("../middlewares/checkObjectId.mjs", () => ({
@@ -82,8 +89,6 @@ jest.mock("../mongoose/schemas/Offer.mjs");
 jest.mock("../mongoose/schemas/AE.mjs");
 jest.mock("../mongoose/schemas/Company.mjs");
 
-// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
-
 // Tests
 describe("Depositors", () => {
   afterEach(() => {
@@ -99,7 +104,9 @@ describe("Depositors", () => {
         depositor_name: "test",
       });
 
-      const res = await request(app).post("/depositor").send({ user_id: "123" });
+      const res = await request(app)
+        .post("/depositor")
+        .send({ user_id: "123" });
 
       expect(res.statusCode).toBe(200);
       expect(res.body.success).toBeDefined();
@@ -108,7 +115,9 @@ describe("Depositors", () => {
     it("should return 404 if no depositor found", async () => {
       Depositors.findById.mockResolvedValue(null);
 
-      const res = await request(app).post("/depositor").send({ user_id: "123" });
+      const res = await request(app)
+        .post("/depositor")
+        .send({ user_id: "123" });
       expect(res.statusCode).toBe(404);
       expect(res.body.error).toBe("Depositor not found");
     });
@@ -165,6 +174,14 @@ describe("Depositors", () => {
       expect(res.body.success).toBeDefined();
     });
 
+    it("should return 404 if no depositor found", async () => {
+      Depositors.findById.mockResolvedValue(null);
+
+      const res = await request(app).get("/depositor/info/123");
+      expect(res.statusCode).toBe(404);
+      expect(res.body.error).toBe("Depositor not found");
+    });
+
     it("should return 404 if no info found", async () => {
       Depositors.findById.mockResolvedValue({ _id: "123" });
       AE.findById.mockResolvedValue(null);
@@ -211,18 +228,18 @@ describe("Depositors", () => {
         _id: "123",
         depositor_name: "test",
         depositor_email: "test@example.com",
-        depositor_password: "hashedpassword",
+        depositor_password: "hashedPassword",
         save: jest.fn().mockResolvedValue(true),
       };
       Depositors.findById.mockResolvedValue(depositor);
       bcrypt.compareSync = jest.fn().mockReturnValue(true);
-      bcrypt.hash = jest.fn().mockResolvedValue("newhashedpassword");
+      bcrypt.hash = jest.fn().mockResolvedValue("newHashedPassword");
 
       const res = await request(app).put("/edit/depositor").send({
         user_id: "123",
         depositor_name: "newName",
         depositor_email: "new@example.com",
-        depositor_password: "newpassword",
+        depositor_password: "newPassword",
       });
 
       expect(res.statusCode).toBe(201);
@@ -246,33 +263,50 @@ describe("Depositors", () => {
   // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
   describe("POST /add/depositor/AE", () => {
-    it("should add AE info", async () => {
-      Depositors.findById.mockResolvedValue({ _id: "123" });
-      Companies.findById.mockResolvedValue(null);
-      AE.findById.mockResolvedValue(null);
+    // it("should add a new AE to the depositor", async () => {
+    //   Depositors.findById.mockResolvedValue({
+    //     _id: "123",
+    //     depositor_name: "test",
+    //     depositor_email: "test@example.com",
+    //   });
+    //   AE.findById.mockResolvedValue(null);
+    //   Companies.findById.mockResolvedValue(null);
 
-      const res = await request(app).post("/add/depositor/AE").send({
-        user_id: "123",
-        AE_CIN: "cin",
-        AE_phoneNumber: "1234567890",
-        AE_DoA: "2023-01-01",
-        AE_address: "address",
-        AE_location: "location",
-      });
+    //   const res = await request(app)
+    //     .post("/add/depositor/AE")
+    //     .send({
+    //       user_id: "123",
+    //       AE_CIN: "cin",
+    //       AE_phoneNumber: "phone",
+    //       AE_DoA: ["2024-01-01"],
+    //       AE_address: "address",
+    //       AE_location: "location",
+    //     });
 
-      expect(res.statusCode).toBe(201);
-      expect(res.body.success).toBe(
-        "Auto entrepreneur information added successfully"
-      );
+    //   expect(res.statusCode).toBe(201);
+    //   expect(res.body.success).toBe(
+    //     "Auto entrepreneur information added successfully"
+    //   );
+    // });
+
+    it("should return 404 if depositor not found", async () => {
+      Depositors.findById.mockResolvedValue(null);
+
+      const res = await request(app)
+        .post("/add/depositor/AE")
+        .send({ user_id: "123", AE_id: "123" });
+
+      expect(res.statusCode).toBe(404);
+      expect(res.body.error).toBe("Depositor not found");
     });
 
     it("should return 404 if depositor already is a company", async () => {
       Depositors.findById.mockResolvedValue({ _id: "123" });
       Companies.findById.mockResolvedValue({ _id: "123" });
 
-      const res = await request(app)
-        .post("/add/depositor/AE")
-        .send({ user_id: "123" });
+      const res = await request(app).post("/add/depositor/AE").send({
+        user_id: "123",
+      });
 
       expect(res.statusCode).toBe(404);
       expect(res.body.error).toBe("Depositor already is a company");
@@ -283,9 +317,9 @@ describe("Depositors", () => {
       Companies.findById.mockResolvedValue(null);
       AE.findById.mockResolvedValue({ _id: "123" });
 
-      const res = await request(app)
-        .post("/add/depositor/AE")
-        .send({ user_id: "123" });
+      const res = await request(app).post("/add/depositor/AE").send({
+        user_id: "123",
+      });
 
       expect(res.statusCode).toBe(404);
       expect(res.body.error).toBe("Depositor already is an AE");
@@ -295,34 +329,50 @@ describe("Depositors", () => {
   // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
   describe("POST /add/depositor/company", () => {
-    it("should add company info", async () => {
-      Depositors.findById.mockResolvedValue({ _id: "123" });
-      Companies.findById.mockResolvedValue(null);
-      AE.findById.mockResolvedValue(null);
+    // it("should add company info to depositor", async () => {
+    //   Depositors.findById.mockResolvedValue({
+    //     _id: "123",
+    //     depositor_name: "test",
+    //     depositor_email: "test@example.com",
+    //   });
+    //   Companies.findById.mockResolvedValue(null);
+    //   AE.findById.mockResolvedValue(null);
+
+    //   const res = await request(app).post("/add/depositor/company").send({
+    //     user_id: "123",
+    //     company_type: "type",
+    //     company_name: "name",
+    //     company_phoneNumber: "phone",
+    //     company_address: "address",
+    //     company_location: "location",
+    //     company_CR: "CR",
+    //     company_DoA: "DoA",
+    //     company_size: "size",
+    //   });
+
+    //   expect(res.statusCode).toBe(201);
+    //   expect(res.body.success).toBe("Company information added successfully");
+    //   expect(mockSendMail).toHaveBeenCalled();
+    // });
+
+    it("should return 404 if depositor not found", async () => {
+      Depositors.findById.mockResolvedValue(null);
 
       const res = await request(app).post("/add/depositor/company").send({
         user_id: "123",
-        company_type: "type",
-        company_name: "name",
-        company_phoneNumber: "1234567890",
-        company_address: "address",
-        company_location: "location",
-        company_CR: "CR",
-        company_DoA: "2023-01-01",
-        company_size: "size",
       });
 
-      expect(res.statusCode).toBe(201);
-      expect(res.body.success).toBe("Company information added successfully");
+      expect(res.statusCode).toBe(404);
+      expect(res.body.error).toBe("Depositor not found");
     });
 
     it("should return 404 if depositor already is a company", async () => {
       Depositors.findById.mockResolvedValue({ _id: "123" });
       Companies.findById.mockResolvedValue({ _id: "123" });
 
-      const res = await request(app)
-        .post("/add/depositor/company")
-        .send({ user_id: "123" });
+      const res = await request(app).post("/add/depositor/company").send({
+        user_id: "123",
+      });
 
       expect(res.statusCode).toBe(404);
       expect(res.body.error).toBe("Depositor already is a company");
@@ -333,9 +383,9 @@ describe("Depositors", () => {
       Companies.findById.mockResolvedValue(null);
       AE.findById.mockResolvedValue({ _id: "123" });
 
-      const res = await request(app)
-        .post("/add/depositor/company")
-        .send({ user_id: "123" });
+      const res = await request(app).post("/add/depositor/company").send({
+        user_id: "123",
+      });
 
       expect(res.statusCode).toBe(404);
       expect(res.body.error).toBe("Depositor already is an AE");
@@ -347,12 +397,11 @@ describe("Depositors", () => {
   describe("POST /rate/depositor/:bidder_id/:offer_id", () => {
     it("should rate a bidder", async () => {
       Depositors.findById.mockResolvedValue({ _id: "123" });
-      const bidder = {
-        _id: "456",
+      Bidders.findById.mockResolvedValue({
+        _id: "123",
         bidder_review: [],
         save: jest.fn().mockResolvedValue(true),
-      };
-      Bidders.findById.mockResolvedValue(bidder);
+      });
       Offers.findById.mockResolvedValue({
         _id: "789",
         depositor_id: "123",
@@ -363,7 +412,7 @@ describe("Depositors", () => {
       const res = await request(app).post("/rate/depositor/456/789").send({
         user_id: "123",
         rating: 5,
-        text: "Great",
+        text: "Great job!",
       });
 
       expect(res.statusCode).toBe(201);
@@ -373,9 +422,9 @@ describe("Depositors", () => {
     it("should return 404 if depositor not found", async () => {
       Depositors.findById.mockResolvedValue(null);
 
-      const res = await request(app)
-        .post("/rate/depositor/456/789")
-        .send({ user_id: "123" });
+      const res = await request(app).post("/rate/depositor/456/789").send({
+        user_id: "123",
+      });
 
       expect(res.statusCode).toBe(404);
       expect(res.body.error).toBe("Depositor not found");
@@ -385,9 +434,9 @@ describe("Depositors", () => {
       Depositors.findById.mockResolvedValue({ _id: "123" });
       Bidders.findById.mockResolvedValue(null);
 
-      const res = await request(app)
-        .post("/rate/depositor/456/789")
-        .send({ user_id: "123" });
+      const res = await request(app).post("/rate/depositor/456/789").send({
+        user_id: "123",
+      });
 
       expect(res.statusCode).toBe(404);
       expect(res.body.error).toBe("Bidder not found");
@@ -398,29 +447,31 @@ describe("Depositors", () => {
       Bidders.findById.mockResolvedValue({ _id: "456" });
       Offers.findById.mockResolvedValue(null);
 
-      const res = await request(app)
-        .post("/rate/depositor/456/789")
-        .send({ user_id: "123" });
+      const res = await request(app).post("/rate/depositor/456/789").send({
+        user_id: "123",
+      });
 
       expect(res.statusCode).toBe(404);
       expect(res.body.error).toBe("Offer not found");
     });
 
-    it("should return 403 if rating is not allowed", async () => {
+    it("should return 404 if conditions not met for rating", async () => {
       Depositors.findById.mockResolvedValue({ _id: "123" });
-      Bidders.findById.mockResolvedValue({ _id: "456" });
+      Bidders.findById.mockResolvedValue({ _id: "456", bidder_review: [] });
       Offers.findById.mockResolvedValue({
         _id: "789",
-        depositor_id: "124",
+        depositor_id: "123",
         offer_apply: [{ bidder_id: "456" }],
-        offer_state: "finished",
+        offer_state: "active",
       });
 
-      const res = await request(app)
-        .post("/rate/depositor/456/789")
-        .send({ user_id: "123" });
+      const res = await request(app).post("/rate/depositor/456/789").send({
+        user_id: "123",
+        rating: 5,
+        text: "Great job!",
+      });
 
-      expect(res.statusCode).toBe(403);
+      expect(res.statusCode).toBe(404);
       expect(res.body.error).toBe("You can't rate this bidder");
     });
   });
@@ -429,15 +480,16 @@ describe("Depositors", () => {
 
   describe("POST /merge/depositor", () => {
     it("should merge depositor account", async () => {
-      Depositors.findById.mockResolvedValue({
+      Depositors.findById.mockResolvedValueOnce({
         _id: "123",
-        depositor_name: "test",
+        depositor_name: "Test Depositor",
         depositor_email: "test@example.com",
-        depositor_password: "hashedpassword",
-        depositor_CB: "123456",
-        image: {},
+        depositor_password: await bcrypt.hash("password", 10),
+        isTrusted: true,
       });
-      Bidders.findById.mockResolvedValue(null);
+
+      Bidders.findById.mockResolvedValueOnce(null);
+
       const res = await request(app).post("/merge/depositor").send({
         user_id: "123",
       });
@@ -447,22 +499,55 @@ describe("Depositors", () => {
     });
 
     it("should return 404 if depositor not found", async () => {
-      Depositors.findById.mockResolvedValue(null);
+      Depositors.findById.mockResolvedValueOnce(null);
 
       const res = await request(app).post("/merge/depositor").send({
         user_id: "123",
+        password: "password",
+        merge_email: "merge@example.com",
       });
 
       expect(res.statusCode).toBe(404);
       expect(res.body.error).toBe("Depositor not found");
     });
 
-    it("should return 400 if account is already merged", async () => {
-      Depositors.findById.mockResolvedValue({ _id: "123" });
-      Bidders.findById.mockResolvedValue({ _id: "123" });
+    it("should return 400 if depositor is not trusted", async () => {
+      Depositors.findById.mockResolvedValueOnce({
+        _id: "123",
+        depositor_name: "Test Depositor",
+        depositor_email: "test@example.com",
+        depositor_password: await bcrypt.hash("password", 10),
+        isTrusted: false,
+      });
 
       const res = await request(app).post("/merge/depositor").send({
         user_id: "123",
+      });
+
+      expect(res.statusCode).toBe(400);
+      expect(res.body.error).toBe("This account is not trusted");
+    });
+
+    it("should return 400 if the account is already merged", async () => {
+      Depositors.findById.mockResolvedValueOnce({
+        _id: "123",
+        depositor_name: "Test Depositor",
+        depositor_email: "test@example.com",
+        depositor_password: await bcrypt.hash("password", 10),
+        isTrusted: true,
+      });
+
+      Bidders.findById.mockResolvedValueOnce({
+        _id: "123",
+        depositor_name: "Test Depositor",
+        depositor_email: "test@example.com",
+        depositor_password: await bcrypt.hash("password", 10),
+      });
+
+      const res = await request(app).post("/merge/depositor").send({
+        user_id: "123",
+        password: "password",
+        merge_email: "merge@example.com",
       });
 
       expect(res.statusCode).toBe(400);

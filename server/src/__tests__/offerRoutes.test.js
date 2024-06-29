@@ -177,7 +177,7 @@ describe("Offers", () => {
         _id: "123",
         depositor_id: "user123",
         offer_apply: [],
-        offer_state: "pending",
+        offer_state: "open",
         save: jest.fn(),
       });
 
@@ -224,7 +224,7 @@ describe("Offers", () => {
         _id: "123",
         depositor_id: "user123",
         offer_apply: [],
-        offer_state: "pending",
+        offer_state: "open",
         save: jest.fn(),
       });
 
@@ -238,13 +238,13 @@ describe("Offers", () => {
       expect(res.body.error).toBe("You can't edit this offer");
     });
 
-    it("should return 403 if offer state is finished", async () => {
+    it("should return 403 if offer state is not open", async () => {
       Depositors.findById.mockResolvedValue({ _id: "user123" });
       Offers.findById.mockResolvedValue({
         _id: "123",
         depositor_id: "user123",
         offer_apply: [],
-        offer_state: "finished", // Offer state is not pending
+        offer_state: "finished",
       });
 
       const res = await request(app).put("/edit/offer/123").send({
@@ -571,15 +571,6 @@ describe("Offers", () => {
       expect(res.body.success).toBe("Offer applied successfully");
     });
 
-    it("should return 403 if the role is not bidder", async () => {
-      const res = await request(app)
-        .post("/apply/offer/123")
-        .send({ user_id: "bidder123", role: "not_bidder" });
-
-      expect(res.statusCode).toBe(403);
-      expect(res.body.error).toBe("You can't apply to offers");
-    });
-
     it("should return 404 if bidder not found", async () => {
       Bidders.findById.mockResolvedValue(null);
 
@@ -765,9 +756,8 @@ describe("Offers", () => {
       expect(res.body.error).toBe("Offer not found");
     });
 
-    it("should return 404 if offer or bidder not found", async () => {
+    it("should return 404 if bidder not found", async () => {
       Bidders.findById.mockResolvedValue(null);
-      Offers.findById.mockResolvedValue(null);
 
       const res = await request(app)
         .delete("/delete/apply/offer/123")

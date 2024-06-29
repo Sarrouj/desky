@@ -2,30 +2,19 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import nodemailer from "nodemailer";
-import dotenv from "dotenv";
 const router = express.Router();
-dotenv.config({ path: ".env.local" }); // Load environment variables from .env.local file
 
 // Middlewares
-import { handleErrors } from "../middlewares/errorMiddleware.mjs"; // Error handling middleware
-import loginValidationFields from "../utils/loginValidationFields.mjs"; // Validation middleware for login
-import registerValidationFields from "../utils/registerValidationFields.mjs"; // Validation middleware for registration
-import findUserByEmail from "../middlewares/findUserByEmail.mjs"; // Middleware to find user by email
+import { handleErrors } from "../middlewares/errorMiddleware.mjs";
+import findUserByEmail from "../middlewares/findUserByEmail.mjs";
+import loginValidationFields from "../utils/loginValidationFields.mjs";
+import registerValidationFields from "../utils/registerValidationFields.mjs";
+import { transporter } from "../utils/emailSend.mjs";
 
 // Schemas
-import TempUser from "../mongoose/schemas/TempUser.mjs"; // TempUser schema
-import Depositor from "../mongoose/schemas/Depositor.mjs"; // Depositor schema
-import Bidder from "../mongoose/schemas/Bidder.mjs"; // Bidder schema
-
-// Nodemailer configuration for sending emails
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER, // Email user from environment variables
-    pass: process.env.EMAIL_PASS, // Email password from environment variables
-  },
-});
+import TempUser from "../mongoose/schemas/TempUser.mjs";
+import Depositor from "../mongoose/schemas/Depositor.mjs";
+import Bidder from "../mongoose/schemas/Bidder.mjs";
 
 // Login route
 router.post(
@@ -67,7 +56,7 @@ router.post(
     const { name, email, password } = req.body;
 
     try {
-      const existingUser = req.user; // Get the user from the middleware
+      const existingUser = req.user;
       if (existingUser) {
         return res.status(400).json({ error: "Email already exists" });
       }
@@ -84,9 +73,9 @@ router.post(
       await TempUser.create({
         name,
         email,
-        password: await bcrypt.hash(password, 10), // Hash the password
+        password: await bcrypt.hash(password, 10),
         token,
-        tokenExpires: new Date(Date.now() + 3600000), // Set token expiry time
+        tokenExpires: new Date(Date.now() + 3600000),
         isVerified: false,
       });
 
@@ -109,7 +98,7 @@ router.post(
         });
       });
     } catch (err) {
-      next(err); // Pass any errors to the error handling middleware
+      next(err);
     }
   }
 );

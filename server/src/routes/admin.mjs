@@ -8,22 +8,26 @@ import { checkObjectId } from "../middlewares/checkObjectId.mjs";
 import { checkSessionId } from "../middlewares/checkSessionId.mjs";
 import { handleErrors } from "../middlewares/errorMiddleware.mjs";
 import adminValidationFields from "../utils/adminValidationFields.mjs";
+import { transporter } from "../utils/emailSend.mjs";
 
 // Schemas
 import Bidders from "../mongoose/schemas/Bidder.mjs";
 import Depositors from "../mongoose/schemas/Depositor.mjs";
 import Offers from "../mongoose/schemas/Offer.mjs";
+import Admins from "../mongoose/schemas/Admin.mjs";
 
-// Bidder verifying
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Verifying Bidder's Info
 router.put(
   "/admin/bidder/verify/:bidder_id",
   checkObjectId,
   checkSessionId,
   async (req, res, next) => {
-    const { id } = req.user;
+    const { user_id } = req.body;
     const { bidder_id } = req.params;
     try {
-      const admin = await Bidders.findById(id);
+      const admin = await Admins.findById(user_id);
       if (!admin) {
         return res.status(404).json({ error: "Admin not found" });
       }
@@ -38,26 +42,41 @@ router.put(
       }
 
       bidder.isTrusted = true;
-
       await bidder.save();
-      res.status(200).json({ success: "Bidder verified successfully" });
+
+      const mailOptions = {
+        from: "Desky",
+        to: bidder.bidder_email,
+        subject: "Your Account Status",
+        text: `Hello ${bidder.bidder_name}`,
+        html: `Your account is verified, Welcome to Desky.`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return res.status(500).json({ error: "Failed to send email" });
+        }
+        res.status(200).json({ success: "Bidder verified successfully" });
+      });
     } catch (err) {
       next(err);
     }
   }
 );
 
-// Bidder refusing
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Refusing Bidder's Info  
 router.put(
   "/admin/bidder/refuse/:bidder_id",
   checkObjectId,
   checkSessionId,
   async (req, res, next) => {
-    const { id } = req.user;
+    const { message, user_id } = req.body;
     const { bidder_id } = req.params;
 
     try {
-      const admin = await Bidders.findById(id);
+      const admin = await Admins.findById(user_id);
       if (!admin) {
         return res.status(404).json({ error: "Admin not found" });
       }
@@ -66,27 +85,40 @@ router.put(
         return res.status(404).json({ error: "Bidder not found" });
       }
 
-      bidder.isTrusted = false;
+      const mailOptions = {
+        from: "Desky",
+        to: bidder.bidder_email,
+        subject: "Your Account Status",
+        text: `Hello ${bidder.bidder_name}`,
+        html: `Your account is refused, because ${message}.
+        Please contact us for more information.`,
+      };
 
-      await bidder.save();
-      res.status(200).json({ success: "Bidder refused successfully" });
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return res.status(500).json({ error: "Failed to send email" });
+        }
+        res.status(200).json({ success: "Bidder refused successfully" });
+      });
     } catch (err) {
       next(err);
     }
   }
 );
 
-// Depositor verifying
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Verifying Depositor's Info
 router.put(
   "/admin/depositor/verify/:depositor_id",
   checkObjectId,
   checkSessionId,
   async (req, res, next) => {
-    const { id } = req.user;
+    const { user_id } = req.body;
     const { depositor_id } = req.params;
 
     try {
-      const admin = await Bidders.findById(id);
+      const admin = await Admins.findById(user_id);
       if (!admin) {
         return res.status(404).json({ error: "Admin not found" });
       }
@@ -102,23 +134,39 @@ router.put(
 
       depositor.isTrusted = true;
       await depositor.save();
-      res.status(200).json({ success: "Depositor verified successfully" });
+
+      const mailOptions = {
+        from: "Desky",
+        to: depositor.depositor_email,
+        subject: "Your Account Status",
+        text: `Hello ${depositor.depositor_name}`,
+        html: `Your account is verified, Welcome to Desky.`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return res.status(500).json({ error: "Failed to send email" });
+        }
+        res.status(200).json({ success: "Depositor verified successfully" });
+      });
     } catch (err) {
       next(err);
     }
   }
 );
 
-// Depositor refusing
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Refusing Depositor's Info 
 router.put(
   "/admin/depositor/refuse/:depositor_id",
   checkObjectId,
   checkSessionId,
   async (req, res, next) => {
-    const { id } = req.user;
+    const { user_id, message } = req.body;
     const { depositor_id } = req.params;
     try {
-      const admin = await Bidders.findById(id);
+      const admin = await Admins.findById(user_id);
       if (!admin) {
         return res.status(404).json({ error: "Admin not found" });
       }
@@ -127,33 +175,44 @@ router.put(
       if (!depositor) {
         return res.status(404).json({ error: "depositor not found" });
       }
-      //
-      //
-      //
-      //
-      //
-      //
-      //
-      //
-      //
-      //
-      //
-      res.status(200).json({ success: "Depositor refused successfully" });
+
+      const mailOptions = {
+        from: "Desky",
+        to: depositor.depositor_email,
+        subject: "Your Account Status",
+        text: `Hello ${depositor.depositor_name}`,
+        html: `Your account is refused, because ${message}.
+        Please contact us for more information.`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return res.status(500).json({ error: "Failed to send email" });
+        }
+        res.status(200).json({ success: "Depositor refused successfully" });
+      });
     } catch (err) {
       next(err);
     }
   }
 );
 
-// Offer verifying
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Verifying Offer's Info 
 router.put(
   "/admin/offer/verify/:offer_id",
   checkObjectId,
   checkSessionId,
   async (req, res, next) => {
-    const { id } = req.user;
+    const { user_id } = req.body;
     const { offer_id } = req.params;
     try {
+      const admin = await Admins.findById(user_id);
+      if (!admin) {
+        return res.status(404).json({ error: "Admin not found" });
+      }
+
       const offer = await Offers.findById(offer_id);
       if (!offer) {
         return res.status(404).json({ error: "Offer not found" });
@@ -170,40 +229,79 @@ router.put(
 
       await offer.save();
       await depositor.save();
-      res.status(200).json({ success: "Offer verified successfully" });
+
+      const mailOptions = {
+        from: "Desky",
+        to: depositor.depositor_email,
+        subject: "Your Offer Status",
+        text: `Hello ${depositor.depositor_name}`,
+        html: `Your Offer "${offer.offer_title}" is verified, is now open for bidding.`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return res.status(500).json({ error: "Failed to send email" });
+        }
+        res.status(200).json({ success: "Offer verified successfully" });
+      });
     } catch (err) {
       next(err);
     }
   }
 );
 
-// Offer refusing
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Refusing Offer's Info
 router.put(
   "/admin/offer/refuse/:offer_id",
   checkObjectId,
   checkSessionId,
   async (req, res, next) => {
-    const { id } = req.user;
+    const { user_id, message } = req.body;
     const { offer_id } = req.params;
     try {
+      const admin = await Admins.findById(user_id);
+      if (!admin) {
+        return res.status(404).json({ error: "Admin not found" });
+      }
+
       const offer = await Offers.findById(offer_id);
       if (!offer) {
         return res.status(404).json({ error: "Offer not found" });
       }
 
-      if (offer.status !== "pending") {
+      if (offer.status == "rejected") {
         return res.status(400).json({ error: "Offer already refused" });
       }
 
-      offer.status = "rejected";
+      const depositor = await Depositors.findById(offer.depositor_id);
 
+      offer.status = "rejected";
       await offer.save();
-      res.status(200).json({ success: "Offer rejected successfully" });
+
+      const mailOptions = {
+        from: "Desky",
+        to: depositor.depositor_email,
+        subject: "Your Offer Status",
+        text: `Hello ${depositor.depositor_name}`,
+        html: `Your Offer "${offer.offer_title}" is rejected, because ${message}.
+        Please contact us for more information.`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return res.status(500).json({ error: "Failed to send email" });
+        }
+        res.status(200).json({ success: "Offer rejected successfully" });
+      });
     } catch (err) {
       next(err);
     }
   }
 );
+
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 // Add Admin
 router.post(
@@ -211,17 +309,16 @@ router.post(
   checkSessionId,
   adminValidationFields,
   async (req, res, next) => {
-    const { id } = req.user;
-    const { admin_name, admin_email, admin_password } = req.body;
+    const { admin_name, admin_email, admin_password, user_id } = req.body;
     try {
-      const admin = await Bidders.findMany(admin_email);
+      const admin = await Admins.findOne(admin_email);
       if (admin) {
         return res.status(400).json({ error: "email already exists" });
       }
 
       const hashedPassword = bcrypt.hashSync(admin_password, 10);
 
-      const newAdmin = new Bidders({
+      const newAdmin = new Admins({
         admin_name,
         admin_email,
         admin_password: hashedPassword,
@@ -234,6 +331,8 @@ router.post(
     }
   }
 );
+
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 // Error handling middleware
 router.use(handleErrors);

@@ -11,6 +11,7 @@ import depositorValidationFields from "../utils/depositorValidationFields.mjs";
 import AEValidationFields from "../utils/AEValidationFields.mjs";
 import companyValidationFields from "../utils/companyValidationFields.mjs";
 import ratingValidationFields from "../utils/ratingValidationFields.mjs";
+import { transporter } from "../utils/emailSend.mjs";
 
 // Schemas
 import Depositors from "../mongoose/schemas/Depositor.mjs";
@@ -141,7 +142,7 @@ router.put(
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Add Depositor's AE info
+// Add Depositor's AE Info
 router.post(
   "/add/depositor/AE",
   checkSessionId,
@@ -178,9 +179,24 @@ router.post(
       });
 
       await newAE.save();
-      res
-        .status(201)
-        .json({ success: "Auto entrepreneur information added successfully" });
+
+      const mailOptions = {
+        from: "Desky",
+        to: depositor.depositor_email,
+        subject: "Your Account Status",
+        text: `Hello ${depositor.depositor_name}`,
+        html: `Your account need to be verified by the admin, it will take 24 hours to be verified,
+        thank you for your patience.`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return res.status(500).json({ error: "Failed to send email" });
+        }
+        res.status(201).json({
+          success: "Auto entrepreneur information added successfully",
+        });
+      });
     } catch (err) {
       next(err);
     }
@@ -189,7 +205,7 @@ router.post(
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Add Depositor's company info
+// Add Depositor's Company Info
 router.post(
   "/add/depositor/company",
   checkSessionId,
@@ -238,9 +254,24 @@ router.post(
       });
 
       await newCompany.save();
-      res
-        .status(201)
-        .json({ success: "Company information added successfully" });
+
+      const mailOptions = {
+        from: "Desky",
+        to: depositor.depositor_email,
+        subject: "Your Account Status",
+        text: `Hello ${depositor.depositor_name}`,
+        html: `Your account need to be verified by the admin, it will take 24 hours to be verified,
+        thank you for your patience.`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return res.status(500).json({ error: "Failed to send email" });
+        }
+        res.status(201).json({
+          success: "Company information added successfully",
+        });
+      });
     } catch (err) {
       next(err);
     }
@@ -282,7 +313,7 @@ router.post(
         ) ||
         offer.offer_state !== "finished"
       ) {
-        return res.status(403).json({ error: "You can't rate this bidder" });
+        return res.status(404).json({ error: "You can't rate this bidder" });
       }
 
       const newReview = {
@@ -312,6 +343,10 @@ router.post("/merge/depositor", checkSessionId, async (req, res, next) => {
     const depositor = await Depositors.findById(user_id);
     if (!depositor) {
       return res.status(404).json({ error: "Depositor not found" });
+    }
+
+    if (!depositor.isTrusted){
+      return res.status(400).json({ error: "This account is not trusted" });
     }
 
     const bidder = await Bidders.findById(user_id);

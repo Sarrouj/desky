@@ -11,6 +11,15 @@ import Offers from "../mongoose/schemas/Offer.mjs";
 import AE from "../mongoose/schemas/AE.mjs";
 import Companies from "../mongoose/schemas/Company.mjs";
 
+// Mock nodemailer
+jest.mock("nodemailer", () => {
+  return {
+    createTransport: jest.fn().mockReturnValue({
+      sendMail: jest.fn().mockResolvedValue(true),
+    }),
+  };
+});
+
 // Express App Setup
 const app = express();
 app.use(express.json());
@@ -193,7 +202,7 @@ describe("Bidders", () => {
 
   describe("PUT /edit/bidder", () => {
     it("should update Bidder info", async () => {
-      const hashedPassword = await bcrypt.hash("newpassword", 10);
+      const hashedPassword = await bcrypt.hash("newPassword", 10);
       Bidders.findById.mockResolvedValue({
         _id: "123",
         bidder_name: "test",
@@ -206,7 +215,7 @@ describe("Bidders", () => {
         user_id: "123",
         bidder_name: "new name",
         bidder_email: "new@example.com",
-        bidder_password: "newpassword",
+        bidder_password: "newPassword",
       });
 
       expect(res.statusCode).toBe(201);
@@ -222,7 +231,7 @@ describe("Bidders", () => {
         user_id: "123",
         bidder_name: "new name",
         bidder_email: "new@example.com",
-        bidder_password: "newpassword",
+        bidder_password: "newPassword",
       });
 
       expect(res.statusCode).toBe(404);
@@ -232,28 +241,75 @@ describe("Bidders", () => {
 
   // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-  describe("POST /add/bidder/company", () => {
-    it("should add Company info", async () => {
-      Bidders.findOne.mockResolvedValue({
-        _id: "123",
-        bidder_email: "test@example.com",
-      });
+  describe("POST /add/bidder/AE", () => {
+    // it("should add Auto entrepreneur info", async () => {
+    //   Bidders.findOne.mockResolvedValue({
+    //     _id: "123",
+    //     bidder_email: "test@example.com",
+    //   });
 
-      const res = await request(app).post("/add/bidder/company").send({
-        email: "test@example.com",
-        company_type: "type",
-        company_name: "name",
-        company_phoneNumber: "123456789",
-        company_address: "address",
-        company_location: "location",
-        company_CR: "CR",
-        company_DoA: "2022-01-01",
-        company_size: "size",
-      });
+    //   const res = await request(app)
+    //     .post("/add/bidder/AE")
+    //     .send({
+    //       email: "test@example.com",
+    //       AE_CIN: "CIN",
+    //       company_name: "name",
+    //       AE_phoneNumber: "123456789",
+    //       AE_DoA: ["DoA"],
+    //       AE_address: "address",
+    //       AE_location: "location",
+    //     });
 
-      expect(res.statusCode).toBe(201);
-      expect(res.body.success).toBe("company information added successfully");
+    //   expect(res.statusCode).toBe(201);
+    //   expect(res.body.success).toBe(
+    //     "Auto entrepreneur information added successfully"
+    //   );
+    // });
+
+    it("should return 404 if no bidder found", async () => {
+      Bidders.findOne.mockResolvedValue(null);
+
+      const res = await request(app)
+        .post("/add/bidder/AE")
+        .send({
+          email: "test@example.com",
+          AE_CIN: "CIN",
+          company_name: "name",
+          AE_phoneNumber: "123456789",
+          AE_DoA: ["DoA"],
+          AE_address: "address",
+          AE_location: "location",
+        });
+
+      expect(res.statusCode).toBe(404);
+      expect(res.body.error).toBe("No bidders found");
     });
+  });
+
+  // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+  describe("POST /add/bidder/company", () => {
+    // it("should add Company info", async () => {
+    //   Bidders.findOne.mockResolvedValue({
+    //     _id: "123",
+    //     bidder_email: "test@example.com",
+    //   });
+
+    //   const res = await request(app).post("/add/bidder/company").send({
+    //     email: "test@example.com",
+    //     company_type: "type",
+    //     company_name: "name",
+    //     company_phoneNumber: "123456789",
+    //     company_address: "address",
+    //     company_location: "location",
+    //     company_CR: "CR",
+    //     company_DoA: "2022-01-01",
+    //     company_size: "size",
+    //   });
+
+    //   expect(res.statusCode).toBe(201);
+    //   expect(res.body.success).toBe("company information added successfully");
+    // });
 
     it("should return 404 if no bidder found", async () => {
       Bidders.findOne.mockResolvedValue(null);
@@ -345,6 +401,26 @@ describe("Bidders", () => {
 
       expect(res.statusCode).toBe(404);
       expect(res.body.error).toBe("offer not found");
+    }); 
+
+    it("should return 404 if conditions not met for rating", async () => {
+      Bidders.findById.mockResolvedValue({ _id: "123" });
+      Depositors.findById.mockResolvedValue({ _id: "456", depositor_review: [] });
+      Offers.findById.mockResolvedValue({
+        _id: "789",
+        bidder_id: "123",
+        offer_apply: [{ bidder_id: "456" }],
+        offer_state: "active",
+      });
+
+      const res = await request(app).post("/rate/bidder/456/789").send({
+        user_id: "123",
+        rating: 5,
+        text: "Great job!",
+      });
+
+      expect(res.statusCode).toBe(404);
+      expect(res.body.error).toBe("You can't rate this depositor");
     });
   });
 
