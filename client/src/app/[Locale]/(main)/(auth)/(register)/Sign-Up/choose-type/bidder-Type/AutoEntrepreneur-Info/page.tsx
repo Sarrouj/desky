@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
@@ -28,6 +28,10 @@ import {
 // import Zustand Store
 import { useBoundStore } from "@/lib/store";
 
+// Internationalization
+import {useTranslations} from 'next-intl';
+import { City } from "@/lib/Features/CitiesData";
+
 const AutoEntrepreneurInfo = () => {
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("");
@@ -37,11 +41,30 @@ const AutoEntrepreneurInfo = () => {
   const [activities, setActivities] = useState<(string | number)[]>([]);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [Language, setLanguage] = useState();
+  const [Cities, setCity] = useState<City[]>([]);
+
+  const CitiesEN = useBoundStore((state) => state.CitiesEN);
+  const CitiesFR = useBoundStore((state) => state.CitiesFR);
+
+  // Language
+  useEffect(()=>{
+    let lg = JSON.parse(localStorage.getItem('lg'));
+    setLanguage(lg);
+  }, [Language])
 
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
 
-  const Cities = useBoundStore((state) => state.Cities);
+  // Language
+  useEffect(()=>{
+    if(Language == "en"){
+      setCity(CitiesEN);
+    }else{
+      setCity(CitiesFR);
+    }
+  },[Language, CitiesEN, CitiesFR])
+
 
   function addActivity() {
     if (activity.trim() !== "") {
@@ -121,12 +144,15 @@ const AutoEntrepreneurInfo = () => {
     }
   };
 
+   // Content
+   const Content = useTranslations('Auth.AutoEntrepreneurInfo');
+
   return (
     <div className="flex flex-col py-8 gap-20">
       <div className="w-full text-xs text-end flex justify-between px-5">
         <Link
           className="flex items-center gap-2"
-          href={"/Sign-Up/choose-type/bidder-Type"}
+          href={`/${Language}/Sign-Up/choose-type/bidder-Type`}
         >
           <Image
             src={"/icons/arrowBack.svg"}
@@ -135,23 +161,23 @@ const AutoEntrepreneurInfo = () => {
             alt="shape"
             className=""
           />
-          <p className="font-semibold">Back</p>
+          <p className="font-semibold">{Content("Back")}</p>
         </Link>
         <div>
-          <p className="text-gray-400">STEP 02/02</p>
-          <p className="font-semibold">Legal Info</p>
+          <p className="text-gray-400">{Content("Step")}</p>
+          <p className="font-semibold">{Content("LegalInfo")}</p>
         </div>
       </div>
       <div className="mx-auto grid w-7/12 gap-6 ">
         <div className="grid gap-2">
-          <h1 className="text-3xl font-bold">Legal Information</h1>
+          <h1 className="text-3xl font-bold">{Content("title")}</h1>
           <p className="text-balance text-muted-foreground">
-            Enter your information to activate your account
+            {Content("Description")}
           </p>
         </div>
         <form onSubmit={handleSubmit} className="grid gap-4">
           <div className="grid gap-2 w-full">
-            <Label htmlFor="email">Location (City)</Label>
+            <Label htmlFor="email">{Content("Location")}</Label>
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <Button
@@ -162,14 +188,14 @@ const AutoEntrepreneurInfo = () => {
                 >
                   {value
                     ? Cities.find((city) => city.value === value)?.label
-                    : "Select your Company City..."}
+                    : Content("SelectLocation") }
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-[450px] p-0">
                 <Command>
-                  <CommandInput placeholder="Search..." />
-                  <CommandEmpty>No City found.</CommandEmpty>
+                  <CommandInput placeholder={Content("Search")} />
+                  <CommandEmpty>{Content("NotFound")}</CommandEmpty>
                   <CommandGroup>
                     <CommandList>
                       {Cities.map((city, index) => (
@@ -198,7 +224,7 @@ const AutoEntrepreneurInfo = () => {
             </Popover>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="password">Address</Label>
+            <Label htmlFor="password">{Content("Address")}</Label>
             <Input
               id="text"
               type="text"
@@ -208,7 +234,7 @@ const AutoEntrepreneurInfo = () => {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email">Auto Entrepreneur Card Screen</Label>
+            <Label htmlFor="email">{Content("Card")}</Label>
             <Input
               id="picture"
               type="file"
@@ -220,7 +246,7 @@ const AutoEntrepreneurInfo = () => {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email">Phone Number</Label>
+            <Label htmlFor="email">{Content("PhoneNumber")}</Label>
             <div className="flex border border-black rounded-lg">
               <div className="px-5 py-2 border-r border-black">+212</div>
               <input
@@ -232,7 +258,7 @@ const AutoEntrepreneurInfo = () => {
             </div>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email">ADD Activities</Label>
+            <Label htmlFor="email">{Content("Activities")}</Label>
             <div className="flex gap-2">
               <Input
                 id="text"
@@ -246,7 +272,7 @@ const AutoEntrepreneurInfo = () => {
                 className="bg-primary text-white text-xs px-3 rounded"
                 onClick={() => addActivity()}
               >
-                ADD
+                {Content("ADD")}
               </Button>
             </div>
             <ul className="flex flex-wrap gap-2">
@@ -269,12 +295,12 @@ const AutoEntrepreneurInfo = () => {
           {error && <p className="text-red-500 text-sm">{error}</p>}
           {success && <p className="text-green-500 text-sm">{success}</p>}
           <Button type="submit" className="w-full text-white">
-            Submit
+            {Content("Submit")}
           </Button>
         </form>
       </div>
       <p className="w-10/12 mx-auto text-sm">
-        © 2024 Desky.ma. All Rights Reserved
+        {Content("CopyWrite")}
       </p>
     </div>
   );

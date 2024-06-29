@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
-import CallToAction from "../common/CallToAction";
 import Image from "next/image";
 
 // Shadcn/UI
@@ -39,13 +38,22 @@ import {
 import {
   Avatar,
   AvatarFallback,
-  AvatarImage,
 } from "@/Components/ui/avatar"
 
+interface Header {
+  NavbarContent: any;
+}
 
-const Header = () => {
+const Header: React.FC<Header>  = ({NavbarContent}) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const { data: session, status } = useSession();
+  const [Language, setLanguage] = useState();
+
+  // Language
+  useEffect(()=>{
+    let lg = JSON.parse(localStorage.getItem('lg'));
+    setLanguage(lg);
+  }, [Language])
   
   // User Data
   const userName : string | null = session ? session.user?.name : null;
@@ -60,23 +68,22 @@ const Header = () => {
   }, [status]);
 
   const handleLogout = () => {
-    signOut();
+    signOut(Language);
   };
 
-  
 
   return (
-    <header className="flex items-center py-3 px-10 justify-between text-secondaryDarkBlue">
-      <Link href={"/"} className="text-2xl font-bold text-primaryOrange">Desky</Link>
+    <header className="flex items-center py-3  px-10 justify-between text-secondaryDarkBlue">
+      <Link href={`/${Language}/offers`} className="text-2xl font-bold text-primaryOrange">Desky</Link>
       <nav className="flex gap-8 text-sm font-medium">
-        <Link href={"/"} className="text-primaryOrange font-bold">
-          Home
+        <Link href={`/${Language}`} className="text-primaryOrange font-bold">
+          {NavbarContent("NavLinks.Home")}
         </Link>
-        <Link href={"/"} className="hover:text-primary ">FAQ</Link>
-        <Link href={"/"} className="hover:text-primary ">About Us</Link>
-        <Link href={"/offers"} className="hover:text-primary ">Offers</Link>
+        <Link href={`/${Language}/offers`} className="hover:text-primary ">{NavbarContent("NavLinks.Offers")}</Link>
+        <Link href={"/"} className="hover:text-primary ">{NavbarContent("NavLinks.FAQ")}</Link>
+        <Link href={`/${Language}/offers`} className="hover:text-primary ">{NavbarContent("NavLinks.AboutUs")}</Link>
       </nav>
-      <nav className="flex gap-5 items-center text-sm font-medium">
+      <nav className="flex gap-3 items-center text-sm font-medium">
         {isLoggedIn ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -87,52 +94,52 @@ const Header = () => {
                   </Avatar>
                   <div className="flex flex-col justify-start items-start">
                     <h4 className="text-secondaryDarkBlue">{userName}</h4>
-                    <p className="text-xs text-primary">{userType} Account</p>
+                    <p className="text-xs text-primary">{userType} {NavbarContent("User.Account")}</p>
                   </div>
                   <Image src={'/icons/arrow-down.svg'} width={18} height={18} alt="ArrowDown"/>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuLabel>{NavbarContent("User.MyAccount")}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                   <DropdownMenuItem>
                     <User className="mr-2 h-4 w-4" />
-                    <span>Profile</span>
+                    <span>{NavbarContent("User.Profil")}</span>
                     <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                   </DropdownMenuItem>
                   {userType == "depositor" ? <Link href={'/Dashboard'}>
                     <DropdownMenuItem>
                         <Package2 className="mr-2 h-4 w-4" />
-                        <span>Dashboard</span>
+                        <span>{NavbarContent("User.Dashboard")}</span>
                         <DropdownMenuShortcut>⇧⌘D</DropdownMenuShortcut>
                     </DropdownMenuItem>
                   </Link> :  <Link href={'/Dashboard-B'}>
                     <DropdownMenuItem>
                         <Package2 className="mr-2 h-4 w-4" />
-                        <span>Dashboard</span>
+                        <span>{NavbarContent("User.Dashboard")}</span>
                         <DropdownMenuShortcut>⇧⌘D</DropdownMenuShortcut>
                     </DropdownMenuItem>
                   </Link> }
                   <DropdownMenuSub>
                     <DropdownMenuSubTrigger>
                       <UserPlus className="mr-2 h-4 w-4" />
-                      <span>Invite users</span>
+                      <span>{NavbarContent("User.InviteUsers")}</span>
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
                       <DropdownMenuSubContent>
                         <DropdownMenuItem>
                           <Mail className="mr-2 h-4 w-4" />
-                          <span>Email</span>
+                          <span>{NavbarContent("User.Email")}</span>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                           <MessageSquare className="mr-2 h-4 w-4" />
-                          <span>Message</span>
+                          <span>{NavbarContent("User.Message")}</span>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
                           <PlusCircle className="mr-2 h-4 w-4" />
-                          <span>More...</span>
+                          <span>{NavbarContent("User.More")}</span>
                         </DropdownMenuItem>
                       </DropdownMenuSubContent>
                     </DropdownMenuPortal>
@@ -142,18 +149,18 @@ const Header = () => {
                 <DropdownMenuGroup>
                   <DropdownMenuItem>
                     <Settings className="mr-2 h-4 w-4" />
-                    <span>Settings</span>
+                    <span>{NavbarContent("User.Settings")}</span>
                     <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
                   </DropdownMenuItem>
                 <DropdownMenuItem>
                   <LifeBuoy className="mr-2 h-4 w-4" />
-                  <span>Support</span>
+                  <span>{NavbarContent("User.Support")}</span>
                 </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
+                  <span>{NavbarContent("User.LogOut")}</span>
                   <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -161,8 +168,12 @@ const Header = () => {
         
         ) : (
           <>
-            <Link href={"/login"}>Login</Link>
-            <CallToAction href={"/Sign-Up"} value={"Sign Up"} />
+            <Link href={`/${Language}/login`}>
+              <Button className="px-5 bg-white border text-secondaryDarkBlue hover:bg-neutralBg">{NavbarContent("Auth.Login")}</Button>
+            </Link>
+            <Link href={`/${Language}/Sign-Up`}>
+                <Button className="text-white px-5">{NavbarContent("Auth.SignUp")}</Button>
+            </Link>
           </>
         )}
       </nav>

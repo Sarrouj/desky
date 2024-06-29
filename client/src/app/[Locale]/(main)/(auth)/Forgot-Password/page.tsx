@@ -1,24 +1,39 @@
+"use client";
+
 import Image from "next/image"
 import Link from "next/link"
 
 import { Button } from "@/Components/ui/Button"
 import { Input } from "@/Components/ui/input"
 import { Label } from "@/Components/ui/label"
+import { useEffect, useState } from "react"
 
+// Internationalization
+import {  useTranslations } from 'next-intl'
 
 const ForgotPassword = () => {
+  const [Language, setLanguage] = useState();
+  // Language
+  useEffect(()=>{
+    let lg = JSON.parse(localStorage.getItem('lg'));
+    setLanguage(lg);
+  }, [Language])
+
+  // Content
+  const Content = useTranslations('Auth.ForgotPassword');
+
   return (
       <div className="flex flex-col py-8 justify-between">
           <div className="mx-auto grid w-7/12 gap-16 mt-28">
             <div className="grid gap-2">
-              <h1 className="text-3xl font-bold">Forgot Password</h1>
+              <h1 className="text-3xl font-bold">{Content('Title')}</h1>
               <p className="text-balance text-muted-foreground">
-                Enter the email you used to create your account so we can send you instructions on how to reset your password.
+                {Content('Description')}
               </p>
             </div>
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{Content('Email')}</Label>
                 <Input
                   id="email"
                   type="email"
@@ -26,19 +41,19 @@ const ForgotPassword = () => {
                   required
                 />
               </div>
-              <Link href={"/Forgot-Password/Email-Verification"}>
+              <Link href={`/${Language}/Forgot-Password/Email-Verification`}>
                 <Button type="submit" className="w-full text-white">
-                  Send
+                  {Content('CallToAction')}
                 </Button>
               </Link>
-              <Link href={"/login"}>
+              <Link href={`/${Language}/login`}>
                 <Button variant="outline" className="w-full">
-                        Back to Login
+                  {Content('BackToLogin')}
                 </Button>
               </Link>
             </div>
           </div>
-        <p className="w-10/12 mx-auto text-sm">© 2024 Desky.ma. All Rights Reserved</p>
+        <p className="w-10/12 mx-auto text-sm">{Content('CopyWrite')}</p>
       </div>
   )
 }

@@ -15,7 +15,8 @@ interface OfferCardProps {
   key: number;
   offerNumber: number;
   id: string & Number;
-  // index : Number;
+  lg : string | undefined;
+  Content : any
 }
 
 const OfferCard: React.FC<OfferCardProps> = ({
@@ -25,11 +26,12 @@ const OfferCard: React.FC<OfferCardProps> = ({
   budget,
   Category,
   Desc,
-  offerNumber,
   id,
+  lg,
+  Content
 }) => {
   const pRef = useRef<HTMLParagraphElement>(null);
-
+  let OfferContent = Content ? Content : null;
 
   useEffect(() => {
     if (pRef.current) {
@@ -43,11 +45,11 @@ const OfferCard: React.FC<OfferCardProps> = ({
     }
   }, []);
   return (
-    <Link href={`./offers/${id}`}  className="min-w-[300px] w-full md:w-full lg:w-[45vw]  xl:w-[46vw] shadow h-[210px]" >
+    <Link href={`/${lg}/offers/${id}`}  className="min-w-[300px] w-full md:w-full lg:w-[45vw]  xl:w-[46vw] shadow h-[210px]" >
       <div className="bg-white rounded-lg p-8">
         <h2 className="text-md md:text-xl lg:text-xl xl:text-xl  font-bold">{title}</h2>
         <div className="flex text-xs xl:text-sm gap-5 mt-1 text-neutralGray">
-          <p>Posted {timeSince(date)}</p>
+          <p>{OfferContent('Posted')} {timeSince(date)}</p>
           <div className="flex gap-1">
             <Image
               src={"/icons/Subtract.svg"}
@@ -58,7 +60,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
             <p>{location}</p>
           </div>
           <p>
-            Est.Budget: <span>{budget}</span>DH
+            {OfferContent('EstBudget')}: <span>{budget}</span>DH
           </p>
         </div>
         <p className="text-xs lg:text-sm mt-5 h-[40px]" ref={pRef}>
@@ -67,7 +69,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
         <div className="mt-3">
           <div className="flex gap-8 text-xs xl:text-sm items-center">
             <div className="flex gap-2 items-center justify-center">
-              <p className="text-neutralGray">Category :</p>
+              <p className="text-neutralGray">{OfferContent('Cat')} :</p>
               <ul className="flex gap-2 items-center">
                 {Category.map((c, index) => (
                   <CategoryBtnCard key={index} value={c}/>
@@ -75,7 +77,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
               </ul>
             </div>
             <p className="text-neutralGray">
-              Proposals :{" "}
+            {OfferContent('Proposals')} :{" "}
               <span className="font-semibold text-secondary">Less than 5</span>
             </p>
           </div>

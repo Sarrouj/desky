@@ -21,7 +21,7 @@ import { Input } from "@/Components/ui/input"
 import { useBoundStore } from "@/lib/store"
 import PopoverCom from "@/Components/common/PopoverComponent"
 import OfferCardSkeleton from "@/Components/layout/OfferCardSkeleton"
-
+import Header from "@/Components/layout/Header" 
 import { useSession } from "next-auth/react";
 
 import {
@@ -32,6 +32,10 @@ import {
   } from "@/Components/ui/tooltip"
 
 
+// Internationalization
+import {useTranslations} from 'next-intl';
+
+
 const Offers : React.FC = () => {
     const [categoryValue, categorySetValue] = React.useState<string>("");
     const [cityValue, citySetValue] = React.useState<string>("");
@@ -39,8 +43,10 @@ const Offers : React.FC = () => {
     // filters UI
     let [filter , setFilter] = useState< (string | number)[]>([]);
     let [searchValue, setSearchValue] = useState('');
-     const Cities  = useBoundStore((state) => state.Cities);
-    const Categories : any  = useBoundStore((state) => state.Categories);
+    const CitiesEN  = useBoundStore((state) => state.CitiesEN);
+    const CitiesFR  = useBoundStore((state) => state.CitiesFR);
+    const CategoriesEN : any  = useBoundStore((state) => state.CategoriesEN);
+    const CategoriesFR : any  = useBoundStore((state) => state.CategoriesFR);
     const getSearchValue  = useBoundStore((state) => state.getSearchValue);
     const getCategoryValue = useBoundStore((state) => state.getCategoryValue);
     const getCityValue = useBoundStore((state) => state.getCityValue);
@@ -52,8 +58,14 @@ const Offers : React.FC = () => {
     // Session
     const { data: session, status } = useSession();
     const userRole = session ? session?.user.role : null;
+    const [Language, setLanguage] = useState('fr');
 
-
+    // Language
+    useEffect(()=>{
+        let lg = JSON.parse(localStorage.getItem('lg'));
+        setLanguage(lg);
+        searchedData;
+    }, [Language, searchedData])
 
 
     // add Filter
@@ -105,22 +117,29 @@ const Offers : React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchedData])
     
+    // Content
+    const NavbarContent = useTranslations('NavBar');
+    const OffersPageContent = useTranslations('Offers');
+    const OfferContent = useTranslations('offer');
 
   return (
     <>
+        <div className="bg-white border-b-2 ">
+            <Header NavbarContent={NavbarContent}/>
+        </div>
         <main className="py-10 px-10 bg-neutralBg text-secondaryDarkBlue h-full">
             <section className="pt-5">
                 <div className="flex justify-between items-center">
-                    <h1 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl  font-semibold">Find The Best Deal For Your Business</h1>
+                    <h1 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl  font-semibold">{OffersPageContent('Title')}</h1>
                     {userRole == 'depositor' ? 
-                        <CallToAction href={"/Create-Offer"} value={"Post an offer | +10"} />
+                        <CallToAction href={"/Create-Offer"} value={`${OffersPageContent('CallToAction')} | +10`} />
                     : 
                     <TooltipProvider>
                     <Tooltip>
                     <TooltipTrigger>
-                        <CallToAction href={""} value={"Post an offer | +10"} /> 
+                        <CallToAction href={""} value={`${OffersPageContent('CallToAction')} | +10`} /> 
                     </TooltipTrigger>
-                    <TooltipContent side="top" className="text-xs">Login or Register to Depositor <br /> Account to Post an Offer</TooltipContent>
+                    <TooltipContent side="top" className="text-xs">{OffersPageContent('CallToActionPopMsg1')} <br /> {OffersPageContent('CallToActionPopMsg2')}</TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
                  }
@@ -129,11 +148,21 @@ const Offers : React.FC = () => {
                 <div className="mt-8 flex justify-between items-end">
                     <div className="">
                         <div className="flex gap-2">
-                            <Input placeholder="Search" className="w-[200px] md:w-[250px] lg:w-[300px] xl:w-[400px]
+                            <Input placeholder={OffersPageContent('SearchPlaceholder')} className="w-[200px] md:w-[250px] lg:w-[300px] xl:w-[400px]
                               h-[30px] md:h-[30px] lg:h-[32px] xl:h-[35px]  border-2 text-xs md:text-xs lg:text-sm xl:text-md
                               " value={searchValue} onChange={(e) => setSearchValue(e.target.value)}/>
-                            <PopoverCom data={Categories} type={"Categories"} value={categoryValue} setValue={categorySetValue}/>
-                            <PopoverCom data={Cities} type={"Location"} value={cityValue} setValue={citySetValue}/>
+                              {Language == "en" ?
+                                <>
+                                     <PopoverCom data={CategoriesEN} type={"Categories"} value={categoryValue} setValue={categorySetValue} search={'Search...'} notFound={"No Category found."}/> 
+                                     <PopoverCom data={CitiesEN} type={"Location"} value={cityValue} setValue={citySetValue} search={'Search...'}  notFound={"No City found."}/>
+                                </>
+                                 :
+                                <>
+                                    <PopoverCom data={CategoriesFR} type={"catégories"} value={categoryValue} setValue={categorySetValue} search={'Recherche...'} notFound={"Aucune catégorie trouvée."}/> 
+                                    <PopoverCom data={CitiesFR} type={"Ville"} value={cityValue} setValue={citySetValue} search={'Recherche...'}  notFound={"Aucune ville trouvée."}/>
+                                </>
+                            }
+                            
                         </div>
                         <ul className="flex items-center gap-2 text-sm mt-2">
                             {filter.map((act, index)=> (
@@ -156,18 +185,18 @@ const Offers : React.FC = () => {
                     <div className="flex gap-1 text-xs  lg:text-sm xl:text-sm">
                         <p>{searchedData.length}</p>
                         {searchedData.length > 1  ?
-                            <p> Results</p> :
-                            <p> Result</p>
+                            <p> {OffersPageContent('Results')}</p> :
+                            <p> {OffersPageContent('Result')}</p>
                         }
                     </div>
                     <div className="flex items-center gap-2">
-                        <p className="text-xs">Sort by</p>
+                        <p className="text-xs">{OffersPageContent('SortBy')}</p>
                         <Select>
                             <SelectTrigger className="w-[80px] md:w-[90px] xl:w-[90px] h-[28px] md:h-[28px] lg:h-[30px] xl:h-[32px] border-2 text-[10px] md:text-xs">
                                 <SelectValue placeholder="Newest"/>
                             </SelectTrigger>
                             <SelectContent >
-                                <SelectItem value="Newest" className="text-xs">Newest</SelectItem>
+                                <SelectItem value="Newest" className="text-xs">{OffersPageContent('Newest')}</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
@@ -187,11 +216,13 @@ const Offers : React.FC = () => {
                                 Desc={offer.offer_description}
                                 offerNumber={index + 1}
                                 id={offer._id}
+                                lg={Language}
+                                Content={OfferContent}
                             /> 
                         )) : ( filter.length !== 0 ?
                             <div className="container mx-auto px-4 py-20 text-center">
-                                <h2 className="text-2xl font-bold mb-4">No Results Found</h2>
-                                <p className="text-gray-600">We couldn&apos;t find any matches for your search criteria. Please try again with different keywords or filters.</p>
+                                <h2 className="text-2xl font-bold mb-4">{OffersPageContent('NotFoundMsg')}</h2>
+                                <p className="text-gray-600">{OffersPageContent('NotFoundMsgDesc')}</p>
                             </div> :   Array.from({ length: 10 }).map((_, index) => (
                                 <OfferCardSkeleton key={index} />
                                 ))

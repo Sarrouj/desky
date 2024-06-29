@@ -29,9 +29,11 @@ export interface PopoverProps{
   type : string;
   value : string;
   setValue: any;
+  search : string;
+  notFound : string;
 }
 
-const PopoverCom : React.FC<PopoverProps> = ({data, type, value, setValue}) => {
+const PopoverCom : React.FC<PopoverProps> = ({data, type, value, setValue, search, notFound}) => {
   const [open, setOpen] = React.useState<boolean>(false);
 
   
@@ -57,8 +59,8 @@ const PopoverCom : React.FC<PopoverProps> = ({data, type, value, setValue}) => {
         <PopoverContent className="p-0 w-[150px] md:w-[200px] 
             lg:w-[200px] xl:w-[300px] ">
         <Command>
-            <CommandInput placeholder="Search..." className="text-xs md:text-xs lg:text-sm xl:text-md"/>
-            <CommandEmpty className="text-xs md:text-xs lg:text-sm xl:text-md">No City found.</CommandEmpty>
+            <CommandInput placeholder={search} className="text-xs md:text-xs lg:text-sm xl:text-md"/>
+            <CommandEmpty className="text-xs md:text-xs lg:text-sm xl:text-md">{notFound}</CommandEmpty>
             <CommandGroup>
             <CommandList>
             {data.map((d, index) => (

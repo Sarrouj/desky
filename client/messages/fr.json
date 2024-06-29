@@ -26,6 +26,195 @@
       "Statistic": "Statistique",
       "StatisticDesc": "Chaque soumissionnaire a un statut légal : Desky vous met en relation avec des entreprises de premier plan et des entrepreneurs qualifiés, vous garantissant ainsi un accès aux meilleures options pour vos projets."
     }
-
+  },
+  "NavBar": {
+    "NavLinks": {
+      "Home": "Accueil",
+      "Offers": "Offres",
+      "FAQ": "FAQ",
+      "AboutUs": "À propos de nous"
+    },
+    "Auth": {
+      "Login": "Connexion",
+      "SignUp": "S'incrire"
+    },
+    "Languages": {
+      "English": "Anglais",
+      "French": "Français"
+    },
+    "User": {
+      "Account": "Compte",
+      "MyAccount": "Mon compte",
+      "Profil": "Profil",
+      "Dashboard": "Tableau de bord",
+      "InviteUsers": "Inviter des utilisateurs",
+      "Email": "Email",
+      "Message": "Message",
+      "More": "Plus...",
+      "Settings": "Paramètres",
+      "Support": "Support",
+      "LogOut": "Se déconnecter"
+    }
+  },
+  "Offers": {
+    "Title": "Trouvez la meilleure offre pour votre entreprise",
+    "CallToAction": "Publier une offre",
+    "CallToActionPopMsg1": "Connectez-vous ou inscrivez-vous pour déposer",
+    "CallToActionPopMsg2": "un compte pour publier une offre",
+    "Results": "Résultats",
+    "Result": "Résultat",
+    "SearchPlaceholder": "Recherche",
+    "SortBy": "Trier par",
+    "Newest": "Plus récent",
+    "NotFoundMsg": "Aucun résultat trouvé",
+    "NotFoundMsgDesc": "Nous n'avons trouvé aucune correspondance pour vos critères de recherche. Veuillez réessayer avec des mots-clés ou des filtres différents."
+  },
+  "Auth": {
+  "Login": {
+    "title": "Connexion",
+    "Description": "Entrez vos informations pour vous connecter",
+    "Email": "Email",
+    "Password": "Mot de passe",
+    "Forgot": "Mot de passe oublié ?",
+    "CallToAction": "Se Connecter",
+    "OR": "OU",
+    "LGGoogle": "Se Connecter avec Google",
+    "Dont": "Vous n'avez pas de compte ?",
+    "SignUP": "S'inscrire",
+    "CopyWrite": "© 2024 Desky.ma. Tous droits réservés"
+  },
+  "SignUp": {
+    "title": "S'inscrire",
+    "Description": "Entrez vos informations pour créer un compte",
+    "FullName": "Nom complet",
+    "Email": "Email",
+    "Password": "Mot de passe",
+    "CallToAction": "S'inscrire",
+    "OR": "OU",
+    "RGoogle": "S'inscrire avec Google",
+    "Already": "Vous avez déjà un compte ?",
+    "Login": "Se connecter",
+    "CopyWrite": "© 2024 Desky.ma. Tous droits réservés"
+  },
+  "ChooseType": {
+    "title": "Rejoignez-nous !",
+    "Desc": "Pour commencer ce voyage, dites-nous quel type de compte vous ouvririez.",
+    "Depositor": "Déposant",
+    "DespositorActionDesc": "Déposer des offres et gérer les offres reçues.",
+    "Bidder": "Soumissionnaire",
+    "BidderActionDesc": "Propriétaire ou membre d'une entreprise, c'est pour vous.",
+    "CopyWriteMSG": "© 2024 Desky.ma. Tous droits réservés."
+  },
+  "BidderType": {
+    "Title": "Choisissez votre statut juridique",
+    "Description": "Complétez le processus d'inscription",
+    "AutoEntrepreneur": "Auto-entrepreneur",
+    "AutoDescription": "Déposer des offres et gérer les offres reçues.",
+    "Company": "Entreprise",
+    "CompanyDescription": "Propriétaire ou membre d'une entreprise, c'est pour vous.",
+    "CopyWrite": "© 2024 Desky.ma. Tous droits réservés",
+    "Step": "ÉTAPE 01/03",
+    "LegalInfo": "Informations légales"
+  },
+  "AutoEntrepreneurInfo": {
+    "title": "Informations légales",
+    "Description": "Entrez vos informations pour activer votre compte",
+    "Back": "Retour",
+    "Location": "Emplacement (Ville)",
+    "SelectLocation": "Sélectionnez votre ville",
+    "NotFound": "Aucune ville trouvée.",
+    "Search": "Rechercher",
+    "Address": "Adresse",
+    "Card": "Carte d'auto-entrepreneur (PDF, PNG)",
+    "PhoneNumber": "Numéro de téléphone",
+    "Activities": "Ajouter des activités",
+    "Activity": "Activité...",
+    "ADD": "AJOUTER",
+    "Submit": "Soumettre",
+    "CopyWrite": "© 2024 Desky.ma. Tous droits réservés",
+    "Step": "ÉTAPE 02/02",
+    "LegalInfo": "Informations légales"
+  },
+  "CompanyInformation": {
+    "title": "Informations de l'entreprise",
+    "Desc": "Entrez vos informations pour activer votre compte",
+    "type": "Type d'entreprise",
+    "CompanyName": "Nom de l'entreprise",
+    "City": "Emplacement (Ville)",
+    "SelectLocation": "Sélectionnez la ville de votre entreprise",
+    "NotFound": "Aucune ville trouvée.",
+    "Search": "Rechercher...",
+    "Address": "Adresse de l'entreprise",
+    "AddressPlaceHolder": "BU.23 AV Y.BEN TACHFINE, Tanger 90000",
+    "CompanyRC": "Numéro d'immatriculation au registre du commerce (RC)",
+    "RC": "Numéro RC",
+    "PN": "Numéro de téléphone",
+    "CompanyActivites": "Activités de l'entreprise",
+    "Activity": "Activité...",
+    "RequiredAct": "Au moins une activité est requise.",
+    "ADD": "AJOUTER",
+    "Submit": "Soumettre",
+    "CopyWrite": "© 2024 Desky.ma. Tous droits réservés",
+    "Step": "ÉTAPE 02/02",
+    "LegalInfo": "Informations légales",
+    "Back": "Retour",
+    "CompanySize": "Taille de l'entreprise",
+    "SelectCompanySize": "Sélectionnez la taille de votre entreprise",
+    "Sizes": {
+      "Small": "Petite (2 à 10 employés)",
+      "Medium": "Moyenne (11 à 100 employés)",
+      "Large": "Grande (plus de 100 employés)"
+    }
+  },"ForgotPassword": {
+    "Title": "Mot de Passe Oublié",
+    "Description": "Entrez l'adresse e-mail de votre compte pour les instructions de réinitialisation.",
+    "Email": "Email",
+    "CallToAction": "Envoyer",
+    "BackToLogin": "Retour à la connexion",
+    "CopyWrite": "© 2024 Desky.ma. Tous droits réservés",
+    "EmailVerification" : {
+      "title" : "Vérifiez votre e-mail",
+      "Desc" : "Nous avons envoyé un e-mail contenant les informations de réinitialisation du mot de passe à",
+      "resendMsg" : "Vous n'avez pas reçu l'e-mail ? Vérifiez le dossier spam  ou",
+      "ResendEmail" : "Renvoyer l'e-mail",
+      "BackToLogin" : "Retour à la connexion",
+      "CopyWrite" : "© 2024 Desky.ma. Tous droits réservés"
+    },
+    "ResetPassword" : {
+      "title" : "Réinitialiser le mot de passe",
+      "Description" : "Réinitialiser le mot de passe en créant un nouveau mot de passe.",
+      "NewPassword" : "Nouveau mot de passe",
+      "ConfirmPassword" : "Confirmez le mot de passe",
+      "ResetPassword" : "Réinitialiser le mot de passe",
+      "CopyWrite" : "© 2024 Desky.ma. Tous droits réservés"
+    },
+    "RessetSuccessful": {
+      "title": "Réinitialisation du mot de passe réussie",
+      "CallToAction": "Connexion",
+      "CopyWrite": "© 2024 Desky.ma. Tous droits réservés"
+    }
+  }
+    },
+  "OffersDetail": {
+    "Location": "Lieu ciblé :",
+    "Posted": "Posté ",
+    "Category": "Catégorie :",
+    "Estbudget": "Budget estimé :",
+    "Deadline": "Date limite :",
+    "Attachements": "Pièces jointes",
+    "reviews": "avis",
+    "of": "de",
+    "OfferActivity": "Activité dans cette offre :",
+    "Proposals": "Propositions :",
+    "CallToAction": "Postuler maintenant",
+    "loggedToApply": "Vous devez être connecté pour postuler à cette offre,",
+    "login": "Connexion",
+    "ReviewsHistory": "Historique des avis"
+  },
+ "offer": {
+    "Posted": "Posté",
+    "EstBudget": "Budget estimé",
+    "Cat": "Catégorie",
+    "Proposals": "Propositions"
   }
 }

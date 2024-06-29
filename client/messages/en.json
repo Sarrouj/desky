@@ -1,3 +1,4 @@
+
 {
     "Home": {
       "Hero" : {
@@ -26,6 +27,198 @@
         "Statistic" : "Statistic",
         "StatisticDesc" : "Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects."
       }
+    },
+    "NavBar" : {
+      "NavLinks" : {
+        "Home" : "Home",
+        "Offers" : "Offers",
+        "FAQ": "FAQ",
+        "AboutUs": "About Us"
+      },
+      "Auth":{
+        "Login" : "Login",
+        "SignUp" : "Sign Up"
+      },
+      "Languages": {
+        "English" : "English",
+        "French" : "French"
+      },
+      "User":{
+        "Account" : "Account",
+        "MyAccount" : "My Account",
+        "Profil" : "Profil",
+        "Dashboard" : "Dashboard",
+        "InviteUsers" : "Invite users",
+        "Email" : "Email",
+        "Message" : "Message",
+        "More" : "More...",
+        "Settings" : "Settings",
+        "Support" : "Support",
+        "LogOut" : "Log out"
+      }
+    },
+    "Offers": {
+      "Title" : "Find The Best Deal For Your Business",
+      "CallToAction" : "Post an Offer",
+      "CallToActionPopMsg1"  : "Login or Register to Depositor ",
+      "CallToActionPopMsg2" : "Account to Post an Offer",
+      "Results" : "Results",
+      "Result" : "Result",
+      "SortBy" : "Sort by",
+      "SearchPlaceholder": "Search",
+      "Newest" : "Newest",
+      "NotFoundMsg" : "No Results Found",
+      "NotFoundMsgDesc" : "We couldn't find any matches for your search criteria. Please try again with different keywords or filters."
+    },
+    "Auth" : {
+      "Login" : {
+        "title" : "Login",
+        "Description" : "Enter your information to login",
+        "Email" : "Email",
+        "Password" : "Password",
+        "Forgot": "Forgot your password?",
+        "CallToAction": "Login",
+        "OR" : "OR",
+        "LGGoogle": "Login with Google",
+        "Dont": "Don't have an account?",
+        "SignUP": "Sign Up",
+        "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved"
+      },
+      "SignUp": {
+        "title" : "Sign Up",
+        "Description" : "Enter your information to create an account",
+        "FullName" : "Full name",
+        "Email" : "Email",
+        "Password" : "Password",
+        "CallToAction": "Register",
+        "OR" : "OR",
+        "RGoogle": "Register with Google",
+        "Already": "already have an account?",
+        "Login": "Login",
+        "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved"
+      }, 
+      "ChooseType" : {
+        "title" : "Join Us!",
+        "Desc" : "To begin this journey, tell us what type of account you'd be opening.",
+        "Depositor" : "Depositor",
+        "DespositorActionDesc" : "Depose Offers and Manage Received Bids.",
+        "Bidder" : "Bidder",
+        "BidderActionDesc" : "Own or belong to a company, this is for you.",
+        "CopyWriteMSG" : "© 2024 Desky.ma. All Rights Reserved"
+      },
+      "BidderType" : {
+        "Title" : "Chose your Legal Status",
+        "Description" : "Complete The Registration Process",
+        "AutoEntrepreneur" : "Auto entrepreneur",
+        "AutoDescription" : "Depose Offers and Manage Received Bids.",
+        "Company": "Company",
+        "CompanyDescription" : "Own or belong to a company, this is for you.",
+        "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved",
+        "Step" : "STEP 01/03",
+        "LegalInfo" : "Legal Info"
+      },
+      "AutoEntrepreneurInfo" : {
+        "title" : "Legal Information",
+        "Description" : "Enter your information to activate your account",
+        "Back" : "Back",
+        "Location" : "Location (City)",
+        "SelectLocation" : "Select your City",
+        "NotFound" : "No City found.",
+        "Search" : "Search",
+        "Address" : "Address",
+        "Card" : "Auto Entrepreneur Card (PDF, PNG)",
+        "PhoneNumber" : "Phone Number",
+        "Activities" : "Add Activities",
+        "Activity" : "Activity...",
+        "ADD" : "ADD", 
+        "Submit" : "Submit",
+        "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved",
+        "Step" : "STEP 02/02",
+        "LegalInfo" : "Legal Info"
+      },
+      "CompanyInformation" : {
+        "title" : "Company Information",
+        "Desc" : "Enter your information to activate your account",
+        "type": "Company Type",
+        "CompanyName": "Company Name",
+        "City" : "Location (City)",
+        "SelectLocation" : "Select your Company City",
+        "NotFound" : "No City found.",
+        "Search" : "Search...",
+        "Address" : "Company Address",
+        "AddressPlaceHolder" : "BU.23 AV Y.BEN TACHFINE, Tangier 90000",
+        "CompanyRC" : "Company RC Number",
+        "RC" : "RC Number",
+        "PN" : "Phone Number",
+        "CompanyActivites" : "Company Activities",
+        "Activity" : "Activity...",
+        "RequiredAct" : "At least one activity is required.",
+        "ADD" : "ADD",
+        "Submit" : "Submit",
+        "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved",
+        "Step" : "STEP 02/02",
+        "LegalInfo" : "Legal Info",
+        "Back" : "Back",
+        "CompanySize" : "Company Size",
+        "SelectCompanySize" : "Select your Company Size",
+        "Sizes" : {
+          "Small" : "Small (2 to 10 employees)",
+          "Medium" : "Medium (11 to 100 employees)",
+          "Large" : "Large (more than 100 employees)"
+        }
+        
+      },
+      "ForgotPassword" : {
+        "Title" : "Forgot Password",
+        "Description" : "Enter the email you used to create your account so we can send you instructions on how to reset your password.",
+        "Email" : "Email",
+        "CallToAction" : "Send",
+        "BackToLogin" : "Back to Login",
+        "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved",
+        "EmailVerification" : {
+          "title" : "Check your Email",
+          "Desc" : "We have sent an email with password reset information to",
+          "resendMsg" : "Didn’t receive the email? Check spam or ",
+          "ResendEmail" : "Resend Email",
+          "BackToLogin" : "Back to Login",
+          "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved"
+        },
+        "ResetPassword" : {
+          "title" : "Reset Password",
+          "Description" : "Reset password by Creating a new password.",
+          "NewPassword" : "New Password",
+          "ConfirmPassword" : "Confirm Password",
+          "ResetPassword" : "Reset Password",
+          "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved"
+        },
+          "RessetSuccessful" : {
+            "title" : "Password Reset Successfully",
+            "CallToAction" : "Login",
+            "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved"
+        }
+      }
+    },
+    "OffersDetail":{
+      "Location" : "Targetd Location :",
+      "Posted" : "Posted ",
+      "Category" : "Category :",
+      "Estbudget" : "Est.budget:",
+      "Deadline" : "Deadline:",
+      "Attachements" : "Attachements",
+      "reviews" : "reviews",
+      "of" : "of",
+      "OfferActivity" : "Activity in This Offer:",
+      "Proposals" : "Proposals :",
+      "CallToAction" : "Apply Now",
+      "loggedToApply" : "You must be logged in to apply for this offer,",
+      "login" : "Login",
+      "ReviewsHistory" : "Reviews History"
+    },
+    "offer": {
+      "Posted" : "Posted",
+      "EstBudget": "Est.Budget",
+      "Cat" : "Category",
+      "Proposals" : "Proposals"
     }
 }
 

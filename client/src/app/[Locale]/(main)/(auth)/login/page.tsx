@@ -4,10 +4,12 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { signIn, useSession } from "next-auth/react";
-
-import { Button } from "@/Components/ui/button";
+import AuthCopywrite from "@/Components/common/AuthCopywrite";
+import { Button } from "@/Components/ui/Button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
+// Internationalization
+import {useTranslations} from 'next-intl';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,12 +17,23 @@ const Login = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { data: session, status } = useSession();
+  const [Language, setLanguage] = useState();
+
+  // Content
+  const LoginContent = useTranslations('Auth.Login');
+
+  // Language
+  useEffect(()=>{
+    let lg = JSON.parse(localStorage.getItem('lg'));
+    setLanguage(lg);
+  }, [Language])
+  
 
   useEffect(() => {
     if (status === "authenticated") {
-      window.location.href = "/";
+      window.location.href = `/${Language}`;
     }
-  }, [status]);
+  }, [status, Language]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,9 +60,9 @@ const Login = () => {
       setError(result.error);
     } else if (result?.url) {
       if (result.url.includes("choose-type")) {
-        window.location.href = "/(main)/(register)/Sign-Up/choose-type";
+        window.location.href = `/${Language}/(main)/(register)/Sign-Up/choose-type`;
       } else {
-        window.location.href = "/";
+        window.location.href = `/${Language}`;
       }
     }
   };
@@ -58,21 +71,21 @@ const Login = () => {
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] text-secondaryDarkBlue">
       <div className="flex flex-col py-8 justify-between">
         <Link
-          href={"/"}
+          href={`/${Language}`}
           className="w-10/12 mx-auto text-primary font-bold text-2xl"
         >
           Desky
         </Link>
         <div className="mx-auto grid w-7/12 gap-6">
           <div className="grid gap-2">
-            <h1 className="text-3xl font-bold">Login</h1>
+            <h1 className="text-3xl font-bold">{LoginContent("title")}</h1>
             <p className="text-balance text-muted-foreground">
-              Enter your information to login
+              {LoginContent("Description")}
             </p>
           </div>
           <form onSubmit={handleSubmit} className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{LoginContent("Email")}</Label>
               <Input
                 id="email"
                 type="email"
@@ -84,12 +97,12 @@ const Login = () => {
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{LoginContent("Password")}</Label>
                 <Link
-                  href="/Forgot-Password"
+                  href={`/${Language}/Forgot-Password`}
                   className="ml-auto inline-block text-sm underline"
                 >
-                  Forgot your password?
+                  {LoginContent("Forgot")}
                 </Link>
               </div>
               <Input
@@ -103,26 +116,26 @@ const Login = () => {
             {error && <p className="text-red-500 text-sm">{error}</p>}
             {success && <p className="text-green-500 text-sm">{success}</p>}
             <Button type="submit" className="w-full text-white">
-              Login
+              {LoginContent("CallToAction")}
             </Button>
           </form>
-          <p className="text-center"> -OR- </p>
+          <p className="text-center"> {LoginContent("OR")} </p>
           <Button
             variant="outline"
             className="w-full"
             onClick={handleGoogleSignIn}
           >
-            Login with Google
+            {LoginContent("LGGoogle")}
           </Button>
           <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{" "}
-            <Link href="/Sign-Up" className="underline">
-              Sign Up
+            {LoginContent("Dont")}{" "}
+            <Link href={`/${Language}/Sign-Up`} className="underline">
+            {LoginContent("SignUP")}
             </Link>
           </div>
         </div>
         <p className="w-10/12 mx-auto text-sm">
-          © 2024 Desky.ma. All Rights Reserved
+          <AuthCopywrite value={LoginContent("CopyWrite")}/>
         </p>
       </div>
       <div className="bg-muted lg:block rounded-lg m-5 bg-gradient-to-r from-custom-yellow to-custom-orange flex flex-col justify-end items-end">

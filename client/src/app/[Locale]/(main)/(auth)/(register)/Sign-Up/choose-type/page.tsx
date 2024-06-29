@@ -6,18 +6,32 @@ import Link from "next/link";
 import axios from "axios";
 import "./style.css";
 
+// Internationalization
+import {useTranslations} from 'next-intl';
+
 const Type = () => {
   const email = localStorage.getItem("email");
   const password = localStorage.getItem("password");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { data: session, status } = useSession();
+  const [Language, setLanguage] = useState();
+
+  // Content
+  const ChooseTypeContent = useTranslations('Auth.ChooseType');
+
+  // Language
+  useEffect(()=>{
+    let lg = JSON.parse(localStorage.getItem('lg'));
+    setLanguage(lg);
+  }, [Language])
+
 
   useEffect(() => {
     if (status === "authenticated") {
-      window.location.href = "/";
+      window.location.href = `/${Language}`;
     }
-  }, [status]);
+  }, [status, Language]);
 
   const handleTypeChoosing = async (userType: string) => {
     setSuccess("");
@@ -45,10 +59,10 @@ const Type = () => {
             setSuccess("registered successfully");
             localStorage.removeItem("email");
             localStorage.removeItem("password");
-            window.location.href = "/";
+            window.location.href = `/${Language}`;
           }
         } else {
-          window.location.href = "/Sign-Up/choose-type/bidder-Type";
+          window.location.href = `/${Language}/Sign-Up/choose-type/bidder-Type`;
         }
       }
     } catch (error: any) {
@@ -82,10 +96,9 @@ const Type = () => {
         <div className="w-10/12 mx-auto text-sm text-end"></div>
         <div className="mx-auto grid w-7/12 gap-6 ">
           <div className="grid gap-2">
-            <h1 className="text-3xl font-bold">Join Us!</h1>
+            <h1 className="text-3xl font-bold">{ChooseTypeContent("title")}</h1>
             <p className="text-muted-foreground">
-              To begin this journey, tell us what type of account you&apos;d be
-              opening.
+              {ChooseTypeContent("Desc")}
             </p>
           </div>
           <div className="flex flex-col gap-5">
@@ -109,9 +122,9 @@ const Type = () => {
                   className="hidden hoverDepositorIcon"
                 />
                 <div>
-                  <h3 className="font-semibold">Depositor</h3>
+                  <h3 className="font-semibold">{ChooseTypeContent("Depositor")}</h3>
                   <p className="text-xs">
-                    Depose Offers and Manage Received Bids.
+                    {ChooseTypeContent("DespositorActionDesc")}
                   </p>
                 </div>
               </div>
@@ -143,9 +156,9 @@ const Type = () => {
                   className="hidden hoverDepositorIcon"
                 />
                 <div>
-                  <h3 className="font-semibold">Bidder</h3>
+                  <h3 className="font-semibold">{ChooseTypeContent("Bidder")}</h3>
                   <p className="text-xs">
-                    Own or belong to a company, this is for you.
+                    {ChooseTypeContent("BidderActionDesc")}
                   </p>
                 </div>
               </div>
@@ -162,7 +175,7 @@ const Type = () => {
           </div>
         </div>
         <p className="w-10/12 mx-auto text-sm">
-          © 2024 Desky.ma. All Rights Reserved
+          {ChooseTypeContent("CopyWriteMSG")}
         </p>
       </div>
     </div>
