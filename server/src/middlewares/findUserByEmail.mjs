@@ -14,7 +14,7 @@ const findUserByEmail = async (req, res, next) => {
       user.name = admin.admin_name;
       user.email = admin.admin_email;
       user.role = "admin";
-      user.password = admin.admin_password; // Ensure password is assigned
+      user.password = admin.admin_password;
     }
 
     const depositor = await Depositor.findOne({ depositor_email: email });
@@ -24,7 +24,7 @@ const findUserByEmail = async (req, res, next) => {
       user.name = depositor.depositor_name;
       user.email = depositor.depositor_email;
       user.role = "depositor";
-      user.password = depositor.depositor_password; // Ensure password is assigned
+      user.password = depositor.depositor_password;
     }
 
     const bidder = await Bidder.findOne({ bidder_email: email });
@@ -34,7 +34,7 @@ const findUserByEmail = async (req, res, next) => {
       user.name = bidder.bidder_name;
       user.email = bidder.bidder_email;
       user.role = "bidder";
-      user.password = bidder.bidder_password; // Ensure password is assigned
+      user.password = bidder.bidder_password;
     }
 
     if (user) {

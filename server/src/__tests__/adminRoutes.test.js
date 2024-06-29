@@ -1,7 +1,6 @@
 // Packages
 import request from "supertest";
 import express from "express";
-import bcrypt from "bcrypt";
 import router from "../routes/admin.mjs";
 
 // Schemas
@@ -46,6 +45,15 @@ jest.mock("../utils/ratingValidationFields.mjs", () => ({
     (req, res, next) => next(),
   ],
 }));
+jest.mock("../utils/emailSend.mjs", () => ({
+  transporter: jest.requireActual("nodemailer").createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  }),
+}));
 
 jest.mock("../mongoose/schemas/Admin.mjs");
 jest.mock("../mongoose/schemas/Depositor.mjs");
@@ -53,7 +61,7 @@ jest.mock("../mongoose/schemas/Bidder.mjs");
 jest.mock("../mongoose/schemas/Offer.mjs");
 
 // Tests
-describe("Admin Routes", () => {
+describe("Admins", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -69,6 +77,7 @@ describe("Admin Routes", () => {
     //   Bidders.findById.mockResolvedValue({
     //     _id: "456",
     //     name: "test",
+    //     bidder_email: "fahd.suirita@gmail.com",
     //     save: jest.fn().mockResolvedValue(true),
     //   });
 
