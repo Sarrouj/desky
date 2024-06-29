@@ -4,7 +4,6 @@ import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { Cities } from "./Cities";
 import axios from "axios";
 
 // Shadcn UI
@@ -35,6 +34,13 @@ import {
   PopoverTrigger,
 } from "@/Components/ui/popover";
 
+// Internationalization
+import {useTranslations} from 'next-intl';
+
+// import Zustand Store
+import { useBoundStore } from "@/lib/store";
+import { City } from "@/lib/Features/CitiesData";
+
 const CompanyInfo = () => {
   const email = localStorage.getItem("email");
   const password = localStorage.getItem("password");
@@ -50,19 +56,41 @@ const CompanyInfo = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { data: session, status } = useSession();
+  const [Language, setLanguage] = useState();
+  const [Cities, setCity] = useState<City[]>([]);
+
+  const CitiesEN = useBoundStore((state) => state.CitiesEN);
+  const CitiesFR = useBoundStore((state) => state.CitiesFR);
+
+  // Language
+  useEffect(()=>{
+    let lg = JSON.parse(localStorage.getItem('lg'));
+    setLanguage(lg);
+  }, [Language])
+
+  // Language
+  useEffect(()=>{
+    if(Language == "en"){
+      setCity(CitiesEN);
+    }else{
+      setCity(CitiesFR);
+    }
+  },[Language, CitiesEN, CitiesFR])
+
+  // Content
+  const ChooseTypeContent = useTranslations('Auth.CompanyInformation');
 
   useEffect(() => {
     if (status === "authenticated") {
-      console.log("User authenticated, redirecting to /");
-      window.location.href = "/";
+      window.location.href = `/${Language}`;
     }
-  }, [status]);
+  }, [status, Language]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (activities.length === 0) {
-      setError("At least one activity is required.");
+      setError(ChooseTypeContent('RequiredAct'));
       return;
     }
 
@@ -128,7 +156,7 @@ const CompanyInfo = () => {
       <div className="w-full text-xs text-end flex justify-between px-5">
         <Link
           className="flex items-center gap-2"
-          href={"/Sign-Up/choose-type/bidder-Type"}
+          href={`/${Language}/Sign-Up/choose-type/bidder-Type`}
         >
           <Image
             src={"/icons/arrowBack.svg"}
@@ -137,30 +165,30 @@ const CompanyInfo = () => {
             alt="shape"
             className=""
           />
-          <p className="font-semibold">Back</p>
+          <p className="font-semibold">{ChooseTypeContent('Back')}</p>
         </Link>
         <div>
-          <p className="text-gray-400">STEP 02/02</p>
-          <p className="font-semibold">Legal Info</p>
+          <p className="text-gray-400">{ChooseTypeContent('Step')}</p>
+          <p className="font-semibold">{ChooseTypeContent('LegalInfo')}</p>
         </div>
       </div>
       <div className="mx-auto grid w-7/12 gap-6 ">
         <div className="grid gap-2">
-          <h1 className="text-3xl font-bold">Company Information</h1>
+          <h1 className="text-3xl font-bold">{ChooseTypeContent('title')}</h1>
           <p className="text-balance text-muted-foreground">
-            Enter your information to activate your account
+            {ChooseTypeContent('Desc')}
           </p>
         </div>
         <form onSubmit={handleSubmit} className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="type">Company Type</Label>
+            <Label htmlFor="type">{ChooseTypeContent('type')}</Label>
             <Select onValueChange={(value) => setType(value)}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select your Company Type" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Company Type</SelectLabel>
+                  <SelectLabel>{ChooseTypeContent('type')}</SelectLabel>
                   <SelectItem value="S.A.R.L">
                     Société À Responsabilité Limitée (S.A.R.L)
                   </SelectItem>
@@ -182,17 +210,17 @@ const CompanyInfo = () => {
             </Select>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="name">Company Name</Label>
+            <Label htmlFor="name">{ChooseTypeContent('CompanyName')}</Label>
             <Input
               id="name"
               type="text"
               required
-              placeholder="Mukawala"
+              placeholder="Mokawala"
               onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className="grid gap-2 w-full">
-            <Label htmlFor="location">Location (City)</Label>
+            <Label htmlFor="location">{ChooseTypeContent('City')}</Label>
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <Button
@@ -204,14 +232,14 @@ const CompanyInfo = () => {
                 >
                   {value
                     ? Cities.find((city) => city.value === value)?.label
-                    : "Select your Company City..."}
+                    : ChooseTypeContent('SelectLocation')}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-[450px] p-0">
                 <Command>
-                  <CommandInput placeholder="Search..." />
-                  <CommandEmpty>No City found.</CommandEmpty>
+                  <CommandInput placeholder={ChooseTypeContent('Search')} />
+                  <CommandEmpty>{ChooseTypeContent('NotFound')}</CommandEmpty>
                   <CommandGroup>
                     <CommandList>
                       {Cities.map((city, index) => (
@@ -244,49 +272,49 @@ const CompanyInfo = () => {
             </Popover>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="address">Company Address</Label>
+            <Label htmlFor="address">{ChooseTypeContent('Address')}</Label>
             <Input
               id="address"
               type="text"
               required
-              placeholder="123 Street Name"
+              placeholder={ChooseTypeContent('AddressPlaceHolder')}
               onChange={(e) => setAddress(e.target.value)}
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="cr">Company RC Number</Label>
+            <Label htmlFor="cr">{ChooseTypeContent('CompanyRC')}</Label>
             <Input
               id="cr"
               type="Number"
               required
-              placeholder="RC Number"
+              placeholder={ChooseTypeContent('RC')}
               onChange={(e) => setCr(e.target.value)}
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="size">Company Size</Label>
+            <Label htmlFor="size">{ChooseTypeContent('CompanySize')}</Label>
             <Select onValueChange={(value) => setSize(value)}>
               <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select your Company Size" />
+                <SelectValue placeholder={ChooseTypeContent('SelectCompanySize')} />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectLabel>Company Size</SelectLabel>
+                  <SelectLabel>{ChooseTypeContent('CompanySize')}</SelectLabel>
                   <SelectItem value="Small">
-                    Small (2 to 10 employees)
+                    {ChooseTypeContent('Sizes.Small')}
                   </SelectItem>
                   <SelectItem value="Medium">
-                    Medium (11 to 100 employees)
+                    {ChooseTypeContent('Sizes.Medium')}
                   </SelectItem>
                   <SelectItem value="Large">
-                    Large (more than 100 employees)
+                    {ChooseTypeContent('Sizes.Large')}
                   </SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="phoneNumber">Phone Number</Label>
+            <Label htmlFor="phoneNumber">{ChooseTypeContent('PN')}</Label>
             <div className="flex border border-black rounded-lg">
               <div className="px-5 py-2 border-r border-black">+212</div>
               <input
@@ -298,12 +326,12 @@ const CompanyInfo = () => {
             </div>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="activity">Company Activities</Label>
+            <Label htmlFor="activity">{ChooseTypeContent('CompanyActivites')}</Label>
             <div className="flex gap-2">
               <Input
                 id="activity"
                 type="text"
-                placeholder="Activity..."
+                placeholder={ChooseTypeContent('Activity')}
                 onChange={(e) => setActivity(e.target.value)}
                 value={activity}
               />
@@ -312,7 +340,7 @@ const CompanyInfo = () => {
                 className="bg-primary text-white text-xs px-3 rounded"
                 onClick={() => addActivity()}
               >
-                ADD
+                {ChooseTypeContent('ADD')}
               </Button>
             </div>
             <ul className="flex flex-wrap gap-2">
@@ -335,12 +363,12 @@ const CompanyInfo = () => {
           {error && <p className="text-red-500 text-sm">{error}</p>}
           {success && <p className="text-green-500 text-sm">{success}</p>}
           <Button type="submit" className="w-full text-white">
-            Submit
+            {ChooseTypeContent('Submit')}
           </Button>
         </form>
       </div>
       <p className="w-10/12 mx-auto text-sm">
-        © 2024 Desky.ma. All Rights Reserved
+        {ChooseTypeContent('CopyWrite')}
       </p>
     </div>
   );

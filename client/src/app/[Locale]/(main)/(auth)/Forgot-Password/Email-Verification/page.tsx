@@ -1,35 +1,46 @@
+"use client";
 import Link from "next/link"
-
 import { Button } from "@/Components/ui/Button"
+import { useState, useEffect } from "react"
+import {useTranslations} from 'next-intl';
 
-const emailVerification = () => {
+
+const EmailVerification = () => {
+  const [Language, setLanguage] = useState();
+  const Content = useTranslations('Auth.ForgotPassword.EmailVerification');
+
+    // Language
+    useEffect(()=>{
+      let lg = JSON.parse(localStorage.getItem('lg'));
+      setLanguage(lg);
+    }, [Language])
+
   return (
       <div className="flex flex-col py-8 justify-between">
-          <div className="mx-auto grid gap-16 mt-28 ">
-            <div className="grid gap-2">
-              <h1 className="text-3xl font-bold">Check your Email</h1>
-              <p className="text-balance text-muted-foreground ">
-                We have sent an email with password reset information to <br />
-                n****e@e***e.com.
+          <div className="mx-auto grid gap-16 mt-28 w-4/6">
+            <div className="grid gap-2 w-full">
+              <h1 className="text-3xl font-bold">{Content('title')}</h1>
+              <p className="text-balance text-muted-foreground w-full">
+              {Content('Desc')} n****e@e***e.com.
               </p>
             </div>
             <div className="grid gap-4">
-              <p>Didn’t receive the email? Check spam or promotion folder or</p>
-              <Link href={"/Forgot-Password/Email-Verification/Reset-Password"}>
+              <p>{Content('resendMsg')}</p>
+              <Link href={`/${Language}/Forgot-Password/Email-Verification/Reset-Password`}>
                 <Button type="submit" className="w-full text-white ">
-                  Resend Email
+                  {Content('ResendEmail')}
                 </Button>
               </Link>
-              <Link href={"/login"}>
+              <Link href={`/${Language}/login`}>
                 <Button variant="outline" className="w-full">
-                        Back to Login
+                  {Content('BackToLogin')}
                 </Button>
               </Link>
             </div>
           </div>
-        <p className="w-10/12 mx-auto text-sm">© 2024 Desky.ma. All Rights Reserved</p>
+        <p className="w-10/12 mx-auto text-sm">{Content('CopyWrite')}</p>
       </div>
   )
 }
 
-export default emailVerification
+export default EmailVerification

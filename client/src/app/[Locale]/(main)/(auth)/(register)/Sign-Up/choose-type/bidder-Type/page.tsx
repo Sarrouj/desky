@@ -1,24 +1,42 @@
+"use client";
+
 import Image from "next/image";
+import { useState, useEffect} from "react";
 import Link from "next/link";
 import "./style.css";
 
+// Internationalization
+import {useTranslations} from 'next-intl';
+
 const BidderType = () => {
+  const [Language, setLanguage] = useState();
+
+  // Content
+  const ChooseTypeContent = useTranslations('Auth.BidderType');
+
+  // Language
+  useEffect(()=>{
+    let lg = JSON.parse(localStorage.getItem('lg'));
+    setLanguage(lg);
+  }, [Language])
+  
+
   return (
     <div className="flex flex-col py-8 justify-between">
       <div className="w-10/12 mx-auto text-xs text-end">
-        <p className="text-gray-400">STEP 01/03</p>
-        <p className="font-semibold">Legal Info</p>
+        <p className="text-gray-400">{ChooseTypeContent('Step')}</p>
+        <p className="font-semibold">{ChooseTypeContent('LegalInfo')}</p>
       </div>
       <div className="mx-auto grid w-7/12 gap-6 mb-10">
         <div className="grid gap-2">
           <h1 className="text-3xl font-bold">
-            Complete The Registration Process
+            {ChooseTypeContent('Title')}
           </h1>
-          <p className="text-muted-foreground">Chose your Legal Status</p>
+          <p className="text-muted-foreground">{ChooseTypeContent('Description')}</p>
         </div>
         <div className="flex flex-col gap-5">
           <Link
-            href={"/Sign-Up/choose-type/bidder-Type/AutoEntrepreneur-Info"}
+            href={`/${Language}/Sign-Up/choose-type/bidder-Type/AutoEntrepreneur-Info`}
             className="flex justify-between items-center shadow border hover:border-primary p-5 rounded accounType hover:bg-neutralBg"
           >
             <div className="flex items-center gap-5">
@@ -37,9 +55,9 @@ const BidderType = () => {
                 className="hidden hoverDepositorIcon"
               />
               <div>
-                <h3 className="font-semibold">Auto entrepreneur</h3>
+                <h3 className="font-semibold">{ChooseTypeContent('AutoEntrepreneur')}</h3>
                 <p className="text-xs">
-                  Depose Offers and Manage Received Bids.
+                  {ChooseTypeContent('AutoDescription')}
                 </p>
               </div>
             </div>
@@ -52,7 +70,7 @@ const BidderType = () => {
             />
           </Link>
           <Link
-            href={"/Sign-Up/choose-type/bidder-Type/Company-Info"}
+            href={`/${Language}/Sign-Up/choose-type/bidder-Type/Company-Info`}
             className="flex justify-between items-center shadow border hover:border-primary p-5 rounded accounType hover:bg-neutralBg"
           >
             <div className="flex items-center gap-5">
@@ -71,9 +89,9 @@ const BidderType = () => {
                 className="hidden hoverDepositorIcon"
               />
               <div>
-                <h3 className="font-semibold">Company</h3>
+                <h3 className="font-semibold">{ChooseTypeContent('Company')}</h3>
                 <p className="text-xs">
-                  Own or belong to a company, this is for you.
+                  {ChooseTypeContent('CompanyDescription')}
                 </p>
               </div>
             </div>
@@ -88,7 +106,7 @@ const BidderType = () => {
         </div>
       </div>
       <p className="w-10/12 mx-auto text-sm">
-        © 2024 Desky.ma. All Rights Reserved
+        {ChooseTypeContent('CopyWrite')}
       </p>
     </div>
   );

@@ -10,6 +10,9 @@ import { Button } from "@/Components/ui/Button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 
+// Internationalization
+import {useTranslations} from 'next-intl';
+
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,12 +20,22 @@ const SignUp = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { data: session, status } = useSession();
+  const [Language, setLanguage] = useState();
+
+  // Content
+  const SignUPContent = useTranslations('Auth.SignUp');
+
+  // Language
+  useEffect(()=>{
+    let lg = JSON.parse(localStorage.getItem('lg'));
+    setLanguage(lg);
+  }, [Language])
 
   useEffect(() => {
     if (status === "authenticated") {
-      window.location.href = "/";
+      window.location.href = `/${Language}`;
     }
-  }, [status]);
+  }, [status, Language]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,7 +55,7 @@ const SignUp = () => {
         localStorage.setItem("email", email);
         localStorage.setItem("password", password);
         setTimeout(() => {
-          window.location.href = `/Sign-Up/choose-type`;
+          window.location.href = `${Language}/Sign-Up/choose-type`;
         }, 1000);
       } else {
         setError(response.data.error);
@@ -76,21 +89,21 @@ const SignUp = () => {
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] text-secondaryDarkBlue">
       <div className="flex flex-col py-8 justify-between">
         <Link
-          href={"/"}
+          href={`/${Language}`}
           className="w-10/12 mx-auto text-primary font-bold text-2xl"
         >
           Desky
         </Link>
         <div className="mx-auto grid w-7/12 gap-6 ">
           <div className="grid gap-2">
-            <h1 className="text-3xl font-bold">Sign Up</h1>
+            <h1 className="text-3xl font-bold">{SignUPContent('title')}</h1>
             <p className="text-balance text-muted-foreground">
-              Enter your information to create an account
+              {SignUPContent('Description')}
             </p>
           </div>
           <form onSubmit={handleSubmit} className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="name">Full name</Label>
+              <Label htmlFor="name">{SignUPContent('FullName')}</Label>
               <Input
                 id="name"
                 value={name}
@@ -100,7 +113,7 @@ const SignUp = () => {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{SignUPContent('Email')}</Label>
               <Input
                 id="email"
                 type="email"
@@ -112,7 +125,7 @@ const SignUp = () => {
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{SignUPContent('Password')}</Label>
               </div>
               <Input
                 id="password"
@@ -125,26 +138,26 @@ const SignUp = () => {
             {error && <p className="text-red-500 text-sm">{error}</p>}
             {success && <p className="text-green-500 text-sm">{success}</p>}
             <Button type="submit" className="w-full text-white">
-              Register
+              {SignUPContent('CallToAction')}
             </Button>
           </form>
-          <p className="text-center"> -OR- </p>
+          <p className="text-center">{SignUPContent('OR')}</p>
           <Button
             variant="outline"
             className="w-full"
             onClick={handleGoogleSignIn}
           >
-            Register with Google
+            {SignUPContent('RGoogle')}
           </Button>
           <div className="mt-4 text-center text-sm">
-            already have an account?{" "}
-            <Link href="/login" className="underline">
-              Login
+            {SignUPContent('Already')}{" "}
+            <Link href={`/${Language}/login`} className="underline">
+              {SignUPContent('Login')}
             </Link>
           </div>
         </div>
         <p className="w-10/12 mx-auto text-sm">
-          © 2024 Desky.ma. All Rights Reserved
+          {SignUPContent('CopyWrite')}
         </p>
       </div>
       <div className=" bg-muted lg:block rounded-lg m-5 bg-gradient-to-r from-custom-yellow to-custom-orange flex flex-col justify-end items-end ">

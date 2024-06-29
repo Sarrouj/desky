@@ -1,28 +1,38 @@
 "use client";
 import CallToAction from "@/Components/common/CallToAction";
 import Footer from "@/Components/layout/footer";
-import Header from "@/Components/layout/Header";
+import HomeNavbar from "@/Components/layout/HomeNavbar";
 import OfferCard from "@/Components/layout/OfferCard";
 import Image from "next/image";
 import Link from "next/link";
 import { useBoundStore } from "@/lib/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import OfferCardSkeleton from "@/Components/layout/OfferCardSkeleton";
 import {useTranslations} from 'next-intl';
 
 
 export default function Home() {
+  const [Language, setLanguage] = useState();
+
   const offersData = useBoundStore((state) => state.offersData);
   const fetchOffers = useBoundStore((state) => state.fetchOffers);
   const Content = useTranslations('Home');
-
+  const NavbarContent = useTranslations('NavBar');
+  const OfferContent = useTranslations('offer');
+  
   useEffect(() => {
     fetchOffers();
   }, [fetchOffers]);
 
+  // Language
+  useEffect(()=>{
+    let lg = JSON.parse(localStorage.getItem('lg'));
+    setLanguage(lg);
+  }, [Language])
+
   return (
     <>
-      <Header />
+      <HomeNavbar NavbarContent={NavbarContent}/>
         <main className="text-secondaryDarkBlue">
           <section className="border-b-2 pb-10">
             <div className="pl-20 flex">
@@ -47,7 +57,7 @@ export default function Home() {
                       {Content('Hero.SubmitCallToAction')} | +10
                     </Link>
                     <Link
-                      href={"/offers"}
+                      href={`${Language}/offers`}
                       className="px-7 py-2 rounded-md border-4 border-primaryOrange text-primaryOrange font-semibold"
                     >
                        {Content('Hero.SeeCallsCallToAction')}
@@ -158,6 +168,8 @@ export default function Home() {
                       Desc={offer.offer_description}
                       offerNumber={index + 1}
                       id={offer._id}
+                      lg={Language}
+                      Content={OfferContent}
                   /> )) :
                   <>
                     <OfferCardSkeleton/>
@@ -165,7 +177,7 @@ export default function Home() {
                   </>
                   }
               </div>
-              <CallToAction href={"/offers"} value={Content('LatestSection.CallToAction')} />
+              <CallToAction href={`${Language}/offers`} value={Content('LatestSection.CallToAction')} />
             </div>
           </section>
           <section>
