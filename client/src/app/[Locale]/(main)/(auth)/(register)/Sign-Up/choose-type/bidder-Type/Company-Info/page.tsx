@@ -82,8 +82,9 @@ const CompanyInfo = () => {
 
   useEffect(() => {
     if (status === "authenticated") {
-      window.location.href = `/${Language}`;
+      window.location.href = `/${Language}/dashboard-b`;
     }
+    
   }, [status, Language]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -92,7 +93,7 @@ const CompanyInfo = () => {
     if (activities.length === 0) {
       setError(ChooseTypeContent('RequiredAct'));
       return;
-    }
+  }
 
     try {
       const response = await axios.post(
@@ -123,7 +124,7 @@ const CompanyInfo = () => {
           setSuccess("registered successfully");
           localStorage.removeItem("email");
           localStorage.removeItem("password");
-          window.location.href = "/";
+          window.location.href = `/${Language}/dashboard-b`;
         }
       }
     } catch (error: any) {

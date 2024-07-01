@@ -1,5 +1,5 @@
 "use client"
-
+import { redirect } from 'next/navigation'
 import Image from "next/image"
 import Link from "next/link"
 import {
@@ -126,6 +126,7 @@ const DespoeitorDashboard = () => {
   const handleLogout = () => {
     signOut();
   };
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40 text-secondaryDarkBlue">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">

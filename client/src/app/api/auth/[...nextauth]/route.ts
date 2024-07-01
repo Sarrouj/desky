@@ -92,7 +92,8 @@ export const authOptions: NextAuthOptions = {
 
           if (response.status === 200) {
             if (response.data.success === "Registered successfully") {
-              return `/process-google-signIn?email=${encodeURIComponent(
+
+              return `/fr/process-google-signIn?email=${encodeURIComponent(
                 user.email ?? ""
               )}&password=${encodeURIComponent(
                 (user.name ?? "") + (user.email ?? "")
@@ -117,7 +118,7 @@ export const authOptions: NextAuthOptions = {
       if (url.startsWith("/auth/process-google-signIn")) {
         return `${baseUrl}${url}`;
       }
-      return baseUrl;
+      return url;
     },
     async jwt({ token, user, account, profile }) {
       if (user) {

@@ -108,13 +108,13 @@ const Header: React.FC<Header>  = ({NavbarContent}) => {
                     <span>{NavbarContent("User.Profil")}</span>
                     <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                   </DropdownMenuItem>
-                  {userType == "depositor" ? <Link href={'/Dashboard'}>
+                  {userType == "depositor" ? <Link href={`/${Language}/dashboard-d`}>
                     <DropdownMenuItem>
                         <Package2 className="mr-2 h-4 w-4" />
                         <span>{NavbarContent("User.Dashboard")}</span>
                         <DropdownMenuShortcut>⇧⌘D</DropdownMenuShortcut>
                     </DropdownMenuItem>
-                  </Link> :  <Link href={'/Dashboard-B'}>
+                  </Link> :  <Link href={`/${Language}/dashboard-b`}>
                     <DropdownMenuItem>
                         <Package2 className="mr-2 h-4 w-4" />
                         <span>{NavbarContent("User.Dashboard")}</span>
