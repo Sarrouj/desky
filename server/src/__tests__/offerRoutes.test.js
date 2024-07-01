@@ -30,23 +30,27 @@ jest.mock("../middlewares/errorMiddleware.mjs", () => ({
 }));
 jest.mock("../utils/offerValidationFields.mjs", () => ({
   __esModule: true,
-  default: [
-    (req, res, next) => next(),
-    (req, res, next) => next(),
-    (req, res, next) => next(),
-    (req, res, next) => next(),
-    (req, res, next) => next(),
-    (req, res, next) => next(),
-    (req, res, next) => next(),
-  ],
+  default: new Array(7).fill((req, res, next) => next()),
 }));
 jest.mock("../utils/offerStateValidationFields.mjs", () => ({
   __esModule: true,
-  default: [(req, res, next) => next(), (req, res, next) => next()],
+  default: new Array(2).fill((req, res, next) => next()),
 }));
 jest.mock("../mongoose/schemas/Depositor.mjs");
 jest.mock("../mongoose/schemas/Bidder.mjs");
-jest.mock("../mongoose/schemas/Offer.mjs");
+jest.mock("../mongoose/schemas/Offer.mjs", () => {
+  return {
+    __esModule: true,
+    default: class Offer {
+      constructor() {
+        this.save = jest.fn().mockResolvedValue();
+      }
+      static find = jest.fn();
+      static findById = jest.fn();
+      static deleteOne = jest.fn();
+    },
+  };
+});
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
@@ -134,7 +138,6 @@ describe("Offers", () => {
   describe("POST /add/offer", () => {
     it("should add a new offer", async () => {
       Depositors.findById.mockResolvedValue({ _id: "user123" });
-      Offers.prototype.save.mockResolvedValue();
 
       const res = await request(app).post("/add/offer").send({
         offer_title: "New Offer",
