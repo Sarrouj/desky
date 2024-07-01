@@ -1,5 +1,6 @@
 "use client"
 
+import { redirect } from 'next/navigation'
 import Image from "next/image"
 import Link from "next/link"
 import {
@@ -26,7 +27,8 @@ import {
   ArrowLeftRight,
   Star,
   ChevronRight,
-  PackagePlus
+  PackagePlus,
+  LanguagesIcon
 } from "lucide-react"
 
 
@@ -107,26 +109,37 @@ import React, { useEffect, useState} from "react";
 import { useSession, signOut } from "next-auth/react";
 
 
-const DespoeitorDashboard = () => {
+const BidderDashboard = () => {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [LogedOut, setLogedOut] = useState(true);
   const { data: session, status } = useSession();
+
+  const [Language, setLanguage] = useState();
+  // Language
+  useEffect(()=>{
+    let lg = JSON.parse(localStorage.getItem('lg'));
+    setLanguage(lg);
+  }, [Language])
+
+  // update Login status
+  useEffect(()=>{
+    if(status == "unauthenticated"){
+      setLogedOut(false);
+      window.location.href = "/fr/";
+    }else if(status == "loading"){
+      console.log('loadind')
+    }
+  }, [status])
 
   // User Data
   const userName : string | null = session ? session.user?.name : null;
   const userType : string | null = session ? session.user?.role : null;
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      setIsLoggedIn(true); // Update isLoggedIn state using useState setter function
-    } else {
-      setIsLoggedIn(false); // Reset isLoggedIn state if not authenticated
-    }
-  }, [status]);
-
   const handleLogout = () => {
     signOut();
+    console.log(status)
   };
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40 text-secondaryDarkBlue">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -353,8 +366,8 @@ const DespoeitorDashboard = () => {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
                   <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -731,4 +744,4 @@ const DespoeitorDashboard = () => {
   )
 }
 
-export default  DespoeitorDashboard
+export default  BidderDashboard
