@@ -3,10 +3,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
-
 dotenv.config({ path: ".env.local" });
-
-const app = express();
 
 // Routes
 import depositorRouter from "./routes/depositor.mjs";
@@ -29,7 +26,8 @@ const connectToDatabase = async () => {
   }
 };
 
-// Middlewares
+// Express App Setup
+const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());

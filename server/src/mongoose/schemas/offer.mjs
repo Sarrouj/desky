@@ -38,34 +38,25 @@ const OffersSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    offer_attachments: [
-      {
-        file_id: {
-          type: mongoose.Types.ObjectId, // Store the GridFS file ObjectId
-          required: true,
-        },
-        file_name: {
-          type: String,
-          required: true,
-        },
-        file_size: {
-          type: String,
-          required: true,
-        },
-        upload_date: {
-          type: Date,
-          required: true,
-        },
-      },
-    ],
-    depositor_id: {
+    offer_attachments: {
       type: String,
+      required: true,
+    },
+    offer_status: {
+      type: String,
+      required: true,
+      default: "pending",
+    },
+    depositor_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Depositors",
       required: true,
     },
     offer_apply: [
       {
         bidder_id: {
-          type: String,
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Bidders",
           required: true,
         },
         date: {
@@ -84,8 +75,5 @@ const OffersSchema = new mongoose.Schema(
   { collection: "Offers" }
 );
 
-// Create a model for the offer collection using the schema
 const Offers = mongoose.model("Offer", OffersSchema);
-
-// Export the model to be used in other parts of your application
 export default Offers;

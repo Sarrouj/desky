@@ -16,7 +16,13 @@ const offerValidationFields = [
     .notEmpty()
     .withMessage("Offer category is required")
     .isArray()
-    .withMessage("Offer category must be an array"),
+    .withMessage("Offer category must be an array")
+    .custom((value) => {
+      if (!value.every((item) => typeof item === "string")) {
+        throw new Error("Each category must be a string");
+      }
+      return true;
+    }),
   check("offer_location")
     .notEmpty()
     .withMessage("Offer location is required")

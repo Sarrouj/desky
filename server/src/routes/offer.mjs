@@ -6,6 +6,7 @@ const router = express.Router();
 import { checkObjectId } from "../middlewares/checkObjectId.mjs";
 import { checkSessionId } from "../middlewares/checkSessionId.mjs";
 import { handleErrors } from "../middlewares/errorMiddleware.mjs";
+import { upload } from "../utils/upload.mjs";
 import offerValidationFields from "../utils/offerValidationFields.mjs";
 import offerStateValidationFields from "../utils/offerStateValidationFields.mjs";
 
@@ -23,7 +24,6 @@ router.get("/offers", async (req, res, next) => {
     if (offers.length === 0) {
       return res.status(404).json({ error: "No offers found" });
     }
-
     res.status(200).json({ success: offers });
   } catch (err) {
     next(err);
@@ -35,13 +35,11 @@ router.get("/offers", async (req, res, next) => {
 // Get Offer's Info
 router.get("/offer/:id", checkObjectId, async (req, res, next) => {
   const { id } = req.params;
-
   try {
     const offer = await Offers.findById(id);
     if (!offer) {
       return res.status(404).json({ error: "Offer not found" });
     }
-
     res.status(200).json({ success: offer });
   } catch (err) {
     next(err);
@@ -55,28 +53,22 @@ router.get("/search/offer", async (req, res, next) => {
   const { search, category, location } = req.query;
   try {
     let query = {};
-
     if (search) {
       query.$or = [
         { offer_title: { $regex: search, $options: "i" } },
         { offer_description: { $regex: search, $options: "i" } },
       ];
     }
-
     if (category) {
       query.offer_category = category;
     }
-
     if (location) {
       query.offer_location = { $regex: location, $options: "i" };
     }
-
     const offers = await Offers.find(query);
-
     if (offers.length === 0) {
       return res.status(404).json({ error: "No offers found" });
     }
-
     res.status(200).json({ success: offers });
   } catch (err) {
     next(err);
@@ -90,6 +82,7 @@ router.post(
   "/add/offer",
   checkSessionId,
   offerValidationFields,
+  upload.single("offer_attachments"),
   async (req, res, next) => {
     const {
       offer_title,
@@ -107,7 +100,7 @@ router.post(
         return res.status(404).json({ error: "Depositor not found" });
       }
 
-      const newOffer = new Offers({
+      const newOfferData = {
         offer_title,
         offer_description,
         offer_category,
@@ -116,8 +109,13 @@ router.post(
         offer_budget,
         depositor_id: user_id,
         offer_apply: [],
-      });
+      };
 
+      if (req.file) {
+        newOfferData.offer_attachments = req.file.filename;
+      }
+
+      const newOffer = new Offers(newOfferData);
       await newOffer.save();
       res.status(201).json({ success: "Offer created successfully" });
     } catch (err) {
@@ -134,6 +132,7 @@ router.put(
   offerValidationFields,
   checkSessionId,
   checkObjectId,
+  upload.single("offer_attachments"),
   async (req, res, next) => {
     const {
       offer_title,
@@ -142,7 +141,6 @@ router.put(
       offer_location,
       offer_deadLine,
       offer_budget,
-      offer_attachments,
       user_id,
     } = req.body;
     const { id } = req.params;
@@ -169,12 +167,13 @@ router.put(
       offer.offer_title = offer_title || offer.offer_title;
       offer.offer_description = offer_description || offer.offer_description;
       offer.offer_category = offer_category || offer.offer_category;
-      offer.offer_DoP = new Date();
       offer.offer_location = offer_location || offer.offer_location;
       offer.offer_deadLine = offer_deadLine || offer.offer_deadLine;
       offer.offer_budget = offer_budget || offer.offer_budget;
-      offer.offer_attachments = offer_attachments || offer.offer_attachments;
-      offer.offer_state = "pending";
+
+      if (req.file) {
+        offer.offer_attachments = req.file.filename;
+      }
 
       await offer.save();
       res.status(200).json({ success: "Offer edited successfully" });
@@ -207,7 +206,10 @@ router.put(
         return res.status(404).json({ error: "Offer not found" });
       }
 
-      if (offer.depositor_id.toString() !== user_id) {
+      if (
+        offer.depositor_id.toString() !== user_id ||
+        offer.offer_state === "finished"
+      ) {
         return res.status(403).json({ error: "You can't edit this offer" });
       }
 
@@ -285,7 +287,9 @@ router.post(
       }
 
       if (
-        bidder.saved_offers.some((savedOffer) => savedOffer.offer_id === id)
+        bidder.saved_offers.some(
+          (savedOffer) => savedOffer.offer_id.toString() === id
+        )
       ) {
         return res.status(403).json({ error: "You already saved this offer" });
       }
@@ -449,7 +453,8 @@ router.delete(
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Error handling middleware
+
+// Handle errors
 router.use(handleErrors);
 
 export default router;
