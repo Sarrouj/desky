@@ -22,6 +22,9 @@ const SignUp = () => {
   const { data: session, status } = useSession();
   const [Language, setLanguage] = useState();
 
+  //User Data
+  const userType : string | null = session ? session.user?.role : null;
+
   // Content
   const SignUPContent = useTranslations("Auth.SignUp");
 
@@ -33,9 +36,13 @@ const SignUp = () => {
 
   useEffect(() => {
     if (status === "authenticated") {
-      window.location.href = `/${Language}`;
+      if(userType == "bidder"){
+        window.location.href = `/${Language}/dashboard-b`;
+      }else if(userType == "depositor"){
+        window.location.href = `/${Language}/dashboard-d`;
+      }
     }
-  }, [status, Language]);
+  }, [status, Language, userType]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

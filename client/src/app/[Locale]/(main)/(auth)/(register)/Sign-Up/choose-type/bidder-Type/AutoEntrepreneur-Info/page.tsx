@@ -29,7 +29,7 @@ import {
 import { useBoundStore } from "@/lib/store";
 
 // Internationalization
-import {useTranslations} from 'next-intl';
+import { useTranslations } from "next-intl";
 import { City } from "@/lib/Features/CitiesData";
 
 const AutoEntrepreneurInfo = () => {
@@ -37,6 +37,7 @@ const AutoEntrepreneurInfo = () => {
   const [address, setAddress] = useState("");
   const [cin, setCin] = useState<File | null>(null);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [activity, setActivity] = useState("");
   const [activities, setActivities] = useState<(string | number)[]>([]);
   const [error, setError] = useState("");
@@ -47,24 +48,25 @@ const AutoEntrepreneurInfo = () => {
   const CitiesEN = useBoundStore((state) => state.CitiesEN);
   const CitiesFR = useBoundStore((state) => state.CitiesFR);
 
+
+
   // Language
-  useEffect(()=>{
-    let lg = JSON.parse(localStorage.getItem('lg'));
+  useEffect(() => {
+    let lg = JSON.parse(localStorage.getItem("lg"));
     setLanguage(lg);
-  }, [Language])
+  }, [Language]);
 
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
 
   // Language
-  useEffect(()=>{
-    if(Language == "en"){
+  useEffect(() => {
+    if (Language == "en") {
       setCity(CitiesEN);
-    }else{
+    } else {
       setCity(CitiesFR);
     }
-  },[Language, CitiesEN, CitiesFR])
-
+  }, [Language, CitiesEN, CitiesFR]);
 
   function addActivity() {
     if (activity.trim() !== "") {
@@ -77,6 +79,14 @@ const AutoEntrepreneurInfo = () => {
     let filteredActivities = activities.filter((act, index) => index !== i);
     setActivities(filteredActivities);
   }
+
+  // get Auth Email
+  useEffect(() => {
+    let getEmail = localStorage.getItem("email");
+    if (getEmail) {
+      setEmail(getEmail);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -102,6 +112,7 @@ const AutoEntrepreneurInfo = () => {
     const formData = new FormData();
 
     // Append form data correctly
+    formData.append("email", email);
     if (cin !== null) {
       formData.append("AE_CIN", cin);
     }
@@ -124,7 +135,7 @@ const AutoEntrepreneurInfo = () => {
       if (response && response.data && response.data.success) {
         setSuccess(response.data.success);
         setTimeout(() => {
-          window.location.href = "/";
+            window.location.href = `/${Language}/dashboard-b`;
         }, 2000);
       } else {
         setError(response.data.error);
@@ -144,8 +155,8 @@ const AutoEntrepreneurInfo = () => {
     }
   };
 
-   // Content
-   const Content = useTranslations('Auth.AutoEntrepreneurInfo');
+  // Content
+  const Content = useTranslations("Auth.AutoEntrepreneurInfo");
 
   return (
     <div className="flex flex-col py-8 gap-20">
@@ -188,7 +199,7 @@ const AutoEntrepreneurInfo = () => {
                 >
                   {value
                     ? Cities.find((city) => city.value === value)?.label
-                    : Content("SelectLocation") }
+                    : Content("SelectLocation")}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </PopoverTrigger>
@@ -299,9 +310,7 @@ const AutoEntrepreneurInfo = () => {
           </Button>
         </form>
       </div>
-      <p className="w-10/12 mx-auto text-sm">
-        {Content("CopyWrite")}
-      </p>
+      <p className="w-10/12 mx-auto text-sm">{Content("CopyWrite")}</p>
     </div>
   );
 };

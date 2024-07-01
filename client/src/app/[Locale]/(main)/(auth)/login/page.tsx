@@ -22,6 +22,10 @@ const Login = () => {
   // Content
   const LoginContent = useTranslations('Auth.Login');
 
+  //User Data
+  const userType : string | null = session ? session.user?.role : null;
+
+
   // Language
   useEffect(()=>{
     let lg = JSON.parse(localStorage.getItem('lg'));
@@ -31,9 +35,13 @@ const Login = () => {
 
   useEffect(() => {
     if (status === "authenticated") {
-      window.location.href = `/${Language}`;
+      if(userType == "bidder"){
+        window.location.href = `/${Language}/dashboard-b`;
+      }else if(userType == "depositor"){
+        window.location.href = `/${Language}/dashboard-d`;
+      }
     }
-  }, [status, Language]);
+  }, [status, Language, userType]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,7 +70,13 @@ const Login = () => {
       if (result.url.includes("choose-type")) {
         window.location.href = `/${Language}/(main)/(register)/Sign-Up/choose-type`;
       } else {
-        window.location.href = `/${Language}`;
+        if (status === "authenticated") {
+          if(userType == "bidder"){
+            window.location.href = `/${Language}/dashboard-b`;
+          }else if(userType == "depositor"){
+            window.location.href = `/${Language}/dashboard-d`;
+          }
+        }
       }
     }
   };
@@ -135,7 +149,7 @@ const Login = () => {
           </div>
         </div>
         <p className="w-10/12 mx-auto text-sm">
-          <AuthCopywrite value={LoginContent("CopyWrite")}/>
+          {LoginContent("CopyWrite")}
         </p>
       </div>
       <div className="bg-muted lg:block rounded-lg m-5 bg-gradient-to-r from-custom-yellow to-custom-orange flex flex-col justify-end items-end">

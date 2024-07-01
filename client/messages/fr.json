@@ -63,7 +63,7 @@
     "CallToActionPopMsg2": "un compte pour publier une offre",
     "Results": "Résultats",
     "Result": "Résultat",
-    "SearchPlaceholder": "Recherche",
+    "SearchPlaceholder": "echerche",
     "SortBy": "Trier par",
     "Newest": "Plus récent",
     "NotFoundMsg": "Aucun résultat trouvé",
@@ -96,6 +96,19 @@
     "Login": "Se connecter",
     "CopyWrite": "© 2024 Desky.ma. Tous droits réservés"
   },
+    "EmailVerification" : {
+      "title" : "Vérifiez votre adresse e-mail",
+      "Desc" : "Nous avons envoyé un e-mail de vérification à",
+      "resendMsg" : "Vous n'avez pas reçu l'e-mail ? Vérifiez votre dossier spam ou ",
+      "ResendEmail" : "Renvoyer l'e-mail",
+      "BackToLogin" : "Retour à la connexion",
+      "CopyWrite" : "© 2024 Desky.ma. Tous droits réservés",
+      "verified": {
+      "title": "Vérification de l'email réussie",
+      "CallToAction": "Compléter l'inscription",
+      "CopyWrite": "© 2024 Desky.ma. Tous droits réservés"
+    }
+    },
   "ChooseType": {
     "title": "Rejoignez-nous !",
     "Desc": "Pour commencer ce voyage, dites-nous quel type de compte vous ouvririez.",
