@@ -92,7 +92,6 @@ export const authOptions: NextAuthOptions = {
 
           if (response.status === 200) {
             if (response.data.success === "Registered successfully") {
-
               return `/fr/process-google-signIn?email=${encodeURIComponent(
                 user.email ?? ""
               )}&password=${encodeURIComponent(
