@@ -29,9 +29,7 @@ import {
 } from "lucide-react";
 
 import { Label } from "@/Components/ui/label";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar";
-
 import { Badge } from "@/Components/ui/badge";
 import {
   Breadcrumb,
@@ -117,15 +115,43 @@ import { cn } from "@/lib/utils";
 import { useSession, signOut } from "next-auth/react";
 import { toast } from "sonner"
 
+// zustand
+import { City } from "@/lib/Features/CitiesData";
+
 
 const CreateOffer :   React.FC = () => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
   const [categoryOpen, categorySetOpen] = React.useState<boolean>(false);
   const [CategoryValue, CategorySetValue] = React.useState<string>("");
+  const [Language, setLanguage] = useState();
 
-  const Cities = useBoundStore((state) => state.Cities);
-  const Categories = useBoundStore((state) => state.Categories);
+  // Cities & Categories
+  const [Cities, setCity] = useState<City[]>([]);
+  const [Categories, setCategories] = useState<City[]>([]);
+  const CitiesEN = useBoundStore((state) => state.CitiesEN);
+  const CitiesFR = useBoundStore((state) => state.CitiesFR);
+  const CategoriesEN : any  = useBoundStore((state) => state.CategoriesEN);
+  const CategoriesFR : any  = useBoundStore((state) => state.CategoriesFR);
+
+
+  // Language
+  useEffect(()=>{
+    let lg = JSON.parse(localStorage.getItem('lg'));
+    setLanguage(lg);
+  }, [Language])
+
+  // Language
+  useEffect(()=>{
+    if(Language == "en"){
+      setCity(CitiesEN);
+      setCategories(CategoriesEN);
+    }else{
+      setCity(CitiesFR);
+      setCategories(CategoriesFR);
+    }
+  },[Language, CitiesEN, CitiesFR, CategoriesEN, CategoriesFR])
+
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { data: session, status } = useSession();
@@ -574,7 +600,7 @@ const CreateOffer :   React.FC = () => {
                         >
                           {CategoryValue
                             ? Categories.find(
-                                (city) => city.value === CategoryValue
+                                (categorie) => categorie.value === CategoryValue
                               )?.label
                             : "Select your Offer Category..."}
                           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
