@@ -58,11 +58,11 @@ const SignUp = () => {
       );
 
       if (response && response.data && response.data.success) {
-        setSuccess(response.data.success);
+        localStorage.setItem("name", name);
         localStorage.setItem("email", email);
         localStorage.setItem("password", password);
         setTimeout(() => {
-          window.location.href = `/${Language}/Sign-Up/choose-type`;
+          window.location.href = `/${Language}/Sign-Up/verify-email`;
         }, 1000);
       } else {
         setError(response.data.error);

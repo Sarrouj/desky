@@ -453,7 +453,6 @@ router.delete(
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-
 // Handle errors
 router.use(handleErrors);
 
