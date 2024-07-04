@@ -59,7 +59,7 @@ useEffect(()=>{
                         </CardDescription>
                     </div>
                     {seeMore ? 
-                        <Link href={`/${Language}/dashboard-d/my-offers`}>
+                        <Link href={`/${Language}/dashboard-d/manage-bids`}>
                             <Button size={"sm"} className="h-7 gap-1 text-xs text-white">
                                 See more...
                             </Button>
