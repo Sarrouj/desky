@@ -54,12 +54,6 @@ const BiddersSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
-    image: {
-      file_id: mongoose.Types.ObjectId,
-      file_name: String,
-      file_size: String,
-      upload_date: Date,
-    },
     saved_offers: [
       {
         offer_id: {

@@ -8,68 +8,120 @@ import Link from "next/link";
 import { useBoundStore } from "@/lib/store";
 import { timeSince } from "@/Components/common/timeSince";
 import Header from "@/Components/layout/Header";
-// Internationalization
-import {useTranslations} from 'next-intl';
+import axios from "axios";
+import { useTranslations } from "next-intl";
 
 const Details = ({ params }: { params: any }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Manage isLoggedIn state using useState
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { data: session, status } = useSession();
-  const [Language, setLanguage] = useState();
-
-  // Language
-  useEffect(()=>{
-    let lg = JSON.parse(localStorage.getItem('lg'));
-    setLanguage(lg);
-  }, [Language])
+  const [language, setLanguage] = useState<string | null>(null);
+  const [success, setSuccess] = useState<[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (status === "authenticated") {
-      setIsLoggedIn(true); // Update isLoggedIn state using useState setter function
-    } else {
-      setIsLoggedIn(false); // Reset isLoggedIn state if not authenticated
+    const lg = localStorage.getItem("lg");
+    if (lg) {
+      setLanguage(JSON.parse(lg));
     }
+  }, []);
+
+  useEffect(() => {
+    setIsLoggedIn(status === "authenticated");
   }, [status]);
 
-  // Offer Data fetching
   const { details } = params;
   const detailsData = useBoundStore((state) => state.offerData);
   const getOfferID = useBoundStore((state) => state.getOfferID);
   const fetchDetails = useBoundStore((state) => state.fetchOfferDetails);
-  const CategoriesElement = detailsData && !(detailsData instanceof Array) ? detailsData.offer_category : null;
-  const OfferAttachements = detailsData && !(detailsData instanceof Array) ?  detailsData.offer_attachments : null;
-  const DepositorId = detailsData && !(detailsData instanceof Array) ? detailsData.depositor_id : null;
-  const OfferTitle = detailsData && !(detailsData instanceof Array) ? detailsData.offer_title : null ;
-  const OfferDateOfPosting = detailsData && !(detailsData instanceof Array) ? detailsData.offer_DoP : null;
-  const OfferLocation = detailsData && !(detailsData instanceof Array) ?  detailsData.offer_location : null;
-  const OfferDescription = detailsData && !(detailsData instanceof Array) ? detailsData.offer_description : null;
-  const OfferBudget = detailsData && !(detailsData instanceof Array) ?  detailsData.offer_budget : null;
-  
-  // Depositor Info fetching
+
+  const CategoriesElement =
+    detailsData && !(detailsData instanceof Array)
+      ? detailsData.offer_category
+      : null;
+  const OfferAttachments =
+    detailsData && !(detailsData instanceof Array)
+      ? detailsData.offer_attachments
+      : null;
+  const DepositorId =
+    detailsData && !(detailsData instanceof Array)
+      ? detailsData.depositor_id
+      : null;
+  const OfferTitle =
+    detailsData && !(detailsData instanceof Array)
+      ? detailsData.offer_title
+      : null;
+  const OfferDateOfPosting =
+    detailsData && !(detailsData instanceof Array)
+      ? detailsData.offer_DoP
+      : null;
+  const OfferLocation =
+    detailsData && !(detailsData instanceof Array)
+      ? detailsData.offer_location
+      : null;
+  const OfferDescription =
+    detailsData && !(detailsData instanceof Array)
+      ? detailsData.offer_description
+      : null;
+  const OfferBudget =
+    detailsData && !(detailsData instanceof Array)
+      ? detailsData.offer_budget
+      : null;
+
   const getDespositorID = useBoundStore((state) => state.getDepositorID);
   const fetchDepositorData = useBoundStore((state) => state.fetchDepositorData);
   const DespositorData = useBoundStore((state) => state.DespositorData);
 
-  // Despositor Info
-  const fullName = DespositorData? DespositorData.depositor_name : "Loading...";
-  const SeparateName = fullName.split(" ");
-  const FirstName = SeparateName[0];
-  const LastName = SeparateName[1];
+  const fullName = DespositorData
+    ? DespositorData.depositor_name
+    : "Loading...";
+  const [firstName, lastName] = fullName.split(" ");
 
-  // Depositor Legal Info
-  const getDepositorLegalDataID = useBoundStore((state) => state.getDepositorLegalDataID);
-  const fetchDepositorLegalData = useBoundStore((state) => state.fetchDepositorLegalData);
-  const DespositorLegalData = useBoundStore((state) => state.DespositorLegalData);
-  const CompanyType = DespositorLegalData ? DespositorLegalData.company_type : "";
-  const CompanyName = DespositorLegalData ? DespositorLegalData.company_name : "Loading...";
-  const CompanyAdress = DespositorLegalData ?  DespositorLegalData.company_address : "Loading...";
-  const CompanyCity = DespositorLegalData  ?  DespositorLegalData.company_location : "Loading...";
-  const CompanyIndustry =  DespositorLegalData ?  DespositorLegalData.company_DoA : "Loading...";
+  const getDepositorLegalDataID = useBoundStore(
+    (state) => state.getDepositorLegalDataID
+  );
+  const fetchDepositorLegalData = useBoundStore(
+    (state) => state.fetchDepositorLegalData
+  );
+  const DespositorLegalData = useBoundStore(
+    (state) => state.DespositorLegalData
+  );
+  const CompanyType = DespositorLegalData
+    ? DespositorLegalData.company_type
+    : "";
+  const CompanyName = DespositorLegalData
+    ? DespositorLegalData.company_name
+    : "Loading...";
+  const CompanyAddress = DespositorLegalData
+    ? DespositorLegalData.company_address
+    : "Loading...";
+  const CompanyCity = DespositorLegalData
+    ? DespositorLegalData.company_location
+    : "Loading...";
+  const CompanyIndustry = DespositorLegalData
+    ? DespositorLegalData.company_DoA
+    : "Loading...";
+
   const Ind1 = CompanyIndustry[0];
   const Ind2 = CompanyIndustry[1] ? ` & ${CompanyIndustry[1]}` : null;
 
+  const getDepositorReviews = async (DepositorId: string) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/depositor/reviews/${DepositorId}`
+      );
+      if (response && response.data && response.data.success) {
+        console.log(response.data);
+        setSuccess(response.data.success);
+      } else {
+        setError(response.data.error);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  useEffect(()=> {
-    if(details){
+  useEffect(() => {
+    if (details) {
       getOfferID(details);
       fetchDetails();
       if (DepositorId) {
@@ -77,30 +129,37 @@ const Details = ({ params }: { params: any }) => {
         getDepositorLegalDataID(DepositorId);
         fetchDepositorData();
         fetchDepositorLegalData();
-        DespositorData;
+        getDepositorReviews(DepositorId);
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [DepositorId , details])
+  }, [
+    DepositorId,
+    details,
+    fetchDetails,
+    getDespositorID,
+    getOfferID,
+    getDepositorLegalDataID,
+    fetchDepositorData,
+    fetchDepositorLegalData,
+  ]);
 
-  // Content
-  const NavbarContent = useTranslations('NavBar');
-  const Content =  useTranslations('OffersDetail');
+  const NavbarContent = useTranslations("NavBar");
+  const Content = useTranslations("OffersDetail");
 
   return (
     <>
-      <div className="bg-white border-b-2 ">
-            <Header NavbarContent={NavbarContent}/>
+      <div className="bg-white border-b-2">
+        <Header NavbarContent={NavbarContent} />
       </div>
       <main className="py-16 px-20 bg-neutralBg text-secondaryDarkBlue">
         <section className="flex">
-          <div className=" w-9/12 border-r-2">
+          <div className="w-9/12 border-r-2">
             <div className="border-b-2 pb-12 pr-12">
-              <h1 className="text-3xl font-bold mb-2">
-                {OfferTitle}
-              </h1>
+              <h1 className="text-3xl font-bold mb-2">{OfferTitle}</h1>
               <div className="flex gap-10 text-neutralGray">
-                <p>{Content("Posted")} {timeSince(OfferDateOfPosting)}</p>
+                <p>
+                  {Content("Posted")} {timeSince(OfferDateOfPosting)}
+                </p>
                 <div className="flex gap-2">
                   <p>{Content("Location")} </p>
                   <ul className="flex gap-1.5">
@@ -124,20 +183,17 @@ const Details = ({ params }: { params: any }) => {
             <div className="py-12 pr-12 border-b-2">
               <p className="">{OfferDescription}</p>
             </div>
-            <div className="py-16 flex items-center justify-between	pr-72	border-b-2">
+            <div className="py-16 flex items-center justify-between pr-72 border-b-2">
               <div className="flex items-center gap-2">
                 <Image
                   src={"/icons/coin.svg"}
                   width={22}
                   height={22}
                   alt="shape"
-                  className=""
                 />
                 <h6 className="font-bold">
                   {Content("Estbudget")}{" "}
-                  <span className="font-medium">
-                    {OfferBudget} DH
-                  </span>
+                  <span className="font-medium">{OfferBudget} DH</span>
                 </h6>
               </div>
               <div className="flex items-center gap-2">
@@ -146,22 +202,22 @@ const Details = ({ params }: { params: any }) => {
                   width={20}
                   height={20}
                   alt="shape"
-                  className=""
                 />
                 <h6 className="font-bold">
-                  {Content("Deadline")} <span className="font-medium">Jan 20, 2024</span>
+                  {Content("Deadline")}{" "}
+                  <span className="font-medium">Jan 20, 2024</span>
                 </h6>
               </div>
             </div>
             <div className="py-10 pr-20">
               <h3 className="font-bold text-lg mb-8">
-                {Content("Attachements")}{" "}
+                {Content("Attachments")}{" "}
                 <span className="text-primary font-medium">
-                  ({OfferAttachements ? OfferAttachements.length : "Loading..."})
+                  ({OfferAttachments ? OfferAttachments.length : "Loading..."})
                 </span>
               </h3>
-              {OfferAttachements ? (
-                OfferAttachements.map((attachement, index) => (
+              {OfferAttachments ? (
+                OfferAttachments.map((attachment, index) => (
                   <div
                     className="flex items-center gap-2 cursor-pointer mb-2"
                     key={index}
@@ -171,11 +227,10 @@ const Details = ({ params }: { params: any }) => {
                       width={13}
                       height={13}
                       alt="shape"
-                      className=""
                     />
                     <p className="text-primary underline underline-offset-1">
-                      {attachement["file_name"]}
-                      <span>({attachement["file_size"]})</span>
+                      {attachment["file_name"]}
+                      <span>({attachment["file_size"]})</span>
                     </p>
                   </div>
                 ))
@@ -186,7 +241,6 @@ const Details = ({ params }: { params: any }) => {
                     width={13}
                     height={13}
                     alt="shape"
-                    className=""
                   />
                   <p className="text-primary underline underline-offset-1">
                     Loading...
@@ -195,72 +249,69 @@ const Details = ({ params }: { params: any }) => {
               )}
             </div>
           </div>
-          <div className="pl-12 w-3/12 ">
+          <div className="pl-12 w-3/12">
             <div className="flex flex-col items-center gap-3">
-              <div
-                className="rounded-full
-              bg-slate-200 text-blue-400
-              w-24 h-24 flex items-center
-              justify-center text-4xl"
-              >
+              <div className="rounded-full bg-slate-200 text-blue-400 w-24 h-24 flex items-center justify-center text-4xl">
                 SZ
               </div>
               <div className="text-center">
                 <h2 className="font-bold text-2xl">
-                  {LastName} <span className="text-primary">{FirstName}</span>
+                  {lastName} <span className="text-primary">{firstName}</span>
                 </h2>
-                <h4 className="font-semibold">{CompanyName} {CompanyType}</h4>
+                <h4 className="font-semibold">
+                  {CompanyName} {CompanyType}
+                </h4>
               </div>
             </div>
             <div className="mt-16 flex flex-col gap-5">
-              <div className="">
+              <div>
                 <div className="flex gap-1 items-center">
                   <Image
                     src={"/icons/star.svg"}
                     width={20}
                     height={20}
                     alt="shape"
-                    className=""
                   />
                   <Image
                     src={"/icons/star.svg"}
                     width={20}
                     height={20}
                     alt="shape"
-                    className=""
                   />
                   <Image
                     src={"/icons/star.svg"}
                     width={20}
                     height={20}
                     alt="shape"
-                    className=""
                   />
                   <Image
                     src={"/icons/star.svg"}
                     width={20}
                     height={20}
                     alt="shape"
-                    className=""
                   />
                   <Image
                     src={"/icons/star.svg"}
                     width={20}
                     height={20}
                     alt="shape"
-                    className=""
                   />
                   <p>4.97</p>
                 </div>
-                <p>4.97 {Content("of")} 25 {Content("reviews")}</p>
+                <p>
+                  4.97 {Content("of")} 25 {Content("reviews")}
+                </p>
               </div>
               <div>
-                <p className="font-bold" >{Ind1}{Ind2}</p>
-                <p>Small Company (2-9 people) </p>
+                <p className="font-bold">
+                  {Ind1}
+                  {Ind2}
+                </p>
+                <p>Small Company (2-9 people)</p>
               </div>
               <div>
                 <p className="font-bold">{CompanyCity}</p>
-                <p>{CompanyAdress}</p>
+                <p>{CompanyAddress}</p>
               </div>
               <div>
                 <p className="font-bold">9 Offers posted</p>
@@ -288,7 +339,10 @@ const Details = ({ params }: { params: any }) => {
                   </button>
                   <p className="text-gray-500 my-2">
                     {Content("loggedToApply")}
-                    <Link href={`/${Language}/login`} className="text-blue-600 underline ">
+                    <Link
+                      href={`/${language}/login`}
+                      className="text-blue-600 underline"
+                    >
                       {Content("login")}
                     </Link>
                   </p>
@@ -298,134 +352,83 @@ const Details = ({ params }: { params: any }) => {
           </div>
         </section>
         <section className="mt-20 border-2 rounded-lg py-10">
-          <div className="border-b-2 px-10">
-            <h3 className="font-bold text-lg mb-8">
-              {Content("ReviewsHistory")}{" "}
-              <span className="text-primary font-medium">(2)</span>
-            </h3>
-          </div>
-          <div className="px-10 py-10 flex flex-col gap-12">
-            <div>
-              <div className="flex items-center gap-3">
-                <div
-                  className="rounded-full
-                  bg-slate-200 text-blue-400
-                    w-10 h-10 flex items-center
-                    justify-center"
-                >
-                  AK
-                </div>
-                <h6 className="font-semibold">Alex k.</h6>
-              </div>
-              <div className="flex justify-between items-center mt-3">
-                <h3 className="text-lg font-semibold">
-                  Digital Marketing Expert - Google and Facebook Ads
+          {success?.length > 0 ? (
+            <>
+              <div className="border-b-2 px-10">
+                <h3 className="font-bold text-lg mb-8">
+                  {Content("ReviewsHistory")}{" "}
+                  <span className="text-primary font-medium">
+                    {success?.length}
+                  </span>
                 </h3>
-                <p className="text-neutralGray">Jan 20, 2024</p>
               </div>
-              <div className="mt-3">
-                <div className="flex gap-1 items-center">
-                  <Image
-                    src={"/icons/ReviewStart.svg"}
-                    width={20}
-                    height={20}
-                    alt="shape"
-                  />
-                  <Image
-                    src={"/icons/ReviewStart.svg"}
-                    width={20}
-                    height={20}
-                    alt="shape"
-                  />
-                  <Image
-                    src={"/icons/ReviewStart.svg"}
-                    width={20}
-                    height={20}
-                    alt="shape"
-                  />
-                  <Image
-                    src={"/icons/ReviewStart.svg"}
-                    width={20}
-                    height={20}
-                    alt="shape"
-                  />
-                  <Image
-                    src={"/icons/ReviewStart.svg"}
-                    width={20}
-                    height={20}
-                    alt="shape"
-                  />
-                  <p>5</p>
-                </div>
-                <p className="text-sm mt-1 w-10/12	">
-                  Working at Sam.AI has been an incredible journey so far. The
-                  technology were building is truly cutting-edge, and being a part
-                  of a team thats revolutionizing how people achhieve their goals
-                  is immensely fulfilling.{" "}
-                </p>
+              <div className="px-10 py-10 flex flex-col gap-12">
+                {success?.map((review: any, index) => (
+                  <div key={index}>
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-full bg-slate-200 text-blue-400 w-10 h-10 flex items-center justify-center">
+                        {review.bidder_name
+                          .split(" ")
+                          .map((n: any) => n[0].toUpperCase())
+                          .join("")}
+                      </div>
+                      <h6 className="font-semibold">{review.bidder_name}</h6>
+                    </div>
+                    <div className="flex justify-between items-center mt-3">
+                      <h3 className="text-lg font-semibold">
+                        {review.offer_title}
+                      </h3>
+                      <p className="text-neutralGray">
+                        {new Date(review.reviews[0].date).toLocaleDateString(
+                          "en-CA"
+                        )}
+                      </p>
+                    </div>
+                    <div className="mt-3">
+                      <div className="flex gap-1 items-center">
+                        <Image
+                          src={"/icons/ReviewStart.svg"}
+                          width={20}
+                          height={20}
+                          alt="shape"
+                        />
+                        <Image
+                          src={"/icons/ReviewStart.svg"}
+                          width={20}
+                          height={20}
+                          alt="shape"
+                        />
+                        <Image
+                          src={"/icons/ReviewStart.svg"}
+                          width={20}
+                          height={20}
+                          alt="shape"
+                        />
+                        <Image
+                          src={"/icons/ReviewStart.svg"}
+                          width={20}
+                          height={20}
+                          alt="shape"
+                        />
+                        <Image
+                          src={"/icons/ReviewStart.svg"}
+                          width={20}
+                          height={20}
+                          alt="shape"
+                        />
+                        <p>{review.reviews[0].rating}</p>
+                      </div>
+                      <p className="text-sm mt-1 w-10/12">
+                        {review.reviews[0].text}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
-            <div>
-              <div className="flex items-center gap-3">
-                <div
-                  className="rounded-full
-              bg-slate-200 text-blue-400
-              w-10 h-10 flex items-center
-              justify-center"
-                >
-                  AK
-                </div>
-                <h6 className="font-semibold">Alex k.</h6>
-              </div>
-              <div className="flex justify-between items-center mt-3">
-                <h3 className="text-lg font-semibold">
-                  Digital Marketing Expert - Google and Facebook Ads
-                </h3>
-                <p className="text-neutralGray">Jan 20, 2024</p>
-              </div>
-              <div className="mt-3">
-                <div className="flex gap-1 items-center">
-                  <Image
-                    src={"/icons/ReviewStart.svg"}
-                    width={20}
-                    height={20}
-                    alt="shape"
-                  />
-                  <Image
-                    src={"/icons/ReviewStart.svg"}
-                    width={20}
-                    height={20}
-                    alt="shape"
-                  />
-                  <Image
-                    src={"/icons/ReviewStart.svg"}
-                    width={20}
-                    height={20}
-                    alt="shape"
-                  />
-                  <Image
-                    src={"/icons/ReviewStart.svg"}
-                    width={20}
-                    height={20}
-                    alt="shape"
-                  />
-                  <Image
-                    src={"/icons/ReviewStart.svg"}
-                    width={20}
-                    height={20}
-                    alt="shape"
-                  />
-                  <p>5</p>
-                </div>
-                <p className="text-sm mt-1 w-10/12	">
-                  Working at Sam.AI has been an incredible journey so far. The
-                  technology were building is truly cutting-edge, and being a part
-                  of a team thats revolutionizing how people achhieve their goals
-                  is immensely fulfilling.{" "}
-                </p>
-              </div>
-            </div>
-          </div>
+            </>
+          ) : (
+            <div>{error}</div>
+          )}
         </section>
       </main>
     </>
