@@ -137,7 +137,6 @@ const BidderDashboard = () => {
 
   const handleLogout = () => {
     signOut();
-    console.log(status)
   };
 
   return (

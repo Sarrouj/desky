@@ -229,5 +229,73 @@
     "EstBudget": "Budget estimé",
     "Cat": "Catégorie",
     "Proposals": "Propositions"
+  },
+  "DepositorDashboard": {
+    "bidsList" : {
+      "title" : "Devis",
+      "Desc" : "Dernières Devis de vos offres publiées",
+      "OfferName" : "Nom de l'offre",
+      "BidderName" : "Nom du soumissionnaire",
+      "BidderNameDesc1" : "L'entreprise ou l'auto-entrepreneur",
+      "BidderNameDesc2" : "qui a soumissionné sur votre offre",
+      "Rate" : "Taux",
+      "RateDesc1" : "Avis et évaluation",
+      "RateDesc2" : "du soumissionnaire",
+      "Date" : "Date",
+      "DateDesc1" : "La date à laquelle ils ont",
+      "DateDesc2" : "soumissionné sur votre offre",
+      "AcceptBid" : "Accepter l'offre",
+      "AcceptBidDesc1" : "Accepter le bon soumissionnaire",
+      "AcceptBidDesc2" : "pour votre offre",
+      "Devi" : "Devis",
+      "DeviDesc1" : "Download Devis",
+      "Accept" : "Accepter",
+      "AcceptDesc1" : "Lorsque vous acceptez une offre",
+      "AcceptDesc2" : "toutes les autres offres seront rejetées."
+    },
+    "bidsListAll" : {
+      "title" : "Devis",
+      "Desc" : "Toutes Devis de vos offres publiées",
+      "OfferName" : "Nom de l'offre",
+      "BidderName" : "Nom du soumissionnaire",
+      "BidderNameDesc1" : "L'entreprise ou l'auto-entrepreneur",
+      "BidderNameDesc2" : "qui a soumissionné sur votre offre",
+      "Rate" : "Taux",
+      "RateDesc1" : "Avis et évaluation",
+      "RateDesc2" : "du soumissionnaire",
+      "Date" : "Date",
+      "DateDesc1" : "La date à laquelle ils ont",
+      "DateDesc2" : "soumissionné sur votre offre",
+      "AcceptBid" : "Accepter l'offre",
+      "AcceptBidDesc1" : "Accepter le bon soumissionnaire",
+      "AcceptBidDesc2" : "pour votre offre",
+      "Devi" : "Devis",
+      "DeviDesc1" : "Download Devis",
+      "Accept" : "Accepter",
+      "AcceptDesc1" : "Lorsque vous acceptez une offre",
+      "AcceptDesc2" : "toutes les autres offres seront rejetées."
+    },
+    "NoAvailableDate" : {
+      "title" : "Actuellement Aucune Donnée Disponible",
+      "Desc" : "Créez des offres pour recevoir des soumissions des meilleures entreprises de la région",
+      "CreateOfferCallToAction" : "Créer une Nouvelle Offre",
+      "GoToMarketplaceCallToAction" : "Accéder au Marché Des Offres"
+    },
+      "DropDownMenu" : {
+        "title" : "Mon Compte",
+        "Profile" : "Profil",
+        "Home" : "Accueil",
+        "Marketplace" : "Offres",
+        "Settings" : "Paramètres",
+        "Support" : "Support",
+        "LogOut" : "Déconnexion",
+        "Account" : "Compte"
+      },
+        "Statistic": {
+          "OffersPosted": "Total des Offres Publiées",
+          "BidsReceived": "Total des Offres Reçues",
+          "OffersClosed": "Total des Offres Fermées",
+          "AccountRating": "Votre évaluation de Compte"
+        }
   }
 }
