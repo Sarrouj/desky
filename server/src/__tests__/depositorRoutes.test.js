@@ -205,6 +205,116 @@ describe("Depositors", () => {
 
   // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
+  describe("GET /depositor/reviews/:id", () => {
+    it("should return depositor's reviews with detailed information", async () => {
+      const depositorReviews = [
+        { bidder_id: "b1", offer_id: "o1", rating: 5, text: "Great service!" },
+        {
+          bidder_id: "b2",
+          offer_id: "o2",
+          rating: 4,
+          text: "Good experience!",
+        },
+      ];
+
+      const detailedReviews = [
+        {
+          bidder_name: "Bidder 1",
+          offer_title: "Offer 1",
+          reviews: [
+            {
+              bidder_id: "b1",
+              offer_id: "o1",
+              rating: 5,
+              text: "Great service!",
+            },
+          ],
+        },
+        {
+          bidder_name: "Bidder 2",
+          offer_title: "Offer 2",
+          reviews: [
+            {
+              bidder_id: "b2",
+              offer_id: "o2",
+              rating: 4,
+              text: "Good experience!",
+            },
+          ],
+        },
+      ];
+
+      Depositors.findById.mockResolvedValue({
+        _id: "123",
+        depositor_review: depositorReviews,
+      });
+
+      Bidders.findById
+        .mockResolvedValueOnce({ _id: "b1", bidder_name: "Bidder 1" })
+        .mockResolvedValueOnce({ _id: "b2", bidder_name: "Bidder 2" });
+
+      Offers.findById
+        .mockResolvedValueOnce({ _id: "o1", offer_title: "Offer 1" })
+        .mockResolvedValueOnce({ _id: "o2", offer_title: "Offer 2" });
+
+      const res = await request(app).get("/depositor/reviews/123");
+
+      expect(res.statusCode).toBe(200);
+      expect(res.body.success).toEqual(detailedReviews);
+    });
+
+    it("should return 404 if no depositor found", async () => {
+      Depositors.findById.mockResolvedValue(null);
+
+      const res = await request(app).get("/depositor/reviews/123");
+
+      expect(res.statusCode).toBe(404);
+      expect(res.body.error).toBe("Depositor not found");
+    });
+
+    it("should return 404 if a bidder is not found", async () => {
+      const depositorReviews = [
+        { bidder_id: "b1", offer_id: "o1", rating: 5, text: "Great service!" },
+      ];
+
+      Depositors.findById.mockResolvedValue({
+        _id: "123",
+        depositor_review: depositorReviews,
+      });
+
+      Bidders.findById.mockResolvedValueOnce(null);
+
+      const res = await request(app).get("/depositor/reviews/123");
+
+      expect(res.statusCode).toBe(404);
+      expect(res.body.error).toBe("Bidder with id b1 not found");
+    });
+
+    it("should return 404 if an offer is not found", async () => {
+      const depositorReviews = [
+        { bidder_id: "b1", offer_id: "o1", rating: 5, text: "Great service!" },
+      ];
+
+      Depositors.findById.mockResolvedValue({
+        _id: "123",
+        depositor_review: depositorReviews,
+      });
+
+      Bidders.findById.mockResolvedValueOnce({
+        _id: "b1",
+        bidder_name: "Bidder 1",
+      });
+      Offers.findById.mockResolvedValueOnce(null);
+
+      const res = await request(app).get("/depositor/reviews/123");
+
+      expect(res.statusCode).toBe(404);
+      expect(res.body.error).toBe("Offer with id o1 not found");
+    });
+  });
+
+  // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
   describe("POST /depositor/offers", () => {
     it("should return depositor's offers", async () => {
       Offers.find.mockResolvedValue([{ _id: "789", depositor_id: "123" }]);

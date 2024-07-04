@@ -85,6 +85,45 @@ router.get("/depositor/info/:id", checkObjectId, async (req, res, next) => {
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
+// Get Depositor's reviews
+router.get("/depositor/reviews/:id", async (req, res, next) => {
+  try {
+    const depositor = await Depositors.findById(req.params.id);
+    if (!depositor) {
+      return res.status(404).json({ error: "Depositor not found" });
+    }
+
+    // Process reviews and gather necessary details
+    const detailedReviews = await Promise.all(
+      depositor.depositor_review.map(async (review) => {
+        const bidder = await Bidders.findById(review.bidder_id);
+        if (!bidder) {
+          return res
+            .status(404)
+            .json({ error: `Bidder with id ${review.bidder_id} not found` });
+        }
+        const offer = await Offers.findById(review.offer_id);
+        if (!offer) {
+          return res
+            .status(404)
+            .json({ error: `Offer with id ${review.offer_id} not found` });
+        }
+        return {
+          bidder_name: bidder.bidder_name,
+          offer_title: offer.offer_title,
+          reviews: [review],
+        };
+      })
+    );
+
+    res.status(200).json({ success: detailedReviews });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
 // Post Depositor's offers
 router.post("/depositor/offers", checkSessionId, async (req, res, next) => {
   const { user_id } = req.body;
@@ -345,7 +384,7 @@ router.post("/merge/depositor", checkSessionId, async (req, res, next) => {
       return res.status(404).json({ error: "Depositor not found" });
     }
 
-    if (!depositor.isTrusted){
+    if (!depositor.isTrusted) {
       return res.status(400).json({ error: "This account is not trusted" });
     }
 
