@@ -232,6 +232,74 @@
       "EstBudget": "Est.Budget",
       "Cat" : "Category",
       "Proposals" : "Proposals"
+    },
+    "DepositorDashboard": {
+      "bidsList" : {
+        "title" : "Bids",
+        "Desc" : "Recent Bids from your Offers.",
+        "OfferName" : "Offer Name",
+        "BidderName" : "Bidder Name",
+        "BidderNameDesc1" : "The Company or the Auto Entrepreneur",
+        "BidderNameDesc2" : "That Bid on Your Offer",
+        "Rate" : "Rate",
+        "RateDesc1" : "Bidder Reviews",
+        "RateDesc2" : "and Rating",
+        "Date" : "Date",
+        "DateDesc1" : "The Date They Bid",
+        "DateDesc2" : "on Your Offer",
+        "AcceptBid" : "Accept Bid",
+        "AcceptBidDesc1" : "Accept The Right Bidder",
+        "AcceptBidDesc2" : "for Your Offer",
+        "Devi" : "Estimates",
+        "DeviDesc1" : "Download Estimates",
+        "Accept" : "Accept",
+        "AcceptDesc1" : "When you accept a bidder",
+        "AcceptDesc2" : "all other bids will be rejected."
+      },
+      "bidsListAll" : {
+        "title" : "Bids",
+        "Desc" : "All Bids from your Offers.",
+        "OfferName" : "Offer Name",
+        "BidderName" : "Bidder Name",
+        "BidderNameDesc1" : "The Company or the Auto Entrepreneur",
+        "BidderNameDesc2" : "That Bid on Your Offer",
+        "Rate" : "Rate",
+        "RateDesc1" : "Bidder Reviews",
+        "RateDesc2" : "and Rating",
+        "Date" : "Date",
+        "DateDesc1" : "The Date They Bid",
+        "DateDesc2" : "on Your Offer",
+        "AcceptBid" : "Accept Bid",
+        "AcceptBidDesc1" : "Accept The Right Bidder",
+        "AcceptBidDesc2" : "for Your Offer",
+        "Devi" : "Estimates",
+        "DeviDesc1" : "Download Estimates",
+        "Accept" : "Accept",
+        "AcceptDesc1" : "When you accept a bidder",
+        "AcceptDesc2" : "all other bids will be rejected."
+      },
+       "NoAvailableDate" : {
+        "title" : "Currently No Data Available",
+        "Desc" : "Create Offers to Receive Bids From The Best Companies in The Region",
+        "CreateOfferCallToAction" : "Create New Offer",
+        "GoToMarketplaceCallToAction" : "Go to Offers Marketplace"
+       }, 
+        "DropDownMenu" : {
+          "title" : "My Account",
+          "Profile" : "Profile",
+          "Home" : "Home",
+          "Marketplace" : "Marketplace",
+          "Settings" : "Settings",
+          "Support" : "Support",
+          "LogOut" : "Log Out",
+          "Account" : "Account"
+       },
+       "Statistic" : {
+        "OffersPosted" : "Total of Offers Posted",
+        "BidsReceived" : "Total of Bids Received",
+        "OffersClosed" : "Total of Offers Closed",
+        "AccountRating" : "Your Account Rating"
+       }
     }
 }
 
