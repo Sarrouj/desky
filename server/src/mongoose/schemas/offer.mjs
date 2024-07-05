@@ -30,7 +30,7 @@ const OffersSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    offer_deadLine: {
+    offer_deadline: {
       type: Date,
       required: true,
     },
@@ -38,34 +38,33 @@ const OffersSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    offer_attachments: {
+    offer_attachment: {
       type: String,
       required: true,
-    },
-    offer_status: {
-      type: String,
-      required: true,
-      default: "pending",
     },
     depositor_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Depositors",
       required: true,
     },
-    offer_apply: [
-      {
-        bidder_id: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Bidders",
-          required: true,
+    offer_apply: {
+      type: [
+        {
+          bidder_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Bidders",
+            required: true,
+          },
+          date: {
+            type: Date,
+            required: true,
+            default: Date.now,
+          },
         },
-        date: {
-          type: Date,
-          required: true,
-          default: Date.now,
-        },
-      },
-    ],
+      ],
+      required: true,
+      default: [],
+    },
     offer_state: {
       type: String,
       required: true,

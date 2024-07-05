@@ -14,7 +14,7 @@ import AEValidationFields from "../utils/AEValidationFields.mjs";
 import companyValidationFields from "../utils/companyValidationFields.mjs";
 import ratingValidationFields from "../utils/ratingValidationFields.mjs";
 import { transporter } from "../utils/emailSend.mjs";
-
+import upload from "../utils/upload.mjs";
 
 // Schemas
 import Bidders from "../mongoose/schemas/Bidder.mjs";
@@ -123,16 +123,24 @@ router.put(
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 // Add Bidder's AE Info
-router.post("/add/bidder/AE", AEValidationFields, async (req, res, next) => {
-  const { email, AE_CIN, AE_phoneNumber, AE_DoA, AE_address, AE_location } =
-    req.body;
+router.post("/add/bidder/AE", upload.single("AE_CIN"), async (req, res, next) => {
+  const { email, AE_phoneNumber, AE_DoA, AE_address, AE_location } = req.body;
+  if (!email || !AE_phoneNumber || !AE_DoA || !AE_address || !AE_location) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  const AE_CIN = req.file.filename;
+  if (!AE_CIN) {
+    return res.status(400).json({ error: "AE CIN is required" });
+  }
+
   try {
     const bidder = await Bidders.findOne({ bidder_email: email });
     if (!bidder) {
       return res.status(404).json({ error: "No bidders found" });
     }
 
-    const newAE = new AE({
+    await AE.create({
       _id: bidder.id,
       AE_CIN,
       AE_phoneNumber,
@@ -140,8 +148,6 @@ router.post("/add/bidder/AE", AEValidationFields, async (req, res, next) => {
       AE_address,
       AE_location,
     });
-
-    await newAE.save();
 
     const mailOptions = {
       from: "Desky",
