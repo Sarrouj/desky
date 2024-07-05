@@ -153,44 +153,14 @@ useEffect(()=>{
                             <TableCell className="text-center">
                                 <TooltipProvider>
                                     <Tooltip>
-                                        <TooltipTrigger>
-                                            <Button className="h-6 rounded-full text-white text-xs bg-green-600 hover:bg-green-500">{Content("Accept")}</Button>
+                                        <TooltipTrigger className="h-6 rounded-full text-white text-xs bg-green-600 hover:bg-green-500 px-2">
+                                            {Content("Accept")}
                                         </TooltipTrigger>
                                         <TooltipContent side="top" className="text-xs font-sm ">
                                             {Content("AcceptDesc1")} <br /> {Content("AcceptDesc2")}
                                         </TooltipContent>
                                     </Tooltip>
                                 </TooltipProvider>
-                            
-                            </TableCell>
-                        </TableRow>
-                        <TableRow className="cursor-pointer">
-                            <TableCell >
-                                Buying 100 chaires
-                            </TableCell>
-                            <TableCell className="text-center">
-                                <div className="font-medium">Liam Johnson</div>
-                                <div className="hidden text-sm text-muted-foreground md:inline">
-                                    Nike S.A.R.L
-                                </div>
-                            </TableCell>
-                            <TableCell className="text-center">350</TableCell>
-                            <TableCell className="text-center">2024-06-12</TableCell>
-                            <TableCell className="flex justify-center items-center">
-                               <Download size={22}  className="font-extralight mt-2 text-primary hover:text-orange-600"/>
-                            </TableCell>
-                            <TableCell className="text-center">
-                                <TooltipProvider>
-                                    <Tooltip>
-                                        <TooltipTrigger>
-                                            <Button className="h-6 rounded-full text-white text-xs bg-green-600 hover:bg-green-500">{Content("Accept")}</Button>
-                                        </TooltipTrigger>
-                                        <TooltipContent side="top" className="text-xs font-sm ">
-                                            {Content("AcceptDesc1")} <br /> {Content("AcceptDesc2")}
-                                        </TooltipContent>
-                                    </Tooltip>
-                                </TooltipProvider>
-                            
                             </TableCell>
                         </TableRow>
                     </TableBody>
