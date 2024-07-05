@@ -6,9 +6,8 @@ const router = express.Router();
 import { checkObjectId } from "../middlewares/checkObjectId.mjs";
 import { checkSessionId } from "../middlewares/checkSessionId.mjs";
 import { handleErrors } from "../middlewares/errorMiddleware.mjs";
-import { upload } from "../utils/upload.mjs";
-import offerValidationFields from "../utils/offerValidationFields.mjs";
 import offerStateValidationFields from "../utils/offerStateValidationFields.mjs";
+import upload from "../utils/upload.mjs";
 
 // Schemas
 import Depositors from "../mongoose/schemas/Depositor.mjs";
@@ -80,19 +79,33 @@ router.get("/search/offer", async (req, res, next) => {
 // Add An Offer
 router.post(
   "/add/offer",
-  checkSessionId,
-  offerValidationFields,
-  upload.single("offer_attachments"),
+  upload.single("offer_attachment"),
   async (req, res, next) => {
     const {
       offer_title,
       offer_description,
       offer_category,
       offer_location,
-      offer_deadLine,
+      offer_deadline,
       offer_budget,
       user_id,
     } = req.body;
+    if (
+      !offer_title ||
+      !offer_description ||
+      !offer_category ||
+      !offer_location ||
+      !offer_deadline ||
+      !offer_budget ||
+      !user_id
+    ) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    const offer_attachment = req.file.filename;
+    if (!offer_attachment) {
+      return res.status(400).json({ error: "Offer attachment is required" });
+    }
 
     try {
       const depositor = await Depositors.findById(user_id);
@@ -100,23 +113,17 @@ router.post(
         return res.status(404).json({ error: "Depositor not found" });
       }
 
-      const newOfferData = {
+      await Offers.create({
         offer_title,
         offer_description,
         offer_category,
         offer_location,
-        offer_deadLine,
+        offer_deadline,
         offer_budget,
+        offer_attachment,
         depositor_id: user_id,
-        offer_apply: [],
-      };
+      });
 
-      if (req.file) {
-        newOfferData.offer_attachments = req.file.filename;
-      }
-
-      const newOffer = new Offers(newOfferData);
-      await newOffer.save();
       res.status(201).json({ success: "Offer created successfully" });
     } catch (err) {
       next(err);
@@ -129,17 +136,15 @@ router.post(
 // Edit an Offer
 router.put(
   "/edit/offer/:id",
-  offerValidationFields,
-  checkSessionId,
   checkObjectId,
-  upload.single("offer_attachments"),
+  upload.single("offer_attachment"),
   async (req, res, next) => {
     const {
       offer_title,
       offer_description,
       offer_category,
       offer_location,
-      offer_deadLine,
+      offer_deadline,
       offer_budget,
       user_id,
     } = req.body;
@@ -168,11 +173,11 @@ router.put(
       offer.offer_description = offer_description || offer.offer_description;
       offer.offer_category = offer_category || offer.offer_category;
       offer.offer_location = offer_location || offer.offer_location;
-      offer.offer_deadLine = offer_deadLine || offer.offer_deadLine;
+      offer.offer_deadline = offer_deadline || offer.offer_deadline;
       offer.offer_budget = offer_budget || offer.offer_budget;
 
       if (req.file) {
-        offer.offer_attachments = req.file.filename;
+        offer.offer_attachment = req.file.filename;
       }
 
       await offer.save();

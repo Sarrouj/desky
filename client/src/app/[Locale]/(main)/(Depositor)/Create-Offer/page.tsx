@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
 import {
   ChevronLeft,
   Home,
@@ -113,13 +114,12 @@ import { useBoundStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
 import { useSession, signOut } from "next-auth/react";
-import { toast } from "sonner"
+import { toast } from "sonner";
 
 // zustand
 import { City } from "@/lib/Features/CitiesData";
 
-
-const CreateOffer :   React.FC = () => {
+const CreateOffer: React.FC = () => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
   const [categoryOpen, categorySetOpen] = React.useState<boolean>(false);
@@ -131,27 +131,25 @@ const CreateOffer :   React.FC = () => {
   const [Categories, setCategories] = useState<City[]>([]);
   const CitiesEN = useBoundStore((state) => state.CitiesEN);
   const CitiesFR = useBoundStore((state) => state.CitiesFR);
-  const CategoriesEN : any  = useBoundStore((state) => state.CategoriesEN);
-  const CategoriesFR : any  = useBoundStore((state) => state.CategoriesFR);
-
+  const CategoriesEN: any = useBoundStore((state) => state.CategoriesEN);
+  const CategoriesFR: any = useBoundStore((state) => state.CategoriesFR);
 
   // Language
-  useEffect(()=>{
-    let lg = JSON.parse(localStorage.getItem('lg'));
+  useEffect(() => {
+    let lg = JSON.parse(localStorage.getItem("lg"));
     setLanguage(lg);
-  }, [Language])
+  }, [Language]);
 
   // Language
-  useEffect(()=>{
-    if(Language == "en"){
+  useEffect(() => {
+    if (Language == "en") {
       setCity(CitiesEN);
       setCategories(CategoriesEN);
-    }else{
+    } else {
       setCity(CitiesFR);
       setCategories(CategoriesFR);
     }
-  },[Language, CitiesEN, CitiesFR, CategoriesEN, CategoriesFR])
-
+  }, [Language, CitiesEN, CitiesFR, CategoriesEN, CategoriesFR]);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { data: session, status } = useSession();
@@ -162,9 +160,9 @@ const CreateOffer :   React.FC = () => {
 
   useEffect(() => {
     if (status === "authenticated") {
-      setIsLoggedIn(true); // Update isLoggedIn state using useState setter function
+      setIsLoggedIn(true);
     } else {
-      setIsLoggedIn(false); // Reset isLoggedIn state if not authenticated
+      setIsLoggedIn(false);
     }
   }, [status]);
 
@@ -173,40 +171,48 @@ const CreateOffer :   React.FC = () => {
   };
 
   // Offers Value
-  const id: string | null = session ? session.user?.id : null;
+  const user_id: string | null = session ? session.user?.id : null;
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [location, setLocation] = useState("");
   const [category, setCategory] = useState("");
   const [budget, setBudget] = useState("");
   const [deadline, setDeadline] = useState("");
+  const [attachment, setAttachment] = useState("");
 
   const getOfferDataPosting = useBoundStore(
     (state) => state.getOfferDataPosting
   );
   const postOffer = useBoundStore((state) => state.postOffer);
 
+  // useEffect(() => {
+  //   getOfferDataPosting(postData);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [postData]);
 
-
-  const postData = {
-    "offer_title": title,
-    "offer_description": desc,
-    "offer_category": [category, "Your Offer Category2"],
-    "offer_location": location,
-    "offer_deadLine": deadline,
-    "offer_budget": Number(budget),
-    "user_id" : session?.user.id,
-  };
-
-
-  useEffect(() => {
-    getOfferDataPosting(postData);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [postData]);
-
-  function addOffer(e) {
+  const addOffer = async (e: any) => {
     e.preventDefault();
-    postOffer();
+    const formData = new FormData();
+    formData.append("offer_title", title);
+    formData.append("offer_description", desc);
+    formData.append("offer_category", category);
+    formData.append("offer_location", location);
+    formData.append("offer_deadline", deadline);
+    formData.append("offer_budget", budget);
+    formData.append("offer_attachment", attachment);
+    formData.append("user_id", user_id);
+
+    const result = await axios.post(
+      "http://localhost:3001/add/offer",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    // postOffer();
     setTitle("");
     setDesc("");
     setLocation("");
@@ -214,7 +220,7 @@ const CreateOffer :   React.FC = () => {
     setBudget("");
     setDeadline("");
     toast("Offer Are Added Successfully.");
-  }
+  };
 
   return (
     <>
@@ -675,16 +681,17 @@ const CreateOffer :   React.FC = () => {
                   </div>
                   <div className="grid gap-2">
                     <Label
-                      htmlFor="Attachement"
+                      htmlFor="Attachment"
                       className="text-lg font-semibold"
                     >
-                      Attachement
+                      Attachment
                     </Label>
                     <Input
-                      id="Attachement"
+                      id="Attachment"
                       type="file"
                       className="cursor-pointer"
                       required
+                      onChange={(e) => setAttachment(e.target.files[0])}
                     />
                   </div>
                   <Link href={""}>
@@ -914,7 +921,6 @@ const CreateOffer :   React.FC = () => {
         </main>
       </div>
     </>
-   
   );
 };
 

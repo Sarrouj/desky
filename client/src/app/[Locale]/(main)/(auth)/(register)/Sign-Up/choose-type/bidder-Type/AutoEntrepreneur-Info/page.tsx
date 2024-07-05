@@ -48,8 +48,6 @@ const AutoEntrepreneurInfo = () => {
   const CitiesEN = useBoundStore((state) => state.CitiesEN);
   const CitiesFR = useBoundStore((state) => state.CitiesFR);
 
-
-
   // Language
   useEffect(() => {
     let lg = JSON.parse(localStorage.getItem("lg"));
@@ -135,12 +133,12 @@ const AutoEntrepreneurInfo = () => {
       if (response && response.data && response.data.success) {
         setSuccess(response.data.success);
         setTimeout(() => {
-            window.location.href = `/${Language}/dashboard-b`;
+          window.location.href = `/${Language}/dashboard-b`;
         }, 2000);
       } else {
         setError(response.data.error);
       }
-    } catch (error: unknown) {
+    } catch (error: any) {
       if (
         axios.isAxiosError(error) &&
         error.response &&
@@ -303,8 +301,13 @@ const AutoEntrepreneurInfo = () => {
               ))}
             </ul>
           </div>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {error && (
+            <p className="text-red-500 text-sm">
+              {typeof error === "string" ? error : "An error occurred"}
+            </p>
+          )}
           {success && <p className="text-green-500 text-sm">{success}</p>}
+
           <Button type="submit" className="w-full text-white">
             {Content("Submit")}
           </Button>

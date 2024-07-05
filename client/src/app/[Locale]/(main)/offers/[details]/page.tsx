@@ -38,9 +38,9 @@ const Details = ({ params }: { params: any }) => {
     detailsData && !(detailsData instanceof Array)
       ? detailsData.offer_category
       : null;
-  const OfferAttachments =
+  const OfferAttachment =
     detailsData && !(detailsData instanceof Array)
-      ? detailsData.offer_attachments
+      ? detailsData.offer_attachment
       : null;
   const DepositorId =
     detailsData && !(detailsData instanceof Array)
@@ -65,6 +65,10 @@ const Details = ({ params }: { params: any }) => {
   const OfferBudget =
     detailsData && !(detailsData instanceof Array)
       ? detailsData.offer_budget
+      : null;
+  const offerDeadline =
+    detailsData && !(detailsData instanceof Array)
+      ? detailsData.offer_deadline
       : null;
 
   const getDespositorID = useBoundStore((state) => state.getDepositorID);
@@ -110,7 +114,6 @@ const Details = ({ params }: { params: any }) => {
         `http://localhost:3001/depositor/reviews/${DepositorId}`
       );
       if (response && response.data && response.data.success) {
-        console.log(response.data);
         setSuccess(response.data.success);
       } else {
         setError(response.data.error);
@@ -205,48 +208,28 @@ const Details = ({ params }: { params: any }) => {
                 />
                 <h6 className="font-bold">
                   {Content("Deadline")}{" "}
-                  <span className="font-medium">Jan 20, 2024</span>
+                  <span className="font-medium">{offerDeadline}</span>
                 </h6>
               </div>
             </div>
             <div className="py-10 pr-20">
               <h3 className="font-bold text-lg mb-8">
                 {Content("Attachments")}{" "}
-                <span className="text-primary font-medium">
-                  ({OfferAttachments ? OfferAttachments.length : "Loading..."})
-                </span>
               </h3>
-              {OfferAttachments ? (
-                OfferAttachments.map((attachment, index) => (
-                  <div
-                    className="flex items-center gap-2 cursor-pointer mb-2"
-                    key={index}
-                  >
-                    <Image
-                      src={"/icons/file.svg"}
-                      width={13}
-                      height={13}
-                      alt="shape"
-                    />
-                    <p className="text-primary underline underline-offset-1">
-                      {attachment["file_name"]}
-                      <span>({attachment["file_size"]})</span>
-                    </p>
-                  </div>
-                ))
-              ) : (
-                <div className="flex items-center gap-2 cursor-pointer mb-2">
-                  <Image
-                    src={"/icons/file.svg"}
-                    width={13}
-                    height={13}
-                    alt="shape"
-                  />
-                  <p className="text-primary underline underline-offset-1">
-                    Loading...
-                  </p>
-                </div>
-              )}
+              <Image
+                src={"/icons/file.svg"}
+                width={13}
+                height={13}
+                alt="shape"
+              />
+              <a
+                target="_blank"
+                href={`http://localhost:3001/uploads/${OfferAttachment}`}
+              >
+                <p className="text-primary underline underline-offset-1">
+                  {OfferAttachment}
+                </p>
+              </a>
             </div>
           </div>
           <div className="pl-12 w-3/12">
