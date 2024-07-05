@@ -296,6 +296,12 @@
           "BidsReceived": "Total des Offres Reçues",
           "OffersClosed": "Total des Offres Fermées",
           "AccountRating": "Votre évaluation de Compte"
+        },
+        "BreadcrumbList": {
+          "Dashboard": "Tableau de bord",
+          "ManageBids": "Gérer les offres",
+          "MyOffers": "Mes offres",
+          "CreateOffer": "Créer une offre"
         }
   }
 }

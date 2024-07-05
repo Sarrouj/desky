@@ -299,6 +299,12 @@
         "BidsReceived" : "Total of Bids Received",
         "OffersClosed" : "Total of Offers Closed",
         "AccountRating" : "Your Account Rating"
+       },
+       "BreadcrumbList" : {
+          "Dashboard" : "Dashboard",
+          "ManageBids" : "Manage Bids",
+          "MyOffers" : "My Offers",
+          "CreateOffer" : "CreateOffer"
        }
     }
 }

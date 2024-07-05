@@ -46,6 +46,7 @@ const DespoeitorDashboard = () => {
   let notFoundContent = useTranslations("DepositorDashboard.NoAvailableDate");
   let DropDownMenuContent = useTranslations("DepositorDashboard.DropDownMenu");
   let StatContent = useTranslations("DepositorDashboard.Statistic");
+  let BreadcrumbListContent = useTranslations("DepositorDashboard.BreadcrumbList");
 
   // Language
   const [Language, setLanguage] = useState('fr');
@@ -122,7 +123,7 @@ const DespoeitorDashboard = () => {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="#">Dashboard</Link>
+                <Link href={`/${Language}/dashboard-d`}>{BreadcrumbListContent('Dashboard')}</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
