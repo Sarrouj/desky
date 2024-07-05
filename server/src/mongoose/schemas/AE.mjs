@@ -4,24 +4,7 @@ import mongoose from "mongoose";
 const AESchema = new mongoose.Schema(
   {
     AE_CIN: {
-      type: {
-        file_id: {
-          type: mongoose.Types.ObjectId,
-          required: true,
-        },
-        file_name: {
-          type: String,
-          required: true,
-        },
-        file_size: {
-          type: String,
-          required: true,
-        },
-        upload_date: {
-          type: Date,
-          required: true,
-        },
-      },
+      type: String,
       required: true,
     },
     AE_phoneNumber: {
