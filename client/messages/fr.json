@@ -298,10 +298,17 @@
           "AccountRating": "Votre évaluation de Compte"
         },
         "BreadcrumbList": {
-          "Dashboard": "Tableau de bord",
-          "ManageBids": "Gérer les offres",
-          "MyOffers": "Mes offres",
-          "CreateOffer": "Créer une offre"
-        }
+          "Dashboard": "Tableau de Bord",
+          "ManageBids": "Gérer les Offres",
+          "MyOffers": "Mes Offres",
+          "CreateOffer": "Créer une Offre"
+        },
+          "SideBar": {
+            "Dashboard": "Tableau de Bord",
+            "ManageBids": "Gérer les Offres",
+            "MyOffers": "Mes Offres",
+            "CreateOffer": "Créer une Offre",
+            "Settings": "Paramètres"
+          }
   }
 }

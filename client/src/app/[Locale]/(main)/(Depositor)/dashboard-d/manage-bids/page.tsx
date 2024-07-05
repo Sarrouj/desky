@@ -40,6 +40,11 @@ let Content = useTranslations("DepositorDashboard.bidsListAll");
 let notFoundContent = useTranslations("DepositorDashboard.NoAvailableDate");
 let DropDownMenu = useTranslations("DepositorDashboard.DropDownMenu");
 let BreadcrumbListContent = useTranslations("DepositorDashboard.BreadcrumbList");
+let SideBarContent = useTranslations("DepositorDashboard.SideBar");
+
+
+
+
 
 // Language
 const [Language, setLanguage] = useState('fr');
@@ -54,7 +59,7 @@ let [Biddata, setBidDate] = useState(false);
 
   return (
     <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
-      <Aside Language={Language} Dashboard={''} CreateOffer={''} MyOffers={''} ManageBids={'bg-primary text-white hover:text-white'} />
+      <Aside Language={Language} Dashboard={''} CreateOffer={''} MyOffers={''} ManageBids={'bg-primary text-white hover:text-white'} Content={SideBarContent}/>
     <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
       <Sheet>
         <SheetTrigger asChild>

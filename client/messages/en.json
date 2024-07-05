@@ -305,6 +305,13 @@
           "ManageBids" : "Manage Bids",
           "MyOffers" : "My Offers",
           "CreateOffer" : "CreateOffer"
+       },
+       "SideBar" : {
+          "Dashboard" : "Dashboard",
+          "ManageBids" : "Manage Bids",
+          "MyOffers" : "My Offers",
+          "CreateOffer" : "CreateOffer",
+          "Settings" : "Settings"
        }
     }
 }
