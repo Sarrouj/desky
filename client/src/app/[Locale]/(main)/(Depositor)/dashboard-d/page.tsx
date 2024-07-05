@@ -47,6 +47,7 @@ const DespoeitorDashboard = () => {
   let DropDownMenuContent = useTranslations("DepositorDashboard.DropDownMenu");
   let StatContent = useTranslations("DepositorDashboard.Statistic");
   let BreadcrumbListContent = useTranslations("DepositorDashboard.BreadcrumbList");
+  let SideBarContent = useTranslations("DepositorDashboard.SideBar");
 
   // Language
   const [Language, setLanguage] = useState('fr');
@@ -62,7 +63,7 @@ const DespoeitorDashboard = () => {
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40 text-secondaryDarkBlue">
-        <Aside Language={Language} Dashboard={'bg-primary text-white hover:text-white'} CreateOffer={''} MyOffers={''} ManageBids={''}/>
+        <Aside Language={Language} Dashboard={'bg-primary text-white hover:text-white'} CreateOffer={''} MyOffers={''} ManageBids={''} Content={SideBarContent}/>
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
         <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <Sheet>

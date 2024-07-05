@@ -21,7 +21,7 @@ import {
 
 import Link from 'next/link'
   
-const Aside = ({Language, Dashboard, CreateOffer, MyOffers, ManageBids} : {Language : string, Dashboard: string, CreateOffer:string, MyOffers: string, ManageBids:string}) => {
+const Aside = ({Language, Dashboard, CreateOffer, MyOffers, ManageBids, Content} : {Language : string, Dashboard: string, CreateOffer:string, MyOffers: string, ManageBids:string, Content: any}) => {
 
   return (
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -41,10 +41,10 @@ const Aside = ({Language, Dashboard, CreateOffer, MyOffers, ManageBids} : {Langu
                   className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8 text-muted-foreground hover:text-foreground ${Dashboard}`}
               >
                   <Home className="h-5 w-5" />
-                  <span className="sr-only">Dashboard</span>
+                  <span className="sr-only">{Content("Dashboard")}</span>
               </Link>
               </TooltipTrigger>
-              <TooltipContent side="right">Dashboard</TooltipContent>
+              <TooltipContent side="right">{Content("Dashboard")}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
         <TooltipProvider>
@@ -55,10 +55,10 @@ const Aside = ({Language, Dashboard, CreateOffer, MyOffers, ManageBids} : {Langu
                   className={`flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8 ${CreateOffer}`}
               >
                   <PackagePlus className="h-5 w-5" />
-                  <span className="sr-only">Create Offer</span>
+                  <span className="sr-only">{Content("CreateOffer")}</span>
               </Link>
               </TooltipTrigger>
-              <TooltipContent side="right">Create Offer</TooltipContent>
+              <TooltipContent side="right">{Content("CreateOffer")}</TooltipContent>
           </Tooltip> 
         </TooltipProvider>
         <TooltipProvider>
@@ -69,10 +69,10 @@ const Aside = ({Language, Dashboard, CreateOffer, MyOffers, ManageBids} : {Langu
                   className={`flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8 ${MyOffers}`}
               >
                   <LayoutList className="h-5 w-5" />
-                  <span className="sr-only">My Offers</span>
+                  <span className="sr-only">{Content("MyOffers")}</span>
               </Link>
               </TooltipTrigger>
-              <TooltipContent side="right">My Offers</TooltipContent>
+              <TooltipContent side="right">{Content("MyOffers")}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
         <TooltipProvider>
@@ -83,10 +83,10 @@ const Aside = ({Language, Dashboard, CreateOffer, MyOffers, ManageBids} : {Langu
                   className={`flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8 ${ManageBids}`}
               >
                   <GanttChart className="h-5 w-5" />
-                  <span className="sr-only">Manage Bids</span>
+                  <span className="sr-only">{Content("ManageBids")}</span>
               </Link>
               </TooltipTrigger>
-              <TooltipContent side="right">Manage Bids</TooltipContent>
+              <TooltipContent side="right">{Content("ManageBids")}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
         {/* <TooltipProvider>
@@ -127,10 +127,10 @@ const Aside = ({Language, Dashboard, CreateOffer, MyOffers, ManageBids} : {Langu
               className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
             >
               <Settings className="h-5 w-5" />
-              <span className="sr-only">Settings</span>
+              <span className="sr-only">{Content("Settings")}</span>
             </Link>
           </TooltipTrigger>
-          <TooltipContent side="right">Settings</TooltipContent>
+          <TooltipContent side="right">{Content("Settings")}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
       </nav>
