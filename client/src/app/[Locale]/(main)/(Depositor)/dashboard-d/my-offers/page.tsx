@@ -33,11 +33,12 @@ import BidsList from "@/Components/common/BidsList"
 import NotFoundDataDepositor from "@/Components/common/NotFoundDataDepositor"
 import DropDownDepositor from "@/Components/common/DropDownDepositor"
 import Aside from "@/Components/common/Aside"
+import MyOffersList from "@/Components/common/MyOffersList"
 
 const MyOffers = () => {
 
 // Content
-let Content = useTranslations("DepositorDashboard.bidsListAll");
+let Content = useTranslations("DepositorDashboard.MyOffers");
 let notFoundContent = useTranslations("DepositorDashboard.NoAvailableDate");
 let DropDownMenu = useTranslations("DepositorDashboard.DropDownMenu");
 let BreadcrumbListContent = useTranslations("DepositorDashboard.BreadcrumbList");
@@ -52,7 +53,7 @@ useEffect(()=>{
 }, [Language])
 
 // Data
-let [Biddata, setBidDate] = useState(false);
+let [Biddata, setBidDate] = useState(true);
 
   return (
     <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
@@ -133,7 +134,7 @@ let [Biddata, setBidDate] = useState(false);
     </header>
     <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
         { Biddata ?
-            <BidsList Content={Content} seeMore={false}/> :
+            <MyOffersList Content={Content} seeMore={false}/> :
             <NotFoundDataDepositor Language={Language} Content={notFoundContent}/>
         }
         
