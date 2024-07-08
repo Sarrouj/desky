@@ -352,10 +352,10 @@ router.delete(
 // Apply to an Offer
 router.post(
   "/apply/offer/:id",
-  checkSessionId,
   checkObjectId,
+  upload.single("estimate"),
   async (req, res, next) => {
-    const { user_id, role } = req.body;
+    const { user_id } = req.body;
     const { id } = req.params;
 
     try {
@@ -397,7 +397,7 @@ router.post(
           .json({ error: "You already applied for this offer" });
       }
 
-      bidder.bidder_CB -= 10;
+      // bidder.bidder_CB -= 10;
       await bidder.save();
 
       const newOfferApply = { bidder_id: user_id, date: new Date() };

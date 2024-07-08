@@ -10,7 +10,6 @@ import { checkObjectId } from "../middlewares/checkObjectId.mjs";
 import { checkSessionId } from "../middlewares/checkSessionId.mjs";
 import { handleErrors } from "../middlewares/errorMiddleware.mjs";
 import bidderValidationFields from "../utils/bidderValidationFields.mjs";
-import AEValidationFields from "../utils/AEValidationFields.mjs";
 import companyValidationFields from "../utils/companyValidationFields.mjs";
 import ratingValidationFields from "../utils/ratingValidationFields.mjs";
 import { transporter } from "../utils/emailSend.mjs";

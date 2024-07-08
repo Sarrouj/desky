@@ -224,7 +224,7 @@ router.put(
 
       const depositor = await Depositors.findById(offer.depositor_id);
 
-      depositor.depositor_CB += 10;
+      // depositor.depositor_CB += 10;
       offer.status = "open";
 
       await offer.save();
