@@ -38,10 +38,12 @@ import {
 const BidsList = ({
   Content,
   seeMore,
+  limit,
   dBids,
 }: {
   Content: any;
   seeMore: boolean;
+  limit: boolean;
   dBids: any;
 }) => {
   const { data: session } = useSession();
@@ -131,8 +133,11 @@ const BidsList = ({
               </TableHeader>
               <TableBody>
                 {dBids &&
-                  Object.keys(dBids).map((offerTitle: string) =>
-                    dBids[offerTitle].map((bid: any, index: number) => {
+                  Object.keys(dBids).map((offerTitle: string) => {
+                    const bidsToDisplay = limit
+                      ? dBids[offerTitle].slice(0, 5)
+                      : dBids[offerTitle];
+                    return bidsToDisplay.map((bid: any, index: number) => {
                       const averageRating =
                         bid.bidder.bidder_review &&
                         bid.bidder.bidder_review.length > 0
@@ -212,8 +217,8 @@ const BidsList = ({
                           </TableCell>
                         </TableRow>
                       );
-                    })
-                  )}
+                    });
+                  })}
               </TableBody>
             </Table>
           </CardContent>
