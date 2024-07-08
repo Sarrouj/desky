@@ -252,6 +252,7 @@ router.delete(
 
       if (
         offer.depositor_id.toString() !== user_id ||
+        (offer.offer_state !== "pending" && offer.offer_state !== "open") ||
         offer.offer_apply.length > 0
       ) {
         return res.status(403).json({ error: "You can't delete this offer" });
