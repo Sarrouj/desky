@@ -50,9 +50,17 @@ const OffersSchema = new mongoose.Schema(
     offer_apply: {
       type: [
         {
+          _id: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+          },
           bidder_id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Bidders",
+            required: true,
+          },
+          estimate: {
+            type: String,
             required: true,
           },
           date: {
