@@ -296,6 +296,37 @@
           "BidsReceived": "Total des Offres Reçues",
           "OffersClosed": "Total des Offres Fermées",
           "AccountRating": "Votre évaluation de Compte"
+        },
+        "BreadcrumbList": {
+          "Dashboard": "Tableau de Bord",
+          "ManageBids": "Gérer les Offres",
+          "MyOffers": "Mes Offres",
+          "CreateOffer": "Créer une Offre"
+        },
+          "SideBar": {
+            "Dashboard": "Tableau de Bord",
+            "ManageBids": "Gérer les Offres",
+            "MyOffers": "Mes Offres",
+            "CreateOffer": "Créer une Offre",
+            "Settings": "Paramètres"
+          },
+        "MyOffers" : {
+          "title" : "Mes Offres",
+          "Desc" : "Toutes vos offres publiées",
+          "offerName" : "Nom de l'Offre",
+          "TotalBids" : "Total des Offres",
+          "TotalBidsDesc" : "Nombre total de propositions reçues pour vos offres",
+          "Status" : "Statut",
+          "StatusDesc" : "Statut actuel de l'offre",
+          "DeleteTitle" : "Supprimer l'Offre",
+          "DeleteHeaderDesc" : "Supprimer l'offre du marché",
+          "Delete" : "Supprimer",
+          "DeleteDesc1" : "Avertissement : L'offre sera complètement",
+          "DeleteDesc2" : "retirée du marché",
+          "finished" : "Terminé",
+          "Done" : "Complété",
+          "DoneDesc1" : "La transaction a été",
+          "DoneDesc2" : "complétée avec succès."
         }
-  }
+    }
 }

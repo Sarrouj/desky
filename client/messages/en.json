@@ -299,7 +299,38 @@
         "BidsReceived" : "Total of Bids Received",
         "OffersClosed" : "Total of Offers Closed",
         "AccountRating" : "Your Account Rating"
-       }
+       },
+       "BreadcrumbList" : {
+          "Dashboard" : "Dashboard",
+          "ManageBids" : "Manage Bids",
+          "MyOffers" : "My Offers",
+          "CreateOffer" : "CreateOffer"
+       },
+       "SideBar" : {
+          "Dashboard" : "Dashboard",
+          "ManageBids" : "Manage Bids",
+          "MyOffers" : "My Offers",
+          "CreateOffer" : "CreateOffer",
+          "Settings" : "Settings"
+       },
+        "MyOffers" : {
+          "title" : "My Offers",
+          "Desc" : "Your All Offers Posted",
+          "offerName" : "Offer Name",
+          "TotalBids" : "Total Bids",
+          "TotalBidsDesc" : "Total Proposals Received in Your Offers",
+          "Status" : "Status",
+          "StatusDesc" : "Offer Current Status",
+          "DeleteTitle" : "Delete Offer",
+          "DeleteHeaderDesc" : "Delete Offer From The Marketplace",
+          "Delete" : "Delete",
+          "DeleteDesc1" : "Warning : The offer will be completely",
+          "DeleteDesc2" : "removed from the marketplace",
+          "finished" : "Finished",
+          "Done" : "Completed",
+          "DoneDesc1" : "The Transaction Has Been",
+          "DoneDesc2" : "Successfully Completed."
+        }
     }
 }
 

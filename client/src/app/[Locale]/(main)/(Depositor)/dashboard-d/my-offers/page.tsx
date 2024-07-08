@@ -10,6 +10,7 @@ import {
     Users2,
 } from "lucide-react"
 
+
 import {
 Breadcrumb,
 BreadcrumbItem,
@@ -32,19 +33,16 @@ import BidsList from "@/Components/common/BidsList"
 import NotFoundDataDepositor from "@/Components/common/NotFoundDataDepositor"
 import DropDownDepositor from "@/Components/common/DropDownDepositor"
 import Aside from "@/Components/common/Aside"
+import MyOffersList from "@/Components/common/MyOffersList"
 
-const MyBids = () => {
+const MyOffers = () => {
 
 // Content
-let Content = useTranslations("DepositorDashboard.bidsListAll");
+let Content = useTranslations("DepositorDashboard.MyOffers");
 let notFoundContent = useTranslations("DepositorDashboard.NoAvailableDate");
 let DropDownMenu = useTranslations("DepositorDashboard.DropDownMenu");
 let BreadcrumbListContent = useTranslations("DepositorDashboard.BreadcrumbList");
 let SideBarContent = useTranslations("DepositorDashboard.SideBar");
-
-
-
-
 
 // Language
 const [Language, setLanguage] = useState('fr');
@@ -55,11 +53,11 @@ useEffect(()=>{
 }, [Language])
 
 // Data
-let [Biddata, setBidDate] = useState(false);
+let [Biddata, setBidDate] = useState(true);
 
   return (
     <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
-      <Aside Language={Language} Dashboard={''} CreateOffer={''} MyOffers={''} ManageBids={'bg-primary text-white hover:text-white'} Content={SideBarContent}/>
+      <Aside Language={Language} Dashboard={''} CreateOffer={''} MyOffers={'bg-primary text-white hover:text-white'} ManageBids={''}  Content={SideBarContent}/>
     <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
       <Sheet>
         <SheetTrigger asChild>
@@ -119,7 +117,7 @@ let [Biddata, setBidDate] = useState(false);
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link href={`/${Language}/dashboard-d`}>{BreadcrumbListContent('Dashboard')}</Link>
+              <Link href={`/${Language}/dashboard-d`}>{BreadcrumbListContent("Dashboard")}</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
@@ -127,7 +125,7 @@ let [Biddata, setBidDate] = useState(false);
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link href={`/${Language}/dashboard-d/manage-bids`}>{BreadcrumbListContent('ManageBids')}</Link>
+              <Link href={`/${Language}/dashboard-d/my-offers`}>{BreadcrumbListContent("MyOffers")}</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
         </BreadcrumbList>
@@ -136,7 +134,7 @@ let [Biddata, setBidDate] = useState(false);
     </header>
     <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
         { Biddata ?
-            <BidsList Content={Content} seeMore={false}/> :
+            <MyOffersList Content={Content} seeMore={false}/> :
             <NotFoundDataDepositor Language={Language} Content={notFoundContent}/>
         }
         
@@ -145,4 +143,4 @@ let [Biddata, setBidDate] = useState(false);
   )
 }
 
-export default MyBids
+export default MyOffers
