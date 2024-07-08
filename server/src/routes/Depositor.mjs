@@ -414,6 +414,71 @@ router.post("/merge/depositor", checkSessionId, async (req, res, next) => {
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
+// Depositor Accept bid
+router.post(
+  "/accept/depositor/bid/:bid_id",
+  checkSessionId,
+  async (req, res, next) => {
+    const { user_id } = req.body;
+    const { bid_id } = req.params;
+    try {
+      const depositor = await Depositors.findById(user_id);
+      if (!depositor) {
+        return res.status(404).json({ error: "Depositor not found" });
+      }
+
+      const offer = await Offers.findOne({ "offer_apply._id": bid_id });
+      if (!offer) {
+        return res.status(404).json({ error: "Bid not found" });
+      }
+
+      offer.offer_apply = offer.offer_apply.filter((bid) => {
+        return bid._id.toString() === bid_id;
+      });
+
+      offer.offer_state = "inProgress";
+      await offer.save();
+      res.status(200).json({ success: "Bid accepted successfully" });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Depositor Refuse bid
+router.post(
+  "/refuse/depositor/bid/:bid_id",
+  checkSessionId,
+  async (req, res, next) => {
+    const { user_id } = req.body;
+    const { bid_id } = req.params;
+    try {
+      const depositor = await Depositors.findById(user_id);
+      if (!depositor) {
+        return res.status(404).json({ error: "Depositor not found" });
+      }
+
+      const offer = await Offers.findOne({ "offer_apply._id": bid_id });
+      if (!offer) {
+        return res.status(404).json({ error: "Bid not found" });
+      }
+
+      offer.offer_apply = offer.offer_apply.filter((bid) => {
+        return bid._id.toString() !== bid_id;
+      });
+
+      await offer.save();
+      res.status(200).json({ success: "Bid refused successfully" });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
 // Error handling middleware
 router.use(handleErrors);
 
