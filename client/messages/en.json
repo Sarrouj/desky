@@ -330,6 +330,19 @@
           "Done" : "Completed",
           "DoneDesc1" : "The Transaction Has Been",
           "DoneDesc2" : "Successfully Completed."
+        },
+        "CreateOffer" : {
+          "form" : {
+            "Title" : "Title",
+            "titlePlaceHolder" : "Type your title here",
+            "Location" : "Location",
+            "Description" : "Description",
+            "DescPlaceHolder" : "Type your description here...",
+            "Category" : "Category",
+            "Budget" : "Budget",
+            "Deadline" : "Deadline",
+            "Attachment" : "Attachment"
+          }
         }
     }
 }

@@ -327,6 +327,21 @@
           "Done" : "Complété",
           "DoneDesc1" : "La transaction a été",
           "DoneDesc2" : "complétée avec succès."
-        }
+        },
+          "CreateOffer" : {
+              "processDesc" : {
+                "postOffer" : "Publier l'offre",
+                "postOfferDesc" : "Publiez votre offre avec des informations détaillées sur le service ou produit souhaité.",
+                "Validation" : "Validation",
+                "ValidationDesc" : "Le statut de l'offre sera en attente jusqu'à validation par l'administrateur. Une fois approuvée, elle sera visible sur le marché.",
+                "RecieveBids": "Recevoir des offres",
+                "RecieveBidsDesc" : "Lorsque votre offre est ouverte, vous recevrez des offres. Consultez-les dans la section Gérer les offres.",
+                "AcceptBidder" : "Accepter une offre",
+                "AcceptBidderDesc" : "Examinez et acceptez une offre en cliquant sur Accepter.",
+                "Done&Review" : "Terminé et évaluation",
+                "Done&ReviewDesc" : "Après l'accord, cliquez sur Terminé et laissez un avis."
+              }
+            }
+
     }
 }
