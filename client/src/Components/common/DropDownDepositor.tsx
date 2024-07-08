@@ -34,7 +34,7 @@ import Link from 'next/link'
 import { Skeleton } from "@/Components/ui/skeleton"
 
 
-const DropDownDepositor = ({content, Language} : {content : any, Language: String}) => {
+const DropDownDepositor = ({content, Language} : {content : any, Language: String | undefined}) => {
   const [LogedOut, setLogedOut] = useState(true);
   const { data: session, status } = useSession();
   let [userTypeSwitch, setuserTypeSwitch] = useState<string>("");

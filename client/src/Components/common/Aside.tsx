@@ -21,7 +21,7 @@ import {
 
 import Link from 'next/link'
   
-const Aside = ({Language, Dashboard, CreateOffer, MyOffers, ManageBids, Content} : {Language : string, Dashboard: string, CreateOffer:string, MyOffers: string, ManageBids:string, Content: any}) => {
+const Aside = ({Language, Dashboard, CreateOffer, MyOffers, ManageBids, Content} : {Language : string | undefined, Dashboard: string, CreateOffer:string, MyOffers: string, ManageBids:string, Content: any}) => {
 
   return (
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
