@@ -40,7 +40,6 @@ const OffersSchema = new mongoose.Schema(
     },
     offer_attachment: {
       type: String,
-      required: true,
     },
     depositor_id: {
       type: mongoose.Schema.Types.ObjectId,

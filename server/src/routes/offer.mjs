@@ -84,12 +84,19 @@ router.post(
     const {
       offer_title,
       offer_description,
-      offer_category,
       offer_location,
       offer_deadline,
       offer_budget,
       user_id,
     } = req.body;
+    let offer_category;
+
+    try {
+      offer_category = JSON.parse(req.body.offer_category);
+    } catch (error) {
+      return res.status(400).json({ error: "Invalid offer category format" });
+    }
+
     if (
       !offer_title ||
       !offer_description ||
@@ -102,16 +109,13 @@ router.post(
       return res.status(400).json({ error: "All fields are required" });
     }
 
-    const offer_attachment = req.file.filename;
-    if (!offer_attachment) {
-      return res.status(400).json({ error: "Offer attachment is required" });
-    }
-
     try {
       const depositor = await Depositors.findById(user_id);
       if (!depositor) {
         return res.status(404).json({ error: "Depositor not found" });
       }
+
+      const offer_attachment = req.file ? req.file.filename : "";
 
       await Offers.create({
         offer_title,
