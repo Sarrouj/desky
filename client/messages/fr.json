@@ -63,7 +63,7 @@
     "CallToActionPopMsg2": "un compte pour publier une offre",
     "Results": "Résultats",
     "Result": "Résultat",
-    "SearchPlaceholder": "echerche",
+    "SearchPlaceholder": "Recherche",
     "SortBy": "Trier par",
     "Newest": "Plus récent",
     "NotFoundMsg": "Aucun résultat trouvé",
@@ -329,19 +329,47 @@
           "DoneDesc2" : "complétée avec succès."
         },
           "CreateOffer" : {
-              "processDesc" : {
-                "postOffer" : "Publier l'offre",
-                "postOfferDesc" : "Publiez votre offre avec des informations détaillées sur le service ou produit souhaité.",
-                "Validation" : "Validation",
-                "ValidationDesc" : "Le statut de l'offre sera en attente jusqu'à validation par l'administrateur. Une fois approuvée, elle sera visible sur le marché.",
-                "RecieveBids": "Recevoir des offres",
-                "RecieveBidsDesc" : "Lorsque votre offre est ouverte, vous recevrez des offres. Consultez-les dans la section Gérer les offres.",
-                "AcceptBidder" : "Accepter une offre",
-                "AcceptBidderDesc" : "Examinez et acceptez une offre en cliquant sur Accepter.",
-                "Done&Review" : "Terminé et évaluation",
-                "Done&ReviewDesc" : "Après l'accord, cliquez sur Terminé et laissez un avis."
-              }
-            }
-
+            "form" : {
+                "Title" : "Titre",
+                "titlePlaceHolder" : "Tapez votre titre ici",
+                "Location" : "Lieu",
+                "selectLocation" : "Sélectionnez votre lieu d'offre ...",
+                "NoCityFound" : "Aucune ville trouvée.",
+                "Description" : "Description",
+                "DescriptionPlaceholder" : "Tapez votre description ici.",
+                "DescPlaceHolder" : "Tapez votre description ici...",
+                "Category" : "Catégorie",
+                "SelectCategory" : "Sélectionnez votre catégorie d'offre...",
+                "NoCategoryFound" : "Aucune catégorie trouvée.",
+                "Budget" : "Budget",
+                "BudgetPlaceholder" : "Tapez votre budget ici",
+                "Deadline" : "Date Limite",
+                "Attachment" : "Pièce jointe",
+                "search" : "Rechercher...",
+                "AddMore" : "Ajouter Plus",
+                "CallToAction" : "AJOUTER",
+                "Optional" : "optionnel",
+                "datePlaceholder": "Sélectionnez une date",
+                "errorMsg" : {
+                  "title": "Le titre est requis. Veuillez fournir un titre.",
+                  "Description": "La description est requise. Veuillez fournir une description.",
+                  "Location": "L'emplacement est requis. Veuillez fournir un emplacement.",
+                  "Deadline": "La date limite est requise. Veuillez fournir une date limite.",
+                  "Budget": "Le budget est requis. Veuillez fournir un budget.",
+                  "Category": "La catégorie est requise. Veuillez fournir une catégorie."
+                }
+            },
+            "CreateNewOffer" : {
+              "title" : "Créer une Nouvelle Offre",
+              "desc" : "Créez une offre et recevez des offres des meilleures entreprises de la région",
+              "CallToAction" : "Créer une Offre"
+          },
+          "Verification" : {
+              "title" : "Vérification en Cours",
+              "desc" : "Votre offre sera vérifiée dans les 24 heures et sera publiée sur le marché.",
+              "addMore" : "Ajouter Plus D'offres",
+              "MyOffers" : "Mes Offres"
+          }
+        }
     }
 }

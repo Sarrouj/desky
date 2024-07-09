@@ -1,6 +1,4 @@
 
-import Link from "next/link";
-import axios from "axios";
 
 import { Label } from "@/Components/ui/label";
 import { Button } from "@/Components/ui/Button";
@@ -22,7 +20,11 @@ import {
   CommandList,
 } from "@/Components/ui/command";
 
-import { Check, ChevronsUpDown, CircleCheck } from "lucide-react";
+import { Calendar } from "@/Components/ui/calendar"
+import { format } from "date-fns"
+import { Calendar as CalendarIcon } from "lucide-react"
+
+import { Check, ChevronsUpDown } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { useBoundStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
@@ -31,8 +33,9 @@ import { toast } from "sonner";
 
 // City Type
 import { City } from "@/lib/Features/CitiesData";
+import { Matcher } from "react-day-picker";
 
-const AddOfferForm = ({Language} : {Language : string | undefined}) => {
+const AddOfferForm = ({Language, Content} : {Language : string | undefined, Content: any}) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
   const [categoryOpen1, categorySetOpen1] = React.useState<boolean>(false);
@@ -64,15 +67,23 @@ const AddOfferForm = ({Language} : {Language : string | undefined}) => {
    // Offers Value
    const user_id: string | Blob  = session ? session.user?.id : '';
    const [title, setTitle] = useState("");
+   const [CapitalizedTitle, setCapitalizedTitle] = useState<string>("");
    const [desc, setDesc] = useState("");
    const [location, setLocation] = useState("");
    const [category1, setCategory1] = useState("");
    const [category2, setCategory2] = useState("");
    const [budget, setBudget] = useState("");
-   const [deadline, setDeadline] = useState("");
-   const [attachment, setAttachment] = useState("");
+   const [attachment, setAttachment] = useState<File | null | string | Blob>('');
    const [secondCategoryToggling, setSecondCategoryToggling] = useState<boolean>(true);
    const [arrCategory , setarrCategory] = useState<any>([]);
+   const [date, setDate] = React.useState<any>(null);
+  //  form validation msg
+  const [titleErrorMsg, setTitleErrorMsg] = useState(false);
+  const [descriptionErrorMsg, setDescriptionErrorMsg] = useState(false);
+  const [budgetErrorMsg, setBudgetErrorMsg] = useState(false);
+  const [locationErrorMsg, setLocationErrorMsg] = useState(false);
+  const [deadlineErrorMsg, setDeadlineErrorMsg] = useState(false);
+  const [categoryErrorMsg, setCategoryErrorMsg] = useState(false);
  
    const getOfferDataPosting = useBoundStore((state) => state.getOfferDataPosting);
    const postOffer = useBoundStore((state) => state.postOffer);
@@ -83,41 +94,100 @@ const AddOfferForm = ({Language} : {Language : string | undefined}) => {
     setDesc("");
     setLocation("");
     setCategory1("");
+    setCategory2("");
     setBudget("");
-    setDeadline("");
+    setDate(null);
     setAttachment("");
     }  
 
     useEffect(()=>{
       let arr = [];
       if(category1 !== ''){
-        arr.push(category1);
+        arr.push(category1.charAt(0).toUpperCase() + category1.slice(1));
       }
 
       if(category2 !== ''){
-        arr.push(category2);
+        arr.push(category2.charAt(0).toUpperCase() + category2.slice(1));
       }
       setarrCategory(arr);
-      console.log(arr);
+ 
     },[category1, category2])
+
+    useEffect(()=>{
+      let Capitalized = title.toLowerCase().split(' ').map(function(word) {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join(' ');
+
+    setCapitalizedTitle(Capitalized);
+    }, [title])
 
    const addOffer = async (e: any) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("offer_title", title);
-    formData.append("offer_description", desc);
+    formData.append("offer_title", CapitalizedTitle);
+    formData.append("offer_description", desc.charAt(0).toUpperCase() + desc.slice(1). toLowerCase());
     formData.append("offer_category", arrCategory);
-    formData.append("offer_location", location);
-    formData.append("offer_deadline", deadline);
+    formData.append("offer_location", location.charAt(0).toUpperCase() + location.slice(1));
+    formData.append("offer_deadline", date);
     formData.append("offer_budget", budget);
-    formData.append("offer_attachment", attachment);
+    if (attachment !== null) {
+      formData.append("offer_attachment", attachment);
+    } else {
+      console.error('Attachment is null.');
+    }
     formData.append("user_id", user_id);
 
-    getOfferDataPosting(formData);
-    postOffer();
-    emptyInputs();
-    toast("Offer Are Added Successfully.");
+    // form validation
+    if(title == ""){
+      setTitleErrorMsg(true);
+    }
+    if(desc == ""){
+      setDescriptionErrorMsg(true);
+    }
+    if(budget == ""){
+      setBudgetErrorMsg(true);
+    }
+    if(location == ""){
+      setLocationErrorMsg(true);
+    }
+    if(date == null){
+      setDeadlineErrorMsg(true);
+    }
+    if(category1 == ""){
+      setCategoryErrorMsg(true);
+    }
+
+    if(title !== "" && desc !== "" && budget !== "" && location !== "" && category1 !== "" && date){
+      getOfferDataPosting(formData);
+      postOffer();
+      emptyInputs();
+      toast("Offer Are Added Successfully.");
+    }
   };
+
+  // FORM validation
+  useEffect(()=>{
+
+    if(title !== ""){
+      setTitleErrorMsg(false);
+    }
+    if(desc !== ""){
+      setDescriptionErrorMsg(false);
+    }
+    if(budget !== ""){
+      setBudgetErrorMsg(false);
+    }
+    if(location !== ""){
+      setLocationErrorMsg(false);
+    }
+    if(date){
+      setDeadlineErrorMsg(false);
+    }
+    if(category1 !== ""){
+      setCategoryErrorMsg(false);
+    }
+
+  }, [title, desc, budget, location, category1, date])
 
   // Second Category
   function secondCategory(){
@@ -132,20 +202,24 @@ const AddOfferForm = ({Language} : {Language : string | undefined}) => {
                   <div className="flex items-start w-full gap-2">
                     <div className="grid gap-2 w-2/4">
                       <Label htmlFor="title" className="text-lg font-semibold">
-                        Title
+                        {Content('Title')}
                       </Label>
                       <Input
                         id="title"
                         type="text"
-                        placeholder="Type your title here."
+                        placeholder={Content('titlePlaceHolder')}
                         required
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                      />
+                        maxLength="55"
+                        className={`${titleErrorMsg ? "ring-0 border-2 border-red-600 focus:ring-0 focus-visible:ring-white focus-visible:ring-1" :  "" }`}
+                      /> {
+                        titleErrorMsg ?  <p className="text-xs text-red-600">{Content('errorMsg.title')}</p> : null
+                      }
                     </div>
                     <div className="grid gap-2 w-2/4">
                     <Label htmlFor="title" className="text-lg font-semibold">
-                      Location
+                      {Content('Location')}
                     </Label>
                     <Popover open={open} onOpenChange={setOpen}>
                       <PopoverTrigger asChild>
@@ -153,19 +227,19 @@ const AddOfferForm = ({Language} : {Language : string | undefined}) => {
                           variant="outline"
                           role="combobox"
                           aria-expanded={open}
-                          className="w-[100%] justify-between"
+                          className={`w-[100%] justify-between ${locationErrorMsg ? "ring-0 border-2 border-red-600 focus:ring-0 focus-visible:ring-white focus-visible:ring-1": "" }`}
                           onClick={() => setOpen(!open)}
                         >
                           {value
                             ? Cities.find((city) => city.value === value)?.label
-                            : "Select your Offer Location ..."}
+                            : Content('selectLocation')}
                           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-[650px] p-0">
                         <Command>
-                          <CommandInput placeholder="Search..." />
-                          <CommandEmpty>No City found.</CommandEmpty>
+                          <CommandInput placeholder={Content('search')} />
+                          <CommandEmpty>{Content('NoCityFound')}</CommandEmpty>
                           <CommandGroup>
                             <CommandList>
                               {Cities.map((city, index) => (
@@ -198,73 +272,102 @@ const AddOfferForm = ({Language} : {Language : string | undefined}) => {
                         </Command>
                       </PopoverContent>
                     </Popover>
+                    {
+                      locationErrorMsg ?  <p className="text-xs text-red-600">{Content('errorMsg.Location')}</p> : null
+                    }
                     </div>
                   </div>
                   <div className="grid gap-2 w-full">
                     <Label htmlFor="title" className="text-lg font-semibold">
-                      Description
+                      {Content('Description')}
                     </Label>
                     <Textarea
-                      placeholder="Type your description here."
+                      placeholder={Content('DescriptionPlaceholder')}
                       required
                       value={desc}
                       onChange={(e) => setDesc(e.target.value)}
-                    />
+                      maxLength="2000"
+                      className={`${descriptionErrorMsg ? "ring-0 border-2 border-red-600 focus:ring-0 focus-visible:ring-white focus-visible:ring-1" :  "" }`}
+                    />{
+                      descriptionErrorMsg ? <p className="text-xs text-red-600">{Content('errorMsg.Description')}</p> : null
+                    }
                   </div>
                   <div className="flex items-start w-full gap-2">
                     <div className="grid gap-2 w-2/4">
                       <Label htmlFor="Deadline" className="text-lg font-semibold">
-                        Deadline
+                        {Content('Deadline')}
                       </Label>
-                      <Input
-                        id="Deadline"
-                        type="date"
-                        required
-                        value={deadline}
-                        onChange={(e) => setDeadline(e.target.value)}
-                        className="w-full"
-                      />
+                      <Popover>
+                              <PopoverTrigger asChild>
+                                <Button
+                                  variant={"outline"}
+                                  className={cn(
+                                    "w-full justify-start text-left font-normal",
+                                    !date && "text-muted-foreground" , `${deadlineErrorMsg ? "ring-0 border-2 border-red-600 focus:ring-0 focus-visible:ring-white focus-visible:ring-1" :  "" }`
+                                  )} 
+                                >
+                                  <CalendarIcon className="mr-2 h-4 w-4" />
+                                  {date ? format(date, "PPP") : <span>{Content('datePlaceholder')}</span>}
+                                </Button>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-auto p-0">
+                                <Calendar
+                                  mode="single"
+                                  selected={date}
+                                  onSelect={setDate}
+                                  initialFocus
+                                />
+                              </PopoverContent>
+                      </Popover>
+                      {
+                        deadlineErrorMsg ? <p className="text-xs text-red-600">{Content('errorMsg.Deadline')}</p> : null
+                      }
                     </div>
                     <div className="grid gap-2 w-2/4">
                       <Label htmlFor="Budget" className="text-lg font-semibold">
-                        Budget
+                        {Content('Budget')}
                       </Label>
                       <Input
                         id="Budget"
                         type="number"
-                        placeholder="Type your Budget Here"
+                        placeholder={Content('BudgetPlaceholder')}
                         required
                         value={budget}
                         onChange={(e) => setBudget(e.target.value)}
-                      />
+                        className={`${budgetErrorMsg ? "ring-0 border-2 border-red-600 focus:ring-0 focus-visible:ring-white focus-visible:ring-1" :  "" }`}
+                      />{
+                        budgetErrorMsg ? <p className="text-xs text-red-600">{Content('errorMsg.Budget')}</p> : null
+                      }
                     </div>
                   </div>
                   <div className="flex items-end gap-2">
                     <div className="grid gap-2 w-full">
-                        <Label htmlFor="title" className="text-lg font-semibold">
-                          Category
-                        </Label>
+                        <div className="flex items-end  justify-between mr-3">
+                          <Label htmlFor="title" className="text-lg font-semibold">
+                            {Content('Category')}
+                          </Label>
+                        </div>
                         <Popover open={categoryOpen1} onOpenChange={categorySetOpen1}>
                           <PopoverTrigger asChild>
                             <Button
                               variant="outline"
                               role="combobox"
                               aria-expanded={categoryOpen1}
-                              className="w-[100%] justify-between"
+                              className={`w-[100%] justify-between ${categoryErrorMsg ? "ring-0 border-2 border-red-600 focus:ring-0 focus-visible:ring-white focus-visible:ring-1" :  "" }`}
                               onClick={() => categorySetOpen1(!categoryOpen1)}
                             >
                               {CategoryValue1
                                 ? Categories.find(
                                     (categorie) => categorie.value === CategoryValue1
                                   )?.label
-                                : "Select your Offer Category..."}
+                                : Content('SelectCategory')}
                               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
                           </PopoverTrigger>
-                          <PopoverContent className={`w-full p-0`}>
+                          <PopoverContent className={`${secondCategoryToggling ? "w-[1200px]" : "w-[650px]"} p-0`}>
                             <Command>
-                              <CommandInput placeholder="Search..." />
-                              <CommandEmpty>No City found.</CommandEmpty>
+                              <CommandInput placeholder={Content('search')} />
+                              <CommandEmpty>{Content('NoCategoryFound')}</CommandEmpty>
                               <CommandGroup>
                                 <CommandList>
                                   {Categories.map((cat, index) => (
@@ -304,11 +407,14 @@ const AddOfferForm = ({Language} : {Language : string | undefined}) => {
                     </div>
                     {
                       secondCategoryToggling ? 
-                      <Button className="text-white" onClick={secondCategory}>Add More</Button> :
+                      <Button className="text-white" onClick={secondCategory}>{Content('AddMore')}</Button> :
                       <div className="grid gap-2 w-full">
-                        <Label htmlFor="title" className="text-lg font-semibold">
-                          Category
-                        </Label>
+                        <div className="flex items-center gap-2">
+                          <Label htmlFor="title" className="text-lg font-semibold">
+                            {Content('Category')}
+                          </Label>
+                          <p className="text-neutralGray text-sm">({Content('Optional')})</p>
+                        </div>
                         <Popover open={categoryOpen2} onOpenChange={categorySetOpen2}>
                           <PopoverTrigger asChild>
                             <Button
@@ -322,14 +428,14 @@ const AddOfferForm = ({Language} : {Language : string | undefined}) => {
                                 ? Categories.find(
                                     (categorie) => categorie.value === CategoryValue2
                                   )?.label
-                                : "Select your Offer Category..."}
+                                : Content('SelectCategory')}
                               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
                           </PopoverTrigger>
                           <PopoverContent className="w-[650px] p-0">
                             <Command>
-                              <CommandInput placeholder="Search..." />
-                              <CommandEmpty>No City found.</CommandEmpty>
+                              <CommandInput placeholder={Content('search')} />
+                              <CommandEmpty>{Content('NoCategoryFound')}</CommandEmpty>
                               <CommandGroup>
                                 <CommandList>
                                   {Categories.map((city, index) => (
@@ -366,22 +472,25 @@ const AddOfferForm = ({Language} : {Language : string | undefined}) => {
                             </Command>
                           </PopoverContent>
                         </Popover>
-                    </div>
+                      </div>
                     }
                   </div>
                   <div className="grid gap-2">
-                    <Label
-                      htmlFor="Attachment"
-                      className="text-lg font-semibold"
-                    >
-                      Attachment
-                    </Label>
+                    <div className="flex items-center gap-2">
+                      <Label
+                        htmlFor="Attachment"
+                        className="text-lg font-semibold"
+                      >
+                        {Content('Attachment')}
+                      </Label>
+                      <p className="text-neutralGray text-sm">({Content('Optional')})</p>
+                    </div>
                     <Input
                       id="Attachment"
                       type="file"
                       className="cursor-pointer"
                       required
-                      onChange={(e) => setAttachment(e.target.files[0])}
+                      onChange={(e) => setAttachment(e.target.files ? e.target.files[0] : "")}
                     />
                   </div>
                     <Button
@@ -389,7 +498,7 @@ const AddOfferForm = ({Language} : {Language : string | undefined}) => {
                     className="w-full text-white"
                     onClick={(e) => addOffer(e)}
                     >
-                    ADD
+                    {Content('CallToAction')}
                     </Button>
                 </div>
               </div>
