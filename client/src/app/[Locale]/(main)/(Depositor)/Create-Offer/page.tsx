@@ -63,9 +63,9 @@ const CreateOffer: React.FC = () => {
 
   useEffect(()=>{
     if(waiting){
-      toast("Offer Are Added Successfully.");
+      toast(formContent('toast.success'));
     }
-   }, [waiting])
+   }, [formContent, waiting])
 
   return (
     <>

@@ -357,7 +357,11 @@
                   "Deadline": "La date limite est requise. Veuillez fournir une date limite.",
                   "Budget": "Le budget est requis. Veuillez fournir un budget.",
                   "Category": "La catégorie est requise. Veuillez fournir une catégorie."
-                }
+                },
+                "toast" : {
+                  "success" : "Offre ajoutée avec succès.",
+                  "error" : "Erreur : Échec de la connexion"
+              }
             },
             "CreateNewOffer" : {
               "title" : "Créer une Nouvelle Offre",
