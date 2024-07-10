@@ -47,6 +47,9 @@ const CreateOffer: React.FC = () => {
   let SideBarContent = useTranslations("DepositorDashboard.SideBar");
   let BreadcrumbListContent = useTranslations("DepositorDashboard.BreadcrumbList");
   let DropDownMenu = useTranslations("DepositorDashboard.DropDownMenu");
+  let formContent = useTranslations("DepositorDashboard.CreateOffer.form");
+  let CreateOfferContent = useTranslations("DepositorDashboard.CreateOffer.CreateNewOffer");
+  let VerificationContent = useTranslations("DepositorDashboard.CreateOffer.Verification");
 
   // Global State Manager
   const waiting = useBoundStore((state) => state.waitingMsg);
@@ -60,7 +63,7 @@ const CreateOffer: React.FC = () => {
   return (
     <>
        <Aside Language={Language} Dashboard={''} CreateOffer={'bg-primary text-white hover:text-white'} MyOffers={''} ManageBids={''}  Content={SideBarContent}/>
-      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
+      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-full">
         <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <Sheet>
             <SheetTrigger asChild>
@@ -120,7 +123,7 @@ const CreateOffer: React.FC = () => {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${Language}/Dashboard/`}>{BreadcrumbListContent('Dashboard')}</Link>
+                  <Link href={`/${Language}/dashboard-d/`}>{BreadcrumbListContent('Dashboard')}</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
@@ -135,26 +138,28 @@ const CreateOffer: React.FC = () => {
         </header>
         <main className="flex items-start gap-4 p-4 sm:px-6 relative ">
           {firstComponent ? 
-            <div className="w-full flex flex-col items-center justify-center h-full mt-16 mr-16">
+            <div className="w-full h-[84vh]">
+              <div className="w-full flex flex-col items-center justify-center pr-20 pt-32">
                 <Package size={72} className="text-primary"/>
-                <h2 className="text-3xl font-bold mb-1">Create New Offer</h2>
-                <p className="text-gray-600 ">Create an Offer and Receive Bids from Top Companies in the Region </p>
-                <Button className="text-white mt-5" onClick={() => setFirstComponents(false)}>Create Offer</Button>
+                <h2 className="text-3xl font-bold mb-1">{CreateOfferContent("title")}</h2>
+                <p className="text-gray-600 ">{CreateOfferContent("desc")}</p>
+                <Button className="text-white mt-5" onClick={() => setFirstComponents(false)}>{CreateOfferContent("CallToAction")}</Button>
+              </div>
             </div>
           : waiting ? 
           <div className="w-full flex flex-col items-center justify-center h-full mt-16 mr-16">
             <Clock4 size={82} className="text-primary"/>
-            <h2 className="text-3xl font-bold mb-1">Verification in Progress</h2>
-            <p className="text-gray-600 ">Your offer will be verified within 24 hours and will be published in the marketplace.</p>
+            <h2 className="text-3xl font-bold mb-1">{VerificationContent("title")}</h2>
+            <p className="text-gray-600 ">{VerificationContent("desc")}</p>
             <div className="flex gap-2">
-              <Button className="text-white mt-5" onClick={addMoreOffers}>Add More Offers</Button>
+              <Button className="text-white mt-5" onClick={addMoreOffers}>{VerificationContent("addMore")}</Button>
               <Link href={`/${Language}/dashboard-d/my-offers`}>
-                <Button className="text-white mt-5">My Offers</Button>  
+                <Button className="text-white mt-5">{VerificationContent("MyOffers")}</Button>  
               </Link>
             </div>
           </div>
           :
-          <AddOfferForm Language={Language}/> 
+          <AddOfferForm Language={Language} Content={formContent}/> 
         }
         </main>
       </div>

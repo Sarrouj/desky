@@ -304,7 +304,7 @@
           "Dashboard" : "Dashboard",
           "ManageBids" : "Manage Bids",
           "MyOffers" : "My Offers",
-          "CreateOffer" : "CreateOffer"
+          "CreateOffer" : "Create Offer"
        },
        "SideBar" : {
           "Dashboard" : "Dashboard",
@@ -336,13 +336,43 @@
             "Title" : "Title",
             "titlePlaceHolder" : "Type your title here",
             "Location" : "Location",
+            "selectLocation" : "Select your Offer Location ...",
+            "NoCityFound" : "No City found.",
             "Description" : "Description",
+            "DescriptionPlaceholder" : "Type your description here.",
             "DescPlaceHolder" : "Type your description here...",
             "Category" : "Category",
+            "SelectCategory" : "Select your Offer Category...",
+            "NoCategoryFound" : "No Category found.",
             "Budget" : "Budget",
+            "BudgetPlaceholder" : "Type your Budget Here",
             "Deadline" : "Deadline",
-            "Attachment" : "Attachment"
-          }
+            "Attachment" : "Attachment",
+            "search" : "Search...",
+            "AddMore" : "Add More",
+            "CallToAction" : "ADD",
+            "Optional" : "optional",
+            "datePlaceholder" : "Pick a date",
+            "errorMsg" : {
+              "title" : "Title is required. Please provide a title.",
+              "Description" : "Description is required. Please provide a description.",
+              "Location" : "Location is required. Please provide a location.",
+              "Deadline" : "Deadline is required. Please provide a deadline.",
+              "Budget" :  "Budget is required. Please provide a budget.",
+              "Category" :  "Category is required. Please provide a category."
+            }
+          },
+            "CreateNewOffer" : {
+              "title" : "Create New Offer",
+              "desc" : "Create an Offer and Receive Bids from Top Companies in the Region",
+              "CallToAction" : "Create Offer"
+            },
+            "Verification" : {
+              "title" : "Verification in Progress",
+              "desc" : "Your offer will be verified within 24 hours and will be published in the marketplace.",
+              "addMore" : "Add More Offers",
+              "MyOffers" : "My Offers"
+            }
         }
     }
 }
