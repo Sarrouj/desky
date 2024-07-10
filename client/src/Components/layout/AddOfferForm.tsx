@@ -35,6 +35,7 @@ import { toast } from "sonner";
 import { City } from "@/lib/Features/CitiesData";
 import { Matcher } from "react-day-picker";
 
+
 const AddOfferForm = ({Language, Content} : {Language : string | undefined, Content: any}) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
@@ -43,15 +44,15 @@ const AddOfferForm = ({Language, Content} : {Language : string | undefined, Cont
   const [categoryOpen2, categorySetOpen2] = React.useState<boolean>(false);
   const [CategoryValue2, CategorySetValue2] = React.useState<string>("");
 
-    // Cities & Categories
-    const [Cities, setCity] = useState<City[]>([]);
-    const [Categories, setCategories] = useState<City[]>([]);
-    const CitiesEN = useBoundStore((state) => state.CitiesEN);
-    const CitiesFR = useBoundStore((state) => state.CitiesFR);
-    const CategoriesEN: any = useBoundStore((state) => state.CategoriesEN);
-    const CategoriesFR: any = useBoundStore((state) => state.CategoriesFR);
+  // Cities & Categories
+  const [Cities, setCity] = useState<City[]>([]);
+  const [Categories, setCategories] = useState<City[]>([]);
+  const CitiesEN = useBoundStore((state) => state.CitiesEN);
+  const CitiesFR = useBoundStore((state) => state.CitiesFR);
+  const CategoriesEN: any = useBoundStore((state) => state.CategoriesEN);
+  const CategoriesFR: any = useBoundStore((state) => state.CategoriesFR);
 
-    // Language
+  // Language
   useEffect(() => {
     if (Language == "en") {
       setCity(CitiesEN);
@@ -63,6 +64,7 @@ const AddOfferForm = ({Language, Content} : {Language : string | undefined, Cont
   }, [Language, CitiesEN, CitiesFR, CategoriesEN, CategoriesFR]);
 
   const { data: session, status } = useSession();
+
 
    // Offers Value
    const user_id: string | Blob  = session ? session.user?.id : '';
@@ -88,8 +90,9 @@ const AddOfferForm = ({Language, Content} : {Language : string | undefined, Cont
    const getOfferDataPosting = useBoundStore((state) => state.getOfferDataPosting);
    const postOffer = useBoundStore((state) => state.postOffer);
 
-    // empty Function 
-   function emptyInputs() {
+
+  // empty Function
+  function emptyInputs() {
     setTitle("");
     setDesc("");
     setLocation("");
@@ -98,7 +101,8 @@ const AddOfferForm = ({Language, Content} : {Language : string | undefined, Cont
     setBudget("");
     setDate(null);
     setAttachment("");
-    }  
+  }
+
 
     useEffect(()=>{
       let arr = [];
@@ -129,6 +133,7 @@ const AddOfferForm = ({Language, Content} : {Language : string | undefined, Cont
     formData.append("offer_category", arrCategory);
     formData.append("offer_location", location.charAt(0).toUpperCase() + location.slice(1));
     formData.append("offer_deadline", date);
+
     formData.append("offer_budget", budget);
     if (attachment !== null) {
       formData.append("offer_attachment", attachment);
@@ -190,7 +195,7 @@ const AddOfferForm = ({Language, Content} : {Language : string | undefined, Cont
   }, [title, desc, budget, location, category1, date])
 
   // Second Category
-  function secondCategory(){
+  function secondCategory() {
     setSecondCategoryToggling(false);
   }
 
@@ -493,18 +498,151 @@ const AddOfferForm = ({Language, Content} : {Language : string | undefined, Cont
                       onChange={(e) => setAttachment(e.target.files ? e.target.files[0] : "")}
                     />
                   </div>
+
                     <Button
-                    type="submit"
-                    className="w-full text-white"
-                    onClick={(e) => addOffer(e)}
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={categoryOpen1}
+                      className="w-[100%] justify-between"
+                      onClick={() => categorySetOpen1(!categoryOpen1)}
                     >
                     {Content('CallToAction')}
                     </Button>
-                </div>
+                  </PopoverTrigger>
+                  <PopoverContent className={`w-full p-0`}>
+                    <Command>
+                      <CommandInput placeholder="Search..." />
+                      <CommandEmpty>No City found.</CommandEmpty>
+                      <CommandGroup>
+                        <CommandList>
+                          {Categories.map((cat, index) => (
+                            <CommandItem
+                              key={index}
+                              value={cat.value}
+                              onSelect={(currentValue) => {
+                                CategorySetValue1(
+                                  currentValue === CategoryValue1
+                                    ? ""
+                                    : currentValue
+                                );
+                                setCategory1(
+                                  currentValue === CategoryValue1
+                                    ? ""
+                                    : currentValue
+                                );
+                                categorySetOpen1(false);
+                              }}
+                            >
+                              <Check
+                                className={cn(
+                                  "mr-2 h-4 w-4",
+                                  CategoryValue1 === cat.value
+                                    ? "opacity-100"
+                                    : "opacity-0"
+                                )}
+                              />
+                              {cat.label}
+                            </CommandItem>
+                          ))}
+                        </CommandList>
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </div>
-            </Tabs>
+              {secondCategoryToggling ? (
+                <Button className="text-white" onClick={secondCategory}>
+                  Add More
+                </Button>
+              ) : (
+                <div className="grid gap-2 w-full">
+                  <Label htmlFor="title" className="text-lg font-semibold">
+                    Category
+                  </Label>
+                  <Popover open={categoryOpen2} onOpenChange={categorySetOpen2}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={categorySetOpen2}
+                        className="w-[100%] justify-between"
+                        onClick={() => categorySetOpen2(!categoryOpen2)}
+                      >
+                        {CategoryValue2
+                          ? Categories.find(
+                              (categorie) => categorie.value === CategoryValue2
+                            )?.label
+                          : "Select your Offer Category..."}
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[650px] p-0">
+                      <Command>
+                        <CommandInput placeholder="Search..." />
+                        <CommandEmpty>No City found.</CommandEmpty>
+                        <CommandGroup>
+                          <CommandList>
+                            {Categories.map((city, index) => (
+                              <CommandItem
+                                key={index}
+                                value={city.value}
+                                onSelect={(currentValue) => {
+                                  CategorySetValue2(
+                                    currentValue === CategoryValue2
+                                      ? ""
+                                      : currentValue
+                                  );
+                                  setCategory2(
+                                    currentValue === CategoryValue2
+                                      ? ""
+                                      : currentValue
+                                  );
+                                  categorySetOpen2(false);
+                                }}
+                              >
+                                <Check
+                                  className={cn(
+                                    "mr-2 h-4 w-4",
+                                    CategoryValue2 === city.value
+                                      ? "opacity-100"
+                                      : "opacity-0"
+                                  )}
+                                />
+                                {city.label}
+                              </CommandItem>
+                            ))}
+                          </CommandList>
+                        </CommandGroup>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                </div>
+              )}
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="Attachment" className="text-lg font-semibold">
+                Attachment
+              </Label>
+              <Input
+                id="Attachment"
+                type="file"
+                className="cursor-pointer"
+                required
+                onChange={(e) => setAttachment(e.target.files[0])}
+              />
+            </div>
+            <Button
+              type="submit"
+              className="w-full text-white"
+              onClick={(e) => addOffer(e)}
+            >
+              ADD
+            </Button>
           </div>
-  )
-}
+        </div>
+      </Tabs>
+    </div>
+  );
+};
 
-export default AddOfferForm
+export default AddOfferForm;
