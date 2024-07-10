@@ -123,7 +123,7 @@ const AddOfferForm = ({Language, Content} : {Language : string | undefined, Cont
     const formData = new FormData();
     formData.append("offer_title", CapitalizedTitle);
     formData.append("offer_description", desc.charAt(0).toUpperCase() + desc.slice(1). toLowerCase());
-    formData.append("offer_category", arrCategory);
+    formData.append("offer_category", JSON.stringify(arrCategory));
     formData.append("offer_location", location.charAt(0).toUpperCase() + location.slice(1));
     formData.append("offer_deadline", date);
     formData.append("offer_budget", budget);
