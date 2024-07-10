@@ -81,10 +81,31 @@ const AddOfferForm = ({Language, Content} : {Language : string | undefined, Cont
   const [locationErrorMsg, setLocationErrorMsg] = useState(false);
   const [deadlineErrorMsg, setDeadlineErrorMsg] = useState(false);
   const [categoryErrorMsg, setCategoryErrorMsg] = useState(false);
+  const [catchedError, setcatchedError] = useState(false);
  
    const getOfferDataPosting = useBoundStore((state) => state.getOfferDataPosting);
    const postOffer = useBoundStore((state) => state.postOffer);
+   const catchError = useBoundStore((state)=> state.catchError);
 
+   useEffect(()=>{
+    if(catchError) {
+      toast("Error : Connection Failed");
+      setcatchedError(true);
+      emptyAttachementInput();
+    }else{
+      setcatchedError(false);
+    }
+   },[catchError])
+
+
+   function emptyAttachementInput(){
+    setAttachment(null);
+    const fileInputElement = document.getElementById('Attachment') as HTMLInputElement | null;
+    if (fileInputElement) {
+      fileInputElement.value = '';
+      setAttachment('');
+    }
+   }
     // empty Function 
    function emptyInputs() {
     setTitle("");
@@ -94,7 +115,7 @@ const AddOfferForm = ({Language, Content} : {Language : string | undefined, Cont
     setCategory2("");
     setBudget("");
     setDate(null);
-    setAttachment("");
+    emptyAttachementInput();
     }  
 
     useEffect(()=>{
@@ -155,12 +176,14 @@ const AddOfferForm = ({Language, Content} : {Language : string | undefined, Cont
     }
 
     if(title !== "" && desc !== "" && budget !== "" && location !== "" && category1 !== "" && date){
-      getOfferDataPosting(formData);
-      postOffer();
-      emptyInputs();
-      toast("Offer Are Added Successfully.");
-    }
-  };
+        getOfferDataPosting(formData);
+        postOffer();
+        if(catchedError == true){
+          toast("Error : Connection Failed");
+          emptyAttachementInput();
+        }
+      }
+    };
 
   // FORM validation
   useEffect(()=>{

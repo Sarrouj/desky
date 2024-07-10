@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { toast } from "sonner";
 import {
   Home,
   LineChart,
@@ -59,6 +60,12 @@ const CreateOffer: React.FC = () => {
     setFirstComponents(false);
     changeWitingMsg(false);
   }
+
+  useEffect(()=>{
+    if(waiting){
+      toast("Offer Are Added Successfully.");
+    }
+   }, [waiting])
 
   return (
     <>
@@ -147,19 +154,21 @@ const CreateOffer: React.FC = () => {
               </div>
             </div>
           : waiting ? 
-          <div className="w-full flex flex-col items-center justify-center h-full mt-16 mr-16">
-            <Clock4 size={82} className="text-primary"/>
-            <h2 className="text-3xl font-bold mb-1">{VerificationContent("title")}</h2>
-            <p className="text-gray-600 ">{VerificationContent("desc")}</p>
-            <div className="flex gap-2">
-              <Button className="text-white mt-5" onClick={addMoreOffers}>{VerificationContent("addMore")}</Button>
-              <Link href={`/${Language}/dashboard-d/my-offers`}>
-                <Button className="text-white mt-5">{VerificationContent("MyOffers")}</Button>  
-              </Link>
+          <div className="w-full h-[84vh]">
+            <div className="w-full flex flex-col items-center justify-center pr-20 pt-32">
+              <Clock4 size={82} className="text-primary"/>
+              <h2 className="text-3xl font-bold mb-1">{VerificationContent("title")}</h2>
+              <p className="text-gray-600 ">{VerificationContent("desc")}</p>
+              <div className="flex gap-2">
+                <Button className="text-white mt-5" onClick={addMoreOffers}>{VerificationContent("addMore")}</Button>
+                <Link href={`/${Language}/dashboard-d/my-offers`}>
+                  <Button className="text-white mt-5">{VerificationContent("MyOffers")}</Button>  
+                </Link>
+              </div>
             </div>
           </div>
           :
-          <AddOfferForm Language={Language} Content={formContent}/> 
+          <AddOfferForm Language={Language} Content={formContent} /> 
         }
         </main>
       </div>
