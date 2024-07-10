@@ -89,13 +89,13 @@ const AddOfferForm = ({Language, Content} : {Language : string | undefined, Cont
 
    useEffect(()=>{
     if(catchError) {
-      toast("Error : Connection Failed");
+      toast(Content('toast.error'));
       setcatchedError(true);
       emptyAttachementInput();
     }else{
       setcatchedError(false);
     }
-   },[catchError])
+   },[catchError, Content])
 
 
    function emptyAttachementInput(){
@@ -179,7 +179,7 @@ const AddOfferForm = ({Language, Content} : {Language : string | undefined, Cont
         getOfferDataPosting(formData);
         postOffer();
         if(catchedError == true){
-          toast("Error : Connection Failed");
+          toast(Content('toast.error'));
           emptyAttachementInput();
         }
       }

@@ -360,6 +360,9 @@
               "Deadline" : "Deadline is required. Please provide a deadline.",
               "Budget" :  "Budget is required. Please provide a budget.",
               "Category" :  "Category is required. Please provide a category."
+            },"toast" : {
+              "success" : "Offer Are Added Successfully.",
+              "error" : "Error : Connection Failed"
             }
           },
             "CreateNewOffer" : {
