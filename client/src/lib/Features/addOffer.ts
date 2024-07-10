@@ -1,13 +1,14 @@
 import { StateCreator } from "zustand";
-import axios from 'axios';
+import axios, { AxiosResponse }  from 'axios';
 
 export interface addOfferState {
   offerDataPosting : null;
   getOfferDataPosting : (data : any) => void;
-  offerDataPostingIsLoading : boolean;
   postOffer : () => Promise<void>;
   waitingMsg : boolean;
   getWaitingMsg : (data : boolean) => void;
+  loading : boolean | null;
+  catchError : boolean;
 }
 
 
@@ -16,20 +17,21 @@ export const createOfferSlice : StateCreator<addOfferState> = (set, get)=>({
     offerDataPosting: null,
     getOfferDataPosting  : (data) => set({ offerDataPosting : data }),
     getWaitingMsg : (data) => set({ waitingMsg : data }),
-    offerDataPostingIsLoading : false,
+    loading : null,
+    catchError : false,
     postOffer: async () => {
-      set({ offerDataPostingIsLoading: true });
       const { offerDataPosting } = get();
+      set({ loading : true});
       try {
-        const response = await axios.post('http://localhost:3001/add/offer', offerDataPosting, {
+        const response : AxiosResponse = await axios.post('http://localhost:3001/add/offer', offerDataPosting, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
-        set({ waitingMsg : true});
-        set({ offerDataPostingIsLoading : false});
+        set({ waitingMsg : true, loading : false});
       } catch (error) {
-        console.error('Error fetching offers:', error);
+        console.error('Error fetching offers:', error); 
+        set({ waitingMsg : false , catchError: true});
       }
     },
   })
