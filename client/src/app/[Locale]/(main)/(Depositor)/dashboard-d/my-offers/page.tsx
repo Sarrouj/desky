@@ -30,11 +30,11 @@ import axios from "axios";
 import { useTranslations } from "next-intl";
 
 // Components
-import BidsList from "@/Components/common/BidsList";
 import NotFoundDataDepositor from "@/Components/common/NotFoundDataDepositor";
 import DropDownDepositor from "@/Components/common/DropDownDepositor";
 import Aside from "@/Components/common/Aside";
 import MyOffersList from "@/Components/common/MyOffersList";
+import OffersListSkeleton from "@/Components/common/offerListSkeleton";
 
 const MyOffers = () => {
   // Content
@@ -71,7 +71,6 @@ const MyOffers = () => {
           );
           setDOffers(response.data.success);
         } catch (error) {
-          console.log(error);
         }
       }
     };
@@ -168,13 +167,15 @@ const MyOffers = () => {
         <DropDownDepositor content={DropDownMenu} Language={Language} />
       </header>
       <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
-        {dOffers ? (
-          <MyOffersList Content={Content} seeMore={false} dOffers={dOffers} />
-        ) : (
+        {dOffers !== null? (
+          dOffers.length !== 0 ?  
+          <MyOffersList Content={Content} seeMore={false} dOffers={dOffers} /> :
           <NotFoundDataDepositor
             Language={Language}
             Content={notFoundContent}
           />
+        ) : (
+          <OffersListSkeleton Content={Content} seeMore={false} />
         )}
       </main>
     </div>

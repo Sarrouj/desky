@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { Download } from "lucide-react";
-import { Badge } from "@/Components/ui/badge";
 import { Button } from "@/Components/ui/Button";
 import {
   Card,

@@ -31,6 +31,7 @@ import NotFoundDataDepositor from "@/Components/common/NotFoundDataDepositor";
 import DropDownDepositor from "@/Components/common/DropDownDepositor";
 import DashboardCard from "@/Components/common/DashboardCard";
 import Aside from "@/Components/common/Aside";
+import BidsListSkeleton from "@/Components/common/BidsListSkeleton";
 
 // Content
 import { useTranslations } from "next-intl";
@@ -108,20 +109,14 @@ const DepositorDashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_id]);
 
-  const totalBidsReceived = dOffers
-    ? dOffers.reduce((acc, offer) => acc + offer.offer_apply.length, 0)
-    : 0;
-
-  const totalOffersClosed = dOffers
-    ? dOffers.filter((offer) => offer.offer_state === "closed").length
-    : 0;
-
-  const averageRating = dInfo?.depositor_review
-    ? (
-        dInfo.depositor_review.reduce((acc, review) => acc + review.rating, 0) /
-        dInfo.depositor_review.length
-      ).toFixed(1)
-    : null;
+  const totalBidsReceived = dOffers ? dOffers.reduce((acc, offer) => acc + offer.offer_apply.length, 0) : null;
+  const totalOffersClosed = dOffers ? dOffers.filter((offer) => offer.offer_state === "closed").length: null;
+  const totalOffersPosted = dOffers ? dOffers?.length : null;
+  const averageRating = dInfo?.depositor_review ? (
+      dInfo.depositor_review.reduce((acc, review) => acc + review.rating, 0) /
+      dInfo.depositor_review.length
+    ).toFixed(1)
+  : null;
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40 text-secondaryDarkBlue">
@@ -212,7 +207,7 @@ const DepositorDashboard = () => {
               <DashboardCard
                 Logo={Blocks}
                 Content={StatContent("OffersPosted")}
-                Value={dOffers?.length || 0}
+                Value={totalOffersPosted}
               />
               <DashboardCard
                 Logo={CopyPlus}
@@ -230,13 +225,15 @@ const DepositorDashboard = () => {
                 Value={averageRating !== null ? averageRating : "N/A"}
               />
             </div>
-            {dBids ? (
-              <BidsList Content={Content} seeMore={true} limit={true} dBids={dBids} />
-            ) : (
+            {totalBidsReceived !== null ? (
+              totalBidsReceived !== 0 ? 
+              <BidsList Content={Content} seeMore={true} limit={true} dBids={dBids} /> :
               <NotFoundDataDepositor
                 Language={Language}
                 Content={notFoundContent}
               />
+            ) : (
+              <BidsListSkeleton Content={Content} seeMore={true} amount={6} /> 
             )}
           </div>
         </main>
