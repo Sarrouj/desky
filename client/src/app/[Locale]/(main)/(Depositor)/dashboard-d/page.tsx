@@ -100,7 +100,7 @@ const DepositorDashboard = () => {
           setDOffers(offers.data.success);
           setDBids(Bidders);
         } catch (error) {
-          console.log(error);
+
         }
       }
     };
