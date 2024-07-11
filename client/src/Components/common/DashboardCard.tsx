@@ -1,4 +1,5 @@
 import React from "react";
+import { Skeleton } from "@/Components/ui/skeleton"
 
 const DashboardCard = ({
   Logo,
@@ -16,8 +17,17 @@ const DashboardCard = ({
           <Logo size={30} className="text-primary" />
         </div>
         <div className="text-start">
-          <h1 className="text-3xl font-bold">{Value}</h1>
-          <h3 className="font-semibold text-neutralGray">{Content}</h3>
+          {Value !== null ? 
+            <>
+               <h1 className="text-3xl font-bold">{Value}</h1>
+               <h3 className="font-semibold text-neutralGray">{Content}</h3> 
+            </>
+           :
+           <>
+               <Skeleton className="h-4 w-16" />
+               <Skeleton className="h-4 w-40 mt-2" />
+           </>
+          }
         </div>
       </div>
     </div>
