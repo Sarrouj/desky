@@ -87,6 +87,45 @@ router.get("/bidder/info/:id", checkObjectId, async (req, res, next) => {
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
+// Bidder Reviews
+router.get("/bidder/reviews/:id", async (req, res, next) => {
+  try {
+    const bidder = await Bidders.findById(req.params.id);
+    if (!bidder) {
+      return res.status(404).json({ error: "Bidder not found" });
+    }
+
+    // Process reviews and gather necessary details
+    const detailedReviews = await Promise.all(
+      bidder.bidder_review.map(async (review) => {
+        const depositor = await Depositors.findById(review.depositor_id);
+        if (!depositor) {
+          return res.status(404).json({
+            error: `Depositor with id ${review.depositor_id} not found`,
+          });
+        }
+        const offer = await Offers.findById(review.offer_id);
+        if (!offer) {
+          return res
+            .status(404)
+            .json({ error: `Offer with id ${review.offer_id} not found` });
+        }
+        return {
+          depositor_name: depositor.depositor_name,
+          offer_title: offer.offer_title,
+          reviews: [review],
+        };
+      })
+    );
+
+    res.status(200).json({ success: detailedReviews });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
 // Edit bidder's Info
 router.put(
   "/edit/bidder",
@@ -122,53 +161,57 @@ router.put(
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 // Add Bidder's AE Info
-router.post("/add/bidder/AE", upload.single("AE_CIN"), async (req, res, next) => {
-  const { email, AE_phoneNumber, AE_DoA, AE_address, AE_location } = req.body;
-  if (!email || !AE_phoneNumber || !AE_DoA || !AE_address || !AE_location) {
-    return res.status(400).json({ error: "All fields are required" });
-  }
-
-  const AE_CIN = req.file.filename;
-  if (!AE_CIN) {
-    return res.status(400).json({ error: "AE CIN is required" });
-  }
-
-  try {
-    const bidder = await Bidders.findOne({ bidder_email: email });
-    if (!bidder) {
-      return res.status(404).json({ error: "No bidders found" });
+router.post(
+  "/add/bidder/AE",
+  upload.single("AE_CIN"),
+  async (req, res, next) => {
+    const { email, AE_phoneNumber, AE_DoA, AE_address, AE_location } = req.body;
+    if (!email || !AE_phoneNumber || !AE_DoA || !AE_address || !AE_location) {
+      return res.status(400).json({ error: "All fields are required" });
     }
 
-    await AE.create({
-      _id: bidder.id,
-      AE_CIN,
-      AE_phoneNumber,
-      AE_DoA,
-      AE_address,
-      AE_location,
-    });
+    const AE_CIN = req.file.filename;
+    if (!AE_CIN) {
+      return res.status(400).json({ error: "AE CIN is required" });
+    }
 
-    const mailOptions = {
-      from: "Desky",
-      to: email,
-      subject: "Your Account Status",
-      text: `Hello ${bidder.bidder_name}`,
-      html: `Your account need to be verified by the admin, it will take 24 hours to be verified,
-      thank you for your patience.`,
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        return res.status(500).json({ error: "Failed to send email" });
+    try {
+      const bidder = await Bidders.findOne({ bidder_email: email });
+      if (!bidder) {
+        return res.status(404).json({ error: "No bidders found" });
       }
-      res.status(201).json({
-        success: "Auto entrepreneur information added successfully",
+
+      await AE.create({
+        _id: bidder.id,
+        AE_CIN,
+        AE_phoneNumber,
+        AE_DoA,
+        AE_address,
+        AE_location,
       });
-    });
-  } catch (err) {
-    next(err);
+
+      const mailOptions = {
+        from: "Desky",
+        to: email,
+        subject: "Your Account Status",
+        text: `Hello ${bidder.bidder_name}`,
+        html: `Your account need to be verified by the admin, it will take 24 hours to be verified,
+      thank you for your patience.`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return res.status(500).json({ error: "Failed to send email" });
+        }
+        res.status(201).json({
+          success: "Auto entrepreneur information added successfully",
+        });
+      });
+    } catch (err) {
+      next(err);
+    }
   }
-});
+);
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
