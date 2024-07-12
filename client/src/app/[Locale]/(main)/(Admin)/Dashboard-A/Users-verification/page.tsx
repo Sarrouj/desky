@@ -1,5 +1,13 @@
 "use client";
 
+import Link from "next/link";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Home,
   LineChart,
@@ -9,7 +17,6 @@ import {
   ShoppingCart,
   Users2,
 } from "lucide-react";
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -18,85 +25,67 @@ import {
   BreadcrumbSeparator,
 } from "@/Components/ui/breadcrumb";
 import { Button } from "@/Components/ui/Button";
-
 import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
-
-import Link from "next/link";
-import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
-import axios from "axios";
-
-// Content
-import { useTranslations } from "next-intl";
+import AdminAside from "@/Components/common/AdminAside";
 
 // Components
-import BidsList from "@/Components/common/BidsList";
-import NotFoundDataDepositor from "@/Components/common/NotFoundDataDepositor";
 import DropDownDepositor from "@/Components/common/DropDownDepositor";
-import Aside from "@/Components/common/Aside";
-import MyOffersList from "@/Components/common/MyOffersList";
+import NotFoundDataUser from "@/Components/common/NotFoundDataUser";
+import AEList from "@/Components/common/AEList";
 
-const MyOffers = () => {
+// Content
+import React, { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
+import { useSession } from "next-auth/react";
+import axios from "axios";
+import CompanyList from "@/Components/common/CompanyList";
+
+function UsersVerification() {
   // Content
-  let Content = useTranslations("DepositorDashboard.MyOffers");
-  let notFoundContent = useTranslations("DepositorDashboard.NoAvailableDate");
-  let DropDownMenu = useTranslations("DepositorDashboard.DropDownMenu");
-  let BreadcrumbListContent = useTranslations(
-    "DepositorDashboard.BreadcrumbList"
-  );
-  let SideBarContent = useTranslations("DepositorDashboard.SideBar");
+  let DropDownMenuContent = useTranslations("DepositorDashboard.DropDownMenu");
 
   // Language
-  const [Language, setLanguage] = useState("fr");
+  const [Language, setLanguage] = useState("en");
+
+  // Data
   const { data: session } = useSession();
-  const user_id = session ? session.user?.id : null;
-  const user_role = session ? session.user?.role : null;
+  const user_id = session ? session.user.id : null;
+  const user_role = session ? session.user.role : null;
+  const [AE, setAE] = useState<any>(null);
+  const [Company, setCompany] = useState<any>(null);
+  const [type, setType] = useState<any>("ae");
 
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
+    const lg = JSON.parse(localStorage.getItem("lg"));
     setLanguage(lg);
-  }, [Language]);
+  }, []);
 
   useEffect(() => {
-    if (user_role !== "depositor" && user_role !== null) {
-        window.location.href = `/${Language}`;
+    if (user_role !== "admin" && user_role !== null) {
+      //   window.location.href = `/${Language}`;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_role]);
 
-  // Data
-  const [dOffers, setDOffers] = useState<any>(null);
-
   useEffect(() => {
     const fetchData = async () => {
-      if (user_id !== null) {
-        try {
-          const response = await axios.post(
-            "http://localhost:3001/depositor/offers",
-            {
-              user_id,
-            }
-          );
-          setDOffers(response.data.success);
-        } catch (error) {
-          console.log(error);
-        }
+      try {
+        const result = await axios.get("http://localhost:3001/admin/users");
+        setAE(result.data.data.unverifiedAE);
+        setCompany(result.data.data.unverifiedCompany);
+        console.log(result.data.data.unverifiedAE);
+        console.log(result.data.data.unverifiedCompany);
+      } catch (error) {
+        console.error("Error fetching users:", error);
       }
     };
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user_id]);
+  }, []);
 
   return (
     <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
-      <Aside
-        Language={Language}
-        Dashboard={""}
-        CreateOffer={""}
-        MyOffers={"bg-primary text-white hover:text-white"}
-        ManageBids={""}
-        Content={SideBarContent}
-      />
+      <AdminAside Language={Language} />
       <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
         <Sheet>
           <SheetTrigger asChild>
@@ -156,8 +145,8 @@ const MyOffers = () => {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href={`/${Language}/dashboard-d`}>
-                  {BreadcrumbListContent("Dashboard")}
+                <Link href={`/${Language}/Dashboard-A/users-verification`}>
+                  Dashboard
                 </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
@@ -166,27 +155,41 @@ const MyOffers = () => {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href={`/${Language}/dashboard-d/my-offers`}>
-                  {BreadcrumbListContent("MyOffers")}
+                <Link href={`/${Language}/Dashboard-A/Users-verification`}>
+                  Users-verification
                 </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <DropDownDepositor content={DropDownMenu} Language={Language} />
+        <DropDownDepositor content={DropDownMenuContent} Language={Language} />
       </header>
       <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
-        {dOffers ? (
-          <MyOffersList Content={Content} seeMore={false} dOffers={dOffers} />
+        <div className="mb-4">
+          <Select onValueChange={(value) => setType(value)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Users" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ae">auto entrepreneur</SelectItem>
+              <SelectItem value="companies">company</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        {type == "ae" ? (
+          AE && AE.length > 0 ? (
+            <AEList AE={AE} user_id={user_id} />
+          ) : (
+            <NotFoundDataUser />
+          )
+        ) : Company && Company.length > 0 ? (
+          <CompanyList Company={Company} user_id={user_id} />
         ) : (
-          <NotFoundDataDepositor
-            Language={Language}
-            Content={notFoundContent}
-          />
+          <NotFoundDataUser />
         )}
       </main>
     </div>
   );
-};
+}
 
-export default MyOffers;
+export default UsersVerification;

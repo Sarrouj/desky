@@ -47,15 +47,23 @@ const MyBids = () => {
 
   // Language
   const [Language, setLanguage] = useState("fr");
+  const { data: session } = useSession();
+  const user_id = session ? session.user?.id : null;
+  const user_role = session ? session.user?.role : null;
 
   useEffect(() => {
     let lg = JSON.parse(localStorage.getItem("lg"));
     setLanguage(lg);
   }, [Language]);
 
+  useEffect(() => {
+    if (user_role !== "depositor" && user_role !== null) {
+      window.location.href = `/${Language}`;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user_role]);
+
   // Data
-  const { data: session } = useSession();
-  const user_id = session ? session.user?.id : null;
   const [dBids, setDBids] = useState<any>(null);
 
   useEffect(() => {
@@ -187,7 +195,12 @@ const MyBids = () => {
       </header>
       <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
         {dBids ? (
-          <BidsList Content={Content} seeMore={false} limit={false} dBids={dBids} />
+          <BidsList
+            Content={Content}
+            seeMore={false}
+            limit={false}
+            dBids={dBids}
+          />
         ) : (
           <NotFoundDataDepositor
             Language={Language}

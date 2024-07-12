@@ -135,7 +135,7 @@ const BidsList = ({
                 {dBids &&
                   Object.keys(dBids).map((offerTitle: string) => {
                     const bidsToDisplay = limit
-                      ? dBids[offerTitle].slice(0, 5)
+                      ? dBids[offerTitle].slice(0, 4)
                       : dBids[offerTitle];
                     return bidsToDisplay.map((bid: any, index: number) => {
                       const averageRating =

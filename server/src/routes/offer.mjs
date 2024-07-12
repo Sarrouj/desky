@@ -1,12 +1,15 @@
 // Packages
 import express from "express";
 const router = express.Router();
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
 
 // Middlewares
 import { checkObjectId } from "../middlewares/checkObjectId.mjs";
 import { checkSessionId } from "../middlewares/checkSessionId.mjs";
 import { handleErrors } from "../middlewares/errorMiddleware.mjs";
 import offerStateValidationFields from "../utils/offerStateValidationFields.mjs";
+import { transporter } from "../utils/emailSend.mjs";
 import upload from "../utils/upload.mjs";
 
 // Schemas
@@ -122,6 +125,23 @@ router.post(
         offer_budget,
         offer_attachment,
         depositor_id: user_id,
+      });
+
+      const mailOptions = {
+        from: "Desky",
+        to: "sarrouj.zaid.solicode@gmail.com",
+        subject: "New Offer",
+        text: "Hello Admin",
+        html: `There is a new offer from ${depositor.depositor_name} to be verified`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return res.status(500).json({ error: "Failed to send email" });
+        }
+        res.status(201).json({
+          success: "Auto entrepreneur information added successfully",
+        });
       });
 
       res.status(201).json({ success: "Offer created successfully" });
