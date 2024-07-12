@@ -1,9 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Download } from "lucide-react";
-
-import { Badge } from "@/Components/ui/badge";
 import { Button } from "@/Components/ui/Button";
 import {
   Card,
@@ -23,8 +20,11 @@ import {
 } from "@/Components/ui/table";
 
 import { Tabs, TabsContent } from "@/Components/ui/tabs";
-
 import Link from "next/link";
+
+// Components
+import StatusTooltipContent from "./statusTooltipContent";
+import OfferStatusValue from "./offerStatusValue";
 
 // Tooltip
 import {
@@ -34,6 +34,8 @@ import {
   TooltipProvider,
 } from "@/Components/ui/tooltip";
 import axios from "axios";
+
+import { useBoundStore } from "@/lib/store";
 
 const MyOffersList = ({
   Content,
@@ -45,11 +47,34 @@ const MyOffersList = ({
   dOffers: any;
 }) => {
   const [Language, setLanguage] = useState("fr");
+  const getDeleteOfferID = useBoundStore((state) => state.getDeleteOfferID);
+  const getDeleteDepositorID = useBoundStore(
+    (state) => state.getDeleteDepositorID
+  );
+  const deleteOffer = useBoundStore((state) => state.deleteOffer);
+  const getHandleCompleteOfferID = useBoundStore(
+    (state) => state.getHandleCompleteOfferID
+  );
+  const getHandleCompleteDepositorID = useBoundStore(
+    (state) => state.getHandleCompleteDepositorID
+  );
+  const putCompleteOffer = useBoundStore((state) => state.putCompleteOffer);
+
   // Language
   useEffect(() => {
     let lg = JSON.parse(localStorage.getItem("lg"));
     setLanguage(lg);
   }, [Language]);
+
+  function handleDelete(e: any) {
+    e.preventDefault();
+    deleteOffer();
+  }
+
+  function handleComplete(e: any) {
+    e.preventDefault();
+    putCompleteOffer();
+  }
 
   return (
     <Tabs defaultValue="week">
@@ -116,38 +141,11 @@ const MyOffersList = ({
                     const totalBidsReceived = offer.offer_apply
                       ? offer.offer_apply.length
                       : 0;
+                    getDeleteOfferID(offer._id);
+                    getDeleteDepositorID(offer.depositor_id);
+                    getHandleCompleteOfferID(offer._id);
+                    getHandleCompleteDepositorID(offer.depositor_id);
 
-                    const handleComplete = async (e: any) => {
-                      e.preventDefault();
-                      try {
-                        await axios.put(
-                          `http://localhost:3001/edit/offer/state/${offer._id}`,
-                          {
-                            offer_state: "closed",
-                            user_id: offer.depositor_id,
-                          }
-                        );
-                        window.location.reload();
-                      } catch (error) {
-                        console.log(error);
-                      }
-                    };
-
-                    const handleDelete = async (e: any) => {
-                      e.preventDefault();
-                      try {
-                        await axios.delete(
-                          `http://localhost:3001/delete/offer/${offer._id}`,
-                          {
-                            data: {
-                              user_id: offer.depositor_id,
-                            },
-                          }
-                        );
-                        window.location.reload();
-                      } catch (error) {
-                      }
-                    };
                     return (
                       <TableRow
                         className="cursor-pointer"
@@ -161,14 +159,19 @@ const MyOffersList = ({
                           <TooltipProvider>
                             <Tooltip>
                               <TooltipTrigger className="h-6 rounded-full border-2 text-xs  px-2">
-                                {offer.offer_state}
+                                <OfferStatusValue
+                                  data={offer.offer_state}
+                                  Content={Content}
+                                />
                               </TooltipTrigger>
                               <TooltipContent
                                 side="top"
                                 className="text-xs font-sm "
                               >
-                                {Content("DoneDesc1")} <br />{" "}
-                                {Content("DoneDesc2")}
+                                <StatusTooltipContent
+                                  data={offer}
+                                  Content={Content}
+                                />
                               </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
@@ -177,24 +180,35 @@ const MyOffersList = ({
                           <TooltipProvider>
                             <Tooltip>
                               {offer.offer_state !== "inProgress" ? (
-                                <TooltipTrigger className="h-6 rounded-full text-white text-xs bg-gray-300 px-2 ">
-                                  {Content("Done")}
-                                </TooltipTrigger>
+                                <>
+                                  <TooltipTrigger className="h-6 rounded-full text-white text-xs bg-gray-200 px-2 ">
+                                    {Content("Done")}
+                                  </TooltipTrigger>
+                                  <TooltipContent
+                                    side="top"
+                                    className="text-xs font-sm "
+                                  >
+                                    {Content("freezeCompleted1")} <br />{" "}
+                                    {Content("freezeCompleted2")}
+                                  </TooltipContent>
+                                </>
                               ) : (
-                                <TooltipTrigger
-                                  className="h-6 rounded-full text-white text-xs bg-green-600 hover:bg-green-500 px-2"
-                                  onClick={handleComplete}
-                                >
-                                  {Content("Done")}
-                                </TooltipTrigger>
+                                <>
+                                  <TooltipTrigger
+                                    className="h-6 rounded-full text-white text-xs bg-green-600 hover:bg-green-500 px-2"
+                                    onClick={handleComplete}
+                                  >
+                                    {Content("Done")}
+                                  </TooltipTrigger>
+                                  <TooltipContent
+                                    side="top"
+                                    className="text-xs font-sm "
+                                  >
+                                    {Content("DoneDesc1")} <br />{" "}
+                                    {Content("DoneDesc2")}
+                                  </TooltipContent>
+                                </>
                               )}
-                              <TooltipContent
-                                side="top"
-                                className="text-xs font-sm "
-                              >
-                                {Content("DoneDesc1")} <br />{" "}
-                                {Content("DoneDesc2")}
-                              </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
                         </TableCell>
@@ -204,24 +218,34 @@ const MyOffersList = ({
                               {(offer.offer_state !== "pending" &&
                                 offer.offer_state !== "open") ||
                               offer.offer_apply.length > 0 ? (
-                                <TooltipTrigger className="h-6 rounded-full text-white text-decoration-line: line-through text-xs bg-gray-400 hover:bg-gray-500 px-2">
-                                  {Content("Delete")}
-                                </TooltipTrigger>
+                                <>
+                                  <TooltipTrigger className="h-6 rounded-full text-white text-xs bg-gray-200 px-2">
+                                    {Content("Delete")}
+                                  </TooltipTrigger>
+                                  <TooltipContent
+                                    side="top"
+                                    className="text-xs font-sm "
+                                  >
+                                    {Content("CantDeleteDesc")}
+                                  </TooltipContent>
+                                </>
                               ) : (
-                                <TooltipTrigger
-                                  className="h-6 rounded-full text-white text-xs bg-red-600 hover:bg-red-500 px-2"
-                                  onClick={handleDelete}
-                                >
-                                  {Content("Delete")}
-                                </TooltipTrigger>
+                                <>
+                                  <TooltipTrigger
+                                    className="h-6 rounded-full text-white text-xs bg-red-600 hover:bg-red-500 px-2"
+                                    onClick={handleDelete}
+                                  >
+                                    {Content("Delete")}
+                                  </TooltipTrigger>
+                                  <TooltipContent
+                                    side="top"
+                                    className="text-xs font-sm "
+                                  >
+                                    {Content("DeleteDesc1")} <br />{" "}
+                                    {Content("DeleteDesc2")}
+                                  </TooltipContent>
+                                </>
                               )}
-                              <TooltipContent
-                                side="top"
-                                className="text-xs font-sm "
-                              >
-                                {Content("DeleteDesc1")} <br />{" "}
-                                {Content("DeleteDesc2")}
-                              </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
                         </TableCell>

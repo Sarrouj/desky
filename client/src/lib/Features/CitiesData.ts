@@ -629,10 +629,6 @@ export const CitiesDataSlice : StateCreator<Cities> = () =>({
           label: "Taroudant",
         },
         {
-          value: "taounate",
-          label: "Taounate",
-        },
-        {
           value: "taza",
           label: "Taza",
         },
