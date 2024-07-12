@@ -18,7 +18,7 @@
         "CallToAction" : "See more"
       },
       "Credibility" : {
-        "title" : "Desky Crdibility System",
+        "title" : "Desky Credibility System",
         "description" : "We offer a variety of interesting features that you can help increase yor productivity at work and manage your projrct esaly",
         "LegalStatus" : "Legal Status",
         "LegalStatusDesc" : " Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects.",
@@ -46,7 +46,7 @@
       "User":{
         "Account" : "Account",
         "MyAccount" : "My Account",
-        "Profil" : "Profil",
+        "Profil" : "Profile",
         "Dashboard" : "Dashboard",
         "InviteUsers" : "Invite users",
         "Email" : "Email",
@@ -212,12 +212,12 @@
       }
     },
     "OffersDetail":{
-      "Location" : "Targetd Location :",
+      "Location" : "Targeted Location :",
       "Posted" : "Posted ",
       "Category" : "Category :",
       "Estbudget" : "Est.budget:",
       "Deadline" : "Deadline:",
-      "Attachements" : "Attachements",
+      "Attachements" : "Attachments",
       "reviews" : "reviews",
       "of" : "of",
       "OfferActivity" : "Activity in This Offer:",
@@ -326,10 +326,27 @@
           "Delete" : "Delete",
           "DeleteDesc1" : "Warning : The offer will be completely",
           "DeleteDesc2" : "removed from the marketplace",
+          "CantDeleteDesc" : "Unable to Delete Active Offers",
           "finished" : "Finished",
           "Done" : "Completed",
           "DoneDesc1" : "The Transaction Has Been",
-          "DoneDesc2" : "Successfully Completed."
+          "DoneDesc2" : "Successfully Completed.",
+          "freezeCompleted1" : "Completed Button will Not Work",
+          "freezeCompleted2" : "until a bidder is accepted",
+          "OfferStatus" : {
+            "Pending" : "Pending",
+            "PendingDesc" : "Verification In Progress...",
+            "Open" : "Open",
+            "OpenDesc" : "Your Offer Is Active",
+            "inProgress" : "inProgress",
+            "inProgressDesc1" : "The Transaction is Currently",
+            "inProgressDesc2" : "in Progress with the Accepted Bidder.",
+            "Closed" : "Closed",
+            "ClosedDesc1" : "The transaction with the accepted bidder is closed.",
+            "ClosedDesc2" : "the accepted bidder is closed.",
+            "Rejected" : "Rejected",
+            "RejectedDesc" : "Your Offer is Rejected"
+          }
         },
         "CreateOffer" : {
           "form" : {

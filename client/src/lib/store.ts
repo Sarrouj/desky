@@ -15,6 +15,10 @@ import { searchState } from "./Features/SearchSlice";
 import { depositorDataInfoType } from "./Features/getDepositorInfo";
 import { DepositorLegalData } from "./Features/DepositorLegalInfo";
 import { addOfferState } from "./Features/addOffer";
+import { DeleteOfferSlice } from "./Features/DeleteOffer";
+import { deleteOfferState } from "./Features/DeleteOffer";
+import { HandleCompleteSlice } from "./Features/HandleCompleteSlice";
+import { HandleAcceptState } from "./Features/HandleCompleteSlice";
 
 export interface CombinedState extends 
   OffersState, 
@@ -24,7 +28,9 @@ export interface CombinedState extends
   searchState,
   depositorDataInfoType,
   DepositorLegalData,
-  addOfferState {}
+  addOfferState,
+  deleteOfferState,
+  HandleAcceptState {}
 
 export const useBoundStore = create<CombinedState>((...a) => ({
   ...createOffersSlice(...a),
@@ -34,6 +40,8 @@ export const useBoundStore = create<CombinedState>((...a) => ({
   ...CategoriesDataSlice(...a),
   ...SearchSlice(...a),
   ...getDepositorLegalDataSlice(...a),
-  ...createOfferSlice(...a)
+  ...createOfferSlice(...a),
+  ...DeleteOfferSlice(...a),
+  ...HandleCompleteSlice(...a)
 }))
 

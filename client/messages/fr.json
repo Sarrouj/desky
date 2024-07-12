@@ -66,7 +66,7 @@
     "SearchPlaceholder": "Recherche",
     "SortBy": "Trier par",
     "Newest": "Plus récent",
-    "NotFoundMsg": "Aucun résultat trouvé",
+    "NotFoundMsg": "Aucun Résultat Trouvé",
     "NotFoundMsgDesc": "Nous n'avons trouvé aucune correspondance pour vos critères de recherche. Veuillez réessayer avec des mots-clés ou des filtres différents."
   },
   "Auth": {
@@ -326,7 +326,24 @@
           "finished" : "Terminé",
           "Done" : "Complété",
           "DoneDesc1" : "La transaction a été",
-          "DoneDesc2" : "complétée avec succès."
+          "DoneDesc2" : "complétée avec succès.",
+          "CantDeleteDesc": "Impossible de Supprimer les Offres Actives",
+          "freezeCompleted1" : "Le bouton Terminé ne fonctionnera pas",
+          "freezeCompleted2" : "jusqu'à ce qu'un soumissionnaire soit accepté",
+          "OfferStatus": {
+              "Pending": "En attente",
+              "PendingDesc": "Vérification en cours...",
+              "Open": "Ouvert",
+              "OpenDesc": "Votre offre est active",
+              "inProgress": "En cours",
+              "inProgressDesc1": "La transaction est actuellement",
+              "inProgressDesc2": "en cours avec l'enchérisseur accepté.",
+              "Closed": "Fermé",
+              "ClosedDesc1": "La transaction avec l'enchérisseur accepté est terminée.",
+              "ClosedDesc2": "L'enchérisseur accepté est fermé.",
+              "Rejected": "Rejeté",
+              "RejectedDesc": "Votre offre est rejetée"
+          }
         },
           "CreateOffer" : {
             "form" : {
