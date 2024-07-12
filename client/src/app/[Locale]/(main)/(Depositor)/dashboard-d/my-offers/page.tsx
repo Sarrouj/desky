@@ -50,11 +50,19 @@ const MyOffers = () => {
   const [Language, setLanguage] = useState("fr");
   const { data: session } = useSession();
   const user_id = session ? session.user?.id : null;
+  const user_role = session ? session.user?.role : null;
 
   useEffect(() => {
     let lg = JSON.parse(localStorage.getItem("lg"));
     setLanguage(lg);
   }, [Language]);
+
+  useEffect(() => {
+    if (user_role !== "depositor" && user_role !== null) {
+        window.location.href = `/${Language}`;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user_role]);
 
   // Data
   const [dOffers, setDOffers] = useState<any>(null);
