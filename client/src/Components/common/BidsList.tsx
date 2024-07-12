@@ -183,7 +183,7 @@ const BidsList = ({
                               <DialogHeader>
                                 <DialogTitle className="pb-6 border-b text-lg">Reviews History <span className="text-primary">(3)</span></DialogTitle>
                               </DialogHeader>
-                              <div className="flex flex-col gap-10 h-72 pr-5 overflow-y-auto">
+                              <div className="flex flex-col gap-10 h-72  pr-5 overflow-y-auto">
                                 <div>
                                   <div className="flex justify-between items-center">
                                     <h3 className="font-semibold">Sarrouj Zaid</h3>
