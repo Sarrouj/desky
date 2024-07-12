@@ -11,44 +11,126 @@ import adminValidationFields from "../utils/adminValidationFields.mjs";
 import { transporter } from "../utils/emailSend.mjs";
 
 // Schemas
+import Admins from "../mongoose/schemas/Admin.mjs";
 import Bidders from "../mongoose/schemas/Bidder.mjs";
 import Depositors from "../mongoose/schemas/Depositor.mjs";
+import AE from "../mongoose/schemas/AE.mjs";
+import Companies from "../mongoose/schemas/Company.mjs";
 import Offers from "../mongoose/schemas/Offer.mjs";
-import Admins from "../mongoose/schemas/Admin.mjs";
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Verifying Bidder's Info
+//Get Unverified Users
+router.get("/admin/users", async (req, res, next) => {
+  try {
+    const [bidders, depositors, aes, companies] = await Promise.all([
+      Bidders.find({ isTrusted: false }),
+      Depositors.find({ isTrusted: false }),
+      AE.find({}),
+      Companies.find({}),
+    ]);
+
+    const aeMap = new Map(aes.map((ae) => [ae._id.toString(), ae]));
+    const companyMap = new Map(
+      companies.map((company) => [company._id.toString(), company])
+    );
+
+    const unverifiedAE = bidders
+      .filter((bidder) => aeMap.has(bidder._id.toString()))
+      .map((bidder) => ({
+        ...bidder.toObject(),
+        aeInfo: aeMap.get(bidder._id.toString()),
+        userType: "bidder",
+      }))
+      .concat(
+        depositors
+          .filter((depositor) => aeMap.has(depositor._id.toString()))
+          .map((depositor) => ({
+            ...depositor.toObject(),
+            aeInfo: aeMap.get(depositor._id.toString()),
+            userType: "depositor",
+          }))
+      );
+
+    const unverifiedCompany = bidders
+      .filter((bidder) => companyMap.has(bidder._id.toString()))
+      .map((bidder) => ({
+        ...bidder.toObject(),
+        companyInfo: companyMap.get(bidder._id.toString()),
+        userType: "bidder",
+      }))
+      .concat(
+        depositors
+          .filter((depositor) => companyMap.has(depositor._id.toString()))
+          .map((depositor) => ({
+            ...depositor.toObject(),
+            companyInfo: companyMap.get(depositor._id.toString()),
+            userType: "depositor",
+          }))
+      );
+
+    res.status(200).json({
+      success: true,
+      data: {
+        unverifiedAE,
+        unverifiedCompany,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while fetching unverified users.",
+      error: err.message,
+    });
+  }
+});
+
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Verify User
 router.put(
-  "/admin/bidder/verify/:bidder_id",
+  "/admin/verify/:type/:id",
   checkObjectId,
   checkSessionId,
   async (req, res, next) => {
     const { user_id } = req.body;
-    const { bidder_id } = req.params;
+    const { type, id } = req.params;
+
     try {
       const admin = await Admins.findById(user_id);
       if (!admin) {
         return res.status(404).json({ error: "Admin not found" });
       }
 
-      const bidder = await Bidders.findById(bidder_id);
-      if (!bidder) {
-        return res.status(404).json({ error: "Bidder not found" });
+      let user;
+      if (type === "bidder") {
+        user = await Bidders.findById(id);
+      } else if (type === "depositor") {
+        user = await Depositors.findById(id);
       }
 
-      if (bidder.isTrusted == true) {
-        return res.status(400).json({ error: "Bidder already verified" });
+      if (!user) {
+        return res.status(404).json({
+          error: `${type.charAt(0).toUpperCase() + type.slice(1)} not found`,
+        });
       }
 
-      bidder.isTrusted = true;
-      await bidder.save();
+      if (user.isTrusted) {
+        return res.status(400).json({
+          error: `${
+            type.charAt(0).toUpperCase() + type.slice(1)
+          } already verified`,
+        });
+      }
+
+      user.isTrusted = true;
+      await user.save();
 
       const mailOptions = {
         from: "Desky",
-        to: bidder.bidder_email,
+        to: user[type + "_email"],
         subject: "Your Account Status",
-        text: `Hello ${bidder.bidder_name}`,
+        text: `Hello ${user[type + "_name"]}`,
         html: `Your account is verified, Welcome to Desky.`,
       };
 
@@ -56,7 +138,11 @@ router.put(
         if (error) {
           return res.status(500).json({ error: "Failed to send email" });
         }
-        res.status(200).json({ success: "Bidder verified successfully" });
+        res.status(200).json({
+          success: `${
+            type.charAt(0).toUpperCase() + type.slice(1)
+          } verified successfully`,
+        });
       });
     } catch (err) {
       next(err);
@@ -66,130 +152,51 @@ router.put(
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Refusing Bidder's Info  
+// Refusing User
 router.put(
-  "/admin/bidder/refuse/:bidder_id",
-  checkObjectId,
-  checkSessionId,
-  async (req, res, next) => {
-    const { message, user_id } = req.body;
-    const { bidder_id } = req.params;
-
-    try {
-      const admin = await Admins.findById(user_id);
-      if (!admin) {
-        return res.status(404).json({ error: "Admin not found" });
-      }
-      const bidder = await Bidders.findById(bidder_id);
-      if (!bidder) {
-        return res.status(404).json({ error: "Bidder not found" });
-      }
-
-      const mailOptions = {
-        from: "Desky",
-        to: bidder.bidder_email,
-        subject: "Your Account Status",
-        text: `Hello ${bidder.bidder_name}`,
-        html: `Your account is refused, because ${message}.
-        Please contact us for more information.`,
-      };
-
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          return res.status(500).json({ error: "Failed to send email" });
-        }
-        res.status(200).json({ success: "Bidder refused successfully" });
-      });
-    } catch (err) {
-      next(err);
-    }
-  }
-);
-
-// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
-
-// Verifying Depositor's Info
-router.put(
-  "/admin/depositor/verify/:depositor_id",
-  checkObjectId,
-  checkSessionId,
-  async (req, res, next) => {
-    const { user_id } = req.body;
-    const { depositor_id } = req.params;
-
-    try {
-      const admin = await Admins.findById(user_id);
-      if (!admin) {
-        return res.status(404).json({ error: "Admin not found" });
-      }
-
-      const depositor = await Depositors.findById(depositor_id);
-      if (!depositor) {
-        return res.status(404).json({ error: "depositor not found" });
-      }
-
-      if (depositor.isTrusted == true) {
-        return res.status(400).json({ error: "depositor already verified" });
-      }
-
-      depositor.isTrusted = true;
-      await depositor.save();
-
-      const mailOptions = {
-        from: "Desky",
-        to: depositor.depositor_email,
-        subject: "Your Account Status",
-        text: `Hello ${depositor.depositor_name}`,
-        html: `Your account is verified, Welcome to Desky.`,
-      };
-
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          return res.status(500).json({ error: "Failed to send email" });
-        }
-        res.status(200).json({ success: "Depositor verified successfully" });
-      });
-    } catch (err) {
-      next(err);
-    }
-  }
-);
-
-// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
-
-// Refusing Depositor's Info 
-router.put(
-  "/admin/depositor/refuse/:depositor_id",
+  "/admin/refuse/:type/:id",
   checkObjectId,
   checkSessionId,
   async (req, res, next) => {
     const { user_id, message } = req.body;
-    const { depositor_id } = req.params;
+    const { type, id } = req.params;
+
     try {
       const admin = await Admins.findById(user_id);
       if (!admin) {
         return res.status(404).json({ error: "Admin not found" });
       }
 
-      const depositor = await Depositors.findById(depositor_id);
-      if (!depositor) {
-        return res.status(404).json({ error: "depositor not found" });
+      let user;
+      if (type === "bidder") {
+        user = await Bidders.findById(id);
+      } else if (type === "depositor") {
+        user = await Depositors.findById(id);
+      }
+
+      if (!user) {
+        return res.status(404).json({
+          error: `${type.charAt(0).toUpperCase() + type.slice(1)} not found`,
+        });
       }
 
       const mailOptions = {
         from: "Desky",
-        to: depositor.depositor_email,
+        to: user[type + "_email"],
         subject: "Your Account Status",
-        text: `Hello ${depositor.depositor_name}`,
-        html: `Your account is refused, because ${message}.
-        Please contact us for more information.`,
+        text: `Hello ${user[type + "_name"]}`,
+        html: `Your account is refused because ${message}. Please contact us for more information.`,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
           return res.status(500).json({ error: "Failed to send email" });
         }
-        res.status(200).json({ success: "Depositor refused successfully" });
+        res.status(200).json({
+          success: `${
+            type.charAt(0).toUpperCase() + type.slice(1)
+          } refused successfully`,
+        });
       });
     } catch (err) {
       next(err);
@@ -199,21 +206,21 @@ router.put(
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Verifying Offer's Info 
+// Verifying Offer's Info
 router.put(
-  "/admin/offer/verify/:offer_id",
+  "/admin/offer/verify/:id",
   checkObjectId,
   checkSessionId,
   async (req, res, next) => {
     const { user_id } = req.body;
-    const { offer_id } = req.params;
+    const { id } = req.params;
     try {
       const admin = await Admins.findById(user_id);
       if (!admin) {
         return res.status(404).json({ error: "Admin not found" });
       }
 
-      const offer = await Offers.findById(offer_id);
+      const offer = await Offers.findById(id);
       if (!offer) {
         return res.status(404).json({ error: "Offer not found" });
       }
@@ -228,7 +235,7 @@ router.put(
       offer.status = "open";
 
       await offer.save();
-      await depositor.save();
+      // await depositor.save();
 
       const mailOptions = {
         from: "Desky",
@@ -254,19 +261,22 @@ router.put(
 
 // Refusing Offer's Info
 router.put(
-  "/admin/offer/refuse/:offer_id",
+  "/admin/offer/refuse/:id",
   checkObjectId,
   checkSessionId,
   async (req, res, next) => {
     const { user_id, message } = req.body;
-    const { offer_id } = req.params;
+    if (!message) {
+      return res.status(400).json({ error: "Message is required" });
+    }
+    const { id } = req.params;
     try {
       const admin = await Admins.findById(user_id);
       if (!admin) {
         return res.status(404).json({ error: "Admin not found" });
       }
 
-      const offer = await Offers.findById(offer_id);
+      const offer = await Offers.findById(id);
       if (!offer) {
         return res.status(404).json({ error: "Offer not found" });
       }
@@ -311,8 +321,13 @@ router.post(
   async (req, res, next) => {
     const { admin_name, admin_email, admin_password, user_id } = req.body;
     try {
-      const admin = await Admins.findOne(admin_email);
-      if (admin) {
+      const admin = await Admins.findById(user_id);
+      if (!admin) {
+        return res.status(404).json({ error: "Admin not found" });
+      }
+
+      const existingAdmin = await Admins.findOne(admin_email);
+      if (existingAdmin) {
         return res.status(400).json({ error: "email already exists" });
       }
 
