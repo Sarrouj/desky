@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { Download } from "lucide-react";
-import { Badge } from "@/Components/ui/badge";
 import { Button } from "@/Components/ui/Button";
+
 import {
   Card,
   CardContent,
@@ -34,6 +34,16 @@ import {
   TooltipTrigger,
   TooltipProvider,
 } from "@/Components/ui/tooltip";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/Components/ui/dialog";
+
+import { StarIcon } from "lucide-react";
 
 const BidsList = ({
   Content,
@@ -165,7 +175,69 @@ const BidsList = ({
                           className="cursor-pointer"
                           key={`${offerTitle}-${index}`}
                         >
-                          <TableCell>{offerTitle}</TableCell>
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <TableCell>{offerTitle}</TableCell>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[900px] p-8 ">
+                              <DialogHeader>
+                                <DialogTitle className="pb-6 border-b text-lg">Reviews History <span className="text-primary">(3)</span></DialogTitle>
+                              </DialogHeader>
+                              <div className="flex flex-col gap-10 h-72  pr-5 overflow-y-auto">
+                                <div>
+                                  <div className="flex justify-between items-center">
+                                    <h3 className="font-semibold">Sarrouj Zaid</h3>
+                                    <h3 className="text-neutral-500 text-sm">Jan, 11</h3>
+                                  </div>
+                                  <div className="flex items-center gap-[2px]">
+                                    <StarIcon className="text-primary" size={18}/>
+                                    <StarIcon className="text-primary" size={18}/>
+                                    <StarIcon className="text-primary" size={18}/>
+                                    <StarIcon className="text-primary" size={18}/>
+                                    <StarIcon className="text-primary" size={18}/>
+                                  </div>
+                                  <div className="mt-2">
+                                    <h1 className="text-lg font-semibold">Digital Marketing Expert - Google and Facebook Ads</h1>
+                                    <p className="text-sm">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi, deserunt facilis placeat eveniet nam officia itaque ut excepturi non nostrum.</p>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div className="flex justify-between items-center">
+                                    <h3 className="font-semibold">Sarrouj Zaid</h3>
+                                    <h3 className="text-neutral-500 text-sm">Jan, 11</h3>
+                                  </div>
+                                  <div className="flex items-center gap-[2px]">
+                                    <StarIcon className="text-primary" size={18}/>
+                                    <StarIcon className="text-primary" size={18}/>
+                                    <StarIcon className="text-primary" size={18}/>
+                                    <StarIcon className="text-primary" size={18}/>
+                                    <StarIcon className="text-primary" size={18}/>
+                                  </div>
+                                  <div className="mt-2">
+                                    <h1 className="text-lg font-semibold">Digital Marketing Expert - Google and Facebook Ads</h1>
+                                    <p className="text-sm">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi, deserunt facilis placeat eveniet nam officia itaque ut excepturi non nostrum.</p>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div className="flex justify-between items-center">
+                                    <h3 className="font-semibold">Sarrouj Zaid</h3>
+                                    <h3 className="text-neutral-500 text-sm">Jan, 11</h3>
+                                  </div>
+                                  <div className="flex items-center gap-[2px]">
+                                    <StarIcon className="text-primary" size={18}/>
+                                    <StarIcon className="text-primary" size={18}/>
+                                    <StarIcon className="text-primary" size={18}/>
+                                    <StarIcon className="text-primary" size={18}/>
+                                    <StarIcon className="text-primary" size={18}/>
+                                  </div>
+                                  <div className="mt-2">
+                                    <h1 className="text-lg font-semibold">Digital Marketing Expert - Google and Facebook Ads</h1>
+                                    <p className="text-sm">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi, deserunt facilis placeat eveniet nam officia itaque ut excepturi non nostrum.</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </DialogContent>
+                          </Dialog>
                           <TableCell className="text-center">
                             <div className="font-medium">
                               {bid.bidder.bidder_name}
@@ -190,7 +262,7 @@ const BidsList = ({
                             >
                               <Download
                                 size={22}
-                                className="font-extralight mt-2 text-primary hover:text-orange-600"
+                                className="font-extralight text-primary hover:text-orange-600"
                               />
                             </a>
                           </TableCell>

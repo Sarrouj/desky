@@ -34,6 +34,7 @@ import BidsList from "@/Components/common/BidsList";
 import NotFoundDataDepositor from "@/Components/common/NotFoundDataDepositor";
 import DropDownDepositor from "@/Components/common/DropDownDepositor";
 import Aside from "@/Components/common/Aside";
+import BidsListSkeleton from "@/Components/common/BidsListSkeleton";
 
 const MyBids = () => {
   // Content
@@ -65,6 +66,8 @@ const MyBids = () => {
 
   // Data
   const [dBids, setDBids] = useState<any>(null);
+  const [dOffers, setDOffers] = useState<any>(null);
+  const totalBidsReceived = dOffers ? dOffers.reduce((acc, offer) => acc + offer.offer_apply.length, 0) : null;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -94,10 +97,9 @@ const MyBids = () => {
               );
             }
           }
-
+          setDOffers(offers.data.success);
           setDBids(Bidders);
         } catch (error) {
-          console.log(error);
         }
       }
     };
@@ -194,19 +196,16 @@ const MyBids = () => {
         <DropDownDepositor content={DropDownMenu} Language={Language} />
       </header>
       <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
-        {dBids ? (
-          <BidsList
-            Content={Content}
-            seeMore={false}
-            limit={false}
-            dBids={dBids}
-          />
-        ) : (
-          <NotFoundDataDepositor
-            Language={Language}
-            Content={notFoundContent}
-          />
-        )}
+      {totalBidsReceived !== null ? (
+              totalBidsReceived !== 0 ? 
+              <BidsList Content={Content} seeMore={true} limit={false} dBids={dBids} /> :
+              <NotFoundDataDepositor
+                Language={Language}
+                Content={notFoundContent}
+              />
+            ) : (
+              <BidsListSkeleton Content={Content} seeMore={true} amount={9} /> 
+            )}
       </main>
     </div>
   );

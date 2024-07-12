@@ -146,7 +146,6 @@ const MyOffersList = ({
                         );
                         window.location.reload();
                       } catch (error) {
-                        console.log(error);
                       }
                     };
                     return (
@@ -178,7 +177,7 @@ const MyOffersList = ({
                           <TooltipProvider>
                             <Tooltip>
                               {offer.offer_state !== "inProgress" ? (
-                                <TooltipTrigger className="h-6 rounded-full text-white text-decoration-line: line-through text-xs bg-gray-400 hover:bg-gray-300 px-2 ">
+                                <TooltipTrigger className="h-6 rounded-full text-white text-xs bg-gray-300 px-2 ">
                                   {Content("Done")}
                                 </TooltipTrigger>
                               ) : (
