@@ -58,7 +58,7 @@ const MyOffersList = ({
   const getHandleCompleteDepositorID = useBoundStore(
     (state) => state.getHandleCompleteDepositorID
   );
-  const putCompleteOffer = useBoundStore((state) => state.putCompleteOffer);
+  const putCompleteDepositorOffer = useBoundStore((state) => state.putCompleteDepositorOffer);
 
   // Language
   useEffect(() => {
@@ -73,7 +73,8 @@ const MyOffersList = ({
 
   function handleComplete(e: any) {
     e.preventDefault();
-    putCompleteOffer();
+    putCompleteDepositorOffer();
+ 
   }
 
   return (
@@ -141,6 +142,7 @@ const MyOffersList = ({
                     const totalBidsReceived = offer.offer_apply
                       ? offer.offer_apply.length
                       : 0;
+
                     getDeleteOfferID(offer._id);
                     getDeleteDepositorID(offer.depositor_id);
                     getHandleCompleteOfferID(offer._id);

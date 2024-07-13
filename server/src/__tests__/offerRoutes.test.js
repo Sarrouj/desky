@@ -6,7 +6,7 @@ import router from "../routes/offer.mjs";
 // Schemas
 import Depositors from "../mongoose/schemas/Depositor.mjs";
 import Bidders from "../mongoose/schemas/Bidder.mjs";
-import Offers from "../mongoose/schemas/Offer.mjs";
+import Offers from "../mongoose/schemas/offer.mjs";
 
 // Express App Setup
 const app = express();
