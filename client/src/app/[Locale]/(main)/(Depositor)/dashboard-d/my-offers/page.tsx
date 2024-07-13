@@ -70,19 +70,22 @@ const MyOffers = () => {
   // Data
   const [dOffers, setDOffers] = useState<any>(null);
   const geOffersUserID = useBoundStore((state) => state.geOffersUserID);
-  const putCompleteOffer = useBoundStore((state)=> state.putCompleteOffer);
-  const response = useBoundStore((state) => state.DepositorResponse);
+  const putCompleteOffer = useBoundStore((state) => state.putCompleteOffer);
+  const DepositorResponse = useBoundStore((state) => state.DepositorResponse);
 
   useEffect(() => {
-    geOffersUserID(user_id);
-    putCompleteOffer();
-    if(response){
-      setDOffers(response);
-    }
+      geOffersUserID(user_id);
+      if (user_id !== null) {
+          putCompleteOffer();
+      }
+  }, [user_id, geOffersUserID, putCompleteOffer]);
 
-    console.log(dOffers);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user_id]);
+  useEffect(() => {
+      if (DepositorResponse) {
+          setDOffers(DepositorResponse);
+      }
+  }, [DepositorResponse]);
+
 
   return (
     <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">

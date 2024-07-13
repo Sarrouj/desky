@@ -14,10 +14,12 @@ export const FetchDepositorOffers : StateCreator<FetchDepositorOffersState> = (s
     geOffersUserID : (id) => set({ OffersUserID  : id }),
     putCompleteOffer : async () => {
         const { OffersUserID } = get();
+
         try {
             const response = await axios.post(
-              "http://localhost:3001/depositor/offers",{ user_id : OffersUserID }
+              "http://localhost:3001/depositor/offers",{ user_id : OffersUserID, }
             );
+
             set({ DepositorResponse  : response.data.success})
           } catch (error) {
             console.log(error);
