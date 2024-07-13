@@ -225,14 +225,14 @@ router.put(
         return res.status(404).json({ error: "Offer not found" });
       }
 
-      if (offer.status !== "pending") {
+      if (offer.offer_state !== "pending") {
         return res.status(400).json({ error: "Offer already verified" });
       }
 
       const depositor = await Depositors.findById(offer.depositor_id);
 
       // depositor.depositor_CB += 10;
-      offer.status = "open";
+      offer.offer_state = "open";
 
       await offer.save();
       // await depositor.save();

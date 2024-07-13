@@ -254,7 +254,10 @@
         "DeviDesc1" : "Download Estimates",
         "Accept" : "Accept",
         "AcceptDesc1" : "When you accept a bidder",
-        "AcceptDesc2" : "all other bids will be rejected."
+        "AcceptDesc2" : "all other bids will be rejected.",
+        "AllInfo" : "All Information",
+        "AllInfoDesc1" : "View all information",
+        "AllInfoDesc2" : "about the Bidder"
       },
       "bidsListAll" : {
         "title" : "Bids",
@@ -276,7 +279,11 @@
         "DeviDesc1" : "Download Estimates",
         "Accept" : "Accept",
         "AcceptDesc1" : "When you accept a bidder",
-        "AcceptDesc2" : "all other bids will be rejected."
+        "AcceptDesc2" : "all other bids will be rejected.",
+        "AllInfo" : "All Information",
+        "AllInfoDesc1" : "View all information",
+        "AllInfoDesc2" : "about the Bidder"
+
       },
        "NoAvailableDate" : {
         "title" : "Currently No Data Available",

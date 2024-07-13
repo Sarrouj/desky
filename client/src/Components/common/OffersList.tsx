@@ -133,6 +133,7 @@ const OffersList = ({ offers, user_id }: { offers: any; user_id: any }) => {
                           user_id,
                         }
                       );
+                      window.location.reload();
                     };
                     const handleRefuse = () => {
                       axios.put(

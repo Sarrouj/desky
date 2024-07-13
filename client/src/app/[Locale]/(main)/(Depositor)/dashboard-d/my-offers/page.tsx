@@ -36,6 +36,9 @@ import Aside from "@/Components/common/Aside";
 import MyOffersList from "@/Components/common/MyOffersList";
 import OffersListSkeleton from "@/Components/common/offerListSkeleton";
 
+// zustand
+import { useBoundStore } from "@/lib/store";
+
 const MyOffers = () => {
   // Content
   let Content = useTranslations("DepositorDashboard.MyOffers");
@@ -66,23 +69,18 @@ const MyOffers = () => {
 
   // Data
   const [dOffers, setDOffers] = useState<any>(null);
+  const geOffersUserID = useBoundStore((state) => state.geOffersUserID);
+  const putCompleteOffer = useBoundStore((state)=> state.putCompleteOffer);
+  const response = useBoundStore((state) => state.DepositorResponse);
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (user_id !== null) {
-        try {
-          const response = await axios.post(
-            "http://localhost:3001/depositor/offers",
-            {
-              user_id,
-            }
-          );
-          setDOffers(response.data.success);
-        } catch (error) {
-        }
-      }
-    };
-    fetchData();
+    geOffersUserID(user_id);
+    putCompleteOffer();
+    if(response){
+      setDOffers(response);
+    }
+
+    console.log(dOffers);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_id]);
 

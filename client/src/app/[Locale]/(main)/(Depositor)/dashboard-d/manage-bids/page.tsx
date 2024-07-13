@@ -197,7 +197,7 @@ const MyBids = () => {
       </header>
       <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
       {totalBidsReceived !== null ? (
-              totalBidsReceived !== 0 ? 
+              totalBidsReceived !== 0  ? 
               <BidsList Content={Content} seeMore={true} limit={false} dBids={dBids} /> :
               <NotFoundDataDepositor
                 Language={Language}

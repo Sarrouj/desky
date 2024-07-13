@@ -9,9 +9,9 @@ const OfferStatusValue = ({data, Content} : {data : any, Content: any}) => {
       ) : data === "open" ? (
         <>{Content("OfferStatus.Open")}</>
       ) : data === "inProgress" ? (
-        <>{Content("OfferStatus.inProgress")} <br />{Content("OfferStatus.inProgressDesc2")}</>
+        <>{Content("OfferStatus.inProgress")}</>
       ) : data === "closed" ? (
-        <>{Content("OfferStatus.Closed")} <br />{Content("OfferStatus.ClosedDesc2")}</>
+        <>{Content("OfferStatus.Closed")}</>
       ) : data === "rejected" ? (
         <>{Content("OfferStatus.Rejected")}</>
       ) : null}

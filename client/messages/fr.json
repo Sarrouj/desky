@@ -251,7 +251,10 @@
       "DeviDesc1" : "Download Devis",
       "Accept" : "Accepter",
       "AcceptDesc1" : "Lorsque vous acceptez une offre",
-      "AcceptDesc2" : "toutes les autres offres seront rejetées."
+      "AcceptDesc2" : "toutes les autres offres seront rejetées.",
+      "AllInfo": "Toutes les Informations",
+      "AllInfoDesc1": "Voir toutes les informations",
+      "AllInfoDesc2": "sur l'acheteur"
     },
     "bidsListAll" : {
       "title" : "Devis",
@@ -273,7 +276,10 @@
       "DeviDesc1" : "Download Devis",
       "Accept" : "Accepter",
       "AcceptDesc1" : "Lorsque vous acceptez une offre",
-      "AcceptDesc2" : "toutes les autres offres seront rejetées."
+      "AcceptDesc2" : "toutes les autres offres seront rejetées.",
+      "AllInfo": "Toutes les informations",
+      "AllInfoDesc1": "Voir toutes les informations",
+      "AllInfoDesc2": "sur l'acheteur"
     },
     "NoAvailableDate" : {
       "title" : "Actuellement Aucune Donnée Disponible",

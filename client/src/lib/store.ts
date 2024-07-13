@@ -19,6 +19,10 @@ import { DeleteOfferSlice } from "./Features/DeleteOffer";
 import { deleteOfferState } from "./Features/DeleteOffer";
 import { HandleCompleteSlice } from "./Features/HandleCompleteSlice";
 import { HandleAcceptState } from "./Features/HandleCompleteSlice";
+import { HandleAcceptSlice } from "./Features/HandleAccept";
+import { HandleAcceptBidState } from "./Features/HandleAccept";
+import { FetchDepositorOffers } from "./Features/fetchDepositorOffers";
+import { FetchDepositorOffersState } from "./Features/fetchDepositorOffers";
 
 export interface CombinedState extends 
   OffersState, 
@@ -30,7 +34,9 @@ export interface CombinedState extends
   DepositorLegalData,
   addOfferState,
   deleteOfferState,
-  HandleAcceptState {}
+  HandleAcceptState,
+  HandleAcceptBidState,
+  FetchDepositorOffersState {}
 
 export const useBoundStore = create<CombinedState>((...a) => ({
   ...createOffersSlice(...a),
@@ -42,6 +48,8 @@ export const useBoundStore = create<CombinedState>((...a) => ({
   ...getDepositorLegalDataSlice(...a),
   ...createOfferSlice(...a),
   ...DeleteOfferSlice(...a),
-  ...HandleCompleteSlice(...a)
+  ...HandleCompleteSlice(...a),
+  ...HandleAcceptSlice(...a),
+  ...FetchDepositorOffers(...a)
 }))
 
