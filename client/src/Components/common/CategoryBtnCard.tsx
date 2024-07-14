@@ -18,8 +18,8 @@ const CategoryBtnCard = ({value} : {value : string}) => {
       }
   }, [value]);
   return (
-    <li className="bg-orange-300 text-white py-1 px-3 rounded-full cursor-pointer
-      text-xs xl:text-sm
+    <li className="bg-orange-400 text-white py-1 px-3 rounded-full cursor-pointer
+      text-xs 
     ">{category}</li>
   )
 }
