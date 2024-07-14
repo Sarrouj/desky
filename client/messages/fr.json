@@ -32,7 +32,7 @@
       "Home": "Accueil",
       "Offers": "Offres",
       "FAQ": "FAQ",
-      "AboutUs": "À propos de nous"
+      "AboutUs": "À Propos de Nous"
     },
     "Auth": {
       "Login": "Connexion",
@@ -55,15 +55,16 @@
     }
   },
   "Offers": {
-    "Title": "Trouvez la meilleure offre pour votre entreprise",
-    "CallToAction": "Publier une offre",
-    "CallToActionPopMsg1": "Connectez-vous ou inscrivez-vous pour déposer",
-    "CallToActionPopMsg2": "un compte pour publier une offre",
+    "Title": "Trouvez la Meilleure Offre Pour Votre Entreprise",
+    "CallToAction": "Publier une Offre",
+    "CallToActionPopMsg1": "Connectez-vous ou Inscrivez-vous au Compte",
+    "CallToActionPopMsg2": "de Déposant pour Publier une Offre",
     "Results": "Résultats",
     "Result": "Résultat",
     "SearchPlaceholder": "Recherche",
     "SortBy": "Trier par",
-    "Newest": "Plus récent",
+    "Newest": "Récent",
+    "Oldest" : "Ancien",
     "NotFoundMsg": "Aucun Résultat Trouvé",
     "NotFoundMsgDesc": "Nous n'avons trouvé aucune correspondance pour vos critères de recherche. Veuillez réessayer avec des mots-clés ou des filtres différents."
   },

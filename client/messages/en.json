@@ -65,6 +65,7 @@
       "SortBy" : "Sort by",
       "SearchPlaceholder": "Search",
       "Newest" : "Newest",
+      "Oldest" : "Oldest",
       "NotFoundMsg" : "No Results Found",
       "NotFoundMsgDesc" : "We couldn't find any matches for your search criteria. Please try again with different keywords or filters."
     },

@@ -31,6 +31,10 @@ import {
     TooltipProvider
   } from "@/Components/ui/tooltip"
 
+import { Button } from "@/Components/ui/Button"
+import Link from "next/link"
+import { Skeleton } from "@/Components/ui/skeleton"
+
 
 // Internationalization
 import {useTranslations} from 'next-intl';
@@ -39,6 +43,8 @@ import {useTranslations} from 'next-intl';
 const Offers : React.FC = () => {
     const [categoryValue, categorySetValue] = React.useState<string>("");
     const [cityValue, citySetValue] = React.useState<string>("");
+    const [selectedValue, setSelectedValue] = React.useState<string>('Oldest');
+    const [sortedData, setSortedData] = React.useState<any>();
 
     // filters UI
     let [filter , setFilter] = useState< (string | number)[]>([]);
@@ -112,10 +118,23 @@ const Offers : React.FC = () => {
         setSearchValue("");
     }
     
+    
+    function handleSorting(value : any){
+        setSelectedValue(value)
+     
+    }
+
     useEffect(()=>{
-        offersIsLoadig;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchedData])
+        let sortData = [...searchedData];
+        if(selectedValue == "Newest"){
+            sortData.sort((a : any, b: any) => new Date(b.offer_DoP) - new Date(a.offer_DoP));
+        } else if(selectedValue == "Oldest"){
+            sortData.sort((a, b) => new Date(a.offer_DoP) - new Date(b.offer_DoP));
+        }
+        setSortedData(sortData);
+    }, [selectedValue, searchedData])
+
+   
     
     // Content
     const NavbarContent = useTranslations('NavBar');
@@ -131,17 +150,25 @@ const Offers : React.FC = () => {
             <section className="pt-5">
                 <div className="flex justify-between items-center">
                     <h1 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl  font-semibold">{OffersPageContent('Title')}</h1>
-                    {userRole == 'depositor' ? 
-                        <CallToAction href={"/Create-Offer"} value={`${OffersPageContent('CallToAction')} | +10`} />
+                    { userRole !== null ?
+                    userRole == 'depositor' ? 
+                        <Link href={`/${Language}/Create-Offer`}>
+                            <Button className="text-white">{OffersPageContent('CallToAction')}</Button>
+                        </Link>
+
                     : 
-                    <TooltipProvider>
+                 <TooltipProvider>
                     <Tooltip>
-                    <TooltipTrigger>
-                        <CallToAction href={""} value={`${OffersPageContent('CallToAction')} | +10`} /> 
+                    <TooltipTrigger className="bg-orange-200 text-white py-3 px-4 text-sm rounded-md">
+                        {OffersPageContent('CallToAction')}
                     </TooltipTrigger>
-                    <TooltipContent side="top" className="text-xs">{OffersPageContent('CallToActionPopMsg1')} <br /> {OffersPageContent('CallToActionPopMsg2')}</TooltipContent>
+                    <TooltipContent side="top" className="text-xs text-center">{OffersPageContent('CallToActionPopMsg1')} <br /> {OffersPageContent('CallToActionPopMsg2')}</TooltipContent>
                     </Tooltip>
-                  </TooltipProvider>
+                  </TooltipProvider> :
+                  <div className="flex flex-col gap-2 items-end">
+                    <Skeleton className="w-40 h-3 bg-gray-200"/>
+                    <Skeleton className="w-32 h-3 bg-gray-200"/>
+                  </div>
                  }
                         
                 </div>
@@ -191,12 +218,13 @@ const Offers : React.FC = () => {
                     </div>
                     <div className="flex items-center gap-2">
                         <p className="text-xs">{OffersPageContent('SortBy')}</p>
-                        <Select>
+                        <Select onValueChange={handleSorting}>
                             <SelectTrigger className="w-[80px] md:w-[90px] xl:w-[90px] h-[28px] md:h-[28px] lg:h-[30px] xl:h-[32px] border-2 text-[10px] md:text-xs">
-                                <SelectValue placeholder="Newest"/>
+                                <SelectValue placeholder={OffersPageContent('Oldest')}>{selectedValue}</SelectValue>
                             </SelectTrigger>
-                            <SelectContent >
-                                <SelectItem value="Newest" className="text-xs">{OffersPageContent('Newest')}</SelectItem>
+                            <SelectContent>
+                                <SelectItem value="Newest" className="text-xs" >{OffersPageContent('Newest')}</SelectItem>
+                                <SelectItem value="Oldest" className="text-xs">{OffersPageContent('Oldest')}</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
@@ -205,28 +233,31 @@ const Offers : React.FC = () => {
                 {
                     offersIsLoadig == false ? 
                     searchedData.length !== 0 ? 
-                        searchedData.map((offer, index) => (
-                            <OfferCard 
-                                key={offer._id} 
-                                title={offer.offer_title} 
-                                date={offer.offer_deadLine} 
-                                location={offer.offer_location}
-                                budget={offer.offer_budget}
-                                Category={offer.offer_category}
-                                Desc={offer.offer_description}
-                                offerNumber={index + 1}
-                                id={offer._id}
-                                lg={Language}
-                                Content={OfferContent}
-                            /> 
-                        )) : ( filter.length !== 0 ?
-                            <div className="container mx-auto px-4 py-20 text-center">
-                                <h2 className="text-2xl font-bold mb-4">{OffersPageContent('NotFoundMsg')}</h2>
-                                <p className="text-gray-600">{OffersPageContent('NotFoundMsgDesc')}</p>
-                            </div> :   Array.from({ length: 10 }).map((_, index) => (
-                                <OfferCardSkeleton key={index} />
-                                ))
-                        )
+                    sortedData ?  sortedData.map((offer : any, index : number) => (
+                                offer.offer_state == "open" ?
+                                    <OfferCard 
+                                        key={offer._id} 
+                                        title={offer.offer_title} 
+                                        date={offer.offer_deadLine} 
+                                        location={offer.offer_location}
+                                        budget={offer.offer_budget}
+                                        Category={offer.offer_category}
+                                        Desc={offer.offer_description}
+                                        offerNumber={index + 1}
+                                        Proposals ={offer.offer_apply}
+                                        id={offer._id}
+                                        lg={Language}
+                                        Content={OfferContent}
+                                    /> :
+                                null
+                            )) : ( filter.length !== 0 ?
+                                <div className="container mx-auto px-4 py-20 text-center">
+                                    <h2 className="text-2xl font-bold mb-4">{OffersPageContent('NotFoundMsg')}</h2>
+                                    <p className="text-gray-600">{OffersPageContent('NotFoundMsgDesc')}</p>
+                                </div> :   Array.from({ length: 10 }).map((_, index) => (
+                                    <OfferCardSkeleton key={index} />
+                                    ))
+                            ) : null
                     : 
                     Array.from({ length: 10 }).map((_, index) => (
                         <OfferCardSkeleton key={index} />
@@ -235,7 +266,7 @@ const Offers : React.FC = () => {
                 }
                 </div>
             </section>
-            <section className="mt-5 flex justify-end">
+            {/* <section className="mt-5 flex justify-end">
                 <div>
                     <Pagination>
                         <PaginationContent className="gap-1">
@@ -260,7 +291,7 @@ const Offers : React.FC = () => {
                         </PaginationContent>
                     </Pagination>
                 </div>
-            </section>
+            </section> */}
         </main>
     </>
   )

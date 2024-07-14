@@ -14,6 +14,7 @@ export interface Offer {
   offer_attachments: any[];
   bidder_id: string[];
   depositor_id: string;
+  offer_apply : any;
 }
 
 export interface OffersState {
