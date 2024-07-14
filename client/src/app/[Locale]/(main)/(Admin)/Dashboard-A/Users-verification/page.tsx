@@ -62,7 +62,7 @@ function UsersVerification() {
 
   useEffect(() => {
     if (user_role !== "admin" && user_role !== null) {
-      //   window.location.href = `/${Language}`;
+        window.location.href = `/${Language}`;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_role]);
