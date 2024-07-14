@@ -22,7 +22,7 @@ import Companies from "../mongoose/schemas/Company.mjs";
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Post Depositor's Profile Info
+// Depositor's Profile Info
 router.post("/depositor", checkSessionId, async (req, res, next) => {
   const { user_id } = req.body;
 
@@ -40,7 +40,7 @@ router.post("/depositor", checkSessionId, async (req, res, next) => {
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Get Depositor's Info
+// Depositor's Info
 router.get("/depositor/:id", checkObjectId, async (req, res, next) => {
   const { id } = req.params;
 
@@ -58,7 +58,7 @@ router.get("/depositor/:id", checkObjectId, async (req, res, next) => {
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Get Depositor's AE or Company info
+// Depositor's AE or Company info
 router.get("/depositor/info/:id", checkObjectId, async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -85,7 +85,7 @@ router.get("/depositor/info/:id", checkObjectId, async (req, res, next) => {
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Get Depositor's reviews
+// Depositor's reviews
 router.get("/depositor/reviews/:id", async (req, res, next) => {
   try {
     const depositor = await Depositors.findById(req.params.id);
@@ -124,7 +124,96 @@ router.get("/depositor/reviews/:id", async (req, res, next) => {
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Post Depositor's offers
+// Depositor's dashboard info
+router.get(
+  "/depositor/dashboard/:id",
+  checkObjectId,
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const depositor = await Depositors.findById(id);
+      if (!depositor) {
+        return res.status(404).json({ error: "Depositor not found" });
+      }
+
+      const offers = await Offers.find({ depositor_id: id });
+      if (offers.length === 0) {
+        return res.status(200).json({
+          success: {
+            totalOffersPosted: 0,
+            totalBidsReceived: 0,
+            totalOffersClosed: 0,
+            averageRating: 0,
+            detailedBids: [],
+          },
+        });
+      }
+
+      const totalOffersPosted = offers.length;
+      const totalBidsReceived = offers.reduce(
+        (acc, offer) => acc + offer.offer_apply.length,
+        0
+      );
+      const totalOffersClosed = offers.filter(
+        (offer) => offer.offer_state === "closed"
+      ).length;
+      const averageRating =
+        depositor.depositor_review.length > 0
+          ? (
+              depositor.depositor_review.reduce(
+                (acc, review) => acc + review.rating,
+                0
+              ) / depositor.depositor_review.length
+            ).toFixed(1)
+          : 0;
+
+      // Collect detailed bids with bidder information
+      const detailedBids = await offers.reduce(async (accPromise, offer) => {
+        const acc = await accPromise;
+        for (const bid of offer.offer_apply) {
+          const bidder = await Bidders.findById(bid.bidder_id);
+          if (bidder) {
+            acc.push({
+              offer_title: offer.offer_title,
+              bidder_id: bidder._id,
+              bidder_name: bidder.bidder_name,
+              bidder_email: bidder.bidder_email,
+              bidder_avgRating:
+                bidder.bidder_review.length > 0
+                  ? (
+                      bidder.bidder_review.reduce(
+                        (acc, review) => acc + review.rating,
+                        0
+                      ) / bidder.bidder_review.length
+                    ).toFixed(1)
+                  : 0,
+              bid_Date: bid.date,
+              bid_est: bid.estimate,
+              bidder_review: bidder.bidder_review,
+            });
+          }
+        }
+        return acc;
+      }, Promise.resolve([]));
+
+      res.status(200).json({
+        success: {
+          totalOffersPosted,
+          totalBidsReceived,
+          totalOffersClosed,
+          averageRating,
+          detailedBids,
+        },
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Depositor's offers
 router.post("/depositor/offers", checkSessionId, async (req, res, next) => {
   const { user_id } = req.body;
 

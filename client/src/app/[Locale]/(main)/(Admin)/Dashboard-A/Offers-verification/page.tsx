@@ -52,7 +52,7 @@ function OffersVerification() {
 
   useEffect(() => {
     if (user_role !== "admin" && user_role !== null) {
-      //   window.location.href = `/${Language}`;
+      window.location.href = `/${Language}`;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_role]);
@@ -83,9 +83,7 @@ function OffersVerification() {
 
   return (
     <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
-      <AdminAside
-        Language={Language}
-      />
+      <AdminAside Language={Language} />
       <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
         <Sheet>
           <SheetTrigger asChild>
