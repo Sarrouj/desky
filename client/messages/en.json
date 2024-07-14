@@ -44,17 +44,15 @@
         "French" : "French"
       },
       "User":{
-        "Account" : "Account",
-        "MyAccount" : "My Account",
-        "Profil" : "Profile",
-        "Dashboard" : "Dashboard",
-        "InviteUsers" : "Invite users",
-        "Email" : "Email",
-        "Message" : "Message",
-        "More" : "More...",
+        "title" : "My Account",
+        "Profile" : "Profile",
+        "Home" : "Home",
+        "Marketplace" : "Marketplace",
         "Settings" : "Settings",
         "Support" : "Support",
-        "LogOut" : "Log out"
+        "LogOut" : "Log Out",
+        "Account" : "Account",
+        "Dashboard" : "Dashboard"
       }
     },
     "Offers": {
