@@ -152,7 +152,7 @@ const Details = ({ params }: { params: any }) => {
   return (
     <>
       <div className="bg-white border-b-2">
-        <Header NavbarContent={NavbarContent} />
+        <Header NavbarContent={NavbarContent} Home={'hover:text-primary'} Offers={'text-primary font-bold '} FAQ={'hover:text-primary'} AboutUS={'hover:text-primary'}/>
       </div>
       <main className="py-16 px-20 bg-neutralBg text-secondaryDarkBlue">
         <section className="flex">

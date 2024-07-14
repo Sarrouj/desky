@@ -43,17 +43,15 @@
       "French": "Français"
     },
     "User": {
-      "Account": "Compte",
-      "MyAccount": "Mon compte",
-      "Profil": "Profil",
-      "Dashboard": "Tableau de bord",
-      "InviteUsers": "Inviter des utilisateurs",
-      "Email": "Email",
-      "Message": "Message",
-      "More": "Plus...",
+      "title": "Mon Compte",
+      "Profile": "Profil",
+      "Home": "Accueil",
+      "Marketplace": "Place de Marché",
       "Settings": "Paramètres",
       "Support": "Support",
-      "LogOut": "Se déconnecter"
+      "LogOut": "Déconnexion",
+      "Account": "Compte",
+      "Dashboard": "Tableau de Bord"
     }
   },
   "Offers": {

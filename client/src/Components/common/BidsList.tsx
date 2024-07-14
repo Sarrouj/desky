@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { Download } from "lucide-react";
 import { Button } from "@/Components/ui/Button";
+import axios from "axios";
 
 import {
   Card,
@@ -68,12 +69,37 @@ const BidsList = ({
 
   const getBidID = useBoundStore((state) => state.getBidID);
   const getUserID = useBoundStore((state) => state.getUserID);
-  const putCompleteOffer = useBoundStore((state) => state.putCompleteOffer);
+  const putAcceptOffer = useBoundStore((state) => state.putAcceptOffer);
+  const getReviewsBidderID = useBoundStore((state) => state.getReviewsBidderID);
+  const ReviewsBidderID = useBoundStore((state) => state.ReviewsBidderID);
+  const ReviewsBidder = useBoundStore((state) => state.ReviewsBidder);
+  const reviewsResponse = useBoundStore((state) => state.ReviewsBidderResponse);
+
+  // useEffect(()=>{
+  //   ReviewsBidder();
+  // }, [ReviewsBidder])
 
   function handleAccept(e: any){
     e.preventDefault();
-    putCompleteOffer();
+    putAcceptOffer();
   };
+
+  // async function fetchBidderReviews(bid : any) {
+  //   if (bid.bidder && bid.bidder._id) {
+  //     try {
+  //       const response = await axios.get(`http://localhost:3001/bidder/reviews/${bid.bidder._id}`);
+  //       const data = response.data.success;
+  //       console.log(data);
+  //       return data; 
+  //     } catch (error) {
+  //       console.error('Error fetching bidder reviews:', error);
+  //       throw error; 
+  //     }
+  //   } else {
+  //     console.error('Invalid bid or bidder ID');
+      
+  //   }
+  // }
 
   return (
     <Tabs defaultValue="week">
@@ -159,9 +185,9 @@ const BidsList = ({
                           ? ( bid.bidder.bidder_review.reduce((acc: number, review: any) => acc + review.rating, 0) / bid.bidder.bidder_review.length
                             ).toFixed(1)
                           : "N/A";
-                      getBidID(bid.bid_id);
-                      getUserID(user_id);                         
- 
+                        getBidID(bid.bid_id);
+                        getUserID(user_id);
+                         
                       return (
                         <TableRow
                           className="cursor-pointer"

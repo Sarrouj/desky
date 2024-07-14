@@ -1,22 +1,23 @@
 import { StateCreator } from "zustand";
 import axios from "axios";
 
-export interface HandleAcceptState {
+export interface HandleCompleteState {
     HandleCompleteOfferID : null | string & number | number;
     HandleCompleteDepositorID  : null | string & number | number;
     getHandleCompleteOfferID:  (id : string & number | number) => void;
     getHandleCompleteDepositorID : (id : string & number | number) => void;
-    putCompleteOffer : () => Promise<void>;
+    putCompleteDepositorOffer : () => Promise<void>;
 }
 
-export const HandleCompleteSlice : StateCreator<HandleAcceptState> = (set, get) => ({
+export const HandleCompleteSlice : StateCreator<HandleCompleteState> = (set, get) => ({
     HandleCompleteOfferID : null ,
     HandleCompleteDepositorID : null,
     getHandleCompleteOfferID : (id) => set({ HandleCompleteOfferID: id }),
     getHandleCompleteDepositorID : (id) => set({ HandleCompleteDepositorID  : id }),
-    putCompleteOffer : async () => {
+    putCompleteDepositorOffer : async () => {
         const { HandleCompleteOfferID } = get();
         const { HandleCompleteDepositorID } = get();
+
         try {
             await axios.put(
               `http://localhost:3001/edit/offer/state/${HandleCompleteOfferID}`,

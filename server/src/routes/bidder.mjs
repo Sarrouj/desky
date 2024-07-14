@@ -18,7 +18,7 @@ import upload from "../utils/upload.mjs";
 // Schemas
 import Bidders from "../mongoose/schemas/Bidder.mjs";
 import Depositors from "../mongoose/schemas/Depositor.mjs";
-import Offers from "../mongoose/schemas/Offer.mjs";
+import Offers from "../mongoose/schemas/offer.mjs";
 import AE from "../mongoose/schemas/AE.mjs";
 import Companies from "../mongoose/schemas/Company.mjs";
 

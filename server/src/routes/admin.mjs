@@ -16,7 +16,7 @@ import Bidders from "../mongoose/schemas/Bidder.mjs";
 import Depositors from "../mongoose/schemas/Depositor.mjs";
 import AE from "../mongoose/schemas/AE.mjs";
 import Companies from "../mongoose/schemas/Company.mjs";
-import Offers from "../mongoose/schemas/Offer.mjs";
+import Offers from "../mongoose/schemas/offer.mjs";
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
@@ -281,13 +281,13 @@ router.put(
         return res.status(404).json({ error: "Offer not found" });
       }
 
-      if (offer.status == "rejected") {
+      if (offer.offer_state == "rejected") {
         return res.status(400).json({ error: "Offer already refused" });
       }
 
       const depositor = await Depositors.findById(offer.depositor_id);
 
-      offer.status = "rejected";
+      offer.offer_state = "rejected";
       await offer.save();
 
       const mailOptions = {
