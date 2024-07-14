@@ -8,21 +8,17 @@ import {
   PanelLeft,
   ShoppingCart,
   Users2,
-  Star,
-  Blocks,
-  CopyPlus,
-  CircleCheckBig,
 } from "lucide-react";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
+  BreadcrumbSeparator,
 } from "@/Components/ui/breadcrumb";
 import { Button } from "@/Components/ui/Button";
 import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
 import BidderAside from "@/Components/common/BidderAside";
-import DashboardCard from "@/Components/common/DashboardCard";
 import BidderBidsList from "@/Components/common/BidderBidsList";
 import NotFoundDataBidder from "@/Components/common/NotFoundDataBidder";
 
@@ -31,12 +27,11 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import axios from "axios";
 
-const BidderDashboard = () => {
+const MyBids = () => {
   const [Language, setLanguage] = useState<any>();
   const { data: session, status } = useSession();
   const user_id = session ? session.user?.id : null;
   const user_role: string | null = session ? session.user?.role : null;
-  const [reviews, setReviews] = useState<any>(null);
   const [bids, setBids] = useState<any>(null);
 
   // Language
@@ -55,11 +50,9 @@ const BidderDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (user_id !== null) {
-        const [reviews, bids] = await Promise.all([
-          axios.get(`http://localhost:3001/bidder/reviews/${user_id}`),
-          axios.get(`http://localhost:3001/bidder/bids/${user_id}`),
-        ]);
-        setReviews(reviews.data.success);
+        const bids = await axios.get(
+          `http://localhost:3001/bidder/bids/${user_id}`
+        );
         setBids(bids.data.success);
       }
     };
@@ -68,21 +61,8 @@ const BidderDashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_id]);
 
-  const averageRating = reviews
-    ? (
-        reviews.reduce((acc: any, review: any) => acc + review.rating, 0) /
-        reviews.length
-      ).toFixed(1)
-    : null;
-  const totalBids = bids ? bids.length : null;
   const totalBidsWaiting = bids
     ? bids.filter((bid: any) => bid.offer_state === "open").length
-    : null;
-  const totalBidsAccepted = bids
-    ? bids.filter(
-        (bid: any) =>
-          bid.offer_state === "inProgress" || bid.offer_state === "closed"
-      ).length
     : null;
 
   return (
@@ -151,6 +131,14 @@ const BidderDashboard = () => {
                   <Link href={`/${Language}/Dashboard-B`}>Dashboard</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
+              <BreadcrumbSeparator />
+            </BreadcrumbList>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href={`/${Language}/Dashboard-B/MyBids`}>My Bids</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
           {/* <DropDownDepositor
@@ -160,32 +148,9 @@ const BidderDashboard = () => {
         </header>
         <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
           <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
-            <div className="flex items-center gap-5 h-30">
-              <DashboardCard
-                Logo={Blocks}
-                Content={"Total of Bids"}
-                Value={totalBids}
-              />
-              <DashboardCard
-                Logo={CopyPlus}
-                Content={"waiting Bids"}
-                Value={totalBidsWaiting}
-              />
-              <DashboardCard
-                Logo={CircleCheckBig}
-                Content={"Accepted Bids"}
-                Value={totalBidsAccepted}
-              />
-              <DashboardCard
-                Logo={Star}
-                Content={"Account Rating"}
-                Value={averageRating !== null ? averageRating : "N/A"}
-              />
-            </div>
-
             {totalBidsWaiting !== null ? (
               totalBidsWaiting !== 0 ? (
-                <BidderBidsList seeMore={true} limit={true} bids={bids} />
+                <BidderBidsList seeMore={false} limit={false} bids={bids} />
               ) : (
                 <NotFoundDataBidder Language={Language} />
               )
@@ -200,4 +165,4 @@ const BidderDashboard = () => {
   );
 };
 
-export default BidderDashboard;
+export default MyBids;
