@@ -1,14 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Download } from "lucide-react";
 
-import { Badge } from "@/Components/ui/badge";
 import { Button } from "@/Components/ui/Button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/Components/ui/card";
@@ -34,7 +31,6 @@ import {
 
 import { Tabs, TabsContent } from "@/Components/ui/tabs";
 
-import Link from "next/link";
 
 // Tooltip
 import {
@@ -232,8 +228,8 @@ const OffersList = ({ offers, user_id }: { offers: any; user_id: any }) => {
                                   </Button>
                                 </DialogFooter>
                               </DialogContent>
-                            </Dialog>
-                          </TooltipProvider>
+                              </Dialog>
+                            </TooltipProvider>
                         </TableCell>
                       </TableRow>
                     );

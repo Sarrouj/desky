@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Settings, GanttChart, Home } from "lucide-react";
+import { Settings, GanttChart, Home, CopyPlus } from "lucide-react";
 
 import {
   Tooltip,
@@ -48,6 +48,20 @@ const BidderAside = ({ Language }: { Language: string | undefined }) => {
               </Link>
             </TooltipTrigger>
             <TooltipContent side="right">My Bids</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href={`/${Language}/Dashboard-B/Add-Review`}
+                className={`flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8`}
+              >
+                <CopyPlus className="h-5 w-5" />
+                <span className="sr-only">Add Review</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Add Review</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </nav>
