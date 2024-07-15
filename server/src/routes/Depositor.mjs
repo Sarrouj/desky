@@ -213,6 +213,68 @@ router.get(
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
+// Depositor's manage bids info
+router.get(
+  "/depositor/mangeBids/:id",
+  checkObjectId,
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const depositor = await Depositors.findById(id);
+      if (!depositor) {
+        return res.status(404).json({ error: "Depositor not found" });
+      }
+
+      const offers = await Offers.find({ depositor_id: id });
+      if (offers.length === 0) {
+        return res.status(200).json({
+          success: {
+            detailedBids: [],
+          },
+        });
+      }
+
+      const detailedBids = await offers.reduce(async (accPromise, offer) => {
+        const acc = await accPromise;
+        for (const bid of offer.offer_apply) {
+          const bidder = await Bidders.findById(bid.bidder_id);
+          if (bidder) {
+            acc.push({
+              offer_title: offer.offer_title,
+              bidder_id: bidder._id,
+              bidder_name: bidder.bidder_name,
+              bidder_email: bidder.bidder_email,
+              bidder_avgRating:
+                bidder.bidder_review.length > 0
+                  ? (
+                      bidder.bidder_review.reduce(
+                        (acc, review) => acc + review.rating,
+                        0
+                      ) / bidder.bidder_review.length
+                    ).toFixed(1)
+                  : 0,
+              bid_Date: bid.date,
+              bid_est: bid.estimate,
+              bidder_review: bidder.bidder_review,
+            });
+          }
+        }
+        return acc;
+      }, Promise.resolve([]));
+
+      res.status(200).json({
+        success: {
+          detailedBids,
+        },
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
 // Depositor's offers
 router.post("/depositor/offers", checkSessionId, async (req, res, next) => {
   const { user_id } = req.body;

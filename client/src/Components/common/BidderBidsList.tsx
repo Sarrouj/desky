@@ -1,5 +1,6 @@
 "use client";
 
+import { Download } from "lucide-react";
 import { Button } from "@/Components/ui/Button";
 import {
   Card,
@@ -27,7 +28,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 
-const BidsList = ({
+const BidderBidsList = ({
   seeMore,
   limit,
   bids,
@@ -54,7 +55,7 @@ const BidsList = ({
               <CardDescription>Your bids list</CardDescription>
             </div>
             {seeMore ? (
-              <Link href={`/${Language}/Dashboard-B/my-bids`}>
+              <Link href={`/${Language}/Dashboard-B/My-Bids`}>
                 <Button size={"sm"} className="h-7 gap-1 text-xs text-white">
                   See more...
                 </Button>
@@ -98,9 +99,9 @@ const BidsList = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>Offer Activity</TooltipTrigger>
+                        <TooltipTrigger>Estimate</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
-                          how many bids in the offer
+                          estimate
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -113,19 +114,28 @@ const BidsList = ({
                     if (limit && index >= 4) return null;
                     return (
                       <TableRow key={`${bid.offer_title}-${index}`}>
-                        <Link href={`/${Language}/offers/${bid.offer_id}`}>
-                          <TableCell>{bid.offer_title}</TableCell>
+                        <Link href={`/${Language}/offers/${bid[0].offer_id}`}>
+                          <TableCell>{bid[0].offer_title}</TableCell>
                         </Link>
                         <TableCell className="text-center">
-                          {bid.depositor_name}
+                          {bid[0].depositor_name}
                         </TableCell>
                         <TableCell className="text-center">
-                          {new Date(
-                            bid.application_details.date
-                          ).toLocaleDateString("en-CA")}
+                          {new Date(bid[0].bid.date).toLocaleDateString(
+                            "en-CA"
+                          )}
                         </TableCell>
                         <TableCell className="text-center">
-                          {bid.offer_apply || 0}
+                          <a
+                            target="_blank"
+                            href={`http://localhost:3001/uploads/${bid[0].bid.estimate}`}
+                            className=" mt-2 text-primary hover:text-orange-600"
+                          >
+                            <Download
+                              size={22}
+                              className="inline-block text-primary hover:text-orange-600"
+                            />
+                          </a>
                         </TableCell>
                       </TableRow>
                     );
@@ -139,4 +149,4 @@ const BidsList = ({
   );
 };
 
-export default BidsList;
+export default BidderBidsList;

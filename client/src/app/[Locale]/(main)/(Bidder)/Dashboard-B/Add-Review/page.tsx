@@ -19,7 +19,7 @@ import {
 import { Button } from "@/Components/ui/Button";
 import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
 import BidderAside from "@/Components/common/BidderAside";
-import BidderBidsList from "@/Components/common/BidderBidsList";
+import BidderClosedBidsList from "@/Components/common/BidderClosedBidsList";
 import NotFoundDataBidder from "@/Components/common/NotFoundDataBidder";
 
 import React, { useEffect, useState } from "react";
@@ -27,7 +27,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import axios from "axios";
 
-const MyBids = () => {
+const AddReview = () => {
   const [Language, setLanguage] = useState<any>();
   const { data: session, status } = useSession();
   const user_id = session ? session.user?.id : null;
@@ -54,6 +54,7 @@ const MyBids = () => {
           `http://localhost:3001/bidder/myBids/${user_id}`
         );
         setBids(bids.data.success);
+        console.log(bids.data.success)
       }
     };
 
@@ -132,7 +133,7 @@ const MyBids = () => {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${Language}/Dashboard-B/MyBids`}>My Bids</Link>
+                  <Link href={`/${Language}/Dashboard-B/Review`}>My Bids</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
             </BreadcrumbList>
@@ -146,7 +147,7 @@ const MyBids = () => {
           <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
             {bids !== null ? (
               bids.totalBidsWaiting !== 0 ? (
-                <BidderBidsList
+                <BidderClosedBidsList
                   seeMore={false}
                   limit={false}
                   bids={bids.detailedBids}
@@ -165,4 +166,4 @@ const MyBids = () => {
   );
 };
 
-export default MyBids;
+export default AddReview;

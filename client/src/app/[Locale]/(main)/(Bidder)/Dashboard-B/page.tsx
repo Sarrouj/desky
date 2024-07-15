@@ -36,7 +36,6 @@ const BidderDashboard = () => {
   const { data: session, status } = useSession();
   const user_id = session ? session.user?.id : null;
   const user_role: string | null = session ? session.user?.role : null;
-  const [reviews, setReviews] = useState<any>(null);
   const [bids, setBids] = useState<any>(null);
 
   // Language
@@ -55,35 +54,17 @@ const BidderDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (user_id !== null) {
-        const [reviews, bids] = await Promise.all([
-          axios.get(`http://localhost:3001/bidder/reviews/${user_id}`),
-          axios.get(`http://localhost:3001/bidder/bids/${user_id}`),
-        ]);
-        setReviews(reviews.data.success);
-        setBids(bids.data.success);
+        const dashboard = await axios.get(
+          `http://localhost:3001/bidder/dashboard/${user_id}`
+        );
+        setBids(dashboard.data.success);
+        console.log(dashboard.data.success);
       }
     };
 
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_id]);
-
-  const averageRating = reviews
-    ? (
-        reviews.reduce((acc: any, review: any) => acc + review.rating, 0) /
-        reviews.length
-      ).toFixed(1)
-    : null;
-  const totalBids = bids ? bids.length : null;
-  const totalBidsWaiting = bids
-    ? bids.filter((bid: any) => bid.offer_state === "open").length
-    : null;
-  const totalBidsAccepted = bids
-    ? bids.filter(
-        (bid: any) =>
-          bid.offer_state === "inProgress" || bid.offer_state === "closed"
-      ).length
-    : null;
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40 text-secondaryDarkBlue">
@@ -164,28 +145,32 @@ const BidderDashboard = () => {
               <DashboardCard
                 Logo={Blocks}
                 Content={"Total of Bids"}
-                Value={totalBids}
+                Value={bids !== null ? bids.totalBids : 0}
               />
               <DashboardCard
                 Logo={CopyPlus}
                 Content={"waiting Bids"}
-                Value={totalBidsWaiting}
+                Value={bids !== null ? bids.totalBidsWaiting : 0}
               />
               <DashboardCard
                 Logo={CircleCheckBig}
                 Content={"Accepted Bids"}
-                Value={totalBidsAccepted}
+                Value={bids !== null ? bids.totalBidsAccepted : 0}
               />
               <DashboardCard
                 Logo={Star}
                 Content={"Account Rating"}
-                Value={averageRating !== null ? averageRating : "N/A"}
+                Value={bids !== null ? bids.averageRating : "N/A"}
               />
             </div>
 
-            {totalBidsWaiting !== null ? (
-              totalBidsWaiting !== 0 ? (
-                <BidderBidsList seeMore={true} limit={true} bids={bids} />
+            {bids !== null ? (
+              bids.totalBidsWaiting !== 0 ? (
+                <BidderBidsList
+                  seeMore={true}
+                  limit={true}
+                  bids={bids.detailedBids}
+                />
               ) : (
                 <NotFoundDataBidder Language={Language} />
               )
