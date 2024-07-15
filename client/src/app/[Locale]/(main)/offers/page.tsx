@@ -7,15 +7,15 @@ import { useEffect, useState } from "react"
 import CallToAction from "@/Components/common/CallToAction"
 import OfferCard from "@/Components/layout/OfferCard"
 // ShadCn UI
-import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-  } from "@/Components/ui/pagination"
+// import {
+//     Pagination,
+//     PaginationContent,
+//     PaginationEllipsis,
+//     PaginationItem,
+//     PaginationLink,
+//     PaginationNext,
+//     PaginationPrevious,
+//   } from "@/Components/ui/pagination"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/Components/ui/select"
 import { Input } from "@/Components/ui/input"
 import { useBoundStore } from "@/lib/store"
@@ -144,7 +144,7 @@ const Offers : React.FC = () => {
   return (
     <>
         <div className="bg-white border-b-2 ">
-            <Header NavbarContent={NavbarContent}  Home={'hover:text-primary'} Offers={'text-primary font-semibold '} FAQ={'hover:text-primary'} AboutUS={'hover:text-primary'}/>
+            <Header NavbarContent={NavbarContent}  HomePage={'hover:text-primary'} Offers={'text-primary font-semibold '} FAQ={'hover:text-primary'} AboutUS={'hover:text-primary'}/>
         </div>
         <main className="py-10 px-10 bg-neutralBg text-secondaryDarkBlue h-full">
             <section className="pt-5">
@@ -199,7 +199,7 @@ const Offers : React.FC = () => {
                             ))}
                             {
                                 filter.length !== 0 ? (
-                                    <li className="cursor-pointer text-primaryOrange font-semibold text-sm " onClick={() => clearFilters()}>Clear Filters</li>
+                                    <li className="cursor-pointer text-primaryOrange font-semibold text-sm " onClick={() => clearFilters()}>{OffersPageContent('ClearFilters')}</li>
                                 )
                                 : null
                             }

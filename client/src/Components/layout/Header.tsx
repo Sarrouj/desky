@@ -1,23 +1,39 @@
 "use client"
 
 import React, { useEffect, useState } from "react";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import Image from "next/image";
 
+import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
+import {
+  Home,
+  LineChart,
+  Package,
+  Package2,
+  PanelLeft,
+  ShoppingCart,
+  Users2,
+  AlignJustify,
+  Blocks,
+  CopyPlus,
+  CircleCheckBig,
+  Star,
+} from "lucide-react";
 
 import FirstVueDropDownMenu from "../common/FirstVueDropDownMenu";
+import FirstVueResponsiveMenu from "../common/FirstVueResponsiveMenu";
 import { useTranslations } from "next-intl";
+
 
 interface Header {
   NavbarContent: any;
-  Home : String;
+  HomePage : String;
   Offers : String;
   FAQ : String;
   AboutUS : String;
 }
 
-const Header: React.FC<Header>  = ({NavbarContent , Home, Offers, FAQ, AboutUS}) => {
+const Header: React.FC<Header>  = ({NavbarContent , HomePage, Offers, FAQ, AboutUS}) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const { data: session, status } = useSession();
   const [Language, setLanguage] = useState();
@@ -28,9 +44,6 @@ const Header: React.FC<Header>  = ({NavbarContent , Home, Offers, FAQ, AboutUS})
     setLanguage(lg);
   }, [Language])
   
-  // User Data
-  const userName : string | null = session ? session.user?.name : null;
-  const userType : string | null = session ? session.user?.role : null;
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -40,24 +53,24 @@ const Header: React.FC<Header>  = ({NavbarContent , Home, Offers, FAQ, AboutUS})
     }
   }, [status]);
 
-  const handleLogout = () => {
-    signOut(Language);
-  };
 
   let DropDownMenuContent = useTranslations("NavBar");
 
   return (
-    <header className="flex items-center py-3  px-10 justify-between text-secondaryDarkBlue">
-      <Link href={`/${Language}/offers`} className="text-2xl font-bold text-primaryOrange">Desky</Link>
-      <nav className="flex gap-8 text-sm font-medium">
-        <Link href={`/${Language}`} className={`${Home}`}>
+    <header className="flex items-center py-3 px-4 sm:px-6 md:px-8 lg:px-10 justify-between text-secondaryDarkBlue">
+      <Link href={`/${Language}/offers`} className="text-xl lg:text-2xl font-bold text-primaryOrange">Desky</Link>
+      <nav className="gap-4 lg:gap-6 xl:gap-8 text-xs lg:text-sm font-medium hidden md:flex lg:ml-20">
+        <Link href={`/${Language}`} className={`${HomePage}`}>
           {NavbarContent("NavLinks.Home")}
         </Link>
         <Link href={`/${Language}/offers`} className={`hover:text-primary ${Offers}`}>{NavbarContent("NavLinks.Offers")}</Link>
         <Link href={"/"} className={`hover:text-primary ${FAQ}`}>{NavbarContent("NavLinks.FAQ")}</Link>
         <Link href={`/${Language}/offers`} className={`hover:text-primary ${AboutUS}`}>{NavbarContent("NavLinks.AboutUs")}</Link>
       </nav>
-      <nav className="flex gap-3 items-center text-sm font-medium">
+      <FirstVueResponsiveMenu
+        Language={Language}
+      />
+      <nav className="hidden md:flex gap-3 items-center text-sm font-medium">
         <FirstVueDropDownMenu 
             content={DropDownMenuContent}
             Language={Language}
