@@ -66,6 +66,7 @@
       "SearchPlaceholder": "Search",
       "Newest" : "Newest",
       "Oldest" : "Oldest",
+      "ClearFilters" : "Clear Filters",
       "NotFoundMsg" : "No Results Found",
       "NotFoundMsgDesc" : "We couldn't find any matches for your search criteria. Please try again with different keywords or filters."
     },

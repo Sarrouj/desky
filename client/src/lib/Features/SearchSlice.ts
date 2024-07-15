@@ -50,7 +50,11 @@ export const SearchSlice: StateCreator<searchState> = (set, get) => ({
         try {
             const response = await axios.get(url);
             const data = response.data.success;
-            set({ searchedData: data , offerIsLoading: false});
+            if(data){
+                let openOffers = [...data];
+                let filterByOpen = openOffers.filter((a)=> a.offer_state == "open")
+                set({ searchedData: filterByOpen , offerIsLoading: false});
+            }   
         } catch (error) {
             set({ searchedData: [] , offerIsLoading: false});
             console.error('Error fetching offers:', error);

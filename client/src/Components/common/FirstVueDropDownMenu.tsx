@@ -69,9 +69,6 @@ const FirstVueDropDownMenu = ({
     signOut();
   };
 
-  useEffect(() => {
-    console.log(userType);
-  }, [userType]);
   return (
     <>
       {status !== "unauthenticated" ? (
@@ -91,7 +88,7 @@ const FirstVueDropDownMenu = ({
               ) : (
                 <Skeleton className="w-9 h-9 rounded-full bg-gray-200" />
               )}
-              <div className="flex flex-col justify-start items-start">
+              <div className="hidden lg:flex flex-col justify-start items-start ">
                 {status !== "loading" && userName ? (
                   <>
                     <h4 className="text-secondaryDarkBlue">{userName}</h4>
@@ -112,13 +109,14 @@ const FirstVueDropDownMenu = ({
                   width={18}
                   height={18}
                   alt="ArrowDown"
+                  className="hidden lg:block"
                 />
               ) : (
-                <Skeleton className="h-4 w-2 rounded-full bg-gray-200" />
+                <Skeleton className="h-4 w-2 rounded-full bg-gray-200 hidden lg:block" />
               )}
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56">
+          <DropdownMenuContent className="w-52 mr-10 lg:mr-0 lg:w-56">
             <DropdownMenuLabel>{content("User.title")}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
@@ -170,12 +168,12 @@ const FirstVueDropDownMenu = ({
       ) : (
         <>
           <Link href={`/${Language}/login`}>
-            <Button className="px-5 bg-white border text-secondaryDarkBlue hover:bg-neutralBg">
+            <Button className="px-3 md:px-5 bg-white border text-secondaryDarkBlue hover:bg-neutralBg text-xs lg:text-sm xl:text-md">
               {content("Auth.Login")}
             </Button>
           </Link>
           <Link href={`/${Language}/Sign-Up`}>
-            <Button className="text-white px-5">
+            <Button className="text-white px-3 md:px-5 text-xs lg:text-sm xl:text-md">
               {content("Auth.SignUp")}
             </Button>
           </Link>

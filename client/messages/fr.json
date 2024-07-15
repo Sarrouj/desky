@@ -65,6 +65,7 @@
     "SortBy": "Trier par",
     "Newest": "Récent",
     "Oldest" : "Ancien",
+    "ClearFilters" : "Effacer les filtres",
     "NotFoundMsg": "Aucun Résultat Trouvé",
     "NotFoundMsgDesc": "Nous n'avons trouvé aucune correspondance pour vos critères de recherche. Veuillez réessayer avec des mots-clés ou des filtres différents."
   },
