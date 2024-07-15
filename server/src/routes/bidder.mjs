@@ -24,7 +24,7 @@ import Companies from "../mongoose/schemas/Company.mjs";
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Post Bidder's Profile Info
+// Bidder's Profile Info
 router.post("/bidder", checkSessionId, async (req, res, next) => {
   const { user_id } = req.body;
 
@@ -42,7 +42,7 @@ router.post("/bidder", checkSessionId, async (req, res, next) => {
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Get Bidder's info
+// Bidder's info
 router.get("/bidder/:id", checkObjectId, async (req, res, next) => {
   const id = req.params.id;
 
@@ -60,7 +60,7 @@ router.get("/bidder/:id", checkObjectId, async (req, res, next) => {
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Get Bidder AE or Company Info
+// Bidder AE or Company Info
 router.get("/bidder/info/:id", checkObjectId, async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -87,7 +87,7 @@ router.get("/bidder/info/:id", checkObjectId, async (req, res, next) => {
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Get Bidder Reviews
+// Bidder Reviews
 router.get("/bidder/reviews/:id", checkObjectId, async (req, res, next) => {
   try {
     const bidder = await Bidders.findById(req.params.id);
@@ -126,7 +126,7 @@ router.get("/bidder/reviews/:id", checkObjectId, async (req, res, next) => {
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Get Bidder's Bids
+// Bidder's Bids
 router.get("/bidder/bids/:id", checkObjectId, async (req, res, next) => {
   try {
     const bidder = await Bidders.findById(req.params.id);
@@ -160,6 +160,156 @@ router.get("/bidder/bids/:id", checkObjectId, async (req, res, next) => {
     );
 
     res.status(200).json({ success: detailedBids });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Bidder's Dashboard info
+router.get("/bidder/dashboard/:id", checkObjectId, async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const bidder = await Bidders.findById(id);
+    if (!bidder) {
+      return res.status(404).json({ error: "Bidder not found" });
+    }
+
+    const offers = await Offers.find({ "offer_apply.bidder_id": id });
+    if (offers.length === 0) {
+      return res.status(200).json({
+        success: {
+          totalBids: 0,
+          totalBidsWaiting: 0,
+          totalBidsAccepted: 0,
+          averageRating: 0,
+          detailedBids: [],
+        },
+      });
+    }
+
+    const totalBids = offers.reduce(
+      (acc, offer) =>
+        acc +
+        offer.offer_apply.filter((apply) => apply.bidder_id.toString() === id)
+          .length,
+      0
+    );
+
+    const totalBidsWaiting = offers.reduce(
+      (acc, offer) =>
+        acc +
+        offer.offer_apply.filter(
+          (apply) =>
+            apply.bidder_id.toString() === id && offer.offer_state === "open"
+        ).length,
+      0
+    );
+
+    const totalBidsAccepted = offers.reduce(
+      (acc, offer) =>
+        acc +
+        offer.offer_apply.filter(
+          (apply) =>
+            apply.bidder_id.toString() === id &&
+            (offer.offer_state === "inProgress" ||
+              offer.offer_state === "closed")
+        ).length,
+      0
+    );
+
+    const averageRating =
+      bidder.bidder_review.length > 0
+        ? (
+            bidder.bidder_review.reduce(
+              (acc, review) => acc + review.rating,
+              0
+            ) / bidder.bidder_review.length
+          ).toFixed(1)
+        : 0;
+
+    const detailedBids = await Promise.all(
+      offers.flatMap(
+        async (offer) =>
+          await Promise.all(
+            offer.offer_apply
+              .filter((apply) => apply.bidder_id.toString() === id)
+              .map(async (apply) => {
+                const depositor = await Depositors.findById(offer.depositor_id);
+                return {
+                  offer_id: offer._id,
+                  offer_title: offer.offer_title,
+                  depositor_id: offer.depositor_id,
+                  depositor_name: depositor.depositor_name,
+                  offer_state: offer.offer_state,
+                  bid: apply,
+                };
+              })
+          )
+      )
+    );
+
+    res.status(200).json({
+      success: {
+        totalBids,
+        totalBidsWaiting,
+        totalBidsAccepted,
+        averageRating,
+        detailedBids,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Bidder's my bids info
+router.get("/bidder/myBids/:id", checkObjectId, async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const bidder = await Bidders.findById(id);
+    if (!bidder) {
+      return res.status(404).json({ error: "Bidder not found" });
+    }
+
+    const offers = await Offers.find({ "offer_apply.bidder_id": id });
+    if (offers.length === 0) {
+      return res.status(200).json({
+        success: {
+          detailedBids: [],
+        },
+      });
+    }
+
+    const detailedBids = await Promise.all(
+      offers.flatMap(
+        async (offer) =>
+          await Promise.all(
+            offer.offer_apply
+              .filter((apply) => apply.bidder_id.toString() === id)
+              .map(async (apply) => {
+                const depositor = await Depositors.findById(offer.depositor_id);
+                return {
+                  offer_id: offer._id,
+                  offer_title: offer.offer_title,
+                  depositor_id: offer.depositor_id,
+                  depositor_name: depositor.depositor_name,
+                  offer_state: offer.offer_state,
+                  bid: apply,
+                };
+              })
+          )
+      )
+    );
+
+    res.status(200).json({
+      success: {
+        detailedBids,
+      },
+    });
   } catch (err) {
     next(err);
   }
