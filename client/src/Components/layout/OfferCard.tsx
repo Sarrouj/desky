@@ -49,9 +49,9 @@ const OfferCard: React.FC<OfferCardProps> = ({
     }
   }, []);
   return (
-    <Link href={`/${lg}/offers/${id}`}  className="min-w-[300px] w-full md:w-full lg:w-[45vw]  xl:w-[46vw] shadow h-[210px]  rounded-lg" >
-      <div className="bg-white transition-colors duration-300 hover:bg-gray-50 rounded-lg p-8">
-        <h2 className="text-md md:text-xl lg:text-xl xl:text-xl  font-bold">{title}</h2>
+    <Link href={`/${lg}/offers/${id}`}>
+      <div className="bg-white transition-colors duration-300 hover:bg-gray-50 rounded-lg p-4 lg:p-6 xl:p-8 shadow">
+        <h2 className="text-md md:text-lg xl:text-xl font-bold">{title}</h2>
         <div className="flex text-xs xl:text-sm gap-5 mt-1 text-neutralGray">
           <p>{OfferContent('Posted')} {timeSince(date)}</p>
           <div className="flex gap-1 items-center">
