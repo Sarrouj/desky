@@ -2,7 +2,7 @@
 
 import Header from "@/Components/layout/Header";
 import { useTranslations } from "next-intl";
-function AboutUs() {
+const AboutUs = () => {
   const NavbarContent = useTranslations("NavBar");
   return (
     <>
@@ -13,9 +13,10 @@ function AboutUs() {
         FAQ={"text-primary font-semibold"}
         AboutUS={"hover:text-primary"}
       />
+
       <div>AboutUs</div>
     </>
   );
-}
+};
 
 export default AboutUs;
