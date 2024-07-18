@@ -16,7 +16,7 @@ import { transporter } from "../utils/emailSend.mjs";
 // Schemas
 import Depositors from "../mongoose/schemas/Depositor.mjs";
 import Bidders from "../mongoose/schemas/Bidder.mjs";
-import Offers from "../mongoose/schemas/offer.mjs";
+import Offers from "../mongoose/schemas/Offer.mjs";
 import AE from "../mongoose/schemas/AE.mjs";
 import Companies from "../mongoose/schemas/Company.mjs";
 
@@ -372,11 +372,81 @@ router.post(
 
       const mailOptions = {
         from: "Desky",
-        to: depositor.depositor_email,
+        to: email,
         subject: "Your Account Status",
         text: `Hello ${depositor.depositor_name}`,
-        html: `Your account need to be verified by the admin, it will take 24 hours to be verified,
-        thank you for your patience.`,
+        html: `<!DOCTYPE html>
+  <html>
+    <head>
+      <style>
+        .email-container {
+          width: 94%;
+          background-color: #f1f1f1;
+          border-radius: 5px;
+          padding: 20px;
+          font-family: Arial, sans-serif;
+        }
+        .email-header {
+          background-color: rgb(234, 117, 39);
+          width: 50%;
+          margin: auto;
+          border-radius: 5px 5px 0 0;
+          text-align: center;
+          padding: 20px;
+        }
+        .email-header h2 {
+          margin: 0;
+          color: #ffffff;
+        }
+        .email-body {
+          background-color: #ffffff;
+          width: 50%;
+          margin: auto;
+          padding: 20px;
+          border-radius: 0 0 5px 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .email-body div {
+          text-align: center;
+          margin-top: 20px;
+        }
+        .email-body a {
+          background-color: rgb(234, 117, 39);
+          color: #e9e9e9;
+          padding: 10px 20px;
+          text-decoration: none;
+          border-radius: 5px;
+          display: inline-block;
+        }
+        .email-body a:hover {
+          background-color: rgb(223, 125, 59);
+        }
+        .email-footer {
+          text-align: center;
+          color: #686868;
+          margin-top: 20px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="email-container">
+        <div class="email-header">
+          <h2>Desky</h2>
+        </div>
+        <div class="email-body">
+          <h4>Hello ${depositor.depositor_name}</h4>
+          <p>
+           Your account need to be verified by the admin, it will take up to 24 hours.
+          </p>
+          <h3>
+            Thank you for your patience.
+          </h3>
+        </div>
+        <div class="email-footer">&copy; 2024 Desky. All rights reserved.</div>
+      </div>
+    </body>
+  </html>
+  `,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
@@ -447,11 +517,81 @@ router.post(
 
       const mailOptions = {
         from: "Desky",
-        to: depositor.depositor_email,
+        to: email,
         subject: "Your Account Status",
         text: `Hello ${depositor.depositor_name}`,
-        html: `Your account need to be verified by the admin, it will take 24 hours to be verified,
-        thank you for your patience.`,
+        html: `<!DOCTYPE html>
+  <html>
+    <head>
+      <style>
+        .email-container {
+          width: 94%;
+          background-color: #f1f1f1;
+          border-radius: 5px;
+          padding: 20px;
+          font-family: Arial, sans-serif;
+        }
+        .email-header {
+          background-color: rgb(234, 117, 39);
+          width: 50%;
+          margin: auto;
+          border-radius: 5px 5px 0 0;
+          text-align: center;
+          padding: 20px;
+        }
+        .email-header h2 {
+          margin: 0;
+          color: #ffffff;
+        }
+        .email-body {
+          background-color: #ffffff;
+          width: 50%;
+          margin: auto;
+          padding: 20px;
+          border-radius: 0 0 5px 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .email-body div {
+          text-align: center;
+          margin-top: 20px;
+        }
+        .email-body a {
+          background-color: rgb(234, 117, 39);
+          color: #e9e9e9;
+          padding: 10px 20px;
+          text-decoration: none;
+          border-radius: 5px;
+          display: inline-block;
+        }
+        .email-body a:hover {
+          background-color: rgb(223, 125, 59);
+        }
+        .email-footer {
+          text-align: center;
+          color: #686868;
+          margin-top: 20px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="email-container">
+        <div class="email-header">
+          <h2>Desky</h2>
+        </div>
+        <div class="email-body">
+          <h4>Hello ${depositor.depositor_name}</h4>
+          <p>
+           Your account need to be verified by the admin, it will take up to 24 hours.
+          </p>
+          <h3>
+            Thank you for your patience.
+          </h3>
+        </div>
+        <div class="email-footer">&copy; 2024 Desky. All rights reserved.</div>
+      </div>
+    </body>
+  </html>
+  `,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
