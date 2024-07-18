@@ -36,7 +36,7 @@ const Login = () => {
   useEffect(() => {
     if (status === "authenticated") {
       if(userType == "bidder"){
-        window.location.href = `/${Language}/dashboard-b`;
+        window.location.href = `/${Language}/Dashboard-B`;
       }else if(userType == "depositor"){
         window.location.href = `/${Language}/dashboard-d`;
       }
