@@ -16,8 +16,6 @@ import TempUser from "../mongoose/schemas/TempUser.mjs";
 import Depositor from "../mongoose/schemas/Depositor.mjs";
 import Bidder from "../mongoose/schemas/Bidder.mjs";
 
-// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
-
 // Login route
 router.post(
   "/auth/login",
@@ -48,8 +46,6 @@ router.post(
     }
   }
 );
-
-// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 // Register route for temporary users
 router.post(
@@ -83,96 +79,11 @@ router.post(
       });
 
       const mailOptions = {
-        from: "Desky <your-email@example.com>",
+        from: "Desky",
         to: email,
-        subject: "Email Verification",
-        text: "Please verify your email.",
-        html: `
-        <!DOCTYPE html>
-<html>
-  <head>
-    <style>
-      .email-container {
-        width: 94%;
-        background-color: #f1f1f1;
-        border-radius: 5px;
-        padding: 20px;
-        font-family: Arial, sans-serif;
-      }
-      .email-header {
-        background-color: rgb(234, 117, 39);
-        width: 50%;
-        margin: auto;
-        border-radius: 5px 5px 0 0;
-        text-align: center;
-        padding: 20px;
-      }
-      .email-header h2 {
-        margin: 0;
-        color: #ffffff;
-      }
-      .email-body {
-        background-color: #ffffff;
-        width: 50%;
-        margin: auto;
-        padding: 20px;
-        border-radius: 0 0 5px 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-      .email-body h3 {
-        color: #000000;
-      }
-      .email-body p {
-        color: #000000;
-        padding: 0 20px;
-      }
-      .email-body div {
-        text-align: center;
-        margin-top: 20px;
-      }
-      .email-body a {
-        background-color: rgb(234, 117, 39);
-        color: #e9e9e9;
-        padding: 10px 20px;
-        text-decoration: none;
-        border-radius: 5px;
-        display: inline-block;
-      }
-      .email-body a:hover {
-        background-color: rgb(223, 125, 59);
-      }
-      .email-footer {
-        text-align: center;
-        color: #686868;
-        margin-top: 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="email-container">
-      <div class="email-header">
-        <h2>Desky</h2>
-      </div>
-      <div class="email-body">
-        <h3>Hello ${name}</h3>
-        <p>
-          Thank you for signing up with Desky! To complete your registration,
-          please verify your email address by clicking the link below:
-        </p>
-        <div>
-          <a
-            href="http://localhost:3000/en/Sign-Up/verify-email/verified?token=${token}"
-          >
-            Confirm Your Email
-          </a>
-        </div>
-        <h5>Thank you, <br /> Desky Team</h5>
-      </div>
-      <div class="email-footer">&copy; 2024 Desky. All rights reserved.</div>
-    </div>
-  </body>
-</html>
-  `,
+        subject: "Verify Your Email",
+        text: "Please click the link to verify your email.",
+        html: `<p>Please <a href="http://localhost:3000/en/Sign-Up/verify-email/verified?token=${token}">click here</a> to verify your email.</p>`,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
@@ -190,8 +101,6 @@ router.post(
     }
   }
 );
-
-// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 // Email Verification route
 router.get("/auth/verify/:token", async (req, res, next) => {
@@ -226,8 +135,6 @@ router.get("/auth/verify/:token", async (req, res, next) => {
     next(err);
   }
 });
-
-// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 // Register route for depositor or bidder
 router.post("/auth/register/user", async (req, res, next) => {
@@ -276,8 +183,6 @@ router.post("/auth/register/user", async (req, res, next) => {
   }
 });
 
-// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
-
 // GoogleProvider route
 router.post("/auth/google", findUserByEmail, async (req, res, next) => {
   const { email, name } = req.body;
@@ -325,8 +230,6 @@ router.post("/auth/google", findUserByEmail, async (req, res, next) => {
   }
 });
 
-// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
-
 // Forget Password
 router.post("/auth/forgetPassword", findUserByEmail, async (req, res, next) => {
   const { email } = req.body;
@@ -342,93 +245,7 @@ router.post("/auth/forgetPassword", findUserByEmail, async (req, res, next) => {
       to: email,
       subject: "Verify Your Email",
       text: "Please click the link to verify your email.",
-      html: `<!DOCTYPE html>
-<html>
-  <head>
-    <style>
-      .email-container {
-        width: 94%;
-        background-color: #f1f1f1;
-        border-radius: 5px;
-        padding: 20px;
-        font-family: Arial, sans-serif;
-      }
-      .email-header {
-        background-color: rgb(234, 117, 39);
-        width: 50%;
-        margin: auto;
-        border-radius: 5px 5px 0 0;
-        text-align: center;
-        padding: 20px;
-      }
-      .email-header h2 {
-        margin: 0;
-        color: #ffffff;
-      }
-      .email-body {
-        background-color: #ffffff;
-        width: 50%;
-        margin: auto;
-        padding: 20px;
-        border-radius: 0 0 5px 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-      .email-body h3 {
-        color: #000000;
-      }
-      .email-body p {
-        color: #000000;
-        padding: 0 20px;
-      }
-      .email-body div {
-        text-align: center;
-        margin-top: 20px;
-      }
-      .email-body a {
-        background-color: rgb(234, 117, 39);
-        color: #e9e9e9;
-        padding: 10px 20px;
-        text-decoration: none;
-        border-radius: 5px;
-        display: inline-block;
-      }
-      .email-body a:hover {
-        background-color: rgb(223, 125, 59);
-      }
-      .email-footer {
-        text-align: center;
-        color: #686868;
-        margin-top: 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="email-container">
-      <div class="email-header">
-        <h2>Desky</h2>
-      </div>
-      <div class="email-body">
-        <p>
-          We received a request to reset your password for your Desky account.
-          To reset your password, click the link below:
-        </p>
-        <div>
-          <a
-            href="http://localhost:3000/en/Forgot-Password/Email-Verification/Reset-Password"
-          >
-            Reset Your Password
-          </a>
-        </div>
-        <h5>
-          Thank you, <br />
-          Desky Team
-        </h5>
-      </div>
-      <div class="email-footer">&copy; 2024 Desky. All rights reserved.</div>
-    </div>
-  </body>
-</html>
-`,
+      html: `<p>Please <a href="http://localhost:3000/en/Forgot-Password/Email-Verification/Reset-Password">click here</a> to verify your email.</p>`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -445,8 +262,6 @@ router.post("/auth/forgetPassword", findUserByEmail, async (req, res, next) => {
     next(err);
   }
 });
-
-// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 // Change Password
 router.put("/auth/changePassword", findUserByEmail, async (req, res, next) => {
