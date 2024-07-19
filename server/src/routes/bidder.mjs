@@ -297,6 +297,7 @@ router.get("/bidder/myBids/:id", checkObjectId, async (req, res, next) => {
                   offer_title: offer.offer_title,
                   depositor_id: offer.depositor_id,
                   depositor_name: depositor.depositor_name,
+                  depositor_review: depositor.depositor_review,
                   offer_state: offer.offer_state,
                   bid: apply,
                 };
@@ -613,7 +614,6 @@ router.post(
   "/rate/bidder/:depositor_id/:offer_id",
   checkSessionId,
   ratingValidationFields,
-  checkObjectId,
   async (req, res, next) => {
     const { rating, text, user_id } = req.body;
     const { depositor_id, offer_id } = req.params;
@@ -636,10 +636,12 @@ router.post(
 
       if (
         offer.depositor_id !== depositor_id &&
-        offer.bidder_id.includes(user_id) &&
+        offer.offer_apply.find(
+          (apply) => apply.bidder_id.toString() === user_id
+        ) &&
         offer.offer_state !== "finished"
       ) {
-        return res.status(404).json({ error: "You can't rate this depositor" });
+        return res.status(400).json({ error: "You can't rate this depositor" });
       }
 
       const newReview = {
