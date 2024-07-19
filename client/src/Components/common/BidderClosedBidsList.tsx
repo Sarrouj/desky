@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { StarFill } from "react-bootstrap-icons";
 import { Download, Star } from "lucide-react";
+import { Textarea } from "@/Components/ui/textarea";
 import { Button } from "@/Components/ui/Button";
 
 import {
@@ -44,23 +45,50 @@ import {
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import axios from "axios";
 
-const ClosedBidderBidsList = ({
-  seeMore,
-  limit,
-  bids,
-}: {
-  seeMore: boolean;
-  limit: boolean;
-  bids: any;
-}) => {
+const ClosedBidderBidsList = ({ bids }: { bids: any }) => {
   const { data: session } = useSession();
   const [Language, setLanguage] = useState("fr");
   // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
+    const lg = JSON.parse(localStorage.getItem("lg") || '"fr"');
     setLanguage(lg);
-  }, [Language]);
+  }, []);
+
+  const [rating, setRating] = useState<number>(0);
+  const [review, setReview] = useState<string>("");
+  const [error, setError] = useState<string>("");
+
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>,
+    offer_id: string,
+    depositor_id: string
+  ) => {
+    e.preventDefault();
+    if (rating === 0) {
+      setError("Please give at least a 1-star rating.");
+      return;
+    }
+    try {
+      const response = await axios.post(
+        `http://localhost:3001/rate/bidder/${depositor_id}/${offer_id}`,
+        {
+          rating,
+          text: review,
+          user_id: session?.user.id,
+        }
+      );
+      if (response.status === 200) {
+        setRating(0);
+        setReview("");
+        setError("");
+      }
+    } catch (error) {
+      console.error("Error submitting review:", error);
+      setError("Failed to submit the review. Please try again.");
+    }
+  };
 
   return (
     <Tabs defaultValue="week">
@@ -71,13 +99,6 @@ const ClosedBidderBidsList = ({
               <CardTitle>Bids List</CardTitle>
               <CardDescription>Your bids list</CardDescription>
             </div>
-            {seeMore ? (
-              <Link href={`/${Language}/Dashboard-B/My-Bids`}>
-                <Button size={"sm"} className="h-7 gap-1 text-xs text-white">
-                  See more...
-                </Button>
-              </Link>
-            ) : null}
           </CardHeader>
           <CardContent>
             <Table>
@@ -139,7 +160,16 @@ const ClosedBidderBidsList = ({
               <TableBody>
                 {bids &&
                   bids.map((bid: any, index: number) => {
-                    if (limit && index >= 4) return null;
+                    if (
+                      bid[0].offer_state == "closed" &&
+                      bid[0].depositor_review.filter(
+                        (review: any) =>
+                          review.bidder_id === session?.user.id &&
+                          review.offer_id === bid[0].offer_id
+                      )
+                    ) {
+                      return null;
+                    }
                     return (
                       <TableRow key={`${bid.offer_title}-${index}`}>
                         <Link href={`/${Language}/offers/${bid[0].offer_id}`}>
@@ -190,72 +220,71 @@ const ClosedBidderBidsList = ({
                                       Review
                                     </DialogTitle>
                                     <DialogDescription className="text-center">
-                                      This action cannot be undone. This will
-                                      permanently delete your account and remove
-                                      your data from our servers.
+                                      Add a review for the depositor after the
+                                      completion of the work.
                                     </DialogDescription>
                                   </DialogHeader>
                                   {/* rating */}
-                                  <div className="flex align-middle justify-center gap-5 relative mb-5">
-                                    <div className="relative">
-                                      <input
-                                        type="radio"
-                                        name="rating"
-                                        value={1}
-                                        className="opacity-0 absolute inset-0 w-full h-full"
-                                      />
-                                      <StarFill className="text-yellow-400 absolute inset-0" />
+                                  <form
+                                    onSubmit={(e) =>
+                                      handleSubmit(
+                                        e,
+                                        bid[0].offer_id,
+                                        bid[0].depositor_id
+                                      )
+                                    }
+                                  >
+                                    <div className="flex align-middle justify-center gap-14 relative mb-12 mr-8">
+                                      {[1, 2, 3, 4, 5].map((value) => (
+                                        <label key={value} className="relative">
+                                          <input
+                                            type="radio"
+                                            name="rating"
+                                            value={value}
+                                            className="opacity-0 absolute inset-0 w-full h-full hover:cursor-pointer"
+                                            onChange={(e) =>
+                                              setRating(
+                                                parseInt(e.target.value)
+                                              )
+                                            }
+                                          />
+                                          <StarFill
+                                            width={30}
+                                            height={30}
+                                            className={`hover:cursor-pointer absolute inset-0 ${
+                                              value <= rating
+                                                ? "text-yellow-400"
+                                                : "text-gray-400"
+                                            }`}
+                                          />
+                                        </label>
+                                      ))}
                                     </div>
-                                    <div className="relative">
-                                      <input
-                                        type="radio"
-                                        name="rating"
-                                        value={2}
-                                        className="opacity-0 absolute inset-0 w-full h-full"
-                                      />
-                                      <StarFill className="text-yellow-400 absolute inset-0" />
-                                    </div>
-                                    <div className="relative">
-                                      <input
-                                        type="radio"
-                                        name="rating"
-                                        value={3}
-                                        className="opacity-0 absolute inset-0 w-full h-full"
-                                      />
-                                      <StarFill className="absolute inset-0" />
-                                    </div>
-                                    <div className="relative">
-                                      <input
-                                        type="radio"
-                                        name="rating"
-                                        value={4}
-                                        className="opacity-0 absolute inset-0 w-full h-full"
-                                      />
-                                      <StarFill className="absolute inset-0" />
-                                    </div>
-                                    <div className="relative">
-                                      <input
-                                        type="radio"
-                                        name="rating"
-                                        value={5}
-                                        className="opacity-0 absolute inset-0 w-full h-full"
-                                      />
-                                      <StarFill className="absolute inset-0" />
-                                    </div>
-                                  </div>
-                                  <textarea
-                                    name="message"
-                                    id="message"
-                                    className="border border-gray-400 rounded-md p-2 w-full"
-                                  ></textarea>
-                                  <DialogFooter>
-                                    <Button
-                                      className="text-white  bg-red-600 hover:bg-red-500 "
-                                      type="submit"
-                                    >
-                                      Confirm
-                                    </Button>
-                                  </DialogFooter>
+                                    {error && (
+                                      <p className="text-red-500 text-center">
+                                        {error}
+                                      </p>
+                                    )}
+                                    <Textarea
+                                      onChange={(e) =>
+                                        setReview(e.target.value)
+                                      }
+                                      value={review}
+                                      className="ring-0 border-input focus:ring-0 focus-visible:ring-white focus-visible:ring-1"
+                                      id="message"
+                                      placeholder={"review"}
+                                      maxLength={2000}
+                                      required
+                                    />
+                                    <DialogFooter>
+                                      <Button
+                                        className="text-white bg-green-600 hover:bg-green-500 mt-4"
+                                        type="submit"
+                                      >
+                                        Confirm
+                                      </Button>
+                                    </DialogFooter>
+                                  </form>
                                 </DialogContent>
                               </Dialog>
                             </TooltipProvider>

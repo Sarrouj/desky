@@ -54,7 +54,6 @@ const AddReview = () => {
           `http://localhost:3001/bidder/myBids/${user_id}`
         );
         setBids(bids.data.success);
-        console.log(bids.data.success)
       }
     };
 
