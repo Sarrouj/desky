@@ -83,26 +83,24 @@ const MyOffersList = ({
         <Card x-chunk="dashboard-05-chunk-3">
           <CardHeader className="px-7 flex flex-row justify-between">
             <div className="flex flex-col gap-2">
-              <CardTitle>{Content("title")}</CardTitle>
-              <CardDescription>{Content("Desc")}</CardDescription>
+              <CardTitle className="text-secondaryDarkBlue text-xl">{Content("title")}</CardTitle>
+              <CardDescription className="text-xs sm:text-sm">{Content("Desc")}</CardDescription>
             </div>
-            {seeMore ? (
-              <Link href={`/${Language}/dashboard-d/manage-bids`}>
-                <Button size={"sm"} className="h-7 gap-1 text-xs text-white">
-                  See more...
+              <Link href={`/${Language}/Create-Offer`}>
+                <Button size={"sm"} className="text-xs text-white">
+                 {Content("AddOffer")}
                 </Button>
               </Link>
-            ) : null}
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader className="">
+            <Table className="min-w-[750px]">
+              <TableHeader>
                 <TableRow className="hover:bg-white">
-                  <TableHead>{Content("offerName")}</TableHead>
+                  <TableHead className="text-xs sm:text-sm">{Content("offerName")}</TableHead>
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>{Content("TotalBids")}</TooltipTrigger>
+                        <TooltipTrigger className="text-xs sm:text-sm">{Content("TotalBids")}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
                           {Content("TotalBidsDesc")}
                         </TooltipContent>
@@ -112,20 +110,20 @@ const MyOffersList = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>{Content("Status")}</TooltipTrigger>
+                        <TooltipTrigger className="text-xs sm:text-sm">{Content("Status")}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
                           {Content("StatusDesc")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
                   </TableHead>
-                  <TableHead className="text-center">
+                  <TableHead className="text-center text-xs sm:text-sm">
                     {Content("finished")}
                   </TableHead>
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>
+                        <TooltipTrigger className="text-xs sm:text-sm">
                           {Content("DeleteTitle")}
                         </TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
@@ -153,8 +151,8 @@ const MyOffersList = ({
                         className="cursor-pointer"
                         key={`${offer.offer_title}-${index}`}
                       >
-                        <TableCell>{offer.offer_title}</TableCell>
-                        <TableCell className="text-center">
+                        <TableCell className="text-xs sm:text-sm">{offer.offer_title}</TableCell>
+                        <TableCell className="text-center text-xs sm:text-sm">
                           {totalBidsReceived}
                         </TableCell>
                         <TableCell className="text-center ">

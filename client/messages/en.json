@@ -257,7 +257,11 @@
         "AcceptDesc2" : "all other bids will be rejected.",
         "AllInfo" : "All Information",
         "AllInfoDesc1" : "View all information",
-        "AllInfoDesc2" : "about the Bidder"
+        "AllInfoDesc2" : "about the Bidder",
+        "SeeMore" : "See more...",
+        "NoReviews" : "No Available Reviews",
+        "ReviewsHistory" : "Reviews History",
+        "AddOffer" : "Add New Offer"
       },
       "bidsListAll" : {
         "title" : "Bids",
@@ -282,8 +286,11 @@
         "AcceptDesc2" : "all other bids will be rejected.",
         "AllInfo" : "All Information",
         "AllInfoDesc1" : "View all information",
-        "AllInfoDesc2" : "about the Bidder"
-
+        "AllInfoDesc2" : "about the Bidder",
+        "SeeMore" : "See more...",
+        "NoReviews" : "No Available Reviews",
+        "ReviewsHistory" : "Reviews History",
+        "AddOffer" : "Add New Offer"
       },
        "NoAvailableDate" : {
         "title" : "Currently No Data Available",
@@ -299,7 +306,8 @@
           "Settings" : "Settings",
           "Support" : "Support",
           "LogOut" : "Log Out",
-          "Account" : "Account"
+          "Account" : "Account",
+          "Reviews" : "Reviews"
        },
        "Statistic" : {
         "OffersPosted" : "Total of Offers Posted",
@@ -311,7 +319,8 @@
           "Dashboard" : "Dashboard",
           "ManageBids" : "Manage Bids",
           "MyOffers" : "My Offers",
-          "CreateOffer" : "Create Offer"
+          "CreateOffer" : "Create Offer",
+          "Reviews" : "My Reviews"
        },
        "SideBar" : {
           "Dashboard" : "Dashboard",
@@ -353,7 +362,8 @@
             "ClosedDesc2" : "the accepted bidder is closed.",
             "Rejected" : "Rejected",
             "RejectedDesc" : "Your Offer is Rejected"
-          }
+          },
+           "AddOffer" : "Add New Offer"
         },
         "CreateOffer" : {
           "form" : {
@@ -400,6 +410,25 @@
               "addMore" : "Add More Offers",
               "MyOffers" : "My Offers"
             }
+        },
+        "reviews" : {
+          "NoAvailable" : "No Available Reviews",
+          "NoAvailableDesc" : "No available reviews because there are no completed transactions between you and a bidder.",
+          "CallToAction" : "Add an Offer",
+          "title" : "My Reviews",
+          "date" : {
+            "yearAgo" : "1 year ago",
+            "yearsAgo" : "years ago",
+            "monthAgo" : "1 month ago",
+            "monthsAgo" : "months ago",
+            "dayAgo" : "1 day ago",
+            "daysAgo" : "days ago",
+            "hourAgo" : "1 hour ago",
+            "hoursAgo" : "hours ago",
+            "minuteAgo" : "1 minute ago",
+            "minutesAgo" : "minutes ago",
+            "justNow" : "just now"
+          }
         }
     }
 }

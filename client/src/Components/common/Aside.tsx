@@ -47,7 +47,7 @@ const Aside = ({Language, Dashboard, CreateOffer, MyOffers, ManageBids, Content}
               <TooltipContent side="right">{Content("Dashboard")}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        <TooltipProvider>
+        {/* <TooltipProvider>
           <Tooltip>
               <TooltipTrigger asChild>
               <Link
@@ -60,7 +60,7 @@ const Aside = ({Language, Dashboard, CreateOffer, MyOffers, ManageBids, Content}
               </TooltipTrigger>
               <TooltipContent side="right">{Content("CreateOffer")}</TooltipContent>
           </Tooltip> 
-        </TooltipProvider>
+        </TooltipProvider> */}
         <TooltipProvider>
           <Tooltip>
               <TooltipTrigger asChild>
@@ -118,7 +118,7 @@ const Aside = ({Language, Dashboard, CreateOffer, MyOffers, ManageBids, Content}
           </Tooltip>
         </TooltipProvider> */}
       </nav>
-      <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+      {/* <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -133,7 +133,7 @@ const Aside = ({Language, Dashboard, CreateOffer, MyOffers, ManageBids, Content}
           <TooltipContent side="right">{Content("Settings")}</TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      </nav>
+      </nav> */}
     </aside>
   )
 }

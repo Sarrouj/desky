@@ -126,7 +126,7 @@ const CreateOffer: React.FC = () => {
               </nav>
             </SheetContent>
           </Sheet>
-          <Breadcrumb className="hidden md:flex">
+          <Breadcrumb className="hidden sm:flex">
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
@@ -141,28 +141,30 @@ const CreateOffer: React.FC = () => {
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
-          <DropDownDepositor content={DropDownMenu} Language={Language}/>
+          <div className="hidden sm:block">
+            <DropDownDepositor content={DropDownMenu} Language={Language}/>
+          </div>
         </header>
         <main className="flex items-start gap-4 p-4 sm:px-6 relative ">
           {firstComponent ? 
             <div className="w-full h-[84vh]">
-              <div className="w-full flex flex-col items-center justify-center pr-20 pt-32">
+              <div className="w-full flex flex-col items-center justify-center text-center md:pr-5 lg:pr-10 xl:pr-20 pt-32">
                 <Package size={72} className="text-primary"/>
-                <h2 className="text-3xl font-bold mb-1">{CreateOfferContent("title")}</h2>
-                <p className="text-gray-600 ">{CreateOfferContent("desc")}</p>
-                <Button className="text-white mt-5" onClick={() => setFirstComponents(false)}>{CreateOfferContent("CallToAction")}</Button>
+                <h2 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold mb-1">{CreateOfferContent("title")}</h2>
+                <p className="text-gray-600 text-xs sm:text-sm lg:text-base">{CreateOfferContent("desc")}</p>
+                <Button className="text-white mt-5 text-xs md:text-sm" onClick={() => setFirstComponents(false)}>{CreateOfferContent("CallToAction")}</Button>
               </div>
             </div>
           : waiting ? 
           <div className="w-full h-[84vh]">
-            <div className="w-full flex flex-col items-center justify-center pr-20 pt-32">
+            <div className="w-full flex flex-col items-center justify-center text-center md:pr-5 lg:pr-10 xl:pr-20 pt-32">
               <Clock4 size={82} className="text-primary"/>
-              <h2 className="text-3xl font-bold mb-1">{VerificationContent("title")}</h2>
-              <p className="text-gray-600 ">{VerificationContent("desc")}</p>
+              <h2 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold mb-1">{VerificationContent("title")}</h2>
+              <p className="text-gray-600 text-xs sm:text-sm lg:text-base">{VerificationContent("desc")}</p>
               <div className="flex gap-2">
-                <Button className="text-white mt-5" onClick={addMoreOffers}>{VerificationContent("addMore")}</Button>
+                <Button className="text-white mt-5 text-xs md:text-sm" onClick={addMoreOffers}>{VerificationContent("addMore")}</Button>
                 <Link href={`/${Language}/dashboard-d/my-offers`}>
-                  <Button className="text-white mt-5">{VerificationContent("MyOffers")}</Button>  
+                  <Button className="text-white mt-5 text-xs md:text-sm">{VerificationContent("MyOffers")}</Button>  
                 </Link>
               </div>
             </div>

@@ -2,7 +2,7 @@ import { StateCreator } from "zustand";
 import axios from "axios";
 
 export interface DepositorReview {
-  _id: string & number;
+  _id: string & number | any;
   depositor_review: Array<object>;
 }
 

@@ -17,6 +17,7 @@ export const DeleteOfferSlice : StateCreator<deleteOfferState> = (set, get) => (
     deleteOffer : async () => {
         const { DeleteOfferID } = get();
         const { DeleteDepositorID } = get();
+
         try {
             await axios.delete(
               `http://localhost:3001/delete/offer/${DeleteOfferID}`,

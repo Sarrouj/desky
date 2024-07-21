@@ -35,6 +35,7 @@ import NotFoundDataDepositor from "@/Components/common/NotFoundDataDepositor";
 import DropDownDepositor from "@/Components/common/DropDownDepositor";
 import Aside from "@/Components/common/Aside";
 import BidsListSkeleton from "@/Components/common/BidsListSkeleton";
+import { useBoundStore } from "@/lib/store";
 
 const MyBids = () => {
   // Content
@@ -49,7 +50,7 @@ const MyBids = () => {
   // Language
   const [Language, setLanguage] = useState("fr");
   const { data: session } = useSession();
-  const user_id = session ? session.user?.id : null;
+  const user_id: any = session ? session.user?.id : null;
   const user_role = session ? session.user?.role : null;
 
   useEffect(() => {
@@ -67,46 +68,47 @@ const MyBids = () => {
   // Data
   const [dBids, setDBids] = useState<any>(null);
   const [dOffers, setDOffers] = useState<any>(null);
-  const totalBidsReceived = dOffers ? dOffers.reduce((acc, offer) => acc + offer.offer_apply.length, 0) : null;
+  const [openBids, setOpenBids] = useState<any>([]);
+
+  // Global State Manager
+  let getDepositorManageBidsID = useBoundStore(
+    (state) => state.getDepositorManageBidsID
+  );
+  let DepositorManageBidsData = useBoundStore(
+    (state) => state.DepositorManageBidsData
+  );
+  let fetchDepositorManageBidsData = useBoundStore(
+    (state) => state.fetchDepositorManageBidsData
+  );
+  let DepositorManageBidsID = useBoundStore(
+    (state) => state.DepositorManageBidsID
+  );
+  let totalBidsReceived = dBids ? dBids.totalBidsReceived : null;
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (user_id !== null) {
-        try {
-          const offers = await axios.post(
-            "http://localhost:3001/depositor/offers",
-            {
-              user_id,
-            }
-          );
-          const Bidders: any = {};
-          for (const offer of offers.data.success) {
-            if (offer.offer_apply.length > 0 && offer.offer_state === "open") {
-              const bidderPromises = offer.offer_apply.map((apply: any) =>
-                axios.get(`http://localhost:3001/bidder/${apply.bidder_id}`)
-              );
-              const bidderResponses = await Promise.all(bidderPromises);
-              Bidders[offer.offer_title] = bidderResponses.map(
-                (response, index) => ({
-                  bid_id: offer.offer_apply[index]._id,
-                  offerTitle: offer.offer_title,
-                  applyDate: offer.offer_apply[index].date,
-                  estimate: offer.offer_apply[index].estimate,
-                  bidder: response.data.success,
-                })
-              );
-            }
-          }
-          setDOffers(offers.data.success);
-          setDBids(Bidders);
-        } catch (error) {
-        }
-      }
-    };
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getDepositorManageBidsID(user_id);
   }, [user_id]);
 
+  useEffect(() => {
+    if (DepositorManageBidsID) {
+      fetchDepositorManageBidsData();
+    }
+  }, [DepositorManageBidsID]);
+
+  useEffect(() => {
+    if (DepositorManageBidsData) {
+      setDBids(DepositorManageBidsData);
+    }
+  }, [DepositorManageBidsData]);
+
+  useEffect(() => {
+    if (dBids) {
+      const OpenBids = dBids.detailedBids.filter(
+        (B: any) => B.offer_state == "open"
+      );
+      setOpenBids(OpenBids);
+    }
+  }, [dBids]);
 
   return (
     <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
@@ -173,7 +175,7 @@ const MyBids = () => {
             </nav>
           </SheetContent>
         </Sheet>
-        <Breadcrumb className="hidden md:flex">
+        <Breadcrumb className="hidden sm:flex">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
@@ -194,19 +196,37 @@ const MyBids = () => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <DropDownDepositor content={DropDownMenu} Language={Language} />
+        <div className="hidden sm:block">
+          <DropDownDepositor content={DropDownMenu} Language={Language} />
+        </div>
       </header>
-      <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
-      {totalBidsReceived !== null ? (
-              totalBidsReceived !== 0   ? 
-              <BidsList Content={Content} seeMore={true} limit={false} dBids={dBids} /> :
-              <NotFoundDataDepositor
-                Language={Language}
-                Content={notFoundContent}
+      <main className="gap-4 p-4 lg:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
+        {totalBidsReceived !== null ? (
+          openBids.length !== 0 ? (
+            <>
+              <div className="flex sm:hidden gap-2 w-full items-end justify-end">
+                <Link href={`/${Language}/Create-Offer`}>
+                  <Button size={"sm"} className="text-xs text-white">
+                    {Content("AddOffer")}
+                  </Button>
+                </Link>
+              </div>
+              <BidsList
+                Content={Content}
+                seeMore={false}
+                limit={false}
+                dBids={dBids.detailedBids}
               />
-            ) : (
-              <BidsListSkeleton Content={Content} seeMore={true} amount={9} /> 
-            )}
+            </>
+          ) : (
+            <NotFoundDataDepositor
+              Language={Language}
+              Content={notFoundContent}
+            />
+          )
+        ) : (
+          <BidsListSkeleton Content={Content} seeMore={true} amount={9} />
+        )}
       </main>
     </div>
   );
