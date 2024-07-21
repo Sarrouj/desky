@@ -16,6 +16,7 @@ export const HandleAcceptSlice : StateCreator<HandleAcceptBidState> = (set, get)
     getUserID : (id) => set({ UserID  : id }),
     putAcceptOffer : async () => {
         const { bidID } = get();
+        console.log(bidID);
         const { UserID } = get();
         try {
             const results = await axios.post(

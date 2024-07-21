@@ -152,7 +152,7 @@ const MyOffers = () => {
             </nav>
           </SheetContent>
         </Sheet>
-        <Breadcrumb className="hidden md:flex">
+        <Breadcrumb className="hidden sm:flex">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
@@ -173,9 +173,11 @@ const MyOffers = () => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <DropDownDepositor content={DropDownMenu} Language={Language} />
+        <div className="hidden sm:block">
+          <DropDownDepositor content={DropDownMenu} Language={Language} />
+        </div>
       </header>
-      <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
+      <main className="gap-4 p-4 lg:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
         {dOffers !== null? (
           dOffers.length !== 0 ?  
           <MyOffersList Content={Content} seeMore={false} dOffers={dOffers} /> :

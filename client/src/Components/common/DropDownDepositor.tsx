@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Settings, LifeBuoy, LogOut, User, Package } from "lucide-react";
+import { Settings, LifeBuoy, LogOut, User, Package, CircleCheck } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -64,7 +64,7 @@ const DropDownDepositor = ({content, Language} : {content : any, Language: Strin
     <DropdownMenu>
       <DropdownMenuTrigger
         asChild
-        className="focus-visible:ring-neutralBg focus:ring-neutralBg focus:border-neutralBg focus-visible:border-neutralBg focus:outline-neutralBg focus-visible:ring-offset-0"
+        className="focus-visible:ring-neutralBg focus:ring-neutralBg focus:border-neutralBg focus-visible:border-neutralBg focus:outline-neutralBg focus-visible:ring-offset-0 "
       >
         <Button className="border-0 flex bg-neutralBg items-center gap-2 hover:bg-neutralBg hover:text-primary focus-visible:ring-neutralBg focus:ring-neutralBg focus-visible:ring-offset-0">
           {status !== "loading" && LetterFullName !== "" ? (
@@ -112,6 +112,12 @@ const DropDownDepositor = ({content, Language} : {content : any, Language: Strin
             <User className="mr-2 h-4 w-4" />
             <span>{content("Profile")}</span>
           </DropdownMenuItem>
+          <Link href={`/${Language}/dashboard-d/my-reviews`}>
+            <DropdownMenuItem>
+              <CircleCheck className="mr-2 h-4 w-4" />
+              <span>{content('Reviews')}</span>
+            </DropdownMenuItem>
+          </Link>
           <Link href={`/${Language}/offers`}>
             <DropdownMenuItem>
               <Package className="mr-2 h-4 w-4" />
@@ -122,15 +128,10 @@ const DropDownDepositor = ({content, Language} : {content : any, Language: Strin
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>{content("Settings")}</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
             <LifeBuoy className="mr-2 h-4 w-4" />
             <span>{content("Support")}</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>
           <LogOut className="mr-2 h-4 w-4" />
           <span>{content("LogOut")}</span>
