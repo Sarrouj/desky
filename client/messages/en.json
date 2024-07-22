@@ -1,435 +1,443 @@
-
 {
-    "Home": {
-      "Hero" : {
-        "headlineAbove": "Growth Solution in a Single Platform.",
-        "mainHeadline1" : "Desky, The First Platform",
-        "mainHeadline2" : "For Private",
-        "mainHeadline3" : "Calls For Bids",
-        "heroDescription" : "Never at water me might. On formed merits hunted unable merely by mr whence or. Possession the unpleasing simplicity her uncommonly.",
-        "SubmitCallToAction" : "Submit an offer",
-        "SeeCallsCallToAction" : "See Calls",
-        "trust1" : "Get started free",
-        "trust2" : "Submit an offer and get Connects credit"
-      },
-      "CompaniesSection" : "Over 1000 Businesses Growing With Desky",
-      "LatestSection" : {
-        "title" : "The Latest Private Calls Published",
-        "CallToAction" : "See more"
-      },
-      "Credibility" : {
-        "title" : "Desky Credibility System",
-        "description" : "We offer a variety of interesting features that you can help increase yor productivity at work and manage your projrct esaly",
-        "LegalStatus" : "Legal Status",
-        "LegalStatusDesc" : " Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects.",
-        "RatingSystem" : "Rating System",
-        "RatingSystemDesc" : "Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects. ensuring you have access to the best options for your projects. ensuring you have access to the best options for your projects.",
-        "Statistic" : "Statistic",
-        "StatisticDesc" : "Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects."
-      }
+  "Home": {
+    "Hero": {
+      "headlineAbove": "Growth Solution in a Single Platform.",
+      "mainHeadline1": "Desky, The First Platform",
+      "mainHeadline2": "For Private",
+      "mainHeadline3": "Calls For Bids",
+      "heroDescription": "Never at water me might. On formed merits hunted unable merely by mr whence or. Possession the unpleasing simplicity her uncommonly.",
+      "SubmitCallToAction": "Submit an offer",
+      "SeeCallsCallToAction": "See Calls",
+      "trust1": "Get started free",
+      "trust2": "Submit an offer and get Connects credit"
     },
-    "NavBar" : {
-      "NavLinks" : {
-        "Home" : "Home",
-        "Offers" : "Offers",
-        "FAQ": "FAQ",
-        "AboutUs": "About Us"
-      },
-      "Auth":{
-        "Login" : "Login",
-        "SignUp" : "Sign Up"
-      },
-      "Languages": {
-        "English" : "English",
-        "French" : "French"
-      },
-      "User":{
-        "title" : "My Account",
-        "Profile" : "Profile",
-        "Home" : "Home",
-        "Marketplace" : "Marketplace",
-        "Settings" : "Settings",
-        "Support" : "Support",
-        "LogOut" : "Log Out",
-        "Account" : "Account",
-        "Dashboard" : "Dashboard"
-      }
+    "CompaniesSection": "Over 1000 Businesses Growing With Desky",
+    "LatestSection": {
+      "title": "The Latest Private Calls Published",
+      "CallToAction": "See more"
     },
-    "Offers": {
-      "Title" : "Find The Best Deal For Your Business",
-      "CallToAction" : "Post an Offer",
-      "CallToActionPopMsg1"  : "Login or Register to Depositor ",
-      "CallToActionPopMsg2" : "Account to Post an Offer",
-      "Results" : "Results",
-      "Result" : "Result",
-      "SortBy" : "Sort by",
-      "SearchPlaceholder": "Search",
-      "Newest" : "Newest",
-      "Oldest" : "Oldest",
-      "ClearFilters" : "Clear Filters",
-      "NotFoundMsg" : "No Results Found",
-      "NotFoundMsgDesc" : "We couldn't find any matches for your search criteria. Please try again with different keywords or filters."
-    },
-    "Auth" : {
-      "Login" : {
-        "title" : "Login",
-        "Description" : "Enter your information to login",
-        "Email" : "Email",
-        "Password" : "Password",
-        "Forgot": "Forgot your password?",
-        "CallToAction": "Login",
-        "OR" : "OR",
-        "LGGoogle": "Login with Google",
-        "Dont": "Don't have an account?",
-        "SignUP": "Sign Up",
-        "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved"
-      },
-      "SignUp": {
-        "title" : "Sign Up",
-        "Description" : "Enter your information to create an account",
-        "FullName" : "Full name",
-        "Email" : "Email",
-        "Password" : "Password",
-        "CallToAction": "Register",
-        "OR" : "OR",
-        "RGoogle": "Register with Google",
-        "Already": "already have an account?",
-        "Login": "Login",
-        "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved"
-      },
-        "EmailVerification" : {
-          "title" : "Verify your Email",
-          "Desc" : "We have sent a verification email to",
-          "resendMsg" : "Didn’t receive the email? Check spam or ",
-          "ResendEmail" : "Resend Email",
-          "BackToLogin" : "Back to Login",
-          "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved",
-          "verified" : {
-            "title" : "Email Verified Successfully",
-            "CallToAction" : "Complete Registration",
-            "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved"
-          }
-        },
-      "ChooseType" : {
-        "title" : "Join Us!",
-        "Desc" : "To begin this journey, tell us what type of account you'd be opening.",
-        "Depositor" : "Depositor",
-        "DespositorActionDesc" : "Depose Offers and Manage Received Bids.",
-        "Bidder" : "Bidder",
-        "BidderActionDesc" : "Own or belong to a company, this is for you.",
-        "CopyWriteMSG" : "© 2024 Desky.ma. All Rights Reserved"
-      },
-      "BidderType" : {
-        "Title" : "Chose your Legal Status",
-        "Description" : "Complete The Registration Process",
-        "AutoEntrepreneur" : "Auto entrepreneur",
-        "AutoDescription" : "Depose Offers and Manage Received Bids.",
-        "Company": "Company",
-        "CompanyDescription" : "Own or belong to a company, this is for you.",
-        "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved",
-        "Step" : "STEP 01/03",
-        "LegalInfo" : "Legal Info"
-      },
-      "AutoEntrepreneurInfo" : {
-        "title" : "Legal Information",
-        "Description" : "Enter your information to activate your account",
-        "Back" : "Back",
-        "Location" : "Location (City)",
-        "SelectLocation" : "Select your City",
-        "NotFound" : "No City found.",
-        "Search" : "Search",
-        "Address" : "Address",
-        "Card" : "Auto Entrepreneur Card (PDF, PNG)",
-        "PhoneNumber" : "Phone Number",
-        "Activities" : "Add Activities",
-        "Activity" : "Activity...",
-        "ADD" : "ADD", 
-        "Submit" : "Submit",
-        "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved",
-        "Step" : "STEP 02/02",
-        "LegalInfo" : "Legal Info"
-      },
-      "CompanyInformation" : {
-        "title" : "Company Information",
-        "Desc" : "Enter your information to activate your account",
-        "type": "Company Type",
-        "CompanyName": "Company Name",
-        "City" : "Location (City)",
-        "SelectLocation" : "Select your Company City",
-        "NotFound" : "No City found.",
-        "Search" : "Search...",
-        "Address" : "Company Address",
-        "AddressPlaceHolder" : "BU.23 AV Y.BEN TACHFINE, Tangier 90000",
-        "CompanyRC" : "Company RC Number",
-        "RC" : "RC Number",
-        "PN" : "Phone Number",
-        "CompanyActivites" : "Company Activities",
-        "Activity" : "Activity...",
-        "RequiredAct" : "At least one activity is required.",
-        "ADD" : "ADD",
-        "Submit" : "Submit",
-        "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved",
-        "Step" : "STEP 02/02",
-        "LegalInfo" : "Legal Info",
-        "Back" : "Back",
-        "CompanySize" : "Company Size",
-        "SelectCompanySize" : "Select your Company Size",
-        "Sizes" : {
-          "Small" : "Small (2 to 10 employees)",
-          "Medium" : "Medium (11 to 100 employees)",
-          "Large" : "Large (more than 100 employees)"
-        }
-        
-      },
-      "ForgotPassword" : {
-        "Title" : "Forgot Password",
-        "Description" : "Enter the email you used to create your account so we can send you instructions on how to reset your password.",
-        "Email" : "Email",
-        "CallToAction" : "Send",
-        "BackToLogin" : "Back to Login",
-        "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved",
-        "EmailVerification" : {
-          "title" : "Check your Email",
-          "Desc" : "We have sent an email with password reset information to",
-          "resendMsg" : "Didn’t receive the email? Check spam or ",
-          "ResendEmail" : "Resend Email",
-          "BackToLogin" : "Back to Login",
-          "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved"
-        },
-        "ResetPassword" : {
-          "title" : "Reset Password",
-          "Description" : "Reset password by Creating a new password.",
-          "NewPassword" : "New Password",
-          "ConfirmPassword" : "Confirm Password",
-          "ResetPassword" : "Reset Password",
-          "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved"
-        },
-          "RessetSuccessful" : {
-            "title" : "Password Reset Successfully",
-            "CallToAction" : "Login",
-            "CopyWrite" : "© 2024 Desky.ma. All Rights Reserved"
-        }
-      }
-    },
-    "OffersDetail":{
-      "Location" : "Targeted Location :",
-      "Posted" : "Posted ",
-      "Category" : "Category :",
-      "Estbudget" : "Est.budget:",
-      "Deadline" : "Deadline:",
-      "Attachements" : "Attachments",
-      "reviews" : "reviews",
-      "of" : "of",
-      "OfferActivity" : "Activity in This Offer:",
-      "Proposals" : "Proposals :",
-      "CallToAction" : "Apply Now",
-      "loggedToApply" : "You must be logged in to apply for this offer,",
-      "login" : "Login",
-      "ReviewsHistory" : "Reviews History"
-    },
-    "offer": {
-      "Posted" : "Posted",
-      "EstBudget": "Est.Budget",
-      "Cat" : "Category",
-      "Proposals" : "Proposals"
-    },
-    "DepositorDashboard": {
-      "bidsList" : {
-        "title" : "Bids",
-        "Desc" : "Recent Bids from your Offers.",
-        "OfferName" : "Offer Name",
-        "BidderName" : "Bidder Name",
-        "BidderNameDesc1" : "The Company or the Auto Entrepreneur",
-        "BidderNameDesc2" : "That Bid on Your Offer",
-        "Rate" : "Rate",
-        "RateDesc1" : "Bidder Reviews",
-        "RateDesc2" : "and Rating",
-        "Date" : "Date",
-        "DateDesc1" : "The Date They Bid",
-        "DateDesc2" : "on Your Offer",
-        "AcceptBid" : "Accept Bid",
-        "AcceptBidDesc1" : "Accept The Right Bidder",
-        "AcceptBidDesc2" : "for Your Offer",
-        "Devi" : "Estimates",
-        "DeviDesc1" : "Download Estimates",
-        "Accept" : "Accept",
-        "AcceptDesc1" : "When you accept a bidder",
-        "AcceptDesc2" : "all other bids will be rejected.",
-        "AllInfo" : "All Information",
-        "AllInfoDesc1" : "View all information",
-        "AllInfoDesc2" : "about the Bidder",
-        "SeeMore" : "See more...",
-        "NoReviews" : "No Available Reviews",
-        "ReviewsHistory" : "Reviews History",
-        "AddOffer" : "Add New Offer"
-      },
-      "bidsListAll" : {
-        "title" : "Bids",
-        "Desc" : "All Bids from your Offers.",
-        "OfferName" : "Offer Name",
-        "BidderName" : "Bidder Name",
-        "BidderNameDesc1" : "The Company or the Auto Entrepreneur",
-        "BidderNameDesc2" : "That Bid on Your Offer",
-        "Rate" : "Rate",
-        "RateDesc1" : "Bidder Reviews",
-        "RateDesc2" : "and Rating",
-        "Date" : "Date",
-        "DateDesc1" : "The Date They Bid",
-        "DateDesc2" : "on Your Offer",
-        "AcceptBid" : "Accept Bid",
-        "AcceptBidDesc1" : "Accept The Right Bidder",
-        "AcceptBidDesc2" : "for Your Offer",
-        "Devi" : "Estimates",
-        "DeviDesc1" : "Download Estimates",
-        "Accept" : "Accept",
-        "AcceptDesc1" : "When you accept a bidder",
-        "AcceptDesc2" : "all other bids will be rejected.",
-        "AllInfo" : "All Information",
-        "AllInfoDesc1" : "View all information",
-        "AllInfoDesc2" : "about the Bidder",
-        "SeeMore" : "See more...",
-        "NoReviews" : "No Available Reviews",
-        "ReviewsHistory" : "Reviews History",
-        "AddOffer" : "Add New Offer"
-      },
-       "NoAvailableDate" : {
-        "title" : "Currently No Data Available",
-        "Desc" : "Create Offers to Receive Bids From The Best Companies in The Region",
-        "CreateOfferCallToAction" : "Create New Offer",
-        "GoToMarketplaceCallToAction" : "Go to Offers Marketplace"
-       }, 
-        "DropDownMenu" : {
-          "title" : "My Account",
-          "Profile" : "Profile",
-          "Home" : "Home",
-          "Marketplace" : "Marketplace",
-          "Settings" : "Settings",
-          "Support" : "Support",
-          "LogOut" : "Log Out",
-          "Account" : "Account",
-          "Reviews" : "Reviews"
-       },
-       "Statistic" : {
-        "OffersPosted" : "Total of Offers Posted",
-        "BidsReceived" : "Total of Bids Received",
-        "OffersClosed" : "Total of Offers Closed",
-        "AccountRating" : "Your Account Rating"
-       },
-       "BreadcrumbList" : {
-          "Dashboard" : "Dashboard",
-          "ManageBids" : "Manage Bids",
-          "MyOffers" : "My Offers",
-          "CreateOffer" : "Create Offer",
-          "Reviews" : "My Reviews"
-       },
-       "SideBar" : {
-          "Dashboard" : "Dashboard",
-          "ManageBids" : "Manage Bids",
-          "MyOffers" : "My Offers",
-          "CreateOffer" : "Create Offer",
-          "Settings" : "Settings"
-       },
-        "MyOffers" : {
-          "title" : "My Offers",
-          "Desc" : "Your All Offers Posted",
-          "offerName" : "Offer Name",
-          "TotalBids" : "Total Bids",
-          "TotalBidsDesc" : "Total Proposals Received in Your Offers",
-          "Status" : "Status",
-          "StatusDesc" : "Offer Current Status",
-          "DeleteTitle" : "Delete Offer",
-          "DeleteHeaderDesc" : "Delete Offer From The Marketplace",
-          "Delete" : "Delete",
-          "DeleteDesc1" : "Warning : The offer will be completely",
-          "DeleteDesc2" : "removed from the marketplace",
-          "CantDeleteDesc" : "Unable to Delete Active Offers",
-          "finished" : "Finished",
-          "Done" : "Completed",
-          "DoneDesc1" : "The Transaction Has Been",
-          "DoneDesc2" : "Successfully Completed.",
-          "freezeCompleted1" : "Completed Button will Not Work",
-          "freezeCompleted2" : "until a bidder is accepted",
-          "OfferStatus" : {
-            "Pending" : "Pending",
-            "PendingDesc" : "Verification In Progress...",
-            "Open" : "Open",
-            "OpenDesc" : "Your Offer Is Active",
-            "inProgress" : "inProgress",
-            "inProgressDesc1" : "The Transaction is Currently",
-            "inProgressDesc2" : "in Progress with the Accepted Bidder.",
-            "Closed" : "Closed",
-            "ClosedDesc1" : "The transaction with the accepted bidder is closed.",
-            "ClosedDesc2" : "the accepted bidder is closed.",
-            "Rejected" : "Rejected",
-            "RejectedDesc" : "Your Offer is Rejected"
-          },
-           "AddOffer" : "Add New Offer"
-        },
-        "CreateOffer" : {
-          "form" : {
-            "Title" : "Title",
-            "titlePlaceHolder" : "Type your title here",
-            "Location" : "Location",
-            "selectLocation" : "Select your Offer Location ...",
-            "NoCityFound" : "No City found.",
-            "Description" : "Description",
-            "DescriptionPlaceholder" : "Type your description here.",
-            "DescPlaceHolder" : "Type your description here...",
-            "Category" : "Category",
-            "SelectCategory" : "Select your Offer Category...",
-            "NoCategoryFound" : "No Category found.",
-            "Budget" : "Budget",
-            "BudgetPlaceholder" : "Type your Budget Here",
-            "Deadline" : "Deadline",
-            "Attachment" : "Attachment",
-            "search" : "Search...",
-            "AddMore" : "Add More",
-            "CallToAction" : "ADD",
-            "Optional" : "optional",
-            "datePlaceholder" : "Pick a date",
-            "errorMsg" : {
-              "title" : "Title is required. Please provide a title.",
-              "Description" : "Description is required. Please provide a description.",
-              "Location" : "Location is required. Please provide a location.",
-              "Deadline" : "Deadline is required. Please provide a deadline.",
-              "Budget" :  "Budget is required. Please provide a budget.",
-              "Category" :  "Category is required. Please provide a category."
-            },"toast" : {
-              "success" : "Offer Are Added Successfully.",
-              "error" : "Error : Connection Failed"
-            }
-          },
-            "CreateNewOffer" : {
-              "title" : "Create New Offer",
-              "desc" : "Create an Offer and Receive Bids from Top Companies in the Region",
-              "CallToAction" : "Create Offer"
-            },
-            "Verification" : {
-              "title" : "Verification in Progress",
-              "desc" : "Your offer will be verified within 24 hours and will be published in the marketplace.",
-              "addMore" : "Add More Offers",
-              "MyOffers" : "My Offers"
-            }
-        },
-        "reviews" : {
-          "NoAvailable" : "No Available Reviews",
-          "NoAvailableDesc" : "No available reviews because there are no completed transactions between you and a bidder.",
-          "CallToAction" : "Add an Offer",
-          "title" : "My Reviews",
-          "date" : {
-            "yearAgo" : "1 year ago",
-            "yearsAgo" : "years ago",
-            "monthAgo" : "1 month ago",
-            "monthsAgo" : "months ago",
-            "dayAgo" : "1 day ago",
-            "daysAgo" : "days ago",
-            "hourAgo" : "1 hour ago",
-            "hoursAgo" : "hours ago",
-            "minuteAgo" : "1 minute ago",
-            "minutesAgo" : "minutes ago",
-            "justNow" : "just now"
-          }
-        }
+    "Credibility": {
+      "title": "Desky Credibility System",
+      "description": "We offer a variety of interesting features that you can help increase yor productivity at work and manage your projrct esaly",
+      "LegalStatus": "Legal Status",
+      "LegalStatusDesc": " Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects.",
+      "RatingSystem": "Rating System",
+      "RatingSystemDesc": "Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects. ensuring you have access to the best options for your projects. ensuring you have access to the best options for your projects.",
+      "Statistic": "Statistic",
+      "StatisticDesc": "Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects."
     }
+  },
+  "NavBar": {
+    "NavLinks": {
+      "Home": "Home",
+      "Offers": "Offers",
+      "FAQ": "FAQ",
+      "AboutUs": "About Us"
+    },
+    "Auth": {
+      "Login": "Login",
+      "SignUp": "Sign Up"
+    },
+    "Languages": {
+      "English": "English",
+      "French": "French"
+    },
+    "User": {
+      "title": "My Account",
+      "Profile": "Profile",
+      "Home": "Home",
+      "Marketplace": "Marketplace",
+      "Settings": "Settings",
+      "Support": "Support",
+      "LogOut": "Log Out",
+      "Account": "Account",
+      "Dashboard": "Dashboard"
+    }
+  },
+  "Offers": {
+    "Title": "Find The Best Deal For Your Business",
+    "CallToAction": "Post an Offer",
+    "CallToActionPopMsg1": "Login or Register to Depositor ",
+    "CallToActionPopMsg2": "Account to Post an Offer",
+    "Results": "Results",
+    "Result": "Result",
+    "SortBy": "Sort by",
+    "SearchPlaceholder": "Search",
+    "Newest": "Newest",
+    "Oldest": "Oldest",
+    "ClearFilters": "Clear Filters",
+    "NotFoundMsg": "No Results Found",
+    "NotFoundMsgDesc": "We couldn't find any matches for your search criteria. Please try again with different keywords or filters."
+  },
+  "Auth": {
+    "Login": {
+      "title": "Login",
+      "Description": "Enter your information to login",
+      "Email": "Email",
+      "Password": "Password",
+      "Forgot": "Forgot your password?",
+      "CallToAction": "Login",
+      "OR": "OR",
+      "LGGoogle": "Login with Google",
+      "Dont": "Don't have an account?",
+      "SignUP": "Sign Up",
+      "CopyWrite": "© 2024 Desky.ma. All Rights Reserved"
+    },
+    "SignUp": {
+      "title": "Sign Up",
+      "Description": "Enter your information to create an account",
+      "FullName": "Full name",
+      "Email": "Email",
+      "Password": "Password",
+      "CallToAction": "Register",
+      "OR": "OR",
+      "RGoogle": "Register with Google",
+      "Already": "already have an account?",
+      "Login": "Login",
+      "CopyWrite": "© 2024 Desky.ma. All Rights Reserved"
+    },
+    "EmailVerification": {
+      "title": "Verify your Email",
+      "Desc": "We have sent a verification email to",
+      "resendMsg": "Didn’t receive the email? Check spam or ",
+      "ResendEmail": "Resend Email",
+      "BackToLogin": "Back to Login",
+      "CopyWrite": "© 2024 Desky.ma. All Rights Reserved",
+      "verified": {
+        "title": "Email Verified Successfully",
+        "CallToAction": "Complete Registration",
+        "CopyWrite": "© 2024 Desky.ma. All Rights Reserved"
+      }
+    },
+    "ChooseType": {
+      "title": "Join Us!",
+      "Desc": "To begin this journey, tell us what type of account you'd be opening.",
+      "Depositor": "Depositor",
+      "DespositorActionDesc": "Depose Offers and Manage Received Bids.",
+      "Bidder": "Bidder",
+      "BidderActionDesc": "Own or belong to a company, this is for you.",
+      "CopyWriteMSG": "© 2024 Desky.ma. All Rights Reserved"
+    },
+    "BidderType": {
+      "Title": "Chose your Legal Status",
+      "Description": "Complete The Registration Process",
+      "AutoEntrepreneur": "Auto entrepreneur",
+      "AutoDescription": "Depose Offers and Manage Received Bids.",
+      "Company": "Company",
+      "CompanyDescription": "Own or belong to a company, this is for you.",
+      "CopyWrite": "© 2024 Desky.ma. All Rights Reserved",
+      "Step": "STEP 01/03",
+      "LegalInfo": "Legal Info"
+    },
+    "AutoEntrepreneurInfo": {
+      "title": "Legal Information",
+      "Description": "Enter your information to activate your account",
+      "Back": "Back",
+      "Location": "Location (City)",
+      "SelectLocation": "Select your City",
+      "NotFound": "No City found.",
+      "Search": "Search",
+      "Address": "Address",
+      "Card": "Auto Entrepreneur Card (PDF, PNG)",
+      "PhoneNumber": "Phone Number",
+      "Activities": "Add Activities",
+      "Activity": "Activity...",
+      "ADD": "ADD",
+      "Submit": "Submit",
+      "CopyWrite": "© 2024 Desky.ma. All Rights Reserved",
+      "Step": "STEP 02/02",
+      "LegalInfo": "Legal Info"
+    },
+    "CompanyInformation": {
+      "title": "Company Information",
+      "Desc": "Enter your information to activate your account",
+      "type": "Company Type",
+      "CompanyName": "Company Name",
+      "City": "Location (City)",
+      "SelectLocation": "Select your Company City",
+      "NotFound": "No City found.",
+      "Search": "Search...",
+      "Address": "Company Address",
+      "AddressPlaceHolder": "BU.23 AV Y.BEN TACHFINE, Tangier 90000",
+      "CompanyRC": "Company RC Number",
+      "RC": "RC Number",
+      "PN": "Phone Number",
+      "CompanyActivites": "Company Activities",
+      "Activity": "Activity...",
+      "RequiredAct": "At least one activity is required.",
+      "ADD": "ADD",
+      "Submit": "Submit",
+      "CopyWrite": "© 2024 Desky.ma. All Rights Reserved",
+      "Step": "STEP 02/02",
+      "LegalInfo": "Legal Info",
+      "Back": "Back",
+      "CompanySize": "Company Size",
+      "SelectCompanySize": "Select your Company Size",
+      "Sizes": {
+        "Small": "Small (2 to 10 employees)",
+        "Medium": "Medium (11 to 100 employees)",
+        "Large": "Large (more than 100 employees)"
+      }
+    },
+    "ForgotPassword": {
+      "Title": "Forgot Password",
+      "Description": "Enter the email you used to create your account so we can send you instructions on how to reset your password.",
+      "Email": "Email",
+      "CallToAction": "Send",
+      "BackToLogin": "Back to Login",
+      "CopyWrite": "© 2024 Desky.ma. All Rights Reserved",
+      "EmailVerification": {
+        "title": "Check your Email",
+        "Desc": "We have sent an email with password reset information to",
+        "resendMsg": "Didn’t receive the email? Check spam or ",
+        "ResendEmail": "Resend Email",
+        "BackToLogin": "Back to Login",
+        "CopyWrite": "© 2024 Desky.ma. All Rights Reserved"
+      },
+      "ResetPassword": {
+        "title": "Reset Password",
+        "Description": "Reset password by Creating a new password.",
+        "NewPassword": "New Password",
+        "ConfirmPassword": "Confirm Password",
+        "ResetPassword": "Reset Password",
+        "CopyWrite": "© 2024 Desky.ma. All Rights Reserved"
+      },
+      "RessetSuccessful": {
+        "title": "Password Reset Successfully",
+        "CallToAction": "Login",
+        "CopyWrite": "© 2024 Desky.ma. All Rights Reserved"
+      }
+    }
+  },
+  "OffersDetail": {
+    "Location": "Targeted Location :",
+    "Posted": "Posted ",
+    "Category": "Category :",
+    "Estbudget": "Est.budget:",
+    "Deadline": "Deadline:",
+    "Attachements": "Attachments",
+    "reviews": "reviews",
+    "of": "of",
+    "OfferActivity": "Activity in This Offer:",
+    "Proposals": "Proposals :",
+    "CallToAction": "Apply Now",
+    "loggedToApply": "You must be logged in to apply for this offer,",
+    "login": "Login",
+    "ReviewsHistory": "Reviews History"
+  },
+  "offer": {
+    "Posted": "Posted",
+    "EstBudget": "Est.Budget",
+    "Cat": "Category",
+    "Proposals": "Proposals"
+  },
+  "DepositorDashboard": {
+    "bidsList": {
+      "title": "Bids",
+      "Desc": "Recent Bids from your Offers.",
+      "OfferName": "Offer Name",
+      "BidderName": "Bidder Name",
+      "BidderNameDesc1": "The Company or the Auto Entrepreneur",
+      "BidderNameDesc2": "That Bid on Your Offer",
+      "Rate": "Rate",
+      "RateDesc1": "Bidder Reviews",
+      "RateDesc2": "and Rating",
+      "Date": "Date",
+      "DateDesc1": "The Date They Bid",
+      "DateDesc2": "on Your Offer",
+      "AcceptBid": "Accept Bid",
+      "AcceptBidDesc1": "Accept The Right Bidder",
+      "AcceptBidDesc2": "for Your Offer",
+      "Devi": "Estimates",
+      "DeviDesc1": "Download Estimates",
+      "Accept": "Accept",
+      "AcceptDesc1": "When you accept a bidder",
+      "AcceptDesc2": "all other bids will be rejected.",
+      "AllInfo": "All Information",
+      "AllInfoDesc1": "View all information",
+      "AllInfoDesc2": "about the Bidder",
+      "SeeMore": "See more...",
+      "NoReviews": "No Available Reviews",
+      "ReviewsHistory": "Reviews History",
+      "AddOffer": "Add New Offer"
+    },
+    "bidsListAll": {
+      "title": "Bids",
+      "Desc": "All Bids from your Offers.",
+      "OfferName": "Offer Name",
+      "BidderName": "Bidder Name",
+      "BidderNameDesc1": "The Company or the Auto Entrepreneur",
+      "BidderNameDesc2": "That Bid on Your Offer",
+      "Rate": "Rate",
+      "RateDesc1": "Bidder Reviews",
+      "RateDesc2": "and Rating",
+      "Date": "Date",
+      "DateDesc1": "The Date They Bid",
+      "DateDesc2": "on Your Offer",
+      "AcceptBid": "Accept Bid",
+      "AcceptBidDesc1": "Accept The Right Bidder",
+      "AcceptBidDesc2": "for Your Offer",
+      "Devi": "Estimates",
+      "DeviDesc1": "Download Estimates",
+      "Accept": "Accept",
+      "AcceptDesc1": "When you accept a bidder",
+      "AcceptDesc2": "all other bids will be rejected.",
+      "AllInfo": "All Information",
+      "AllInfoDesc1": "View all information",
+      "AllInfoDesc2": "about the Bidder",
+      "SeeMore": "See more...",
+      "NoReviews": "No Available Reviews",
+      "ReviewsHistory": "Reviews History",
+      "AddOffer": "Add New Offer"
+    },
+    "NoAvailableDate": {
+      "title": "Currently No Data Available",
+      "Desc": "Create Offers to Receive Bids From The Best Companies in The Region",
+      "CreateOfferCallToAction": "Create New Offer",
+      "GoToMarketplaceCallToAction": "Go to Offers Marketplace"
+    },
+    "DropDownMenu": {
+      "title": "My Account",
+      "Profile": "Profile",
+      "Home": "Home",
+      "Marketplace": "Marketplace",
+      "Settings": "Settings",
+      "Support": "Support",
+      "LogOut": "Log Out",
+      "Account": "Account",
+      "Reviews": "Reviews"
+    },
+    "Statistic": {
+      "OffersPosted": "Total of Offers Posted",
+      "BidsReceived": "Total of Bids Received",
+      "OffersClosed": "Total of Offers Closed",
+      "AccountRating": "Your Account Rating"
+    },
+    "BreadcrumbList": {
+      "Dashboard": "Dashboard",
+      "ManageBids": "Manage Bids",
+      "MyOffers": "My Offers",
+      "CreateOffer": "Create Offer",
+      "Reviews": "My Reviews"
+    },
+    "SideBar": {
+      "Dashboard": "Dashboard",
+      "ManageBids": "Manage Bids",
+      "MyOffers": "My Offers",
+      "CreateOffer": "Create Offer",
+      "Settings": "Settings"
+    },
+    "MyOffers": {
+      "title": "My Offers",
+      "Desc": "Your All Offers Posted",
+      "offerName": "Offer Name",
+      "TotalBids": "Total Bids",
+      "TotalBidsDesc": "Total Proposals Received in Your Offers",
+      "Status": "Status",
+      "StatusDesc": "Offer Current Status",
+      "DeleteTitle": "Delete Offer",
+      "DeleteHeaderDesc": "Delete Offer From The Marketplace",
+      "Delete": "Delete",
+      "DeleteDesc1": "Warning : The offer will be completely",
+      "DeleteDesc2": "removed from the marketplace",
+      "CantDeleteDesc": "Unable to Delete Active Offers",
+      "finished": "Finished",
+      "Done": "Completed",
+      "DoneDesc1": "The Transaction Has Been",
+      "DoneDesc2": "Successfully Completed.",
+      "freezeCompleted1": "Completed Button will Not Work",
+      "freezeCompleted2": "until a bidder is accepted",
+      "OfferStatus": {
+        "Pending": "Pending",
+        "PendingDesc": "Verification In Progress...",
+        "Open": "Open",
+        "OpenDesc": "Your Offer Is Active",
+        "inProgress": "inProgress",
+        "inProgressDesc1": "The Transaction is Currently",
+        "inProgressDesc2": "in Progress with the Accepted Bidder.",
+        "Closed": "Closed",
+        "ClosedDesc1": "The transaction with the accepted bidder is closed.",
+        "ClosedDesc2": "the accepted bidder is closed.",
+        "Rejected": "Rejected",
+        "RejectedDesc": "Your Offer is Rejected"
+      },
+      "AddOffer": "Add New Offer"
+    },
+    "CreateOffer": {
+      "form": {
+        "Title": "Title",
+        "titlePlaceHolder": "Type your title here",
+        "Location": "Location",
+        "selectLocation": "Select your Offer Location ...",
+        "NoCityFound": "No City found.",
+        "Description": "Description",
+        "DescriptionPlaceholder": "Type your description here.",
+        "DescPlaceHolder": "Type your description here...",
+        "Category": "Category",
+        "SelectCategory": "Select your Offer Category...",
+        "NoCategoryFound": "No Category found.",
+        "Budget": "Budget",
+        "BudgetPlaceholder": "Type your Budget Here",
+        "Deadline": "Deadline",
+        "Attachment": "Attachment",
+        "search": "Search...",
+        "AddMore": "Add More",
+        "CallToAction": "ADD",
+        "Optional": "optional",
+        "datePlaceholder": "Pick a date",
+        "errorMsg": {
+          "title": "Title is required. Please provide a title.",
+          "Description": "Description is required. Please provide a description.",
+          "Location": "Location is required. Please provide a location.",
+          "Deadline": "Deadline is required. Please provide a deadline.",
+          "Budget": "Budget is required. Please provide a budget.",
+          "Category": "Category is required. Please provide a category."
+        },
+        "toast": {
+          "success": "Offer Are Added Successfully.",
+          "error": "Error : Connection Failed"
+        }
+      },
+      "CreateNewOffer": {
+        "title": "Create New Offer",
+        "desc": "Create an Offer and Receive Bids from Top Companies in the Region",
+        "CallToAction": "Create Offer"
+      },
+      "Verification": {
+        "title": "Verification in Progress",
+        "desc": "Your offer will be verified within 24 hours and will be published in the marketplace.",
+        "addMore": "Add More Offers",
+        "MyOffers": "My Offers"
+      }
+    },
+    "reviews": {
+      "NoAvailable": "No Available Reviews",
+      "NoAvailableDesc": "No available reviews because there are no completed transactions between you and a bidder.",
+      "CallToAction": "Add an Offer",
+      "title": "My Reviews",
+      "date": {
+        "yearAgo": "1 year ago",
+        "yearsAgo": "years ago",
+        "monthAgo": "1 month ago",
+        "monthsAgo": "months ago",
+        "dayAgo": "1 day ago",
+        "daysAgo": "days ago",
+        "hourAgo": "1 hour ago",
+        "hoursAgo": "hours ago",
+        "minuteAgo": "1 minute ago",
+        "minutesAgo": "minutes ago",
+        "justNow": "just now"
+      }
+    },
+    "ResponsiveMenuBar" : {
+      "Dashboard" : "Dashboard",
+      "Profile" : "Profile",
+      "ManageBids" : "Manage Bids",
+      "MyOffers" : "My Offers",
+      "Reviews" : "Reviews",
+      "Offers" : "Offers",
+      "Support" : "Support",
+      "LogOut" : "Log Out"
+    } 
+  }
 }
-

@@ -428,6 +428,16 @@
         "minutesAgo": "minutes",
         "justNow": "À l'instant"
       }
+    },
+    "ResponsiveMenuBar": {
+      "Dashboard": "Tableau de bord",
+      "Profile": "Profil",
+      "ManageBids": "Gérer les Devis",
+      "MyOffers": "Mes offres",
+      "Reviews": "Avis",
+      "Offers": "Offres",
+      "Support": "Support",
+      "LogOut": "Déconnexion"
     }
   }
 }
