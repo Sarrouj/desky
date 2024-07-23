@@ -78,7 +78,7 @@ const DepositorDashboard = () => {
           setDInfo(info.data.success);
           setDOffers(offers.data.success);
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       }
     };

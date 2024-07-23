@@ -126,8 +126,9 @@
       "Company": "Company",
       "CompanyDescription": "Own or belong to a company, this is for you.",
       "CopyWrite": "© 2024 Desky.ma. All Rights Reserved",
-      "Step": "STEP 01/03",
-      "LegalInfo": "Legal Info"
+      "Step": "ÉTAPE 01/02",
+      "LegalInfo": "Informations légales",
+      "Back": "Back"
     },
     "AutoEntrepreneurInfo": {
       "title": "Legal Information",
@@ -409,6 +410,55 @@
         "addMore": "Add More Offers",
         "MyOffers": "My Offers"
       }
+    }
+  },
+  "OffersDetail": {
+    "Location": "Targeted Location :",
+    "Posted": "Posted ",
+    "Category": "Category :",
+    "Estbudget": "Est.budget:",
+    "Deadline": "Deadline:",
+    "Attachements": "Attachments",
+    "reviews": "reviews",
+    "of": "of",
+    "OfferActivity": "Activity in This Offer:",
+    "Proposals": "Proposals :",
+    "CallToAction": "Apply Now",
+    "loggedToApply": "You must be logged in to apply for this offer,",
+    "login": "Login",
+    "ReviewsHistory": "Reviews History"
+  },
+  "offer": {
+    "Posted": "Posted",
+    "EstBudget": "Est.Budget",
+    "Cat": "Category",
+    "Proposals": "Proposals"
+  },
+  "DepositorDashboard": {
+    "bidsList": {
+      "title": "Bids",
+      "Desc": "Recent Bids from your Offers.",
+      "OfferName": "Offer Name",
+      "BidderName": "Bidder Name",
+      "BidderNameDesc1": "The Company or the Auto Entrepreneur",
+      "BidderNameDesc2": "That Bid on Your Offer",
+      "Rate": "Rate",
+      "RateDesc1": "Bidder Reviews",
+      "RateDesc2": "and Rating",
+      "Date": "Date",
+      "DateDesc1": "The Date They Bid",
+      "DateDesc2": "on Your Offer",
+      "AcceptBid": "Accept Bid",
+      "AcceptBidDesc1": "Accept The Right Bidder",
+      "AcceptBidDesc2": "for Your Offer",
+      "Devi": "Estimates",
+      "DeviDesc1": "Download Estimates",
+      "Accept": "Accept",
+      "AcceptDesc1": "When you accept a bidder",
+      "AcceptDesc2": "all other bids will be rejected.",
+      "AllInfo": "All Information",
+      "AllInfoDesc1": "View all information",
+      "AllInfoDesc2": "about the Bidder"
     },
     "reviews": {
       "NoAvailable": "No Available Reviews",

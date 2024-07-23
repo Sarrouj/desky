@@ -32,17 +32,19 @@ import { useBoundStore } from "@/lib/store";
 import { useTranslations } from "next-intl";
 import { City } from "@/lib/Features/CitiesData";
 
+import { useSession } from "next-auth/react";
+
 const AutoEntrepreneurInfo = () => {
+  const { data: session } = useSession();
+  const email = session ? session.user?.email : null;
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("");
   const [cin, setCin] = useState<File | null>(null);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [email, setEmail] = useState("");
   const [activity, setActivity] = useState("");
   const [activities, setActivities] = useState<(string | number)[]>([]);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const { data: session, status } = useSession();
   const [Language, setLanguage] = useState();
   const [Cities, setCity] = useState<City[]>([]);
 
@@ -79,20 +81,6 @@ const AutoEntrepreneurInfo = () => {
     setActivities(filteredActivities);
   }
 
-  // get Auth Email
-  useEffect(() => {
-    let getEmail = localStorage.getItem("email");
-    if (getEmail) {
-      setEmail(getEmail);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (status === "authenticated") {
-      window.location.href = `/${Language}/Dashboard-B`;
-    }
-  }, [status, Language]);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -128,7 +116,7 @@ const AutoEntrepreneurInfo = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/add/bidder/AE",
+        "http://localhost:3001/add/depositor/AE",
         formData,
         {
           headers: {
@@ -139,9 +127,7 @@ const AutoEntrepreneurInfo = () => {
 
       if (response && response.data && response.data.success) {
         setSuccess(response.data.success);
-        setTimeout(() => {
-          window.location.href = `/${Language}/dashboard-b`;
-        }, 2000);
+        window.location.href = `/${Language}/Profile-D`;
       } else {
         setError(response.data.error);
       }
@@ -168,7 +154,7 @@ const AutoEntrepreneurInfo = () => {
       <div className="w-full text-xs text-end flex justify-between px-5">
         <Link
           className="flex items-center gap-2"
-          href={`/${Language}/Sign-Up/choose-type/bidder-Type`}
+          href={`/${Language}/Profile-D/Add-Info`}
         >
           <Image
             src={"/icons/arrowBack.svg"}
