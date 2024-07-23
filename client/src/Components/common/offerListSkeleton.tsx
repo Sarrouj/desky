@@ -47,25 +47,27 @@ const OffersListSkeleton = ({
   }, [Language]);
 
   let arr = [];
-  
-  for(let i = 0; i < 9; i++){
-    arr.push(<TableRow >
+
+  for (let i = 0; i < 9; i++) {
+    arr.push(
+      <TableRow>
         <TableCell className="text-center">
-            <Skeleton className="h-4 w-72" />
+          <Skeleton className="h-4 w-72" />
         </TableCell>
         <TableCell className="text-center">
-            <Skeleton className="h-4 w-32 inline-block" />
+          <Skeleton className="h-4 w-32 inline-block" />
         </TableCell>
         <TableCell className="text-center">
-            <Skeleton className="h-4 w-14 inline-block" />
+          <Skeleton className="h-4 w-14 inline-block" />
         </TableCell>
         <TableCell className="text-center  ">
-            <Skeleton className="h-4 w-14 inline-block" />
+          <Skeleton className="h-4 w-14 inline-block" />
         </TableCell>
         <TableCell className="text-center ">
-            <Skeleton className="h-4 w-14 inline-block" />
+          <Skeleton className="h-4 w-14 inline-block" />
         </TableCell>
-    </TableRow>)
+      </TableRow>
+    );
   }
 
   return (
@@ -74,16 +76,18 @@ const OffersListSkeleton = ({
         <Card x-chunk="dashboard-05-chunk-3">
           <CardHeader className="px-7 flex flex-row justify-between">
             <div className="flex flex-col gap-2">
-              <CardTitle>{Content("title")}</CardTitle>
-              <CardDescription>{Content("Desc")}</CardDescription>
+              <CardTitle className="text-secondaryDarkBlue text-xl">
+                {Content("title")}
+              </CardTitle>
+              <CardDescription className="text-xs sm:text-sm">
+                {Content("Desc")}
+              </CardDescription>
             </div>
-            {seeMore ? (
-              <Link href={`/${Language}/dashboard-d/manage-bids`}>
-                <Button size={"sm"} className="h-7 gap-1 text-xs text-white">
-                  See more...
-                </Button>
-              </Link>
-            ) : null}
+            <Link href={`/${Language}/Create-Offer`}>
+              <Button size={"sm"} className="text-xs text-white">
+                {Content("AddOffer")}
+              </Button>
+            </Link>
           </CardHeader>
           <CardContent>
             <Table>
@@ -127,9 +131,7 @@ const OffersListSkeleton = ({
                   </TableHead>
                 </TableRow>
               </TableHeader>
-              <TableBody>
-                {arr}
-              </TableBody>
+              <TableBody>{arr}</TableBody>
             </Table>
           </CardContent>
         </Card>

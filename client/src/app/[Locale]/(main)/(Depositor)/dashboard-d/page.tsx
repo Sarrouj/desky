@@ -1,19 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Home,
-  LineChart,
-  Package,
-  Package2,
-  PanelLeft,
-  ShoppingCart,
-  Users2,
-  Blocks,
-  CopyPlus,
-  CircleCheckBig,
-  Star,
-} from "lucide-react";
+import { Blocks, CopyPlus, CircleCheckBig, Star } from "lucide-react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -22,7 +10,6 @@ import {
   BreadcrumbSeparator,
 } from "@/Components/ui/breadcrumb";
 import { Button } from "@/Components/ui/Button";
-import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
 import React, { useEffect, useState } from "react";
 
 // Components
@@ -32,11 +19,14 @@ import DropDownDepositor from "@/Components/common/DropDownDepositor";
 import DashboardCard from "@/Components/common/DashboardCard";
 import Aside from "@/Components/common/Aside";
 import BidsListSkeleton from "@/Components/common/BidsListSkeleton";
+import DepositorSheet from "@/Components/common/DepositorSheet";
 
 // Content
 import { useTranslations } from "next-intl";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+
+import { useBoundStore } from "@/lib/store";
 
 const DepositorDashboard = () => {
   // Content
@@ -52,7 +42,7 @@ const DepositorDashboard = () => {
   // Language
   const [Language, setLanguage] = useState("fr");
   const { data: session } = useSession();
-  const user_id = session ? session.user?.id : null;
+  const user_id: any = session ? session.user?.id : null;
   const user_role = session ? session.user?.role : null;
 
   useEffect(() => {
@@ -85,28 +75,8 @@ const DepositorDashboard = () => {
             }),
           ]);
 
-          const Bidders: any = {};
-          for (const offer of offers.data.success) {
-            if (offer.offer_apply.length > 0 && offer.offer_state === "open") {
-              const bidderPromises = offer.offer_apply.map((apply: any) =>
-                axios.get(`http://localhost:3001/bidder/${apply.bidder_id}`)
-              );
-              const bidderResponses = await Promise.all(bidderPromises);
-              Bidders[offer.offer_title] = bidderResponses.map(
-                (response, index) => ({
-                  bid_id: offer.offer_apply[index]._id,
-                  offerTitle: offer.offer_title,
-                  applyDate: offer.offer_apply[index].date,
-                  estimate: offer.offer_apply[index].estimate,
-                  bidder: response.data.success,
-                })
-              );
-            }
-          }
-
           setDInfo(info.data.success);
           setDOffers(offers.data.success);
-          setDBids(Bidders);
         } catch (error) {
           console.error(error);
         }
@@ -117,14 +87,59 @@ const DepositorDashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_id]);
 
-  const totalBidsReceived = dOffers ? dOffers.reduce((acc, offer) => acc + offer.offer_apply.length, 0) : null;
-  const totalOffersClosed = dOffers ? dOffers.filter((offer) => offer.offer_state === "closed").length: null;
-  const totalOffersPosted = dOffers ? dOffers?.length : null;
-  const averageRating = dInfo?.depositor_review ? (
-      dInfo.depositor_review.reduce((acc, review) => acc + review.rating, 0) /
-      dInfo.depositor_review.length
-    ).toFixed(1)
-  : null;
+  const totalOffersClosed = dBids ? dBids.totalOffersClosed : null;
+  const totalOffersPosted = dBids ? dBids.totalOffersPosted : null;
+  const averageRating = dInfo?.depositor_review
+    ? (
+        dInfo.depositor_review.reduce(
+          (acc: any, review: any) => acc + review.rating,
+          0
+        ) / dInfo.depositor_review.length
+      ).toFixed(1)
+    : null;
+
+  // Data
+  const [openBids, setOpenBids] = useState<any>([]);
+
+  // Global State Manager
+  let getDepositorManageBidsID = useBoundStore(
+    (state) => state.getDepositorManageBidsID
+  );
+  let DepositorManageBidsData = useBoundStore(
+    (state) => state.DepositorManageBidsData
+  );
+  let fetchDepositorManageBidsData = useBoundStore(
+    (state) => state.fetchDepositorManageBidsData
+  );
+  let DepositorManageBidsID = useBoundStore(
+    (state) => state.DepositorManageBidsID
+  );
+  let totalBidsReceived = dBids ? dBids.totalBidsReceived : null;
+
+  useEffect(() => {
+    getDepositorManageBidsID(user_id);
+  }, [user_id]);
+
+  useEffect(() => {
+    if (DepositorManageBidsID) {
+      fetchDepositorManageBidsData();
+    }
+  }, [DepositorManageBidsID]);
+
+  useEffect(() => {
+    if (DepositorManageBidsData) {
+      setDBids(DepositorManageBidsData);
+    }
+  }, [DepositorManageBidsData]);
+
+  useEffect(() => {
+    if (dBids) {
+      const OpenBids = dBids.detailedBids.filter(
+        (B: any) => B.offer_state == "open"
+      );
+      setOpenBids(OpenBids);
+    }
+  }, [dBids]);
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40 text-secondaryDarkBlue">
@@ -137,62 +152,17 @@ const DepositorDashboard = () => {
         Content={SideBarContent}
       />
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
-        <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button size="icon" variant="outline" className="sm:hidden">
-                <PanelLeft className="h-5 w-5" />
-                <span className="sr-only">Toggle Menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="sm:max-w-xs">
-              <nav className="grid gap-6 text-lg font-medium">
-                <Link
-                  href="#"
-                  className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
-                >
-                  <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />
-                  <span className="sr-only">Acme Inc</span>
-                </Link>
-                <Link
-                  href="#"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <Home className="h-5 w-5" />
-                  Dashboard
-                </Link>
-                <Link
-                  href="#"
-                  className="flex items-center gap-4 px-2.5 text-foreground"
-                >
-                  <ShoppingCart className="h-5 w-5" />
-                  Orders
-                </Link>
-                <Link
-                  href="#"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <Package className="h-5 w-5" />
-                  Products
-                </Link>
-                <Link
-                  href="#"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <Users2 className="h-5 w-5" />
-                  Customers
-                </Link>
-                <Link
-                  href="#"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <LineChart className="h-5 w-5" />
-                  Settings
-                </Link>
-              </nav>
-            </SheetContent>
-          </Sheet>
-          <Breadcrumb className="hidden md:flex">
+        <header className="sticky top-0 z-30 flex justify-end sm:justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+          <DepositorSheet
+            Dashboard={"dashboard-d"}
+            Profile={""}
+            ManageBids={"dashboard-d/manage-bids"}
+            MyOffers={"dashboard-d/my-offers"}
+            Reviews={"dashboard-d/my-reviews"}
+            Offers={"offers"}
+            Support={"Contact-Us"}
+          />
+          <Breadcrumb className="hidden sm:flex">
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
@@ -204,45 +174,74 @@ const DepositorDashboard = () => {
               <BreadcrumbSeparator />
             </BreadcrumbList>
           </Breadcrumb>
-          <DropDownDepositor
-            content={DropDownMenuContent}
-            Language={Language}
-          />
+          <div className="hidden sm:block">
+            <DropDownDepositor
+              content={DropDownMenuContent}
+              Language={Language}
+            />
+          </div>
         </header>
-        <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
-          <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
-            <div className="flex items-center gap-5 h-30">
-              <DashboardCard
-                Logo={Blocks}
-                Content={StatContent("OffersPosted")}
-                Value={totalOffersPosted}
-              />
-              <DashboardCard
-                Logo={CopyPlus}
-                Content={StatContent("BidsReceived")}
-                Value={totalBidsReceived}
-              />
-              <DashboardCard
-                Logo={CircleCheckBig}
-                Content={StatContent("OffersClosed")}
-                Value={totalOffersClosed}
-              />
-              <DashboardCard
-                Logo={Star}
-                Content={StatContent("AccountRating")}
-                Value={averageRating !== null ? averageRating : "N/A"}
-              />
+        <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+          <div className="flex flex-col gap-4 md:gap-6 xl:gap-8 lg:col-span-2">
+            <div className="flex flex-col sm:flex-row items-center gap-2 md:gap-5 h-30">
+              <div className="flex flex-col md:flex-row items-center gap-2 md:gap-5 w-full">
+                <DashboardCard
+                  Logo={Blocks}
+                  Content={StatContent("OffersPosted")}
+                  Value={totalOffersPosted}
+                />
+                <DashboardCard
+                  Logo={CopyPlus}
+                  Content={StatContent("BidsReceived")}
+                  Value={totalBidsReceived}
+                />
+              </div>
+              <div className="flex flex-col md:flex-row items-center gap-2 md:gap-5 w-full">
+                <DashboardCard
+                  Logo={CircleCheckBig}
+                  Content={StatContent("OffersClosed")}
+                  Value={totalOffersClosed}
+                />
+                <DashboardCard
+                  Logo={Star}
+                  Content={StatContent("AccountRating")}
+                  Value={averageRating !== null ? averageRating : "N/A"}
+                />
+              </div>
             </div>
-            {totalBidsReceived !== null ? (
-              totalBidsReceived !== 0 ? 
-              <BidsList Content={Content} seeMore={true} limit={true} dBids={dBids} /> :
-              <NotFoundDataDepositor
-                Language={Language}
-                Content={notFoundContent}
-              />
-            ) : (
-              <BidsListSkeleton Content={Content} seeMore={true} amount={6} /> 
-            )}
+            <div className="">
+              {totalBidsReceived !== null ? (
+                openBids.length !== 0 ? (
+                  <>
+                    <div className="flex sm:hidden gap-2 w-full items-end justify-end mt-2">
+                      <Link href={`/${Language}/Create-Offer`}>
+                        <Button size={"sm"} className="text-xs text-white">
+                          {Content("AddOffer")}
+                        </Button>
+                      </Link>
+                      <Link href={`/${Language}/dashboard-d/manage-bids`}>
+                        <Button size={"sm"} className="text-xs text-white">
+                          {Content("SeeMore")}
+                        </Button>
+                      </Link>
+                    </div>
+                    <BidsList
+                      Content={Content}
+                      seeMore={true}
+                      limit={true}
+                      dBids={dBids.detailedBids}
+                    />
+                  </>
+                ) : (
+                  <NotFoundDataDepositor
+                    Language={Language}
+                    Content={notFoundContent}
+                  />
+                )
+              ) : (
+                <BidsListSkeleton Content={Content} seeMore={true} amount={6} />
+              )}
+            </div>
           </div>
         </main>
       </div>

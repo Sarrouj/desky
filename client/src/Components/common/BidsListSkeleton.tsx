@@ -83,16 +83,16 @@ const BidsListSkeleton = ({
         <Card x-chunk="dashboard-05-chunk-3">
           <CardHeader className="px-7 flex flex-row justify-between">
             <div className="flex flex-col gap-2">
-              <CardTitle>{Content("title")}</CardTitle>
-              <CardDescription>{Content("Desc")}</CardDescription>
+              <CardTitle className="text-secondaryDarkBlue text-xl">{Content("title")}</CardTitle>
+              <CardDescription className="text-xs sm:text-sm">{Content("Desc")}</CardDescription>
             </div>
-            {seeMore ? (
-              <Link href={`/${Language}/dashboard-d/manage-bids`}>
-                <Button size={"sm"} className="h-7 gap-1 text-xs text-white">
-                  See more...
+            <div className="hidden sm:flex gap-2">
+              <Link href={`/${Language}/Create-Offer`}>
+                <Button size={"sm"} className="text-xs text-white">
+                {Content("AddOffer")}
                 </Button>
               </Link>
-            ) : null}
+            </div>
           </CardHeader>
           <CardContent>
             <Table>

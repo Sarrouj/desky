@@ -126,8 +126,8 @@
       "Company": "Company",
       "CompanyDescription": "Own or belong to a company, this is for you.",
       "CopyWrite": "© 2024 Desky.ma. All Rights Reserved",
-      "Step": "STEP 01/02",
-      "LegalInfo": "Legal Info",
+      "Step": "ÉTAPE 01/02",
+      "LegalInfo": "Informations légales",
       "Back": "Back"
     },
     "AutoEntrepreneurInfo": {
@@ -256,7 +256,11 @@
       "AcceptDesc2": "all other bids will be rejected.",
       "AllInfo": "All Information",
       "AllInfoDesc1": "View all information",
-      "AllInfoDesc2": "about the Bidder"
+      "AllInfoDesc2": "about the Bidder",
+      "SeeMore": "See more...",
+      "NoReviews": "No Available Reviews",
+      "ReviewsHistory": "Reviews History",
+      "AddOffer": "Add New Offer"
     },
     "bidsListAll": {
       "title": "Bids",
@@ -281,7 +285,11 @@
       "AcceptDesc2": "all other bids will be rejected.",
       "AllInfo": "All Information",
       "AllInfoDesc1": "View all information",
-      "AllInfoDesc2": "about the Bidder"
+      "AllInfoDesc2": "about the Bidder",
+      "SeeMore": "See more...",
+      "NoReviews": "No Available Reviews",
+      "ReviewsHistory": "Reviews History",
+      "AddOffer": "Add New Offer"
     },
     "NoAvailableDate": {
       "title": "Currently No Data Available",
@@ -297,7 +305,8 @@
       "Settings": "Settings",
       "Support": "Support",
       "LogOut": "Log Out",
-      "Account": "Account"
+      "Account": "Account",
+      "Reviews": "Reviews"
     },
     "Statistic": {
       "OffersPosted": "Total of Offers Posted",
@@ -309,7 +318,8 @@
       "Dashboard": "Dashboard",
       "ManageBids": "Manage Bids",
       "MyOffers": "My Offers",
-      "CreateOffer": "Create Offer"
+      "CreateOffer": "Create Offer",
+      "Reviews": "My Reviews"
     },
     "SideBar": {
       "Dashboard": "Dashboard",
@@ -351,7 +361,8 @@
         "ClosedDesc2": "the accepted bidder is closed.",
         "Rejected": "Rejected",
         "RejectedDesc": "Your Offer is Rejected"
-      }
+      },
+      "AddOffer": "Add New Offer"
     },
     "CreateOffer": {
       "form": {
@@ -400,5 +411,83 @@
         "MyOffers": "My Offers"
       }
     }
+  },
+  "OffersDetail": {
+    "Location": "Targeted Location :",
+    "Posted": "Posted ",
+    "Category": "Category :",
+    "Estbudget": "Est.budget:",
+    "Deadline": "Deadline:",
+    "Attachements": "Attachments",
+    "reviews": "reviews",
+    "of": "of",
+    "OfferActivity": "Activity in This Offer:",
+    "Proposals": "Proposals :",
+    "CallToAction": "Apply Now",
+    "loggedToApply": "You must be logged in to apply for this offer,",
+    "login": "Login",
+    "ReviewsHistory": "Reviews History"
+  },
+  "offer": {
+    "Posted": "Posted",
+    "EstBudget": "Est.Budget",
+    "Cat": "Category",
+    "Proposals": "Proposals"
+  },
+  "DepositorDashboard": {
+    "bidsList": {
+      "title": "Bids",
+      "Desc": "Recent Bids from your Offers.",
+      "OfferName": "Offer Name",
+      "BidderName": "Bidder Name",
+      "BidderNameDesc1": "The Company or the Auto Entrepreneur",
+      "BidderNameDesc2": "That Bid on Your Offer",
+      "Rate": "Rate",
+      "RateDesc1": "Bidder Reviews",
+      "RateDesc2": "and Rating",
+      "Date": "Date",
+      "DateDesc1": "The Date They Bid",
+      "DateDesc2": "on Your Offer",
+      "AcceptBid": "Accept Bid",
+      "AcceptBidDesc1": "Accept The Right Bidder",
+      "AcceptBidDesc2": "for Your Offer",
+      "Devi": "Estimates",
+      "DeviDesc1": "Download Estimates",
+      "Accept": "Accept",
+      "AcceptDesc1": "When you accept a bidder",
+      "AcceptDesc2": "all other bids will be rejected.",
+      "AllInfo": "All Information",
+      "AllInfoDesc1": "View all information",
+      "AllInfoDesc2": "about the Bidder"
+    },
+    "reviews": {
+      "NoAvailable": "No Available Reviews",
+      "NoAvailableDesc": "No available reviews because there are no completed transactions between you and a bidder.",
+      "CallToAction": "Add an Offer",
+      "title": "My Reviews",
+      "date": {
+        "yearAgo": "1 year ago",
+        "yearsAgo": "years ago",
+        "monthAgo": "1 month ago",
+        "monthsAgo": "months ago",
+        "dayAgo": "1 day ago",
+        "daysAgo": "days ago",
+        "hourAgo": "1 hour ago",
+        "hoursAgo": "hours ago",
+        "minuteAgo": "1 minute ago",
+        "minutesAgo": "minutes ago",
+        "justNow": "just now"
+      }
+    },
+    "ResponsiveMenuBar" : {
+      "Dashboard" : "Dashboard",
+      "Profile" : "Profile",
+      "ManageBids" : "Manage Bids",
+      "MyOffers" : "My Offers",
+      "Reviews" : "Reviews",
+      "Offers" : "Offers",
+      "Support" : "Support",
+      "LogOut" : "Log Out"
+    } 
   }
 }

@@ -8,7 +8,7 @@ export interface DespositorData{
   depositor_password: any,
   depositor_CB: number,
   isTrusted: boolean,
-  depositor_review: Array<>,
+  depositor_review: any,
 }
 
 export interface depositorDataInfoType {

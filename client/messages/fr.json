@@ -256,7 +256,11 @@
       "AcceptDesc2": "toutes les autres offres seront rejetées.",
       "AllInfo": "Toutes les Informations",
       "AllInfoDesc1": "Voir toutes les informations",
-      "AllInfoDesc2": "sur l'acheteur"
+      "AllInfoDesc2": "sur l'acheteur",
+      "SeeMore": "Voir plus...",
+      "NoReviews": "Aucun avis disponible",
+      "ReviewsHistory": "Historique des avis",
+      "AddOffer": "Ajouter Une Offre"
     },
     "bidsListAll": {
       "title": "Devis",
@@ -281,7 +285,11 @@
       "AcceptDesc2": "toutes les autres offres seront rejetées.",
       "AllInfo": "Toutes les informations",
       "AllInfoDesc1": "Voir toutes les informations",
-      "AllInfoDesc2": "sur l'acheteur"
+      "AllInfoDesc2": "sur l'acheteur",
+      "SeeMore": "Voir plus...",
+      "NoReviews": "Aucun avis disponible",
+      "ReviewsHistory": "Historique des avis",
+      "AddOffer": "Ajouter Une Offre"
     },
     "NoAvailableDate": {
       "title": "Actuellement Aucune Donnée Disponible",
@@ -297,7 +305,8 @@
       "Settings": "Paramètres",
       "Support": "Support",
       "LogOut": "Déconnexion",
-      "Account": "Compte"
+      "Account": "Compte",
+      "Reviews": "Avis"
     },
     "Statistic": {
       "OffersPosted": "Total des Offres Publiées",
@@ -309,7 +318,8 @@
       "Dashboard": "Tableau de Bord",
       "ManageBids": "Gérer les Offres",
       "MyOffers": "Mes Offres",
-      "CreateOffer": "Créer une Offre"
+      "CreateOffer": "Créer une Offre",
+      "Reviews": "Mes Avis"
     },
     "SideBar": {
       "Dashboard": "Tableau de Bord",
@@ -351,7 +361,8 @@
         "ClosedDesc2": "L'enchérisseur accepté est fermé.",
         "Rejected": "Rejeté",
         "RejectedDesc": "Votre offre est rejetée"
-      }
+      },
+      "AddOffer": "Ajouter Une Offre"
     },
     "CreateOffer": {
       "form": {
@@ -399,6 +410,35 @@
         "addMore": "Ajouter Plus D'offres",
         "MyOffers": "Mes Offres"
       }
+    },
+    "reviews": {
+      "NoAvailable": "Aucun Avis Disponible",
+      "NoAvailableDesc": "Aucun avis disponible car il n'y a pas de transactions terminées entre vous et un soumissionnaire.",
+      "CallToAction": "Ajoutez une Offre",
+      "title": "Mes avis",
+      "date": {
+        "yearAgo": "Il y a 1 an",
+        "yearsAgo": "ans",
+        "monthAgo": "Il y a 1 mois",
+        "monthsAgo": "mois",
+        "dayAgo": "Il y a 1 jour",
+        "daysAgo": "jours",
+        "hourAgo": "Il y a 1 heure",
+        "hoursAgo": "heures",
+        "minuteAgo": "Il y a 1 minute",
+        "minutesAgo": "minutes",
+        "justNow": "À l'instant"
+      }
+    },
+    "ResponsiveMenuBar": {
+      "Dashboard": "Tableau de bord",
+      "Profile": "Profil",
+      "ManageBids": "Gérer les Devis",
+      "MyOffers": "Mes offres",
+      "Reviews": "Avis",
+      "Offers": "Offres",
+      "Support": "Support",
+      "LogOut": "Déconnexion"
     }
   }
 }

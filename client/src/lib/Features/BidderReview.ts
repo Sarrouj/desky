@@ -19,7 +19,7 @@ export const BidderReviews : StateCreator<BidderReviewsState> = (set, get) => ({
               `http://localhost:3001/bidder/reviews/${ReviewsBidderID}`
             );
             const data = response.data.success; 
-            console.log(data);
+          
             set({ ReviewsBidderResponse: data });
           } catch (error) {
             console.log(error);

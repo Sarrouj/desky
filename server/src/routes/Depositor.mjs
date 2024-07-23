@@ -215,8 +215,9 @@ router.get(
         for (const bid of offer.offer_apply) {
           const bidder = await Bidders.findById(bid.bidder_id);
           if (bidder) {
-            acc.push({
+            let bidEntry = {
               offer_title: offer.offer_title,
+              offer_state: offer.offer_state,
               bidder_id: bidder._id,
               bidder_name: bidder.bidder_name,
               bidder_email: bidder.bidder_email,
@@ -232,7 +233,23 @@ router.get(
               bid_Date: bid.date,
               bid_est: bid.estimate,
               bidder_review: bidder.bidder_review,
-            });
+            };
+
+            if (await AE.findById(bidder._id)) {
+              bidEntry = {
+                ...bidEntry,
+                bidder_type: "Auto Entrepreneur",
+                bid_id: bid._id,
+              };
+            } else if (await Companies.findById(bidder._id)) {
+              bidEntry = {
+                ...bidEntry,
+                bidder_type: "Company",
+                bid_id: bid._id,
+              };
+            }
+
+            acc.push(bidEntry);
           }
         }
         return acc;
