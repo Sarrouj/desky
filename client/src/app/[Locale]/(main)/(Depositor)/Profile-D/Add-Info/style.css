@@ -1,0 +1,9 @@
+
+.accounType:hover .arrowRight,
+.accounType:hover .hoverDepositorIcon{
+    display: block;
+}
+
+.accounType:hover .depositorIcon{
+    display: none;
+}

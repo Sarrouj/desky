@@ -33,6 +33,7 @@ declare module "next-auth/jwt" {
     name: string;
     email: string;
     role: string;
+    exp: number;
   }
 }
 
@@ -151,6 +152,9 @@ export const authOptions: NextAuthOptions = {
         }
       }
 
+      const expirationTime = Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60;
+      token.exp = expirationTime;
+
       return token;
     },
     async session({ session, token }) {
@@ -161,9 +165,13 @@ export const authOptions: NextAuthOptions = {
           email: token.email,
           role: token.role,
         };
+        session.expires = new Date(token.exp * 1000).toISOString();
       }
       return session;
     },
+  },
+  jwt: {
+    maxAge: 7 * 24 * 60 * 60, // 1 week in seconds
   },
 };
 

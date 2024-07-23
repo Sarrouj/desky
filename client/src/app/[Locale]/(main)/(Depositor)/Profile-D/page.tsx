@@ -1,6 +1,21 @@
 "use client";
 
 import Link from "next/link";
+import Aside from "@/Components/common/Aside";
+import DropDownDepositor from "@/Components/common/DropDownDepositor";
+import NotFoundProfileDepositor from "@/Components/common/NotFoundProfileDepositor";
+import ProfileCard from "@/Components/common/ProfileCard";
+import CompanyProfile from "@/Components/common/CompanyProfile";
+import AEProfile from "@/Components/common/AEProfile";
+import { Button } from "@/Components/ui/Button";
+import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/Components/ui/breadcrumb";
 import {
   Home,
   LineChart,
@@ -9,51 +24,25 @@ import {
   PanelLeft,
   ShoppingCart,
   Users2,
-  Blocks,
-  CopyPlus,
-  CircleCheckBig,
-  Star,
 } from "lucide-react";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from "@/Components/ui/breadcrumb";
-import { Button } from "@/Components/ui/Button";
-import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
-import React, { useEffect, useState } from "react";
 
-// Components
-import BidsList from "@/Components/common/BidsList";
-import NotFoundDataDepositor from "@/Components/common/NotFoundDataDepositor";
-import DropDownDepositor from "@/Components/common/DropDownDepositor";
-import DashboardCard from "@/Components/common/DashboardCard";
-import Aside from "@/Components/common/Aside";
-import BidsListSkeleton from "@/Components/common/BidsListSkeleton";
-
-// Content
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import axios from "axios";
 import { useSession } from "next-auth/react";
+import axios from "axios";
 
-const DepositorDashboard = () => {
-  // Content
-  let Content = useTranslations("DepositorDashboard.bidsList");
-  let notFoundContent = useTranslations("DepositorDashboard.NoAvailableDate");
+function Profile() {
+  const [Language, setLanguage] = useState("fr");
+  let SideBarContent = useTranslations("DepositorDashboard.SideBar");
   let DropDownMenuContent = useTranslations("DepositorDashboard.DropDownMenu");
-  let StatContent = useTranslations("DepositorDashboard.Statistic");
   let BreadcrumbListContent = useTranslations(
     "DepositorDashboard.BreadcrumbList"
   );
-  let SideBarContent = useTranslations("DepositorDashboard.SideBar");
 
-  // Language
-  const [Language, setLanguage] = useState("fr");
   const { data: session } = useSession();
   const user_id = session ? session.user?.id : null;
   const user_role = session ? session.user?.role : null;
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     const lg = JSON.parse(localStorage.getItem("lg"));
@@ -67,46 +56,17 @@ const DepositorDashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_role]);
 
-  // Data
-  const [dInfo, setDInfo] = useState<any>(null);
-  const [dOffers, setDOffers] = useState<any>(null);
-  const [dBids, setDBids] = useState<any>(null);
-
   useEffect(() => {
     const fetchData = async () => {
       if (user_id !== null) {
         try {
-          const [info, offers] = await Promise.all([
-            axios.post("http://localhost:3001/depositor", {
-              user_id,
-            }),
-            axios.post("http://localhost:3001/depositor/offers", {
-              user_id,
-            }),
-          ]);
-
-          const Bidders: any = {};
-          for (const offer of offers.data.success) {
-            if (offer.offer_apply.length > 0 && offer.offer_state === "open") {
-              const bidderPromises = offer.offer_apply.map((apply: any) =>
-                axios.get(`http://localhost:3001/bidder/${apply.bidder_id}`)
-              );
-              const bidderResponses = await Promise.all(bidderPromises);
-              Bidders[offer.offer_title] = bidderResponses.map(
-                (response, index) => ({
-                  bid_id: offer.offer_apply[index]._id,
-                  offerTitle: offer.offer_title,
-                  applyDate: offer.offer_apply[index].date,
-                  estimate: offer.offer_apply[index].estimate,
-                  bidder: response.data.success,
-                })
-              );
+          const info = await axios.post(
+            `http://localhost:3001/profile/${user_id}`,
+            {
+              user_role,
             }
-          }
-
-          setDInfo(info.data.success);
-          setDOffers(offers.data.success);
-          setDBids(Bidders);
+          );
+          setUser(info.data.success);
         } catch (error) {
           console.error(error);
         }
@@ -117,14 +77,11 @@ const DepositorDashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_id]);
 
-  const totalBidsReceived = dOffers ? dOffers.reduce((acc, offer) => acc + offer.offer_apply.length, 0) : null;
-  const totalOffersClosed = dOffers ? dOffers.filter((offer) => offer.offer_state === "closed").length: null;
-  const totalOffersPosted = dOffers ? dOffers?.length : null;
-  const averageRating = dInfo?.depositor_review ? (
-      dInfo.depositor_review.reduce((acc, review) => acc + review.rating, 0) /
-      dInfo.depositor_review.length
-    ).toFixed(1)
-  : null;
+  const userName: string | null = session ? session.user?.name : null;
+  const LetterFullName = userName
+    ?.split(" ")
+    .map((n: any) => n[0].toUpperCase())
+    .join("");
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40 text-secondaryDarkBlue">
@@ -209,45 +166,25 @@ const DepositorDashboard = () => {
             Language={Language}
           />
         </header>
-        <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
-          <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
-            <div className="flex items-center gap-5 h-30">
-              <DashboardCard
-                Logo={Blocks}
-                Content={StatContent("OffersPosted")}
-                Value={totalOffersPosted}
-              />
-              <DashboardCard
-                Logo={CopyPlus}
-                Content={StatContent("BidsReceived")}
-                Value={totalBidsReceived}
-              />
-              <DashboardCard
-                Logo={CircleCheckBig}
-                Content={StatContent("OffersClosed")}
-                Value={totalOffersClosed}
-              />
-              <DashboardCard
-                Logo={Star}
-                Content={StatContent("AccountRating")}
-                Value={averageRating !== null ? averageRating : "N/A"}
-              />
-            </div>
-            {totalBidsReceived !== null ? (
-              totalBidsReceived !== 0 ? 
-              <BidsList Content={Content} seeMore={true} limit={true} dBids={dBids} /> :
-              <NotFoundDataDepositor
-                Language={Language}
-                Content={notFoundContent}
-              />
+        <div className="w-full max-w-3xl mx-auto">
+          <ProfileCard
+            LetterFullName={LetterFullName}
+            user_role={user_role}
+            user={user}
+          />
+          <div className="mt-2">
+            {user?.company ? (
+              <CompanyProfile user={user} />
+            ) : user?.ae ? (
+              <AEProfile user={user} />
             ) : (
-              <BidsListSkeleton Content={Content} seeMore={true} amount={6} /> 
+              <NotFoundProfileDepositor Language={Language} />
             )}
           </div>
-        </main>
+        </div>
       </div>
     </div>
   );
-};
+}
 
-export default DepositorDashboard;
+export default Profile;
