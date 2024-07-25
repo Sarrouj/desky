@@ -493,7 +493,8 @@
       "RefuseCalToActionDesc" : "Validate and Refuse The Offer",
       "RefuseMessage" : "Refuse Message",
       "RefuseMessageDesc" : "Write a Message Describing the Reason For Refusing The Offer.",
-      "Send" : "Send"
+      "Send" : "Send",
+  
     "ResponsiveMenuBar": {
       "Dashboard": "Dashboard",
       "Profile": "Profile",
