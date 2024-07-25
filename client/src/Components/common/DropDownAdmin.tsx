@@ -6,7 +6,7 @@ import {
   LogOut,
   User,
   Package,
-  CircleCheck,
+  Package2,
 } from "lucide-react";
 
 import {
@@ -30,7 +30,7 @@ import Link from "next/link";
 // Skeleton
 import { Skeleton } from "@/Components/ui/skeleton";
 
-const DropDownDepositor = ({
+const DropDownAdmin = ({
   content,
   Language,
 }: {
@@ -48,23 +48,19 @@ const DropDownDepositor = ({
     .map((n: any) => n[0].toUpperCase())
     .join("");
 
-  // Depositor Switch to French Language
+  // Admin Switch to French Language
   useEffect(() => {
-    if (Language == "fr" && userType == "depositor") {
-      setuserTypeSwitch("Déposant");
-    } else if (Language == "fr" && userType == "bidder") {
-      setuserTypeSwitch("Soumissionnaire");
-    } else if (Language == "en" && userType == "bidder") {
-      setuserTypeSwitch("Bidder");
-    } else if (Language == "en" && userType == "depositor") {
-      setuserTypeSwitch("Depositor");
+    if (Language == "fr" && userType == "admin") {
+      setuserTypeSwitch("Administrateur");
+    } else if (Language == "en" && userType == "admin") {
+      setuserTypeSwitch("Admin");
     }
   }, [Language, userType]);
 
   useEffect(() => {
     if (status == "unauthenticated") {
       setLogedOut(false);
-      window.location.href = `/${Language}`;
+      window.location.href = `/${Language}/`;
     } else if (status == "loading") {
     }
   }, [status, Language]);
@@ -121,16 +117,10 @@ const DropDownDepositor = ({
         <DropdownMenuLabel>{content("title")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href={`/${Language}/Profile-D`}>
+          <Link href={`/${Language}`}>
             <DropdownMenuItem>
-              <User className="mr-2 h-4 w-4" />
-              <span>{content("Profile")}</span>
-            </DropdownMenuItem>
-          </Link>
-          <Link href={`/${Language}/Reviews-D`}>
-            <DropdownMenuItem>
-              <CircleCheck className="mr-2 h-4 w-4" />
-              <span>{content("Reviews")}</span>
+              <Package2 className="mr-2 h-4 w-4" />
+              <span>Home</span>
             </DropdownMenuItem>
           </Link>
           <Link href={`/${Language}/offers`}>
@@ -158,4 +148,4 @@ const DropDownDepositor = ({
   );
 };
 
-export default DropDownDepositor;
+export default DropDownAdmin;

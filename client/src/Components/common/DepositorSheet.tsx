@@ -10,7 +10,6 @@ import { useTranslations } from "next-intl";
 import {
   Home,
   Package,
-  PanelLeft,
   User,
   GanttChart,
   LayoutList,
