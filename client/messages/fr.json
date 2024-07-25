@@ -440,5 +440,19 @@
       "Support": "Support",
       "LogOut": "Déconnexion"
     }
+  },
+  "AdminDashboard": {
+    "DropDownMenu": {
+      "title": "Mon compte",
+      "Home": "Accueil",
+      "Marketplace": "Offres",
+      "Support": "Support",
+      "LogOut": "Déconnexion",
+      "Account": "Compte"
+    },
+    "NotFound": {
+        "Title": "Actuellement Aucune Donnée Disponible",
+        "Description": "Il n'y a pas d'offres à vérifier"
+    }
   }
 }

@@ -22,9 +22,10 @@ import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
 import AdminAside from "@/Components/common/AdminAside";
 
 // Components
-import DropDownDepositor from "@/Components/common/DropDownDepositor";
 import OffersList from "@/Components/common/OffersList";
 import NotFoundDataOffer from "@/Components/common/NotFoundDataOffer";
+import DropDownAdmin from "@/Components/common/DropDownAdmin";
+import AdminOffersListSkeleton from "@/Components/common/AdminOfferListSkeleton";
 
 // Content
 import React, { useEffect, useState } from "react";
@@ -34,7 +35,11 @@ import axios from "axios";
 
 function OffersVerification() {
   // Content
-  let DropDownMenuContent = useTranslations("DepositorDashboard.DropDownMenu");
+  let DropDownMenuContent = useTranslations("AdminDashboard.DropDownMenu");
+  let NotFoundContent = useTranslations("AdminDashboard.NotFound");
+  let BreadcrumbContent = useTranslations("AdminDashboard.Breadcrumb");
+  let OffersVerificationSkeleton = useTranslations('AdminDashboard.OffersVerificationSkeleton');
+  let OffersVerification = useTranslations("AdminDashboard.OffersVerification");
 
   // Language
   const [Language, setLanguage] = useState("en");
@@ -83,7 +88,7 @@ function OffersVerification() {
 
   return (
     <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
-      <AdminAside Language={Language} />
+      <AdminAside Language={Language}  OffersVerification={"bg-primary text-white"} UsersVerification={"hover:text-secondaryDarkBlue"} />
       <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
         <Sheet>
           <SheetTrigger asChild>
@@ -139,12 +144,12 @@ function OffersVerification() {
             </nav>
           </SheetContent>
         </Sheet>
-        <Breadcrumb className="hidden md:flex">
+        <Breadcrumb className="hidden sm:flex">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
                 <Link href={`/${Language}/Dashboard-A/Offers-verification`}>
-                  Dashboard
+                  {BreadcrumbContent('Dashboard')}
                 </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
@@ -154,19 +159,23 @@ function OffersVerification() {
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
                 <Link href={`/${Language}/Dashboard-A/Offers-verification`}>
-                  Offers-verification
+                  {BreadcrumbContent('OffersVerification')}
                 </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <DropDownDepositor content={DropDownMenuContent} Language={Language} />
+        <div className="hidden sm:block">
+          <DropDownAdmin content={DropDownMenuContent} Language={Language} />
+        </div>
       </header>
       <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
-        {offers ? (
-          <OffersList offers={offers} user_id={user_id} />
-        ) : (
-          <NotFoundDataOffer />
+        {offers?.length !== 0 && offers !== null ? (
+          <OffersList Content={OffersVerification} offers={offers} user_id={user_id} />
+        ) :  offers == null ?
+          <AdminOffersListSkeleton Content={OffersVerificationSkeleton}/> :
+        (
+          <NotFoundDataOffer Content={NotFoundContent} />
         )}
       </main>
     </div>

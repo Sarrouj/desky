@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/Components/ui/select";
 import {
   Home,
   LineChart,
@@ -73,8 +73,6 @@ function UsersVerification() {
         const result = await axios.get("http://localhost:3001/admin/users");
         setAE(result.data.data.unverifiedAE);
         setCompany(result.data.data.unverifiedCompany);
-        console.log(result.data.data.unverifiedAE);
-        console.log(result.data.data.unverifiedCompany);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -85,7 +83,7 @@ function UsersVerification() {
 
   return (
     <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
-      <AdminAside Language={Language} />
+      <AdminAside Language={Language}  OffersVerification={"hover:text-secondaryDarkBlue"} UsersVerification={" bg-primary text-white"} />
       <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
         <Sheet>
           <SheetTrigger asChild>
@@ -156,7 +154,7 @@ function UsersVerification() {
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
                 <Link href={`/${Language}/Dashboard-A/Users-verification`}>
-                  Users-verification
+                  Users Verification
                 </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>

@@ -18,13 +18,10 @@ const Login = () => {
   const [success, setSuccess] = useState("");
   const { data: session, status } = useSession();
   const [Language, setLanguage] = useState();
-
   // Content
   const LoginContent = useTranslations('Auth.Login');
-
   //User Data
   const userType : string | null = session ? session.user?.role : null;
-
 
   // Language
   useEffect(()=>{
@@ -39,6 +36,8 @@ const Login = () => {
         window.location.href = `/${Language}/Dashboard-B`;
       }else if(userType == "depositor"){
         window.location.href = `/${Language}/dashboard-d`;
+      }else if(userType == "admin"){
+        window.location.href = `/${Language}/Dashboard-A/Offers-verification`;
       }
     }
   }, [status, Language, userType]);
@@ -75,6 +74,8 @@ const Login = () => {
             window.location.href = `/${Language}/dashboard-b`;
           }else if(userType == "depositor"){
             window.location.href = `/${Language}/dashboard-d`;
+          }else if(userType == "admin"){
+            window.location.href = `/${Language}/Dashboard-A/Offers-verification`;
           }
         }
       }

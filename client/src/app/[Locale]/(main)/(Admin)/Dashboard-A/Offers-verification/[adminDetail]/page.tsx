@@ -14,6 +14,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import DropDownDepositor from "@/Components/common/DropDownDepositor";
+import DropDownAdmin from "@/Components/common/DropDownAdmin";
 import Link from "next/link";
 import {
   Home,
@@ -23,6 +24,7 @@ import {
   PanelLeft,
   ShoppingCart,
   Users2,
+  MapPin,
   Blocks,
   CopyPlus,
   CircleCheckBig,
@@ -38,6 +40,7 @@ import {
 import { Button } from "@/Components/ui/Button";
 import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
 import AdminAside from "@/Components/common/AdminAside";
+import { Skeleton } from "@/Components/ui/skeleton";
 
 import axios from "axios";
 import { useTranslations } from "next-intl";
@@ -67,11 +70,9 @@ const AdminDetails = ({ params }: { params: any }) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const lg = localStorage.getItem("lg");
-    if (lg) {
-      setLanguage(JSON.parse(lg));
-    }
-  }, []);
+    let lg = JSON.parse(localStorage.getItem("lg"));
+    setLanguage(lg);
+  }, [Language]);
 
   const offer_id = params.adminDetail;
   useEffect(() => {
@@ -161,10 +162,12 @@ const AdminDetails = ({ params }: { params: any }) => {
       ? new Date(offerDetails.offer_deadline).toLocaleDateString("en-CA")
       : null;
 
-  const fullName = depositorDetails
-    ? depositorDetails.depositor_name
-    : "Loading...";
-  const [firstName, lastName] = fullName.split(" ");
+  const fullName = depositorDetails ? depositorDetails.depositor_name : null;
+  const LetterFullName = fullName
+  ?.split(" ")
+  .map((n: any) => n[0].toUpperCase())
+  .join("");
+
   const averageRating = depositorLegalDetails
     ? depositorDetails.depositor_review &&
       depositorDetails.depositor_review.length > 0
@@ -216,10 +219,8 @@ const AdminDetails = ({ params }: { params: any }) => {
   };
 
   return (
-    <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
-      <AdminAside
-        Language={Language}
-      />
+    <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-min-screen">
+      <AdminAside Language={Language} />
       <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
         <Sheet>
           <SheetTrigger asChild>
@@ -290,7 +291,7 @@ const AdminDetails = ({ params }: { params: any }) => {
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
                 <Link href={`/${Language}/Dashboard-A/Offers-verification`}>
-                  Offers-verification
+                  Offers-Verification
                 </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
@@ -302,45 +303,73 @@ const AdminDetails = ({ params }: { params: any }) => {
                 <Link
                   href={`/${Language}/Dashboard-A/Offers-verification/${offer_id}`}
                 >
-                  Offers-Details
+                  Offer-Detail
                 </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <DropDownDepositor content={DropDownMenuContent} Language={Language} />
+        <DropDownAdmin content={DropDownMenuContent} Language={Language} />
       </header>
-      <section className="ml-5 mt-2 flex">
+      <section className="ml-5 mt-2 flex border-2 p-8 mr-5 rounded-lg text-secondaryDarkBlue">
         <div className="w-9/12 border-r-2">
           <div className="border-b-2 pb-12 pr-12">
-            <h1 className="text-3xl font-bold mb-2">{OfferTitle}</h1>
-            <div className="flex gap-10 text-neutralGray">
-              <p>
-                Posted
-                {timeSince(OfferDateOfPosting)}
-              </p>
-              <div className="flex gap-2">
-                <p>Location</p>
-                <ul className="flex gap-1.5">
-                  <li>{OfferLocation}</li>
-                </ul>
+            <h1 className="text-3xl font-bold mb-2">
+              {OfferTitle ? (
+                OfferTitle
+              ) : (
+                <Skeleton className="w-3/4 h-8 rounded-full bg-gray-200" />
+              )}
+            </h1>
+            <div className="flex gap-10 text-neutralGray text-xs lg:text-base">
+              {OfferDateOfPosting ? (
+                <p>
+                  Posted
+                  {timeSince(OfferDateOfPosting)}
+                </p>
+              ) : (
+                <Skeleton className="w-32 h-4 rounded-full bg-gray-200" />
+              )}
+              <div className="flex gap-2 items-center">
+                {OfferLocation ? (
+                  <>
+                    <MapPin size={20} className="text-primary" />
+                    <p>Location :</p>
+                    <ul className="flex gap-1.5">
+                      <li>{OfferLocation}</li>
+                    </ul>
+                  </>
+                ) : (
+                  <Skeleton className="w-52 h-4 rounded-full bg-gray-200" />
+                )}
               </div>
             </div>
             <div className="flex gap-3 items-center mt-8">
-              <h6 className="font-semibold">Category</h6>
+              <h6 className="font-semibold">Category :</h6>
               <ul className="flex gap-2">
                 {CategoriesElement ? (
-                  CategoriesElement.map((c, index) => (
+                  CategoriesElement.map((c: any, index: any) => (
                     <CategoryBtn value={c} key={index} />
                   ))
                 ) : (
-                  <CategoryBtn value={"Loading ..."} />
+                  <>
+                    <Skeleton className="w-32 h-4 rounded-full bg-gray-200" />
+                    <Skeleton className="w-48 h-4 rounded-full bg-gray-200" />
+                  </>
                 )}
               </ul>
             </div>
           </div>
           <div className="py-12 pr-12 border-b-2">
-            <p className="">{OfferDescription}</p>
+            {OfferDescription ? (
+              <p>{OfferDescription}</p>
+            ) : (
+              <div className="flex flex-col gap-1">
+                <Skeleton className="w-full h-4 rounded-full bg-gray-200" />
+                <Skeleton className="w-full h-4 rounded-full bg-gray-200" />
+                <Skeleton className="w-3/4 h-4 rounded-full bg-gray-200" />
+              </div>
+            )}
           </div>
           <div className="py-16 flex items-center justify-between pr-72 border-b-2">
             <div className="flex items-center gap-2">
@@ -350,10 +379,14 @@ const AdminDetails = ({ params }: { params: any }) => {
                 height={22}
                 alt="shape"
               />
-              <h6 className="font-bold">
-                EstBudget
-                <span className="font-medium"> {OfferBudget} DH</span>
-              </h6>
+              {OfferBudget ? (
+                <h6 className="font-bold">
+                  <span>Est.Budget : </span>
+                  <span className="font-medium"> {OfferBudget} DH</span>
+                </h6>
+              ) : (
+                <Skeleton className="w-48 h-4 rounded-full bg-gray-200" />
+              )}
             </div>
             <div className="flex items-center gap-2">
               <Image
@@ -362,33 +395,60 @@ const AdminDetails = ({ params }: { params: any }) => {
                 height={20}
                 alt="shape"
               />
-              <h6 className="font-bold">
-                Deadline
-                <span className="font-medium"> {offerDeadline}</span>
-              </h6>
+              {offerDeadline ? (
+                <h6 className="font-bold">
+                  Deadline :
+                  <span className="font-medium"> {offerDeadline}</span>
+                </h6>
+              ) : (
+                <Skeleton className="w-48 h-4 rounded-full bg-gray-200" />
+              )}
             </div>
           </div>
           <div className="py-10 pr-20">
             <h3 className="font-bold text-lg mb-8">Attachments</h3>
-            <Image src={"/icons/file.svg"} width={13} height={13} alt="shape" />
-            <a
-              target="_blank"
-              href={`http://localhost:3001/uploads/${OfferAttachment}`}
-            >
-              <p className="text-primary underline underline-offset-1">
-                {OfferAttachment}
-              </p>
-            </a>
+            <div className="flex items-center gap-2">
+              <Image
+                src={"/icons/file.svg"}
+                width={13}
+                height={13}
+                alt="shape"
+              />
+              {OfferAttachment ? (
+                <a
+                  target="_blank"
+                  href={`http://localhost:3001/uploads/${OfferAttachment}`}
+                >
+                  <p className="text-primary underline underline-offset-1">
+                    {OfferAttachment}
+                  </p>
+                </a>
+              ) : (
+                <p className="text-primary">N/A</p>
+              )}
+            </div>
           </div>
         </div>
         <div className="pl-12 w-3/12">
           <div className="flex flex-col items-center gap-3">
             <div className="rounded-full bg-slate-200 text-blue-400 w-24 h-24 flex items-center justify-center text-4xl">
-              SZ
+              {LetterFullName}
             </div>
             <div className="text-center">
               <h2 className="font-bold text-2xl">
-                {lastName} <span className="text-primary">{firstName}</span>
+                {fullName == null ? (
+                  <div className="flex gap-1 items-center">
+                    <Skeleton className="w-14 h-5 rounded-full bg-gray-200" />
+                    <Skeleton className="w-24 h-5 rounded-full bg-gray-200" />
+                  </div>
+                ) : (
+                  <>
+                    {fullName.split(" ")[0]}{" "}
+                    <span className="text-primary">
+                      {fullName.split(" ")[1]}
+                    </span>
+                  </>
+                )}
               </h2>
               {!CompanyName && !CompanyType ? null : (
                 <h4 className="font-semibold">
@@ -462,16 +522,13 @@ const AdminDetails = ({ params }: { params: any }) => {
               )}
             </div>
           </div>
-          <div className="mt-12 flex flex-row items-center gap-5">
-            <button className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-500">
-              accept
+          <div className="mt-12 flex flex-row items-center gap-2">
+            <button className="bg-green-600 text-white px-4 py-2 hover:bg-green-500 w-full rounded-full text-xs lg:text-sm transition duration-500 ease-in-out">
+              Accept
             </button>
-
             <Dialog>
-              <DialogTrigger>
-                <button className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-500">
-                  refuse
-                </button>
+              <DialogTrigger className="bg-red-600 text-white px-4 py-2 hover:bg-red-500 w-full rounded-full text-xs lg:text-sm transition duration-500 ease-in-out">
+                Refuse
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
