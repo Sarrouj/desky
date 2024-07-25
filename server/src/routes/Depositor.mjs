@@ -8,10 +8,10 @@ import { checkObjectId } from "../middlewares/checkObjectId.mjs";
 import { checkSessionId } from "../middlewares/checkSessionId.mjs";
 import { handleErrors } from "../middlewares/errorMiddleware.mjs";
 import depositorValidationFields from "../utils/depositorValidationFields.mjs";
-import AEValidationFields from "../utils/AEValidationFields.mjs";
 import companyValidationFields from "../utils/companyValidationFields.mjs";
 import ratingValidationFields from "../utils/ratingValidationFields.mjs";
 import { transporter } from "../utils/emailSend.mjs";
+import upload from "../utils/upload.mjs";
 
 // Schemas
 import Depositors from "../mongoose/schemas/Depositor.mjs";
@@ -22,7 +22,7 @@ import Companies from "../mongoose/schemas/Company.mjs";
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Depositor's Profile Info
+// Depositor's Info
 router.post("/depositor", checkSessionId, async (req, res, next) => {
   const { user_id } = req.body;
 
@@ -117,6 +117,48 @@ router.get("/depositor/reviews/:id", async (req, res, next) => {
     );
 
     res.status(200).json({ success: detailedReviews });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+// Profile Info
+router.post("/profile/:id", async (req, res, next) => {
+  const { user_role } = req.body;
+  const { id } = req.params;
+
+  try {
+    let user;
+
+    if (user_role == "depositor") {
+      user = await Depositors.findById(id);
+    } else if (user_role == "bidder") {
+      user = await Bidders.findById(id);
+    }
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const profile = {
+      [`${user_role}_name`]: user[`${user_role}_name`],
+      [`${user_role}_email`]: user[`${user_role}_email`],
+    };
+
+    if (user.isTrusted) {
+      const company = await Companies.findById(id);
+      if (company) {
+        profile.company = company;
+      }
+
+      const ae = await AE.findById(id);
+      if (ae) {
+        profile.ae = ae;
+      }
+    }
+
+    res.status(200).json({ success: profile });
   } catch (err) {
     next(err);
   }
@@ -230,68 +272,6 @@ router.get(
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Depositor's manage bids info
-router.get(
-  "/depositor/mangeBids/:id",
-  checkObjectId,
-  async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      const depositor = await Depositors.findById(id);
-      if (!depositor) {
-        return res.status(404).json({ error: "Depositor not found" });
-      }
-
-      const offers = await Offers.find({ depositor_id: id });
-      if (offers.length === 0) {
-        return res.status(200).json({
-          success: {
-            detailedBids: [],
-          },
-        });
-      }
-
-      const detailedBids = await offers.reduce(async (accPromise, offer) => {
-        const acc = await accPromise;
-        for (const bid of offer.offer_apply) {
-          const bidder = await Bidders.findById(bid.bidder_id);
-          if (bidder) {
-            acc.push({
-              offer_title: offer.offer_title,
-              bidder_id: bidder._id,
-              bidder_name: bidder.bidder_name,
-              bidder_email: bidder.bidder_email,
-              bidder_avgRating:
-                bidder.bidder_review.length > 0
-                  ? (
-                      bidder.bidder_review.reduce(
-                        (acc, review) => acc + review.rating,
-                        0
-                      ) / bidder.bidder_review.length
-                    ).toFixed(1)
-                  : 0,
-              bid_Date: bid.date,
-              bid_est: bid.estimate,
-              bidder_review: bidder.bidder_review,
-            });
-          }
-        }
-        return acc;
-      }, Promise.resolve([]));
-
-      res.status(200).json({
-        success: {
-          detailedBids,
-        },
-      });
-    } catch (err) {
-      next(err);
-    }
-  }
-);
-
-// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
-
 // Depositor's offers
 router.post("/depositor/offers", checkSessionId, async (req, res, next) => {
   const { user_id } = req.body;
@@ -352,40 +332,36 @@ router.put(
 // Add Depositor's AE Info
 router.post(
   "/add/depositor/AE",
-  checkSessionId,
-  AEValidationFields,
+  upload.single("AE_CIN"),
   async (req, res, next) => {
-    const { AE_CIN, AE_phoneNumber, AE_DoA, AE_address, AE_location, user_id } =
-      req.body;
+    const { email, AE_phoneNumber, AE_DoA, AE_address, AE_location } = req.body;
+    if (!email || !AE_phoneNumber || !AE_DoA || !AE_address || !AE_location) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    const AE_CIN = req.file.filename;
+    if (!AE_CIN) {
+      return res.status(400).json({ error: "AE CIN is required" });
+    }
 
     try {
-      const depositor = await Depositors.findById(user_id);
+      const depositor = await Depositors.findOne({ depositor_email: email });
       if (!depositor) {
-        return res.status(404).json({ error: "Depositor not found" });
+        return res.status(404).json({ error: "No depositor found" });
       }
 
-      const Company = await Companies.findById(user_id);
-      if (Company) {
-        return res
-          .status(404)
-          .json({ error: "Depositor already is a company" });
+      if (depositor.isTrusted == true) {
+        return res.status(400).json({ error: "Depositor is already trusted" });
       }
 
-      const Ae = await AE.findById(user_id);
-      if (Ae) {
-        return res.status(404).json({ error: "Depositor already is an AE" });
-      }
-
-      const newAE = new AE({
-        _id: user_id,
+      await AE.create({
+        _id: depositor.id,
         AE_CIN,
         AE_phoneNumber,
         AE_DoA,
         AE_address,
         AE_location,
       });
-
-      await newAE.save();
 
       const mailOptions = {
         from: "Desky",
@@ -485,10 +461,10 @@ router.post(
 // Add Depositor's Company Info
 router.post(
   "/add/depositor/company",
-  checkSessionId,
   companyValidationFields,
   async (req, res, next) => {
     const {
+      email,
       company_type,
       company_name,
       company_phoneNumber,
@@ -497,29 +473,20 @@ router.post(
       company_CR,
       company_DoA,
       company_size,
-      user_id,
     } = req.body;
 
     try {
-      const depositor = await Depositors.findById(user_id);
+      const depositor = await Depositors.findOne({ depositor_email: email });
       if (!depositor) {
         return res.status(404).json({ error: "Depositor not found" });
       }
 
-      const Company = await Companies.findById(user_id);
-      if (Company) {
-        return res
-          .status(404)
-          .json({ error: "Depositor already is a company" });
+      if (depositor.isTrusted == true) {
+        return res.status(400).json({ error: "Depositor is already trusted" });
       }
 
-      const Ae = await AE.findById(user_id);
-      if (Ae) {
-        return res.status(404).json({ error: "Depositor already is an AE" });
-      }
-
-      const newCompany = new Companies({
-        _id: user_id,
+      await Companies.create({
+        _id: depositor.id,
         company_type,
         company_name,
         company_phoneNumber,
@@ -529,8 +496,6 @@ router.post(
         company_DoA,
         company_size,
       });
-
-      await newCompany.save();
 
       const mailOptions = {
         from: "Desky",
@@ -638,7 +603,7 @@ router.post(
     const { bidder_id, offer_id } = req.params;
 
     try {
-      const depositor = await Depositors.findById(user_id);
+      const depositor = await Depositors.findOne(user_id);
       if (!depositor) {
         return res.status(404).json({ error: "Depositor not found" });
       }

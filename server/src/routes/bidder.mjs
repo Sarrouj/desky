@@ -373,6 +373,10 @@ router.post(
         return res.status(404).json({ error: "No bidders found" });
       }
 
+      if (bidder.isTrusted == true) {
+        return res.status(400).json({ error: "Bidder is already trusted" });
+      }
+
       await AE.create({
         _id: bidder.id,
         AE_CIN,
@@ -500,7 +504,11 @@ router.post(
         return res.status(404).json({ error: "No bidders found" });
       }
 
-      const newCompany = new Companies({
+      if (bidder.isTrusted == true) {
+        return res.status(400).json({ error: "Bidder is already trusted" });
+      }
+
+      await Companies.create({
         _id: bidder.id,
         company_type,
         company_name,
@@ -511,8 +519,6 @@ router.post(
         company_DoA,
         company_size,
       });
-
-      await newCompany.save();
 
       const mailOptions = {
         from: "Desky",

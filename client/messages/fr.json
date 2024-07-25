@@ -126,8 +126,9 @@
       "Company": "Entreprise",
       "CompanyDescription": "Propriétaire ou membre d'une entreprise, c'est pour vous.",
       "CopyWrite": "© 2024 Desky.ma. Tous droits réservés",
-      "Step": "ÉTAPE 01/03",
-      "LegalInfo": "Informations légales"
+      "Step": "ÉTAPE 01/02",
+      "LegalInfo": "Informations légales",
+      "back": "retourner"
     },
     "AutoEntrepreneurInfo": {
       "title": "Informations légales",

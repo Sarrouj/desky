@@ -126,8 +126,9 @@
       "Company": "Company",
       "CompanyDescription": "Own or belong to a company, this is for you.",
       "CopyWrite": "© 2024 Desky.ma. All Rights Reserved",
-      "Step": "STEP 01/03",
-      "LegalInfo": "Legal Info"
+      "Step": "STEP 01/02",
+      "LegalInfo": "Legal Info",
+      "Back": "back"
     },
     "AutoEntrepreneurInfo": {
       "title": "Legal Information",
@@ -493,6 +494,15 @@
       "RefuseMessage" : "Refuse Message",
       "RefuseMessageDesc" : "Write a Message Describing the Reason For Refusing The Offer.",
       "Send" : "Send"
+    "ResponsiveMenuBar": {
+      "Dashboard": "Dashboard",
+      "Profile": "Profile",
+      "ManageBids": "Manage Bids",
+      "MyOffers": "My Offers",
+      "Reviews": "Reviews",
+      "Offers": "Offers",
+      "Support": "Support",
+      "LogOut": "Log Out"
     }
   }
 }

@@ -42,7 +42,8 @@ import { useBoundStore } from "@/lib/store";
 import { City } from "@/lib/Features/CitiesData";
 
 const CompanyInfo = () => {
-  const email = localStorage.getItem("email");
+  const { data: session } = useSession();
+  const email = session ? session.user?.email : null;
   const password = localStorage.getItem("password");
   const [type, setType] = useState("");
   const [name, setName] = useState("");
@@ -55,7 +56,6 @@ const CompanyInfo = () => {
   const [activities, setActivities] = useState<(string | number)[]>([]);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const { data: session, status } = useSession();
   const [Language, setLanguage] = useState();
   const [Cities, setCity] = useState<City[]>([]);
 
@@ -80,12 +80,6 @@ const CompanyInfo = () => {
   // Content
   const ChooseTypeContent = useTranslations("Auth.CompanyInformation");
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      window.location.href = `/${Language}/Dashboard-B`;
-    }
-  }, [status, Language]);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -96,7 +90,7 @@ const CompanyInfo = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/add/bidder/company",
+        "http://localhost:3001/add/depositor/company",
         {
           email,
           company_type: type,
@@ -111,20 +105,10 @@ const CompanyInfo = () => {
       );
 
       if (response && response.data && response.data.success) {
-        const result = await signIn("credentials", {
-          redirect: false,
-          email,
-          password,
-        });
-
-        if (result?.error) {
-          setError(result.error);
-        } else if (result) {
-          setSuccess("registered successfully");
-          localStorage.removeItem("email");
-          localStorage.removeItem("password");
-          window.location.href = `/${Language}/dashboard-b`;
-        }
+        setSuccess(response.data.success);
+        window.location.href = `/${Language}/Profile-D`;
+      } else {
+        setError(response.data.error);
       }
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.error) {
@@ -138,6 +122,7 @@ const CompanyInfo = () => {
 
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
+
   const [next, setNext] = useState<boolean>(false);
 
   function addActivity() {
@@ -157,7 +142,7 @@ const CompanyInfo = () => {
       <div className="w-full text-xs text-end flex justify-between px-5">
         <Link
           className="flex items-center gap-2"
-          href={`/${Language}/Sign-Up/choose-type/bidder-Type`}
+          href={`/${Language}/Profile-D/Add-Info`}
         >
           <Image
             src={"/icons/arrowBack.svg"}
