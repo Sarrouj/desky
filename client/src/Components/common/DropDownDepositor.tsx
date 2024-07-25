@@ -1,6 +1,13 @@
 import React from "react";
 
-import { Settings, LifeBuoy, LogOut, User, Package, CircleCheck } from "lucide-react";
+import {
+  Settings,
+  LifeBuoy,
+  LogOut,
+  User,
+  Package,
+  CircleCheck,
+} from "lucide-react";
 
 import {
   DropdownMenu,
@@ -23,7 +30,13 @@ import Link from "next/link";
 // Skeleton
 import { Skeleton } from "@/Components/ui/skeleton";
 
-const DropDownDepositor = ({content, Language} : {content : any, Language: String | undefined}) => {
+const DropDownDepositor = ({
+  content,
+  Language,
+}: {
+  content: any;
+  Language: String | undefined;
+}) => {
   const [LogedOut, setLogedOut] = useState(true);
   const { data: session, status } = useSession();
   let [userTypeSwitch, setuserTypeSwitch] = useState<string>("");
@@ -51,7 +64,7 @@ const DropDownDepositor = ({content, Language} : {content : any, Language: Strin
   useEffect(() => {
     if (status == "unauthenticated") {
       setLogedOut(false);
-      window.location.href = `/${Language}/`;
+      window.location.href = `/${Language}`;
     } else if (status == "loading") {
     }
   }, [status, Language]);
@@ -108,14 +121,16 @@ const DropDownDepositor = ({content, Language} : {content : any, Language: Strin
         <DropdownMenuLabel>{content("title")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <User className="mr-2 h-4 w-4" />
-            <span>{content("Profile")}</span>
-          </DropdownMenuItem>
-          <Link href={`/${Language}/dashboard-d/my-reviews`}>
+          <Link href={`/${Language}/Profile-D`}>
+            <DropdownMenuItem>
+              <User className="mr-2 h-4 w-4" />
+              <span>{content("Profile")}</span>
+            </DropdownMenuItem>
+          </Link>
+          <Link href={`/${Language}/Reviews-D`}>
             <DropdownMenuItem>
               <CircleCheck className="mr-2 h-4 w-4" />
-              <span>{content('Reviews')}</span>
+              <span>{content("Reviews")}</span>
             </DropdownMenuItem>
           </Link>
           <Link href={`/${Language}/offers`}>

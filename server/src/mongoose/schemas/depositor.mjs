@@ -23,11 +23,11 @@ const DepositorsSchema = new mongoose.Schema(
           required: true,
         },
         bidder_id: {
-          type: String,
+          type: mongoose.Schema.Types.ObjectId,
           required: true,
         },
         offer_id: {
-          type: String,
+          type: mongoose.Schema.Types.ObjectId,
           required: true,
         },
         rating: {
@@ -41,7 +41,6 @@ const DepositorsSchema = new mongoose.Schema(
         date: {
           type: Date,
           required: true,
-          default: Date.now,
         },
       },
     ],

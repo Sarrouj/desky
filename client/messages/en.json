@@ -214,7 +214,7 @@
     "Location": "Targeted Location :",
     "Posted": "Posted ",
     "Category": "Category :",
-    "Estbudget": "Est.budget:",
+    "EstBudget": "Est.budget:",
     "Deadline": "Deadline:",
     "Attachements": "Attachments",
     "reviews": "reviews",
@@ -222,7 +222,7 @@
     "OfferActivity": "Activity in This Offer:",
     "Proposals": "Proposals :",
     "CallToAction": "Apply Now",
-    "loggedToApply": "You must be logged in to apply for this offer,",
+    "loggedToApply": "You must be logged in as a bidder to apply for an offer,",
     "login": "Login",
     "ReviewsHistory": "Reviews History"
   },
@@ -319,7 +319,8 @@
       "ManageBids": "Manage Bids",
       "MyOffers": "My Offers",
       "CreateOffer": "Create Offer",
-      "Reviews": "My Reviews"
+      "Reviews": "My Reviews",
+      "Profile": "Profile"
     },
     "SideBar": {
       "Dashboard": "Dashboard",

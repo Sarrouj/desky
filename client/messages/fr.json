@@ -214,7 +214,7 @@
     "Location": "Lieu ciblé :",
     "Posted": "Posté ",
     "Category": "Catégorie :",
-    "Estbudget": "Budget estimé :",
+    "EstBudget": "Budget estimé :",
     "Deadline": "Date limite :",
     "Attachements": "Pièces jointes",
     "reviews": "avis",
@@ -222,7 +222,7 @@
     "OfferActivity": "Activité dans cette offre :",
     "Proposals": "Propositions :",
     "CallToAction": "Postuler maintenant",
-    "loggedToApply": "Vous devez être connecté pour postuler à cette offre,",
+    "loggedToApply": "Vous devez être connecté en tant qu'enchérisseur pour postuler à une offre,",
     "login": "Connexion",
     "ReviewsHistory": "Historique des avis"
   },
@@ -319,7 +319,8 @@
       "ManageBids": "Gérer les Offres",
       "MyOffers": "Mes Offres",
       "CreateOffer": "Créer une Offre",
-      "Reviews": "Mes Avis"
+      "Reviews": "Mes Avis",
+      "Profile": "Profile"
     },
     "SideBar": {
       "Dashboard": "Tableau de Bord",

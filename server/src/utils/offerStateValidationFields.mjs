@@ -7,7 +7,7 @@ const offerStateValidationFields = [
     .withMessage("Offer state is required")
     .isIn(["pending", "open", "inProgress", "closed", "rejected"])
     .withMessage(
-      "Offer state must be one of: pending, open, closed, finished or rejected"
+      "Offer state must be one of: pending, open, inProgress, closed or rejected"
     ),
   handleValidationErrors,
 ];

@@ -462,11 +462,7 @@ router.post(
         return res.status(404).json({ error: "Offer not found" });
       }
 
-      const offer_depositor = await Depositors.findOne({
-        _id: offer.depositor_id,
-        depositor_id: user_id,
-      });
-      if (offer_depositor) {
+      if (offer.depositor_id.toString() === user_id) {
         return res
           .status(403)
           .json({ error: "You can't apply to your own offers" });
@@ -478,11 +474,11 @@ router.post(
           .json({ error: "You need to be trusted to apply to this offer" });
       }
 
-      if (bidder.bidder_CB < 10) {
-        return res
-          .status(403)
-          .json({ error: "You don't have enough Connects" });
-      }
+      // if (bidder.bidder_CB < 10) {
+      //   return res
+      //     .status(403)
+      //     .json({ error: "You don't have enough Connects" });
+      // }
 
       if (offer.offer_apply.some((apply) => apply.bidder_id === user_id)) {
         return res
@@ -491,9 +487,12 @@ router.post(
       }
 
       // bidder.bidder_CB -= 10;
-      await bidder.save();
+      // await bidder.save();
 
-      const newOfferApply = { bidder_id: user_id, date: new Date() };
+      const estimate = req.file ? req.file.filename : "";
+      const date = new Date();
+
+      const newOfferApply = { bidder_id: user_id, estimate, date };
       offer.offer_apply.push(newOfferApply);
       await offer.save();
       res.status(200).json({ success: "Offer applied successfully" });

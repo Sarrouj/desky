@@ -79,10 +79,12 @@ const ClosedBidderBidsList = ({ bids }: { bids: any }) => {
           user_id: session?.user.id,
         }
       );
+      console.log(response.status);
       if (response.status === 200) {
         setRating(0);
         setReview("");
         setError("");
+        window.location.reload();
       }
     } catch (error) {
       console.error("Error submitting review:", error);
@@ -160,155 +162,158 @@ const ClosedBidderBidsList = ({ bids }: { bids: any }) => {
               <TableBody>
                 {bids &&
                   bids.map((bid: any, index: number) => {
-                    if (
-                      bid[0].offer_state == "closed" &&
-                      bid[0].depositor_review.filter(
-                        (review: any) =>
-                          review.bidder_id === session?.user.id &&
-                          review.offer_id === bid[0].offer_id
-                      )
-                    ) {
-                      return null;
-                    }
-                    return (
-                      <TableRow key={`${bid.offer_title}-${index}`}>
-                        <Link href={`/${Language}/offers/${bid[0].offer_id}`}>
-                          <TableCell>{bid[0].offer_title}</TableCell>
-                        </Link>
-                        <TableCell className="text-center">
-                          {bid[0].depositor_name}
-                        </TableCell>
-                        <TableCell className="text-center">
-                          {new Date(bid[0].bid.date).toLocaleDateString(
-                            "en-CA"
-                          )}
-                        </TableCell>
-                        <TableCell className="text-center">
-                          <a
-                            target="_blank"
-                            href={`http://localhost:3001/uploads/${bid[0].bid.estimate}`}
-                            className=" mt-2 text-primary hover:text-orange-600"
-                          >
-                            <Download
-                              size={22}
-                              className="inline-block text-primary hover:text-orange-600"
-                            />
-                          </a>
-                        </TableCell>
-                        <TableCell className="text-center">
-                          {bid[0].offer_state == "closed" ? (
-                            <TooltipProvider>
-                              <Dialog>
-                                <DialogTrigger>
-                                  <Tooltip>
-                                    <TooltipTrigger>
-                                      <Button className="h-6 rounded-full text-white text-xs bg-green-600 hover:bg-green-500">
-                                        Review
-                                      </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent
-                                      side="top"
-                                      className="text-xs font-sm "
-                                    >
-                                      add a review
-                                    </TooltipContent>
-                                  </Tooltip>
-                                </DialogTrigger>
-                                <DialogContent>
-                                  <DialogHeader>
-                                    <DialogTitle className="font-bold text-2xl text-primary text-center">
-                                      Review
-                                    </DialogTitle>
-                                    <DialogDescription className="text-center">
-                                      Add a review for the depositor after the
-                                      completion of the work.
-                                    </DialogDescription>
-                                  </DialogHeader>
-                                  {/* rating */}
-                                  <form
-                                    onSubmit={(e) =>
-                                      handleSubmit(
-                                        e,
-                                        bid[0].offer_id,
-                                        bid[0].depositor_id
-                                      )
-                                    }
-                                  >
-                                    <div className="flex align-middle justify-center gap-14 relative mb-12 mr-8">
-                                      {[1, 2, 3, 4, 5].map((value) => (
-                                        <label key={value} className="relative">
-                                          <input
-                                            type="radio"
-                                            name="rating"
-                                            value={value}
-                                            className="opacity-0 absolute inset-0 w-full h-full hover:cursor-pointer"
-                                            onChange={(e) =>
-                                              setRating(
-                                                parseInt(e.target.value)
-                                              )
-                                            }
-                                          />
-                                          <StarFill
-                                            width={30}
-                                            height={30}
-                                            className={`hover:cursor-pointer absolute inset-0 ${
-                                              value <= rating
-                                                ? "text-yellow-400"
-                                                : "text-gray-400"
-                                            }`}
-                                          />
-                                        </label>
-                                      ))}
-                                    </div>
-                                    {error && (
-                                      <p className="text-red-500 text-center">
-                                        {error}
-                                      </p>
-                                    )}
-                                    <Textarea
-                                      onChange={(e) =>
-                                        setReview(e.target.value)
-                                      }
-                                      value={review}
-                                      className="ring-0 border-input focus:ring-0 focus-visible:ring-white focus-visible:ring-1"
-                                      id="message"
-                                      placeholder={"review"}
-                                      maxLength={2000}
-                                      required
-                                    />
-                                    <DialogFooter>
-                                      <Button
-                                        className="text-white bg-green-600 hover:bg-green-500 mt-4"
-                                        type="submit"
-                                      >
-                                        Confirm
-                                      </Button>
-                                    </DialogFooter>
-                                  </form>
-                                </DialogContent>
-                              </Dialog>
-                            </TooltipProvider>
-                          ) : (
-                            <TooltipProvider>
-                              <Tooltip>
-                                <TooltipTrigger>
-                                  <Button className="h-6 rounded-full text-white text-xs bg-gray-300 hover:bg-gray-200">
-                                    Review
-                                  </Button>
-                                </TooltipTrigger>
-                                <TooltipContent
-                                  side="top"
-                                  className="text-xs font-sm"
-                                >
-                                  you can add a review <br /> if the offer is
-                                  closed
-                                </TooltipContent>
-                              </Tooltip>
-                            </TooltipProvider>
-                          )}
-                        </TableCell>
-                      </TableRow>
+                    const reviewExists = bid[0].depositor_review.some(
+                      (review: any) =>
+                        review.bidder_id === session?.user.id &&
+                        review.offer_id === bid[0].offer_id
                     );
+
+                    if (bid[0].offer_state !== "closed" || reviewExists) {
+                      return null;
+                    } else {
+                      return (
+                        <TableRow key={`${bid.offer_title}-${index}`}>
+                          <Link href={`/${Language}/offers/${bid[0].offer_id}`}>
+                            <TableCell>{bid[0].offer_title}</TableCell>
+                          </Link>
+                          <TableCell className="text-center">
+                            {bid[0].depositor_name}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {new Date(bid[0].bid.date).toLocaleDateString(
+                              "en-CA"
+                            )}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <a
+                              target="_blank"
+                              href={`http://localhost:3001/uploads/${bid[0].bid.estimate}`}
+                              className=" mt-2 text-primary hover:text-orange-600"
+                            >
+                              <Download
+                                size={22}
+                                className="inline-block text-primary hover:text-orange-600"
+                              />
+                            </a>
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {bid[0].offer_state == "closed" ? (
+                              <TooltipProvider>
+                                <Dialog>
+                                  <DialogTrigger>
+                                    <Tooltip>
+                                      <TooltipTrigger>
+                                        <Button className="h-6 rounded-full text-white text-xs bg-green-600 hover:bg-green-500">
+                                          Review
+                                        </Button>
+                                      </TooltipTrigger>
+                                      <TooltipContent
+                                        side="top"
+                                        className="text-xs font-sm "
+                                      >
+                                        add a review
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  </DialogTrigger>
+                                  <DialogContent>
+                                    <DialogHeader>
+                                      <DialogTitle className="font-bold text-2xl text-primary text-center">
+                                        Review
+                                      </DialogTitle>
+                                      <DialogDescription className="text-center">
+                                        Add a review for the depositor after the
+                                        completion of the work.
+                                      </DialogDescription>
+                                    </DialogHeader>
+                                    {/* rating */}
+                                    <form
+                                      onSubmit={(e) =>
+                                        handleSubmit(
+                                          e,
+                                          bid[0].offer_id,
+                                          bid[0].depositor_id
+                                        )
+                                      }
+                                    >
+                                      <div className="flex align-middle justify-center gap-14 relative mb-12 mr-8">
+                                        {[1, 2, 3, 4, 5].map((value) => (
+                                          <label
+                                            key={value}
+                                            className="relative"
+                                          >
+                                            <input
+                                              type="radio"
+                                              name="rating"
+                                              value={value}
+                                              className="opacity-0 absolute inset-0 w-full h-full hover:cursor-pointer"
+                                              onChange={(e) =>
+                                                setRating(
+                                                  parseInt(e.target.value)
+                                                )
+                                              }
+                                            />
+                                            <StarFill
+                                              width={30}
+                                              height={30}
+                                              className={`hover:cursor-pointer absolute inset-0 ${
+                                                value <= rating
+                                                  ? "text-yellow-400"
+                                                  : "text-gray-400"
+                                              }`}
+                                            />
+                                          </label>
+                                        ))}
+                                      </div>
+                                      {error && (
+                                        <p className="text-red-500 text-center">
+                                          {error}
+                                        </p>
+                                      )}
+                                      <Textarea
+                                        onChange={(e) =>
+                                          setReview(e.target.value)
+                                        }
+                                        value={review}
+                                        className="ring-0 border-input focus:ring-0 focus-visible:ring-white focus-visible:ring-1"
+                                        id="message"
+                                        placeholder={"review"}
+                                        maxLength={2000}
+                                        required
+                                      />
+                                      <DialogFooter>
+                                        <Button
+                                          className="text-white bg-green-600 hover:bg-green-500 mt-4"
+                                          type="submit"
+                                        >
+                                          Confirm
+                                        </Button>
+                                      </DialogFooter>
+                                    </form>
+                                  </DialogContent>
+                                </Dialog>
+                              </TooltipProvider>
+                            ) : (
+                              <TooltipProvider>
+                                <Tooltip>
+                                  <TooltipTrigger>
+                                    <Button className="h-6 rounded-full text-white text-xs bg-gray-300 hover:bg-gray-200">
+                                      Review
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent
+                                    side="top"
+                                    className="text-xs font-sm"
+                                  >
+                                    you can add a review <br /> if the offer is
+                                    closed
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    }
                   })}
               </TableBody>
             </Table>

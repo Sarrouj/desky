@@ -123,7 +123,7 @@ const CompanyInfo = () => {
           setSuccess("registered successfully");
           localStorage.removeItem("email");
           localStorage.removeItem("password");
-          window.location.href = `/${Language}/dashboard-b`;
+          window.location.href = `/${Language}/Dashboard-B`;
         }
       }
     } catch (error: any) {
