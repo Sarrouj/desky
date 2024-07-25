@@ -61,8 +61,8 @@ const FirstVueDropDownMenu = ({
   useEffect(() => {
     if (status == "unauthenticated") {
       setLogedOut(false);
-    } else if (status == "loading") {
     }
+
   }, [status, Language]);
 
   const handleLogout = () => {

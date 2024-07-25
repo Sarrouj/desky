@@ -40,6 +40,8 @@ const SignUp = () => {
         window.location.href = `/${Language}/dashboard-b`;
       }else if(userType == "depositor"){
         window.location.href = `/${Language}/dashboard-d`;
+      }else if(userType == "admin"){
+        window.location.href = `/${Language}/Dashboard-A/Offers-verification`;
       }
     }
   }, [status, Language, userType]);

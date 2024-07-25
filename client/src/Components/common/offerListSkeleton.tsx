@@ -90,7 +90,7 @@ const OffersListSkeleton = ({
             </Link>
           </CardHeader>
           <CardContent>
-            <Table>
+            <Table >
               <TableHeader className="">
                 <TableRow className="hover:bg-white">
                   <TableHead>{Content("offerName")}</TableHead>

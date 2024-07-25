@@ -4,22 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 
-import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
-import {
-  Home,
-  LineChart,
-  Package,
-  Package2,
-  PanelLeft,
-  ShoppingCart,
-  Users2,
-  AlignJustify,
-  Blocks,
-  CopyPlus,
-  CircleCheckBig,
-  Star,
-} from "lucide-react";
-
 import FirstVueDropDownMenu from "../common/FirstVueDropDownMenu";
 import FirstVueResponsiveMenu from "../common/FirstVueResponsiveMenu";
 import { useTranslations } from "next-intl";

@@ -41,7 +41,7 @@ import {
 } from "@/Components/ui/tooltip";
 import axios from "axios";
 
-const OffersList = ({ offers, user_id }: { offers: any; user_id: any }) => {
+const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user_id: any }) => {
   const [Language, setLanguage] = useState("fr");
   const [message, setMessage] = useState("");
 
@@ -58,19 +58,20 @@ const OffersList = ({ offers, user_id }: { offers: any; user_id: any }) => {
         <Card x-chunk="dashboard-05-chunk-3">
           <CardHeader className="px-7 flex flex-row justify-between">
             <div className="flex flex-col gap-2">
-              <CardTitle>Offers Verification</CardTitle>
+              <CardTitle className="text-secondaryDarkBlue text-lg lg:text-xl">{Content("title")}</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
+            <Table className="min-w-[800px]">
+            <TableHeader className="">
                 <TableRow className="hover:bg-white">
-                  <TableHead>
+                  <TableHead className="text-xs md:text-sm ">{Content("OfferName")}</TableHead>
+                  <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>Offer Name</TooltipTrigger>
-                        <TooltipContent side="top" className="text-xs font-sm">
-                          The name of the offers
+                        <TooltipTrigger className="text-xs md:text-sm ">{Content("DepositorName")}</TooltipTrigger>
+                        <TooltipContent side="top" className="text-xs font-sm ">
+                          {Content("DepositorNameDesc1")} <br /> {Content("DepositorNameDesc2")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -78,10 +79,9 @@ const OffersList = ({ offers, user_id }: { offers: any; user_id: any }) => {
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>Depositor Name</TooltipTrigger>
-                        <TooltipContent side="top" className="text-xs font-sm">
-                          The name of the depositor <br />
-                          that posted that offer
+                        <TooltipTrigger className="text-xs md:text-sm ">{Content("datePost")}</TooltipTrigger>
+                        <TooltipContent side="top" className="text-xs font-sm ">
+                          {Content("datePostDesc")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -89,9 +89,11 @@ const OffersList = ({ offers, user_id }: { offers: any; user_id: any }) => {
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>date of post</TooltipTrigger>
-                        <TooltipContent side="top" className="text-xs font-sm">
-                          The date that the offer was posted
+                        <TooltipTrigger className="text-xs md:text-sm ">
+                          {Content("Accept")}
+                        </TooltipTrigger>
+                        <TooltipContent side="top" className="text-xs font-sm ">
+                          {Content("AcceptDesc")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -99,20 +101,11 @@ const OffersList = ({ offers, user_id }: { offers: any; user_id: any }) => {
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>Accept</TooltipTrigger>
-                        <TooltipContent side="top" className="text-xs font-sm">
-                          Accept the offer as a valid offer
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </TableHead>
-                  <TableHead className="text-center">
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>Refuse</TooltipTrigger>
-                        <TooltipContent side="top" className="text-xs font-sm">
-                          Refuse the offer, <br />
-                          and add a message of the reason
+                        <TooltipTrigger className="text-xs md:text-sm ">
+                          {Content("Refuse")}
+                        </TooltipTrigger>
+                        <TooltipContent side="top" className="text-xs font-sm ">
+                          {Content("RefuseDesc1")} <br />  {Content("RefuseDesc2")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -136,7 +129,7 @@ const OffersList = ({ offers, user_id }: { offers: any; user_id: any }) => {
                       const result = await axios.put(
                         `http://localhost:3001/admin/offer/refuse/${offer._id}`,
                         {
-                            user_id,
+                          user_id,
                           message,
                         }
                       );
@@ -151,6 +144,7 @@ const OffersList = ({ offers, user_id }: { offers: any; user_id: any }) => {
                           onClick={() => {
                             window.location.href = `/${Language}/Dashboard-A/Offers-verification/${offer._id}`;
                           }}
+                          className="text-xs md:text-sm "
                         >
                           {offer.offer_title}
                         </TableCell>
@@ -158,7 +152,7 @@ const OffersList = ({ offers, user_id }: { offers: any; user_id: any }) => {
                           onClick={() => {
                             window.location.href = `/${Language}/Dashboard-A/Offers-verification/${offer._id}`;
                           }}
-                          className="text-center"
+                          className="text-center text-xs md:text-sm "
                         >
                           {offer.depositor_name}
                         </TableCell>
@@ -166,7 +160,7 @@ const OffersList = ({ offers, user_id }: { offers: any; user_id: any }) => {
                           onClick={() => {
                             window.location.href = `/${Language}/Dashboard-A/Offers-verification/${offer._id}`;
                           }}
-                          className="text-center"
+                          className="text-center text-xs md:text-sm "
                         >
                           {new Date(offer.offer_DoP).toLocaleDateString(
                             "en-CA"
@@ -179,13 +173,13 @@ const OffersList = ({ offers, user_id }: { offers: any; user_id: any }) => {
                                 onClick={handleAccept}
                                 className="h-6 rounded-full text-white text-xs px-2 bg-green-600 hover:bg-green-500"
                               >
-                                accept
+                                 {Content("AcceptCallToAction")}
                               </TooltipTrigger>
                               <TooltipContent
                                 side="top"
                                 className="text-xs font-sm"
                               >
-                                Accept the offer
+                                 {Content("AcceptCallToActionDesc")}
                               </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
@@ -196,37 +190,36 @@ const OffersList = ({ offers, user_id }: { offers: any; user_id: any }) => {
                               <DialogTrigger>
                                 <Tooltip>
                                   <TooltipTrigger className="h-6 rounded-full text-white text-xs bg-red-600 hover:bg-red-500 px-2">
-                                    Refuse
+                                    {Content("RefuseCalToAction")}
                                   </TooltipTrigger>
                                   <TooltipContent
                                     side="top"
                                     className="text-xs font-sm"
                                   >
-                                    Refuse the offer
+                                    {Content("RefuseCalToActionDesc")}
                                   </TooltipContent>
                                 </Tooltip>
                               </DialogTrigger>
                               <DialogContent>
                                 <DialogHeader>
-                                  <DialogTitle>Refuse Message</DialogTitle>
-                                  <DialogDescription>
-                                    Write a message describing the reason for
-                                    refusing the offer.
+                                  <DialogTitle className="text-secondaryDarkBlue">{Content("RefuseMessage")}</DialogTitle>
+                                  <DialogDescription className="text-xs lg:text-sm ">
+                                  {Content("RefuseMessageDesc")}
                                   </DialogDescription>
                                 </DialogHeader>
                                 <textarea
                                   name="message"
                                   id="message"
-                                  className="border border-gray-400 rounded-md p-2 w-full"
+                                  className="border border-gray-400 rounded-md p-2 w-full text-xs lg:text-sm "
                                   onChange={(e) => setMessage(e.target.value)}
                                 ></textarea>
                                 <DialogFooter>
                                   <Button
-                                    className="text-white  bg-red-600 hover:bg-red-500 "
+                                    className="text-white text-xs bg-primary hover:bg-orange-400 "
                                     onClick={handleRefuse}
                                     type="submit"
                                   >
-                                    Confirm
+                                    {Content("Send")}
                                   </Button>
                                 </DialogFooter>
                               </DialogContent>
