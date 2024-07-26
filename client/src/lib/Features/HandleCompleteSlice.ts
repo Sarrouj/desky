@@ -16,17 +16,20 @@ export const HandleCompleteSlice : StateCreator<HandleCompleteState> = (set, get
     getHandleCompleteDepositorID : (id) => set({ HandleCompleteDepositorID  : id }),
     putCompleteDepositorOffer : async () => {
         const { HandleCompleteOfferID } = get();
+        console.log(HandleCompleteOfferID);
         const { HandleCompleteDepositorID } = get();
-
+        console.log(HandleCompleteDepositorID);
         try {
-            await axios.put(
+          console.log(HandleCompleteOfferID);
+            let results = await axios.put(
               `http://localhost:3001/edit/offer/state/${HandleCompleteOfferID}`,
               {
-                offer_state: "closed",
                 user_id: HandleCompleteDepositorID,
+                offer_state: "closed",
               }
             );
-            window.location.reload();
+            // window.location.reload();
+            console.log(results);
           } catch (error) {
             console.log(error);
         }

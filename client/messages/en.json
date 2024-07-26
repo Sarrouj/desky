@@ -430,70 +430,6 @@
         "justNow": "just now"
       }
     },
-    "ResponsiveMenuBar" : {
-      "Dashboard" : "Dashboard",
-      "Profile" : "Profile",
-      "ManageBids" : "Manage Bids",
-      "MyOffers" : "My Offers",
-      "Reviews" : "Reviews",
-      "Offers" : "Offers",
-      "Support" : "Support",
-      "LogOut" : "Log Out"
-    } 
-  },
-  "AdminDashboard" : {
-    "DropDownMenu": {
-      "title": "My Account",
-      "Home": "Home",
-      "Marketplace": "Offers",
-      "Support": "Support",
-      "LogOut": "Log Out",
-      "Account": "Account"
-    },
-      "NotFound" : {
-        "Title" : "Currently No Data Available",
-        "Description" : "There are no Offers to be Verified, Wait for Future Deposit Offers"
-      },
-    "Breadcrumb" : {
-      "Dashboard" : "Dashboard",
-      "OffersVerification" : "Offers Verification"
-    },
-    "OffersVerificationSkeleton" : {
-      "title" : "Offers Verification",
-      "OfferName" : "Offer Name",
-      "OfferNameDesc" : "The Name of the Offers",
-      "DepositorName" : "Depositor Name",
-      "DepositorNameDesc1" : "The Name of the Depositor",
-      "DepositorNameDesc2" : "that Posted that Offer",
-      "datePost" : "Date of Post",
-      "datePostDesc" : "The Date That the Offer was Posted",
-      "Accept" : "Accept Offer",
-      "AcceptDesc" : "Accept the Offer as a Valid Offer",
-      "Refuse" : "Refuse Offer",
-      "RefuseDesc1" : "Refuse the Offer, and Add",
-      "RefuseDesc2" : "a Message of the Reason"
-    },
-    "OffersVerification" : {
-      "title" : "Offers Verification",
-      "OfferName" : "Offer Name",
-      "OfferNameDesc" : "The Name of the Offers",
-      "DepositorName" : "Depositor Name",
-      "DepositorNameDesc1" : "The Name of the Depositor",
-      "DepositorNameDesc2" : "that Posted that Offer",
-      "datePost" : "Date of Post",
-      "datePostDesc" : "The Date That the Offer was Posted",
-      "Accept" : "Accept Offer",
-      "AcceptDesc" : "Accept the Offer as a Valid Offer",
-      "Refuse" : "Refuse Offer",
-      "RefuseDesc1" : "Refuse the Offer, and Add",
-      "RefuseDesc2" : "a Message of the Reason",
-      "AcceptCallToAction" : "Accept",
-      "AcceptCallToActionDesc" : "Validate and Accept the Offer",
-      "RefuseCalToAction" : "Refuse",
-      "RefuseCalToActionDesc" : "Validate and Refuse The Offer",
-      "RefuseMessage" : "Refuse Message",
-      "RefuseMessageDesc" : "Write a Message Describing the Reason For Refusing The Offer.",
-      "Send" : "Send"
     "ResponsiveMenuBar": {
       "Dashboard": "Dashboard",
       "Profile": "Profile",
@@ -503,6 +439,61 @@
       "Offers": "Offers",
       "Support": "Support",
       "LogOut": "Log Out"
+    }
+  },
+  "AdminDashboard": {
+    "DropDownMenu": {
+      "title": "My Account",
+      "Home": "Home",
+      "Marketplace": "Offers",
+      "Support": "Support",
+      "LogOut": "Log Out",
+      "Account": "Account"
+    },
+    "NotFound": {
+      "Title": "Currently No Data Available",
+      "Description": "There are no Offers to be Verified, Wait for Future Deposit Offers"
+    },
+    "Breadcrumb": {
+      "Dashboard": "Dashboard",
+      "OffersVerification": "Offers Verification"
+    },
+    "OffersVerificationSkeleton": {
+      "title": "Offers Verification",
+      "OfferName": "Offer Name",
+      "OfferNameDesc": "The Name of the Offers",
+      "DepositorName": "Depositor Name",
+      "DepositorNameDesc1": "The Name of the Depositor",
+      "DepositorNameDesc2": "that Posted that Offer",
+      "datePost": "Date of Post",
+      "datePostDesc": "The Date That the Offer was Posted",
+      "Accept": "Accept Offer",
+      "AcceptDesc": "Accept the Offer as a Valid Offer",
+      "Refuse": "Refuse Offer",
+      "RefuseDesc1": "Refuse the Offer, and Add",
+      "RefuseDesc2": "a Message of the Reason"
+    },
+    "OffersVerification": {
+      "title": "Offers Verification",
+      "OfferName": "Offer Name",
+      "OfferNameDesc": "The Name of the Offers",
+      "DepositorName": "Depositor Name",
+      "DepositorNameDesc1": "The Name of the Depositor",
+      "DepositorNameDesc2": "that Posted that Offer",
+      "datePost": "Date of Post",
+      "datePostDesc": "The Date That the Offer was Posted",
+      "Accept": "Accept Offer",
+      "AcceptDesc": "Accept the Offer as a Valid Offer",
+      "Refuse": "Refuse Offer",
+      "RefuseDesc1": "Refuse the Offer, and Add",
+      "RefuseDesc2": "a Message of the Reason",
+      "AcceptCallToAction": "Accept",
+      "AcceptCallToActionDesc": "Validate and Accept the Offer",
+      "RefuseCalToAction": "Refuse",
+      "RefuseCalToActionDesc": "Validate and Refuse The Offer",
+      "RefuseMessage": "Refuse Message",
+      "RefuseMessageDesc": "Write a Message Describing the Reason For Refusing The Offer.",
+      "Send": "Send"
     }
   }
 }
