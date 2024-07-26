@@ -70,10 +70,10 @@ const BidsList = ({
   }
 
   useEffect(() => {
-    if(limit){
+    if (limit) {
       dBids.slice(-5);
     }
-  }, [limit])
+  }, [limit, dBids]);
 
   return (
     <Tabs defaultValue="week">
@@ -81,33 +81,41 @@ const BidsList = ({
         <Card x-chunk="dashboard-05-chunk-3">
           <CardHeader className="px-5 lg:px-7 flex flex-row justify-between">
             <div className="flex flex-col gap-2">
-              <CardTitle className="text-secondaryDarkBlue text-xl">{Content("title")}</CardTitle>
-              <CardDescription className="text-xs sm:text-sm">{Content("Desc")}</CardDescription>
+              <CardTitle className="text-secondaryDarkBlue text-xl">
+                {Content("title")}
+              </CardTitle>
+              <CardDescription className="text-xs sm:text-sm">
+                {Content("Desc")}
+              </CardDescription>
             </div>
             <div className="hidden sm:flex gap-2">
               <Link href={`/${Language}/Create-Offer`}>
                 <Button size={"sm"} className="text-xs text-white">
-                {Content("AddOffer")}
+                  {Content("AddOffer")}
                 </Button>
               </Link>
-            {seeMore ? (
-              <Link href={`/${Language}/dashboard-d/manage-bids`}>
-                <Button size={"sm"} className="text-xs text-white">
-                  {Content("SeeMore")}
-                </Button>
-              </Link>
-            ) : null}
+              {seeMore ? (
+                <Link href={`/${Language}/dashboard-d/manage-bids`}>
+                  <Button size={"sm"} className="text-xs text-white">
+                    {Content("SeeMore")}
+                  </Button>
+                </Link>
+              ) : null}
             </div>
           </CardHeader>
-          <CardContent >
+          <CardContent>
             <Table className="min-w-[800px]">
               <TableHeader className="">
                 <TableRow className="hover:bg-white">
-                  <TableHead className="text-xs sm:text-sm">{Content("OfferName")}</TableHead>
+                  <TableHead className="text-xs sm:text-sm">
+                    {Content("OfferName")}
+                  </TableHead>
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger className="text-xs sm:text-sm">{Content("BidderName")}</TooltipTrigger>
+                        <TooltipTrigger className="text-xs sm:text-sm">
+                          {Content("BidderName")}
+                        </TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
                           {Content("BidderNameDesc1")} <br />{" "}
                           {Content("BidderNameDesc2")}
@@ -118,7 +126,9 @@ const BidsList = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger className="text-xs sm:text-sm">{Content("Rate")}</TooltipTrigger>
+                        <TooltipTrigger className="text-xs sm:text-sm">
+                          {Content("Rate")}
+                        </TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
                           {Content("RateDesc1")} <br /> {Content("RateDesc2")}
                         </TooltipContent>
@@ -128,7 +138,9 @@ const BidsList = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger className="text-xs sm:text-sm">{Content("Date")}</TooltipTrigger>
+                        <TooltipTrigger className="text-xs sm:text-sm">
+                          {Content("Date")}
+                        </TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
                           {Content("DateDesc1")} <br /> {Content("DateDesc2")}
                         </TooltipContent>
@@ -138,7 +150,9 @@ const BidsList = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger className="text-xs sm:text-sm">{Content("Devi")}</TooltipTrigger>
+                        <TooltipTrigger className="text-xs sm:text-sm">
+                          {Content("Devi")}
+                        </TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
                           {Content("DeviDesc1")}
                         </TooltipContent>
@@ -148,7 +162,9 @@ const BidsList = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger className="text-xs sm:text-sm">{Content("AcceptBid")}</TooltipTrigger>
+                        <TooltipTrigger className="text-xs sm:text-sm">
+                          {Content("AcceptBid")}
+                        </TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
                           {Content("AcceptBidDesc1")} <br />{" "}
                           {Content("AcceptBidDesc2")}
@@ -160,8 +176,8 @@ const BidsList = ({
               </TableHeader>
               <TableBody>
                 {dBids.map((bid: any, i: number) => {
-                  if(bid.offer_state == "open"){
-                    if(bid.bid_id){
+                  if (bid.offer_state == "open") {
+                    if (bid.bid_id) {
                       getBidID(bid.bid_id);
                       getUserID(user_id);
                     }
@@ -169,9 +185,11 @@ const BidsList = ({
                       <TableRow className="cursor-pointer" key={i}>
                         <Dialog>
                           <DialogTrigger asChild>
-                            <TableCell className="text-xs sm:text-sm">{bid.offer_title}</TableCell>
+                            <TableCell className="text-xs sm:text-sm">
+                              {bid.offer_title}
+                            </TableCell>
                           </DialogTrigger>
-                          { bid.bidder_review.length > 0 ?
+                          {bid.bidder_review.length > 0 ? (
                             <DialogContent className="sm:max-w-[900px] p-8 ">
                               <DialogHeader>
                                 <DialogTitle className="pb-6 border-b text-lg">
@@ -192,7 +210,8 @@ const BidsList = ({
                                         `http://localhost:3001/offer/${review.offer_id}`
                                       );
                                       const data = response.data.success;
-                                      const dataOffer = responseOffer.data.success;
+                                      const dataOffer =
+                                        responseOffer.data.success;
                                       return (
                                         <div
                                           key={index}
@@ -203,13 +222,12 @@ const BidsList = ({
                                               {data.depositor_name}{" "}
                                             </h3>
                                             <h3 className="text-neutral-500 text-sm">
-                                              {new Date(review.date).toLocaleString(
-                                                "en-US",
-                                                {
-                                                  month: "short",
-                                                  day: "numeric",
-                                                }
-                                              )}
+                                              {new Date(
+                                                review.date
+                                              ).toLocaleString("en-US", {
+                                                month: "short",
+                                                day: "numeric",
+                                              })}
                                             </h3>
                                           </div>
                                           <div className="flex items-center gap-[2px]">
@@ -230,7 +248,9 @@ const BidsList = ({
                                             <h1 className="text-lg font-semibold">
                                               {dataOffer.offer_title}
                                             </h1>
-                                            <p className="text-sm">{review.text}</p>
+                                            <p className="text-sm">
+                                              {review.text}
+                                            </p>
                                           </div>
                                         </div>
                                       );
@@ -244,22 +264,25 @@ const BidsList = ({
                                   }
                                 )}
                               </div>
-                            </DialogContent> :
-                            <DialogContent className="sm:max-w-[900px] p-8 ">
-                             <p>{Content("NoReviews")}</p>
                             </DialogContent>
-                          }
+                          ) : (
+                            <DialogContent className="sm:max-w-[900px] p-8 ">
+                              <p>{Content("NoReviews")}</p>
+                            </DialogContent>
+                          )}
                         </Dialog>
                         <Dialog>
                           <DialogTrigger asChild>
                             <TableCell className="text-center">
-                              <div className="font-medium text-xs sm:text-sm">{bid.bidder_name}</div>
+                              <div className="font-medium text-xs sm:text-sm">
+                                {bid.bidder_name}
+                              </div>
                               <div className="hidden text-xs sm:text-sm text-muted-foreground md:inline">
                                 {bid.bidder_type}
                               </div>
                             </TableCell>
                           </DialogTrigger>
-                          { bid.bidder_review.length > 0 ?
+                          {bid.bidder_review.length > 0 ? (
                             <DialogContent className="sm:max-w-[900px] p-8 ">
                               <DialogHeader>
                                 <DialogTitle className="pb-6 border-b text-lg">
@@ -280,7 +303,8 @@ const BidsList = ({
                                         `http://localhost:3001/offer/${review.offer_id}`
                                       );
                                       const data = response.data.success;
-                                      const dataOffer = responseOffer.data.success;
+                                      const dataOffer =
+                                        responseOffer.data.success;
                                       return (
                                         <div
                                           key={index}
@@ -291,13 +315,12 @@ const BidsList = ({
                                               {data.depositor_name}{" "}
                                             </h3>
                                             <h3 className="text-neutral-500 text-sm">
-                                              {new Date(review.date).toLocaleString(
-                                                "en-US",
-                                                {
-                                                  month: "short",
-                                                  day: "numeric",
-                                                }
-                                              )}
+                                              {new Date(
+                                                review.date
+                                              ).toLocaleString("en-US", {
+                                                month: "short",
+                                                day: "numeric",
+                                              })}
                                             </h3>
                                           </div>
                                           <div className="flex items-center gap-[2px]">
@@ -318,7 +341,9 @@ const BidsList = ({
                                             <h1 className="text-lg font-semibold">
                                               {dataOffer.offer_title}
                                             </h1>
-                                            <p className="text-sm">{review.text}</p>
+                                            <p className="text-sm">
+                                              {review.text}
+                                            </p>
                                           </div>
                                         </div>
                                       );
@@ -332,11 +357,12 @@ const BidsList = ({
                                   }
                                 )}
                               </div>
-                            </DialogContent> :
+                            </DialogContent>
+                          ) : (
                             <DialogContent className="sm:max-w-[900px] p-8 ">
                               <p>{Content("NoReviews")}</p>
                             </DialogContent>
-                          }
+                          )}
                         </Dialog>
                         <Dialog>
                           <DialogTrigger asChild>
@@ -344,7 +370,7 @@ const BidsList = ({
                               {bid.bidder_avgRating}
                             </TableCell>
                           </DialogTrigger>
-                          { bid.bidder_review.length > 0 ?
+                          {bid.bidder_review.length > 0 ? (
                             <DialogContent className="sm:max-w-[900px] p-8 ">
                               <DialogHeader>
                                 <DialogTitle className="pb-6 border-b text-lg">
@@ -365,7 +391,8 @@ const BidsList = ({
                                         `http://localhost:3001/offer/${review.offer_id}`
                                       );
                                       const data = response.data.success;
-                                      const dataOffer = responseOffer.data.success;
+                                      const dataOffer =
+                                        responseOffer.data.success;
                                       return (
                                         <div
                                           key={index}
@@ -376,13 +403,12 @@ const BidsList = ({
                                               {data.depositor_name}{" "}
                                             </h3>
                                             <h3 className="text-neutral-500 text-sm">
-                                              {new Date(review.date).toLocaleString(
-                                                "en-US",
-                                                {
-                                                  month: "short",
-                                                  day: "numeric",
-                                                }
-                                              )}
+                                              {new Date(
+                                                review.date
+                                              ).toLocaleString("en-US", {
+                                                month: "short",
+                                                day: "numeric",
+                                              })}
                                             </h3>
                                           </div>
                                           <div className="flex items-center gap-[2px]">
@@ -403,7 +429,9 @@ const BidsList = ({
                                             <h1 className="text-lg font-semibold">
                                               {dataOffer.offer_title}
                                             </h1>
-                                            <p className="text-sm">{review.text}</p>
+                                            <p className="text-sm">
+                                              {review.text}
+                                            </p>
                                           </div>
                                         </div>
                                       );
@@ -417,11 +445,12 @@ const BidsList = ({
                                   }
                                 )}
                               </div>
-                            </DialogContent> :
+                            </DialogContent>
+                          ) : (
                             <DialogContent className="sm:max-w-[900px] p-8 ">
                               <p>{Content("NoReviews")}</p>
                             </DialogContent>
-                          }
+                          )}
                         </Dialog>
                         <TableCell className="text-center text-xs sm:text-sm">
                           {new Date(bid.bid_Date).toLocaleDateString("en-CA")}

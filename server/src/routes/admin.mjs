@@ -514,7 +514,7 @@ router.put(
 
       const mailOptions = {
         from: "Desky",
-        to: user[type + "_email"],
+        to: depositor.depositor_email,
         subject: "Your Account Status",
         text: `Your account been rejected`,
         html: `<!DOCTYPE html>

@@ -1,6 +1,7 @@
 // Packages
 import express from "express";
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 const router = express.Router();
 
 // Middlewares
@@ -597,13 +598,12 @@ router.post(
   "/rate/depositor/:bidder_id/:offer_id",
   checkSessionId,
   ratingValidationFields,
-  checkObjectId,
   async (req, res, next) => {
     const { rating, text, user_id } = req.body;
     const { bidder_id, offer_id } = req.params;
 
     try {
-      const depositor = await Depositors.findOne(user_id);
+      const depositor = await Depositors.findById(user_id);
       if (!depositor) {
         return res.status(404).json({ error: "Depositor not found" });
       }
@@ -619,13 +619,13 @@ router.post(
       }
 
       if (
-        offer.depositor_id !== user_id ||
+        offer.depositor_id.toString() !== user_id ||
         !offer.offer_apply.some(
-          (application) => application.bidder_id === bidder_id
+          (application) => application.bidder_id.toString() === bidder_id
         ) ||
-        offer.offer_state !== "finished"
+        offer.offer_state !== "closed"
       ) {
-        return res.status(404).json({ error: "You can't rate this bidder" });
+        return res.status(403).json({ error: "You can't rate this bidder" });
       }
 
       const newReview = {
@@ -637,8 +637,8 @@ router.post(
       };
 
       bidder.bidder_review.push(newReview);
-
       await bidder.save();
+
       res.status(201).json({ success: "Rating added successfully" });
     } catch (err) {
       next(err);

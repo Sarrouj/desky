@@ -242,6 +242,7 @@ router.get("/bidder/dashboard/:id", checkObjectId, async (req, res, next) => {
                   offer_title: offer.offer_title,
                   depositor_id: offer.depositor_id,
                   depositor_name: depositor.depositor_name,
+                  depositor_review: depositor.depositor_review,
                   offer_state: offer.offer_state,
                   bid: apply,
                 };
@@ -641,11 +642,11 @@ router.post(
       }
 
       if (
-        offer.depositor_id !== depositor_id &&
+        offer.depositor_id.toString() !== depositor_id &&
         offer.offer_apply.find(
-          (apply) => apply.bidder_id.toString() === user_id
+          (application) => application.bidder_id.toString() === user_id
         ) &&
-        offer.offer_state !== "finished"
+        offer.offer_state !== "closed"
       ) {
         return res.status(400).json({ error: "You can't rate this depositor" });
       }
@@ -661,7 +662,7 @@ router.post(
       depositor.depositor_review.push(newReview);
 
       await depositor.save();
-      res.status(201).json({
+      res.status(200).json({
         success: "rating added successfully",
       });
     } catch (err) {

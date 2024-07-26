@@ -29,29 +29,28 @@ import axios from "axios";
 
 const AddReview = () => {
   const [Language, setLanguage] = useState<any>();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const user_id = session ? session.user?.id : null;
   const user_role: string | null = session ? session.user?.role : null;
   const [bids, setBids] = useState<any>(null);
 
   // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
+    const lg = JSON.parse(localStorage.getItem("lg"));
     setLanguage(lg);
-  }, [Language]);
+  }, []);
 
   useEffect(() => {
     if (user_role !== "bidder" && user_role !== null) {
       window.location.href = `/${Language}`;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user_role]);
+  }, [user_role, Language]);
 
   useEffect(() => {
     const fetchData = async () => {
       if (user_id !== null) {
         const bids = await axios.get(
-          `http://localhost:3001/bidder/myBids/${user_id}`
+          `http://localhost:3001/bidder/dashboard/${user_id}`
         );
         setBids(bids.data.success);
       }
@@ -145,17 +144,14 @@ const AddReview = () => {
         <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
           <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
             {bids !== null ? (
-              bids.totalBidsWaiting !== 0 ? (
-                <BidderClosedBidsList
-                  seeMore={false}
-                  limit={false}
-                  bids={bids.detailedBids}
-                />
+              bids.totalBidsAccepted !== 0 ? (
+                <BidderClosedBidsList bids={bids.detailedBids} />
               ) : (
+                // <div>hi</div>
                 <NotFoundDataBidder Language={Language} />
               )
             ) : (
-              // <BidsListSkeleton Content={Content} seeMore={true} amount={6} />
+              // <BidsListSkeleton Content={Content} seeMore={true} amount={6}
               <div>skeleton</div>
             )}
           </div>

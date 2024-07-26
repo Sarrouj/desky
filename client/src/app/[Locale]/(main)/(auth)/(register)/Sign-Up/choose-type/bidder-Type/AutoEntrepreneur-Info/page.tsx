@@ -31,6 +31,7 @@ import { useBoundStore } from "@/lib/store";
 // Internationalization
 import { useTranslations } from "next-intl";
 import { City } from "@/lib/Features/CitiesData";
+import { useSession } from "next-auth/react";
 
 const AutoEntrepreneurInfo = () => {
   const [location, setLocation] = useState("");
@@ -140,7 +141,7 @@ const AutoEntrepreneurInfo = () => {
       if (response && response.data && response.data.success) {
         setSuccess(response.data.success);
         setTimeout(() => {
-          window.location.href = `/${Language}/dashboard-b`;
+          window.location.href = `/${Language}/Dashboard-B`;
         }, 2000);
       } else {
         setError(response.data.error);

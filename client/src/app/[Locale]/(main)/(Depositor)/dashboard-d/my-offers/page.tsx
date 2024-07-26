@@ -62,7 +62,7 @@ const MyOffers = () => {
 
   useEffect(() => {
     if (user_role !== "depositor" && user_role !== null) {
-        window.location.href = `/${Language}`;
+      window.location.href = `/${Language}`;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_role]);
@@ -74,18 +74,17 @@ const MyOffers = () => {
   const DepositorResponse = useBoundStore((state) => state.DepositorResponse);
 
   useEffect(() => {
-      geOffersUserID(user_id);
-      if (user_id !== null) {
-          putCompleteOffer();
-      }
+    geOffersUserID(user_id);
+    if (user_id !== null) {
+      putCompleteOffer();
+    }
   }, [user_id, geOffersUserID, putCompleteOffer]);
 
   useEffect(() => {
-      if (DepositorResponse) {
-          setDOffers(DepositorResponse);
-      }
+    if (DepositorResponse) {
+      setDOffers(DepositorResponse);
+    }
   }, [DepositorResponse]);
-
 
   return (
     <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
@@ -133,13 +132,15 @@ const MyOffers = () => {
         </div>
       </header>
       <main className="gap-4 p-4 lg:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
-        {dOffers !== null? (
-          dOffers.length !== 0 ?  
-          <MyOffersList Content={Content} seeMore={false} dOffers={dOffers} /> :
-          <NotFoundDataDepositor
-            Language={Language}
-            Content={notFoundContent}
-          />
+        {dOffers !== null ? (
+          dOffers.length !== 0 ? (
+            <MyOffersList Content={Content} dOffers={dOffers} />
+          ) : (
+            <NotFoundDataDepositor
+              Language={Language}
+              Content={notFoundContent}
+            />
+          )
         ) : (
           <OffersListSkeleton Content={Content} seeMore={false} />
         )}

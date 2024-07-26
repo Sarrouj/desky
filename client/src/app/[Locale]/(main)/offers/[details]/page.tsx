@@ -10,6 +10,15 @@ import { timeSince } from "@/Components/common/timeSince";
 import Header from "@/Components/layout/Header";
 import axios from "axios";
 import { useTranslations } from "next-intl";
+import { Input } from "@/Components/ui/input";
+import { Button } from "@/Components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const Details = ({ params }: { params: any }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -71,13 +80,11 @@ const Details = ({ params }: { params: any }) => {
       ? detailsData.offer_deadline
       : null;
 
-  const getDespositorID = useBoundStore((state) => state.getDepositorID);
+  const getDepositorID = useBoundStore((state) => state.getDepositorID);
   const fetchDepositorData = useBoundStore((state) => state.fetchDepositorData);
-  const DespositorData = useBoundStore((state) => state.DespositorData);
+  const DepositorData = useBoundStore((state) => state.DespositorData);
 
-  const fullName = DespositorData
-    ? DespositorData.depositor_name
-    : "Loading...";
+  const fullName = DepositorData ? DepositorData.depositor_name : "Loading...";
   const [firstName, lastName] = fullName.split(" ");
 
   const getDepositorLegalDataID = useBoundStore(
@@ -86,24 +93,26 @@ const Details = ({ params }: { params: any }) => {
   const fetchDepositorLegalData = useBoundStore(
     (state) => state.fetchDepositorLegalData
   );
-  const DespositorLegalData = useBoundStore(
+  const DepositorLegalData = useBoundStore(
     (state) => state.DespositorLegalData
   );
-  const CompanyType = DespositorLegalData
-    ? DespositorLegalData.company_type
-    : "";
-  const CompanyName = DespositorLegalData
-    ? DespositorLegalData.company_name
+  const CompanyType = DepositorLegalData ? DepositorLegalData.company_type : "";
+  const CompanyName = DepositorLegalData
+    ? DepositorLegalData.company_name
     : "Loading...";
-  const CompanyAddress = DespositorLegalData
-    ? DespositorLegalData.company_address
+  const CompanyAddress = DepositorLegalData
+    ? DepositorLegalData.company_address
     : "Loading...";
-  const CompanyCity = DespositorLegalData
-    ? DespositorLegalData.company_location
+  const CompanyCity = DepositorLegalData
+    ? DepositorLegalData.company_location
     : "Loading...";
-  const CompanyIndustry = DespositorLegalData
-    ? DespositorLegalData.company_DoA
+  const CompanyIndustry = DepositorLegalData
+    ? DepositorLegalData.company_DoA
     : "Loading...";
+
+  const offerApply = Array.isArray(detailsData)
+    ? detailsData.find((data) => data !== null)?.offer_apply ?? []
+    : detailsData?.offer_apply ?? [];
 
   const Ind1 = CompanyIndustry[0];
   const Ind2 = CompanyIndustry[1] ? ` & ${CompanyIndustry[1]}` : null;
@@ -128,7 +137,7 @@ const Details = ({ params }: { params: any }) => {
       getOfferID(details);
       fetchDetails();
       if (DepositorId) {
-        getDespositorID(DepositorId);
+        getDepositorID(DepositorId);
         getDepositorLegalDataID(DepositorId);
         fetchDepositorData();
         fetchDepositorLegalData();
@@ -139,7 +148,7 @@ const Details = ({ params }: { params: any }) => {
     DepositorId,
     details,
     fetchDetails,
-    getDespositorID,
+    getDepositorID,
     getOfferID,
     getDepositorLegalDataID,
     fetchDepositorData,
@@ -149,10 +158,45 @@ const Details = ({ params }: { params: any }) => {
   const NavbarContent = useTranslations("NavBar");
   const Content = useTranslations("OffersDetail");
 
+  const [attachment, setAttachment] = useState<File | null | string | Blob>("");
+
+  const handleApply = async () => {
+    const formData = new FormData();
+    if (attachment) {
+      if (typeof attachment === "string" || attachment instanceof Blob) {
+        formData.append("estimate", attachment);
+      }
+    }
+    formData.append("user_id", session?.user.id || "");
+
+    try {
+      const response = await axios.post(
+        `http://localhost:3001/apply/offer/${details}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (response.data.success) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div className="bg-white border-b-2">
-        <Header NavbarContent={NavbarContent} Home={'hover:text-primary'} Offers={'text-primary font-bold '} FAQ={'hover:text-primary'} AboutUS={'hover:text-primary'}/>
+        <Header
+          NavbarContent={NavbarContent}
+          Home={"hover:text-primary"}
+          Offers={"text-primary font-bold "}
+          FAQ={"hover:text-primary"}
+          AboutUS={"hover:text-primary"}
+        />
       </div>
       <main className="py-16 px-20 bg-neutralBg text-secondaryDarkBlue">
         <section className="flex">
@@ -195,7 +239,7 @@ const Details = ({ params }: { params: any }) => {
                   alt="shape"
                 />
                 <h6 className="font-bold">
-                  {Content("Estbudget")}{" "}
+                  {Content("EstBudget")}{" "}
                   <span className="font-medium">{OfferBudget} DH</span>
                 </h6>
               </div>
@@ -308,12 +352,47 @@ const Details = ({ params }: { params: any }) => {
               </div>
             </div>
             <div className="mt-12 flex flex-col items-center">
-              {isLoggedIn ? (
-                <button className="text-white bg-primary rounded-full w-10/12 py-2">
-                  {Content("CallToAction")}
-                </button>
+              {isLoggedIn && session?.user.role === "bidder" ? (
+                offerApply &&
+                offerApply.length > 0 &&
+                offerApply.some(
+                  (apply: any) => apply.bidder_id === session?.user.id
+                ) ? (
+                  <div>You already applied to this offer</div>
+                ) : (
+                  <Dialog>
+                    <DialogTrigger>
+                      <Button className="text-white rounded-full w-10/12 py-2">
+                        {Content("CallToAction")}
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader className="text-2xl font-bold text-primary">
+                        Add The Estimate
+                      </DialogHeader>
+                      <Input
+                        id="Attachment"
+                        type="file"
+                        className="cursor-pointer text-xs lg:text-sm"
+                        required
+                        onChange={(e) =>
+                          setAttachment(e.target.files ? e.target.files[0] : "")
+                        }
+                      />
+                      <DialogFooter>
+                        <Button
+                          type="submit"
+                          onClick={handleApply}
+                          className="text-white rounded-full py-2"
+                        >
+                          {Content("CallToAction")}
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                )
               ) : (
-                <>
+                <div>
                   <button
                     disabled
                     className="text-white bg-gray-400 rounded-full w-10/12 py-2"
@@ -329,7 +408,7 @@ const Details = ({ params }: { params: any }) => {
                       {Content("login")}
                     </Link>
                   </p>
-                </>
+                </div>
               )}
             </div>
           </div>

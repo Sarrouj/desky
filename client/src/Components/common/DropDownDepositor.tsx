@@ -64,7 +64,7 @@ const DropDownDepositor = ({
   useEffect(() => {
     if (status == "unauthenticated") {
       setLogedOut(false);
-      window.location.href = `/${Language}/`;
+      window.location.href = `/${Language}`;
     } else if (status == "loading") {
     }
   }, [status, Language]);
@@ -121,11 +121,13 @@ const DropDownDepositor = ({
         <DropdownMenuLabel>{content("title")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <User className="mr-2 h-4 w-4" />
-            <span>{content("Profile")}</span>
-          </DropdownMenuItem>
-          <Link href={`/${Language}/dashboard-d/my-reviews`}>
+          <Link href={`/${Language}/Profile-D`}>
+            <DropdownMenuItem>
+              <User className="mr-2 h-4 w-4" />
+              <span>{content("Profile")}</span>
+            </DropdownMenuItem>
+          </Link>
+          <Link href={`/${Language}/Reviews-D`}>
             <DropdownMenuItem>
               <CircleCheck className="mr-2 h-4 w-4" />
               <span>{content("Reviews")}</span>

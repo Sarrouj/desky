@@ -136,7 +136,7 @@ const DepositorReviews = () => {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href={`/${Language}/dashboard-d/my-reviews`}>
+                <Link href={`/${Language}/Reviews-D`}>
                   {BreadcrumbListContent("Reviews")}
                 </Link>
               </BreadcrumbLink>

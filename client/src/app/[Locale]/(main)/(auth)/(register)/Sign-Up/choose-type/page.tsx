@@ -61,9 +61,9 @@ const Type = () => {
             setSuccess("Registered successfully");
             localStorage.removeItem("email");
             localStorage.removeItem("password");
-            window.location.href = `/${Language}`;
+            window.location.href = `/${Language}/dashboard-d`;
           }
-        } else {
+        } else if (userType === "bidder") {
           window.location.href = `/${Language}/Sign-Up/choose-type/bidder-Type`;
         }
       }

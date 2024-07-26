@@ -58,7 +58,6 @@ const BidderDashboard = () => {
           `http://localhost:3001/bidder/dashboard/${user_id}`
         );
         setBids(dashboard.data.success);
-        console.log(dashboard.data.success);
       }
     };
 
@@ -149,7 +148,7 @@ const BidderDashboard = () => {
               />
               <DashboardCard
                 Logo={CopyPlus}
-                Content={"waiting Bids"}
+                Content={"Waiting Bids"}
                 Value={bids !== null ? bids.totalBidsWaiting : 0}
               />
               <DashboardCard
