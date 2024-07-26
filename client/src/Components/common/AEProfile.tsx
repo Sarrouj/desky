@@ -1,5 +1,6 @@
 function AEProfile(user: any) {
   const User = user.user;
+  
   return (
     <div className="grid gap-6 py-3">
       <div
@@ -26,7 +27,7 @@ function AEProfile(user: any) {
           <p> Phone Number: +212 {User.ae.AE_phoneNumber}</p>
           <p> Location: {User.ae.AE_location}</p>
           <p> Address: {User.ae.AE_address}</p>
-          <p> Activities: {User.ae.AE_DoA.join(", ")}</p>
+          <p> Activities: {JSON.parse(User.ae.AE_DoA).join(' , ')}</p>
         </div>
       </div>
     </div>

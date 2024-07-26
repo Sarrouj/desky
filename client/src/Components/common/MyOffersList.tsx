@@ -72,8 +72,9 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
     setLanguage(lg);
   }, [Language]);
 
-  function handleDelete(e: any) {
-    e.preventDefault();
+  function handleDelete(offerId: any, depositorId: any) {
+    getDeleteOfferID(offerId);
+    getDeleteDepositorID(depositorId);
     deleteOffer();
   }
 
@@ -87,7 +88,6 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
     bidder_id: string
   ) => {
     e.preventDefault();
-    putCompleteDepositorOffer();
     if (rating === 0) {
       setError("Please give at least a 1-star rating.");
       return;
@@ -111,6 +111,12 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
       setError("Failed to submit the review. Please try again.");
     }
   };
+    
+  function handleComplete(offerId: any, depositorId: any) {
+    getHandleCompleteOfferID(offerId);
+    getHandleCompleteDepositorID(depositorId);
+    putCompleteDepositorOffer();
+  }
 
   return (
     <Tabs defaultValue="week">
@@ -185,11 +191,6 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
                     const totalBidsReceived = offer.offer_apply
                       ? offer.offer_apply.length
                       : 0;
-
-                    getDeleteOfferID(offer._id);
-                    getDeleteDepositorID(offer.depositor_id);
-                    getHandleCompleteOfferID(offer._id);
-                    getHandleCompleteDepositorID(offer.depositor_id);
 
                     return (
                       <TableRow
@@ -269,6 +270,7 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
                                   {/* rating */}
                                   <form
                                     onSubmit={(e) =>
+                                 handleComplete(offer._id, offer.depositor_id)}
                                       handleComplete(
                                         e,
                                         offer._id,
@@ -353,7 +355,7 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
                                 <>
                                   <TooltipTrigger
                                     className="h-6 rounded-full text-white text-xs bg-red-600 hover:bg-red-500 px-2"
-                                    onClick={handleDelete}
+                                    onClick={() => handleDelete(offer._id, offer.depositor_id)}
                                   >
                                     {Content("Delete")}
                                   </TooltipTrigger>

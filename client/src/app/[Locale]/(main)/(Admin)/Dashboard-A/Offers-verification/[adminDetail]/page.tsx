@@ -28,7 +28,7 @@ import {
   Blocks,
   CopyPlus,
   CircleCheckBig,
-  Star,
+  StarIcon,
 } from "lucide-react";
 import {
   Breadcrumb,
@@ -164,11 +164,11 @@ const AdminDetails = ({ params }: { params: any }) => {
 
   const fullName = depositorDetails ? depositorDetails.depositor_name : null;
   const LetterFullName = fullName
-  ?.split(" ")
-  .map((n: any) => n[0].toUpperCase())
-  .join("");
+    ?.split(" ")
+    .map((n: any) => n[0].toUpperCase())
+    .join("");
 
-  const averageRating = depositorLegalDetails
+  const averageRating: any = depositorLegalDetails
     ? depositorDetails.depositor_review &&
       depositorDetails.depositor_review.length > 0
       ? (
@@ -194,8 +194,9 @@ const AdminDetails = ({ params }: { params: any }) => {
   const CompanyIndustry = depositorLegalDetails
     ? depositorLegalDetails.company_DoA
     : "";
-  const Ind1 = CompanyIndustry[0];
-  const Ind2 = CompanyIndustry[1] ? ` & ${CompanyIndustry[1]}` : null;
+
+  const Ind1 = CompanyIndustry ? CompanyIndustry[0] : null;
+  const Ind2 = CompanyIndustry ? CompanyIndustry[1] : null;
   const companySize = depositorLegalDetails
     ? depositorLegalDetails.company_size
     : "";
@@ -205,6 +206,18 @@ const AdminDetails = ({ params }: { params: any }) => {
   const CompanyCity = depositorLegalDetails
     ? depositorLegalDetails.company_location
     : "";
+
+  const CompanyPhoneNumber = depositorLegalDetails
+    ? depositorLegalDetails.company_phoneNumber
+    : null;
+  const totalReviews = depositorDetails
+    ? depositorDetails.depositor_review.length
+    : 0;
+
+  useEffect(() => {
+    console.log(depositorLegalDetails);
+    console.log(depositorDetails);
+  }, [depositorDetails])
 
   const handleAccept = async () => {
     await axios.put(`http://localhost:3001/admin/offer/verify/${offer_id}`, {
@@ -429,134 +442,289 @@ const AdminDetails = ({ params }: { params: any }) => {
             </div>
           </div>
         </div>
-        <div className="pl-12 w-3/12">
-          <div className="flex flex-col items-center gap-3">
-            <div className="rounded-full bg-slate-200 text-blue-400 w-24 h-24 flex items-center justify-center text-4xl">
-              {LetterFullName}
-            </div>
-            <div className="text-center">
-              <h2 className="font-bold text-2xl">
-                {fullName == null ? (
-                  <div className="flex gap-1 items-center">
-                    <Skeleton className="w-14 h-5 rounded-full bg-gray-200" />
-                    <Skeleton className="w-24 h-5 rounded-full bg-gray-200" />
-                  </div>
-                ) : (
-                  <>
-                    {fullName.split(" ")[0]}{" "}
-                    <span className="text-primary">
-                      {fullName.split(" ")[1]}
-                    </span>
-                  </>
+        {depositorLegalDetails && depositorLegalDetails.length !== 0 ? (
+          <div className="pl-12 w-3/12">
+            <div className="flex flex-col items-center gap-3">
+              <div className="rounded-full bg-slate-200 text-blue-400 w-24 h-24 flex items-center justify-center text-4xl">
+                {LetterFullName}
+              </div>
+              <div className="text-center">
+                <h2 className="font-bold text-2xl">
+                  {fullName == null ? (
+                    <div className="flex gap-1 items-center">
+                      <Skeleton className="w-14 h-5 rounded-full bg-gray-200" />
+                      <Skeleton className="w-24 h-5 rounded-full bg-gray-200" />
+                    </div>
+                  ) : (
+                    <>
+                      {fullName.split(" ")[0].charAt(0).toUpperCase() +
+                        fullName.split(" ")[0].slice(1)}{" "}
+                      <span className="text-primary">
+                        {fullName.split(" ")[1].charAt(0).toUpperCase() +
+                          fullName.split(" ")[1].slice(1)}
+                      </span>
+                    </>
+                  )}
+                </h2>
+                {!CompanyName && !CompanyType ? null : (
+                  <h4 className="font-semibold">
+                    {CompanyName.charAt(0).toUpperCase() + CompanyName.slice(1)}{" "}
+                    {CompanyType.split("").join(".")}
+                  </h4>
                 )}
-              </h2>
-              {!CompanyName && !CompanyType ? null : (
-                <h4 className="font-semibold">
-                  {CompanyName} {CompanyType}
-                </h4>
-              )}
+              </div>
             </div>
-          </div>
-          <div className="mt-5 flex flex-col gap-4">
-            {averageRating == "N/A" ? (
-              <div className="mt-5 flex flex-col items-center gap-5">
-                <div className="flex gap-1 items-center">
-                  <p>Rating: {averageRating}</p>
+            <div className="mt-5 flex flex-col gap-4">
+              {averageRating == "N/A" ? (
+                <div className="mt-5 flex flex-col  gap-5">
+                  <div className="flex gap-1">
+                    <p>
+                      <span className="text-secondaryDarkBlue font-semibold">
+                        Rating:
+                      </span>{" "}
+                      {averageRating}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div className="flex gap-1 items-center">
-                <p>Rating: {averageRating}</p>
-                <Image
-                  src={"/icons/star.svg"}
-                  width={20}
-                  height={20}
-                  alt="shape"
-                />
-                <Image
-                  src={"/icons/star.svg"}
-                  width={20}
-                  height={20}
-                  alt="shape"
-                />
-                <Image
-                  src={"/icons/star.svg"}
-                  width={20}
-                  height={20}
-                  alt="shape"
-                />
-                <Image
-                  src={"/icons/star.svg"}
-                  width={20}
-                  height={20}
-                  alt="shape"
-                />
-                <Image
-                  src={"/icons/star.svg"}
-                  width={20}
-                  height={20}
-                  alt="shape"
-                />
-              </div>
-            )}
-            <div>
-              {!CompanyIndustry ? null : (
-                <p className="font-bold">
-                  {Ind1}
-                  {Ind2}
-                </p>
-              )}
-              {!companySize ? null : <p>{companySize} Company</p>}
-            </div>
-            <div>
-              <p className="font-bold">{CompanyCity}</p>
-              <p>{CompanyAddress}</p>
-            </div>
-            <div>
-              <p className="font-bold">Offer posted: {postedOffers}</p>
-
-              {activeOffers == 0 ? (
-                <p>No active offers</p>
               ) : (
-                <p>active offers: {activeOffers}</p>
+                <div>
+                  <div className="flex gap-1 ">
+                    {
+                      <>
+                        {Array.from({ length: Math.floor(averageRating) }).map(
+                          (_, index) => (
+                            <StarIcon
+                              key={index}
+                              className="w-4 h-4 md:w-5 md:h-5 fill-yellow-500 stroke-yellow-500"
+                            />
+                          )
+                        )}
+                        {averageRating % 1 !== 0 &&
+                          averageRating % 1 >= 0.5 && (
+                            <StarIcon
+                              key="half-star"
+                              className="w-4 h-4 md:w-5 md:h-5 fill-yellow-500 stroke-yellow-500"
+                            />
+                          )}
+                        {Array.from({
+                          length: 5 - Math.ceil(averageRating),
+                        }).map((_, index) => (
+                          <StarIcon
+                            key={`empty-${index}`}
+                            className="w-4 h-4 md:w-5 md:h-5 fill-gray-100 stroke-yellow-500"
+                          />
+                        ))}
+                      </>
+                    }
+                    <p>{averageRating}</p>
+                  </div>
+                  <p>
+                    {averageRating} of {totalReviews} reviews
+                  </p>
+                </div>
               )}
+              <div>
+                {!CompanyIndustry ? null : (
+                  <p className="font-bold">
+                    {Ind1.charAt(0).toUpperCase() + Ind1.slice(1)} &{" "}
+                    {Ind2.charAt(0).toUpperCase() + Ind2.slice(1)}
+                  </p>
+                )}
+                {!companySize ? null : <p>{companySize} Company</p>}
+              </div>
+              <div>
+                <p className="font-bold">
+                  {CompanyCity.charAt(0).toUpperCase() + CompanyCity.slice(1)}
+                </p>
+                <p>{CompanyAddress}</p>
+              </div>
+              <div>
+                <p className="font-bold">Offer posted: {postedOffers}</p>
+
+                {activeOffers == 0 ? (
+                  <p>No active offers</p>
+                ) : (
+                  <p>Active Offers: {activeOffers}</p>
+                )}
+              </div>
+            </div>
+            <div className="mt-12 flex flex-row items-center gap-2">
+              <button className="bg-green-600 text-white px-4 py-2 hover:bg-green-500 w-full rounded-full text-xs lg:text-sm transition duration-500 ease-in-out">
+                Accept
+              </button>
+              <Dialog>
+                <DialogTrigger className="bg-red-600 text-white px-4 py-2 hover:bg-red-500 w-full rounded-full text-xs lg:text-sm transition duration-500 ease-in-out">
+                  Refuse
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Refuse Message</DialogTitle>
+                    <DialogDescription>
+                      Write a message describing the reason for refusing the
+                      offer.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <textarea
+                    name="message"
+                    id="message"
+                    className="border border-gray-400 rounded-md p-2 w-full"
+                    onChange={(e) => setMessage(e.target.value)}
+                  ></textarea>
+                  <DialogFooter>
+                    <Button
+                      className="text-white  bg-red-600 hover:bg-red-500 "
+                      onClick={handleRefuse}
+                      type="submit"
+                    >
+                      Confirm
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
-          <div className="mt-12 flex flex-row items-center gap-2">
-            <button className="bg-green-600 text-white px-4 py-2 hover:bg-green-500 w-full rounded-full text-xs lg:text-sm transition duration-500 ease-in-out">
-              Accept
-            </button>
-            <Dialog>
-              <DialogTrigger className="bg-red-600 text-white px-4 py-2 hover:bg-red-500 w-full rounded-full text-xs lg:text-sm transition duration-500 ease-in-out">
-                Refuse
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Refuse Message</DialogTitle>
-                  <DialogDescription>
-                    Write a message describing the reason for refusing the
-                    offer.
-                  </DialogDescription>
-                </DialogHeader>
-                <textarea
-                  name="message"
-                  id="message"
-                  className="border border-gray-400 rounded-md p-2 w-full"
-                  onChange={(e) => setMessage(e.target.value)}
-                ></textarea>
-                <DialogFooter>
-                  <Button
-                    className="text-white  bg-red-600 hover:bg-red-500 "
-                    onClick={handleRefuse}
-                    type="submit"
-                  >
-                    Confirm
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+        ) : (
+          <div className="pl-12 w-3/12">
+            <div className="flex flex-col items-center gap-3">
+              <div className="rounded-full bg-slate-200 text-blue-400 w-24 h-24 flex items-center justify-center text-4xl">
+                {LetterFullName}
+              </div>
+              <div className="text-center">
+                <h2 className="font-bold text-2xl">
+                  {fullName == null ? (
+                    <div className="flex gap-1 items-center">
+                      <Skeleton className="w-14 h-5 rounded-full bg-gray-200" />
+                      <Skeleton className="w-24 h-5 rounded-full bg-gray-200" />
+                    </div>
+                  ) : (
+                    <>
+                      {fullName.split(" ")[0].charAt(0).toUpperCase() +
+                        fullName.split(" ")[0].slice(1)}{" "}
+                      <span className="text-primary">
+                        {fullName.split(" ")[1].charAt(0).toUpperCase() +
+                          fullName.split(" ")[1].slice(1)}
+                      </span>
+                    </>
+                  )}
+                </h2>
+                {!CompanyType ? <h4>Auto-Entrepreneur</h4> : (
+                  null
+                )}
+              </div>
+            </div>
+            <div className="mt-5 flex flex-col gap-4">
+              {averageRating == "N/A" ? (
+                <div className="mt-5 flex flex-col  gap-5">
+                  <div className="flex gap-1">
+                    <p>
+                      <span className="text-secondaryDarkBlue font-semibold">
+                        Rating:
+                      </span>{" "}
+                      {averageRating}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="flex gap-1 ">
+                    {
+                      <>
+                        {Array.from({ length: Math.floor(averageRating) }).map(
+                          (_, index) => (
+                            <StarIcon
+                              key={index}
+                              className="w-4 h-4 md:w-5 md:h-5 fill-yellow-500 stroke-yellow-500"
+                            />
+                          )
+                        )}
+
+                        {averageRating % 1 !== 0 &&
+                          averageRating % 1 >= 0.5 && (
+                            <StarIcon
+                              key="half-star"
+                              className="w-4 h-4 md:w-5 md:h-5 fill-yellow-500 stroke-yellow-500"
+                            />
+                          )}
+
+                        {Array.from({
+                          length: 5 - Math.ceil(averageRating),
+                        }).map((_, index) => (
+                          <StarIcon
+                            key={`empty-${index}`}
+                            className="w-4 h-4 md:w-5 md:h-5 fill-gray-100 stroke-yellow-500"
+                          />
+                        ))}
+                      </>
+                    }
+
+                    <p>{averageRating}</p>
+                  </div>
+                  <p>
+                    {averageRating} of {totalReviews} reviews
+                  </p>
+                </div>
+              )}
+              <div>
+                {!CompanyIndustry ? null : (
+                  <p className="font-bold">
+                    {Ind1.charAt(0).toUpperCase() + Ind1.slice(1)} &{" "}
+                    {Ind2.charAt(0).toUpperCase() + Ind2.slice(1)}
+                  </p>
+                )}
+                {!companySize ? null : <p>{companySize} Company</p>}
+              </div>
+              <div>
+                <p className="font-bold">
+                  {/* {CompanyCity.charAt(0).toUpperCase() + CompanyCity.slice(1)} */}
+                </p>
+                {/* <p>{CompanyAddress}</p> */}
+              </div>
+              <div>
+                <p className="font-bold">Offer posted: {postedOffers}</p>
+
+                {activeOffers == 0 ? (
+                  <p>No active offers</p>
+                ) : (
+                  <p>Active Offers: {activeOffers}</p>
+                )}
+              </div>
+            </div>
+            <div className="mt-12 flex flex-row items-center gap-2">
+              <button className="bg-green-600 text-white px-4 py-2 hover:bg-green-500 w-full rounded-full text-xs lg:text-sm transition duration-500 ease-in-out">
+                Accept
+              </button>
+              <Dialog>
+                <DialogTrigger className="bg-red-600 text-white px-4 py-2 hover:bg-red-500 w-full rounded-full text-xs lg:text-sm transition duration-500 ease-in-out">
+                  Refuse
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Refuse Message</DialogTitle>
+                    <DialogDescription>
+                      Write a message describing the reason for refusing the
+                      offer.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <textarea
+                    name="message"
+                    id="message"
+                    className="border border-gray-400 rounded-md p-2 w-full"
+                    onChange={(e) => setMessage(e.target.value)}
+                  ></textarea>
+                  <DialogFooter>
+                    <Button
+                      className="text-white  bg-red-600 hover:bg-red-500 "
+                      onClick={handleRefuse}
+                      type="submit"
+                    >
+                      Confirm
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            </div>
           </div>
-        </div>
+        )}
       </section>
     </div>
   );
