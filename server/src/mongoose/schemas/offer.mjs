@@ -48,11 +48,6 @@ const OffersSchema = new mongoose.Schema(
     offer_apply: {
       type: [
         {
-          _id: {
-            type: mongoose.Schema.Types.ObjectId,
-            default: new mongoose.Types.ObjectId(),
-            required: true,
-          },
           bidder_id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Bidders",
