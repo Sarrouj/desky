@@ -84,17 +84,21 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
 
   const handleComplete = async (
     e: React.FormEvent<HTMLFormElement>,
-    offer_id: string,
-    bidder_id: string
+    offerId: any,
+    bidderId: any,
+    depositorId: any
   ) => {
     e.preventDefault();
+    getHandleCompleteOfferID(offerId);
+    getHandleCompleteDepositorID(depositorId);
+    putCompleteDepositorOffer();
     if (rating === 0) {
       setError("Please give at least a 1-star rating.");
       return;
     }
     try {
       const response = await axios.post(
-        `http://localhost:3001/rate/depositor/${bidder_id}/${offer_id}`,
+        `http://localhost:3001/rate/depositor/${bidderId}/${offerId}`,
         {
           rating,
           text: review,
@@ -111,12 +115,6 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
       setError("Failed to submit the review. Please try again.");
     }
   };
-    
-  function handleComplete(offerId: any, depositorId: any) {
-    getHandleCompleteOfferID(offerId);
-    getHandleCompleteDepositorID(depositorId);
-    putCompleteDepositorOffer();
-  }
 
   return (
     <Tabs defaultValue="week">
@@ -270,11 +268,11 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
                                   {/* rating */}
                                   <form
                                     onSubmit={(e) =>
-                                 handleComplete(offer._id, offer.depositor_id)}
                                       handleComplete(
                                         e,
                                         offer._id,
-                                        offer.offer_apply[0].bidder_id
+                                        offer.offer_apply[0].bidder_id,
+                                        offer.depositor_id
                                       )
                                     }
                                   >
@@ -323,7 +321,7 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
                                     <DialogFooter>
                                       <Button
                                         className="text-white bg-green-600 hover:bg-green-500 mt-4"
-                                        // type="submit"
+                                        type="submit"
                                       >
                                         Confirm
                                       </Button>
@@ -355,7 +353,12 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
                                 <>
                                   <TooltipTrigger
                                     className="h-6 rounded-full text-white text-xs bg-red-600 hover:bg-red-500 px-2"
-                                    onClick={() => handleDelete(offer._id, offer.depositor_id)}
+                                    onClick={() =>
+                                      handleDelete(
+                                        offer._id,
+                                        offer.depositor_id
+                                      )
+                                    }
                                   >
                                     {Content("Delete")}
                                   </TooltipTrigger>
