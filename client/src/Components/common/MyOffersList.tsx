@@ -66,15 +66,16 @@ const MyOffersList = ({
     setLanguage(lg);
   }, [Language]);
 
-  function handleDelete(e: any) {
-    e.preventDefault();
+  function handleDelete(offerId: any, depositorId: any) {
+    getDeleteOfferID(offerId);
+    getDeleteDepositorID(depositorId);
     deleteOffer();
   }
 
-  function handleComplete(e: any) {
-    e.preventDefault();
+  function handleComplete(offerId: any, depositorId: any) {
+    getHandleCompleteOfferID(offerId);
+    getHandleCompleteDepositorID(depositorId);
     putCompleteDepositorOffer();
- 
   }
 
   return (
@@ -141,11 +142,6 @@ const MyOffersList = ({
                       ? offer.offer_apply.length
                       : 0;
 
-                    getDeleteOfferID(offer._id);
-                    getDeleteDepositorID(offer.depositor_id);
-                    getHandleCompleteOfferID(offer._id);
-                    getHandleCompleteDepositorID(offer.depositor_id);
-
                     return (
                       <TableRow
                         className="cursor-pointer"
@@ -196,7 +192,7 @@ const MyOffersList = ({
                                 <>
                                   <TooltipTrigger
                                     className="h-6 rounded-full text-white text-xs bg-green-600 hover:bg-green-500 px-2"
-                                    onClick={handleComplete}
+                                    onClick={() => handleComplete(offer._id, offer.depositor_id)}
                                   >
                                     {Content("Done")}
                                   </TooltipTrigger>
@@ -233,7 +229,7 @@ const MyOffersList = ({
                                 <>
                                   <TooltipTrigger
                                     className="h-6 rounded-full text-white text-xs bg-red-600 hover:bg-red-500 px-2"
-                                    onClick={handleDelete}
+                                    onClick={() => handleDelete(offer._id, offer.depositor_id)}
                                   >
                                     {Content("Delete")}
                                   </TooltipTrigger>
