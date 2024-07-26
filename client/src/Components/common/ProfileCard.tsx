@@ -17,9 +17,11 @@ function ProfileCard({
         </div>
         <div className="grid gap-1">
           <div className="text-2xl font-bold text-secondaryDarkBlue">
-            {user?.depositor_name}
+            {user?.depositor_name || user?.bidder_name}
           </div>
-          <div className="text-muted-foreground">{user?.depositor_email}</div>
+          <div className="text-muted-foreground">
+            {user?.depositor_email || user?.bidder_email}
+          </div>
           <div className="text-muted-foreground">{user_role}</div>
         </div>
       </div>
