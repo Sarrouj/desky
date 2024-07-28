@@ -82,7 +82,7 @@ const CompanyInfo = () => {
 
   useEffect(() => {
     if (status === "authenticated") {
-      window.location.href = `/${Language}/Dashboard-B`;
+      window.location.href = `/${Language}/dashboard-d`;
     }
   }, [status, Language]);
 
@@ -96,7 +96,7 @@ const CompanyInfo = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/add/bidder/company",
+        "http://localhost:3001/add/depositor/company",
         {
           email,
           company_type: type,
@@ -111,6 +111,7 @@ const CompanyInfo = () => {
       );
 
       if (response && response.data && response.data.success) {
+        setSuccess(response.data.success);
         const result = await signIn("credentials", {
           redirect: false,
           email,
@@ -123,7 +124,8 @@ const CompanyInfo = () => {
           setSuccess("registered successfully");
           localStorage.removeItem("email");
           localStorage.removeItem("password");
-          window.location.href = `/${Language}/Dashboard-B`;
+        } else {
+          setError(response.data.error);
         }
       }
     } catch (error: any) {
@@ -157,7 +159,7 @@ const CompanyInfo = () => {
       <div className="w-full text-xs text-end flex justify-between px-5">
         <Link
           className="flex items-center gap-2"
-          href={`/${Language}/Sign-Up/Choose-Type/Bidder-Type`}
+          href={`/${Language}/Sign-Up/Choose-Type/bidder-Type`}
         >
           <Image
             src={"/icons/arrowBack.svg"}

@@ -67,7 +67,7 @@ const Login = () => {
       setError(result.error);
     } else if (result?.url) {
       if (result.url.includes("choose-type")) {
-        window.location.href = `/${Language}/(main)/(register)/Sign-Up/choose-type`;
+        window.location.href = `/${Language}/(main)/(register)/Sign-Up/Choose-Type`;
       } else {
         if (status === "authenticated") {
           if(userType == "bidder"){
