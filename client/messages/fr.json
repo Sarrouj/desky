@@ -452,8 +452,59 @@
       "Account": "Compte"
     },
     "NotFound": {
-        "Title": "Actuellement Aucune Donnée Disponible",
-        "Description": "Il n'y a pas d'offres à vérifier"
+      "Title": "Actuellement Aucune Donnée Disponible",
+      "Description": "Il n'y a pas d'offres à vérifier"
+    },
+    "Breadcrumb": {
+      "Dashboard": "Tableau de bord",
+      "OffersVerification": "Vérification des Offres"
+    },
+    "OffersVerificationSkeleton": {
+      "title": "Vérification des offres",
+      "OfferName": "Nom de l'offre",
+      "OfferNameDesc": "Le nom des offres",
+      "DepositorName": "Nom du déposant",
+      "DepositorNameDesc1": "Le nom du déposant",
+      "DepositorNameDesc2": "qui a publié cette offre",
+      "datePost": "Date de publication",
+      "datePostDesc": "La date à laquelle l'offre a été publiée",
+      "Accept": "Accepter l'offre",
+      "AcceptDesc": "Accepter l'offre comme une offre valide",
+      "Refuse": "Refuser l'offre",
+      "RefuseDesc1": "Refuser l'offre et ajouter",
+      "RefuseDesc2": "un message expliquant la raison"
+    },
+    "OffersVerification": {
+      "title": "Vérification des Offres",
+      "OfferName": "Nom de l'Offre",
+      "OfferNameDesc": "Le Nom des Offres",
+      "DepositorName": "Nom du Déposant",
+      "DepositorNameDesc1": "Le Nom du Déposant",
+      "DepositorNameDesc2": "qui a Publié Cette Offre",
+      "datePost": "Date de Publication",
+      "datePostDesc": "La Date à Laquelle l'Offre a été Publiée",
+      "Accept": "Accepter l'Offre",
+      "AcceptDesc": "Accepter l'Offre Comme une Offre Valide",
+      "Refuse": "Refuser l'Offre",
+      "RefuseDesc1": "Refuser l'Offre et Ajouter",
+      "RefuseDesc2": "un Message Expliquant la Raison",
+      "AcceptCallToAction": "Accepter",
+      "AcceptCallToActionDesc": "Valider et Accepter l'Offre",
+      "RefuseCalToAction": "Refuser",
+      "RefuseCalToActionDesc": "Valider et Refuser l'Offre",
+      "RefuseMessage": "Message de Refus",
+      "RefuseMessageDesc": "Écrire un message décrivant la raison du refus de l'offre.",
+      "Send": "Envoyer",
+      "ResponsiveMenuBar": {
+        "Dashboard": "Tableau de bord",
+        "Profile": "Profil",
+        "ManageBids": "Gérer les enchères",
+        "MyOffers": "Mes offres",
+        "Reviews": "Avis",
+        "Offers": "Offres",
+        "Support": "Support",
+        "LogOut": "Se déconnecter"
+      }
     }
   }
 }

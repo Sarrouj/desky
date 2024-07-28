@@ -35,7 +35,7 @@ const DropDownAdmin = ({
   Language,
 }: {
   content: any;
-  Language: String | undefined;
+  Language: any;
 }) => {
   const [LogedOut, setLogedOut] = useState(true);
   const { data: session, status } = useSession();
