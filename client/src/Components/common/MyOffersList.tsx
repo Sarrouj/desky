@@ -51,36 +51,27 @@ import { useSession } from "next-auth/react";
 const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
   const { data: session } = useSession();
   const [Language, setLanguage] = useState("fr");
-  const getDeleteOfferID = useBoundStore((state) => state.getDeleteOfferID);
-  const getDeleteDepositorID = useBoundStore(
-    (state) => state.getDeleteDepositorID
-  );
-  const deleteOffer = useBoundStore((state) => state.deleteOffer);
-  const getHandleCompleteOfferID = useBoundStore(
-    (state) => state.getHandleCompleteOfferID
-  );
-  const getHandleCompleteDepositorID = useBoundStore(
-    (state) => state.getHandleCompleteDepositorID
-  );
-  const putCompleteDepositorOffer = useBoundStore(
-    (state) => state.putCompleteDepositorOffer
-  );
-
-  // Language
-  useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
-  }, [Language]);
-
-  function handleDelete(offerId: any, depositorId: any) {
-    getDeleteOfferID(offerId);
-    getDeleteDepositorID(depositorId);
-    deleteOffer();
-  }
-
   const [rating, setRating] = useState<number>(0);
   const [review, setReview] = useState<string>("");
   const [error, setError] = useState<string>("");
+
+  const getDeleteOfferID = useBoundStore((state) => state.getDeleteOfferID);
+  const getDeleteDepositorID = useBoundStore((state) => state.getDeleteDepositorID);
+  const deleteOffer = useBoundStore((state) => state.deleteOffer);
+  const getHandleCompleteOfferID = useBoundStore((state) => state.getHandleCompleteOfferID);
+  const getHandleCompleteDepositorID = useBoundStore((state) => state.getHandleCompleteDepositorID);
+  const putCompleteDepositorOffer = useBoundStore((state) => state.putCompleteDepositorOffer);
+
+  useEffect(() => {
+    const lg = JSON.parse(localStorage.getItem("lg") || '"fr"');
+    setLanguage(lg);
+  }, []);
+
+  const handleDelete = (offerId: any, depositorId: any) => {
+    getDeleteOfferID(offerId);
+    getDeleteDepositorID(depositorId);
+    deleteOffer();
+  };
 
   const handleComplete = async (
     e: React.FormEvent<HTMLFormElement>,
@@ -116,6 +107,13 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
     }
   };
 
+
+  const handleCompleteOffer = (offerId: any, depositorId: any) => {
+    getHandleCompleteOfferID(offerId);
+    getHandleCompleteDepositorID(depositorId);
+    putCompleteDepositorOffer();
+  };
+
   return (
     <Tabs defaultValue="week">
       <TabsContent value="week">
@@ -130,7 +128,7 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
               </CardDescription>
             </div>
             <Link href={`/${Language}/Create-Offer`}>
-              <Button size={"sm"} className="text-xs text-white">
+              <Button size="sm" className="text-xs text-white">
                 {Content("AddOffer")}
               </Button>
             </Link>
@@ -186,34 +184,26 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
               <TableBody>
                 {dOffers &&
                   dOffers.map((offer: any, index: number) => {
-                    const totalBidsReceived = offer.offer_apply
-                      ? offer.offer_apply.length
-                      : 0;
+                    const totalBidsReceived = offer.offer_apply ? offer.offer_apply.length : 0;
 
                     return (
-                      <TableRow
-                        className="cursor-pointer"
-                        key={`${offer.offer_title}-${index}`}
-                      >
+                      <TableRow className="cursor-pointer" key={`${offer.offer_title}-${index}`}>
                         <TableCell className="text-xs sm:text-sm">
                           {offer.offer_title}
                         </TableCell>
                         <TableCell className="text-center text-xs sm:text-sm">
                           {totalBidsReceived}
                         </TableCell>
-                        <TableCell className="text-center ">
+                        <TableCell className="text-center">
                           <TooltipProvider>
                             <Tooltip>
-                              <TooltipTrigger className="h-6 rounded-full border-2 text-xs  px-2">
+                              <TooltipTrigger className="h-6 rounded-full border-2 text-xs px-2">
                                 <OfferStatusValue
                                   data={offer.offer_state}
                                   Content={Content}
                                 />
                               </TooltipTrigger>
-                              <TooltipContent
-                                side="top"
-                                className="text-xs font-sm "
-                              >
+                              <TooltipContent side="top" className="text-xs font-sm ">
                                 <StatusTooltipContent
                                   data={offer}
                                   Content={Content}
@@ -229,11 +219,8 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
                                 <TooltipTrigger className="h-6 rounded-full text-white text-xs bg-gray-200 px-2 ">
                                   {Content("Done")}
                                 </TooltipTrigger>
-                                <TooltipContent
-                                  side="top"
-                                  className="text-xs font-sm "
-                                >
-                                  {Content("freezeCompleted1")} <br />{" "}
+                                <TooltipContent side="top" className="text-xs font-sm ">
+                                  {Content("freezeCompleted1")} <br />
                                   {Content("freezeCompleted2")}
                                 </TooltipContent>
                               </Tooltip>
@@ -246,11 +233,8 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
                                     <TooltipTrigger className="h-6 rounded-full text-white text-xs bg-green-600 hover:bg-green-500 px-2">
                                       {Content("Done")}
                                     </TooltipTrigger>
-                                    <TooltipContent
-                                      side="top"
-                                      className="text-xs font-sm "
-                                    >
-                                      {Content("DoneDesc1")} <br />{" "}
+                                    <TooltipContent side="top" className="text-xs font-sm ">
+                                      {Content("DoneDesc1")} <br />
                                       {Content("DoneDesc2")}
                                     </TooltipContent>
                                   </Tooltip>
@@ -265,7 +249,6 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
                                       completion of the work.
                                     </DialogDescription>
                                   </DialogHeader>
-                                  {/* rating */}
                                   <form
                                     onSubmit={(e) =>
                                       handleComplete(
@@ -284,19 +267,13 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
                                             name="rating"
                                             value={value}
                                             className="opacity-0 absolute inset-0 w-full h-full hover:cursor-pointer"
-                                            onChange={(e) =>
-                                              setRating(
-                                                parseInt(e.target.value)
-                                              )
-                                            }
+                                            onChange={(e) => setRating(parseInt(e.target.value))}
                                           />
                                           <StarFill
                                             width={30}
                                             height={30}
                                             className={`hover:cursor-pointer absolute inset-0 ${
-                                              value <= rating
-                                                ? "text-yellow-400"
-                                                : "text-gray-400"
+                                              value <= rating ? "text-yellow-400" : "text-gray-400"
                                             }`}
                                           />
                                         </label>
@@ -308,20 +285,18 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
                                       </p>
                                     )}
                                     <Textarea
-                                      onChange={(e) =>
-                                        setReview(e.target.value)
-                                      }
+                                      onChange={(e) => setReview(e.target.value)}
                                       value={review}
                                       className="ring-0 border-input focus:ring-0 focus-visible:ring-white focus-visible:ring-1"
                                       id="message"
-                                      placeholder={"review"}
+                                      placeholder="review"
                                       maxLength={2000}
                                       required
                                     />
                                     <DialogFooter>
                                       <Button
-                                        className="text-white bg-green-600 hover:bg-green-500 mt-4"
                                         type="submit"
+                                        className="text-white bg-green-600 hover:bg-green-500 mt-4"
                                       >
                                         Confirm
                                       </Button>
@@ -342,10 +317,7 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
                                   <TooltipTrigger className="h-6 rounded-full text-white text-xs bg-gray-200 px-2">
                                     {Content("Delete")}
                                   </TooltipTrigger>
-                                  <TooltipContent
-                                    side="top"
-                                    className="text-xs font-sm "
-                                  >
+                                  <TooltipContent side="top" className="text-xs font-sm ">
                                     {Content("CantDeleteDesc")}
                                   </TooltipContent>
                                 </>
@@ -362,11 +334,8 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
                                   >
                                     {Content("Delete")}
                                   </TooltipTrigger>
-                                  <TooltipContent
-                                    side="top"
-                                    className="text-xs font-sm "
-                                  >
-                                    {Content("DeleteDesc1")} <br />{" "}
+                                  <TooltipContent side="top" className="text-xs font-sm ">
+                                    {Content("DeleteDesc1")} <br />
                                     {Content("DeleteDesc2")}
                                   </TooltipContent>
                                 </>
