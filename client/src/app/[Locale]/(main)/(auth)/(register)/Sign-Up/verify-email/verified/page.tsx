@@ -47,7 +47,7 @@ const ResetPassword = () => {
             />
             <h1 className="text-xl font-bold">{Content("title")}</h1>
           </div>
-          <Link href={`/${Language}/Sign-Up/choose-type`}>
+          <Link href={`/${Language}/Sign-Up/Choose-Type`}>
             <Button type="submit" className="w-full text-white">
               {Content("CallToAction")}
             </Button>
