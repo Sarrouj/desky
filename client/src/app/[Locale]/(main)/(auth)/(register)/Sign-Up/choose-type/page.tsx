@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
@@ -49,23 +49,10 @@ const Type = () => {
 
       if (response && response.data && response.data.success) {
         if (userType === "depositor") {
-          const result = await signIn("credentials", {
-            redirect: false,
-            email,
-            password,
-          });
-
-          if (result?.error) {
-            setError(result.error);
-          } else if (result) {
-            setSuccess("Registered successfully");
-            localStorage.removeItem("email");
-            localStorage.removeItem("password");
-            window.location.href = `/${Language}/dashboard-d`;
-          }
-        } else if (userType === "bidder") {
-          window.location.href = `/${Language}/Sign-Up/choose-type/bidder-Type`;
+          window.location.href = `/${Language}/Sign-Up/Choose-Type/Depositor-Type`;
         }
+      } else if (userType === "bidder") {
+        window.location.href = `/${Language}/Sign-Up/Choose-Type/Bidder-Type`;
       }
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.error) {

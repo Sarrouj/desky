@@ -75,17 +75,21 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
 
   const handleComplete = async (
     e: React.FormEvent<HTMLFormElement>,
-    offer_id: string,
-    bidder_id: string
+    offerId: any,
+    bidderId: any,
+    depositorId: any
   ) => {
     e.preventDefault();
+    getHandleCompleteOfferID(offerId);
+    getHandleCompleteDepositorID(depositorId);
+    putCompleteDepositorOffer();
     if (rating === 0) {
       setError("Please give at least a 1-star rating.");
       return;
     }
     try {
       const response = await axios.post(
-        `http://localhost:3001/rate/depositor/${bidder_id}/${offer_id}`,
+        `http://localhost:3001/rate/depositor/${bidderId}/${offerId}`,
         {
           rating,
           text: review,
@@ -102,6 +106,7 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
       setError("Failed to submit the review. Please try again.");
     }
   };
+
 
   const handleCompleteOffer = (offerId: any, depositorId: any) => {
     getHandleCompleteOfferID(offerId);
@@ -245,7 +250,14 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
                                     </DialogDescription>
                                   </DialogHeader>
                                   <form
-                                    onSubmit={(e) => handleComplete(e, offer._id, offer.offer_apply[0].bidder_id)}
+                                    onSubmit={(e) =>
+                                      handleComplete(
+                                        e,
+                                        offer._id,
+                                        offer.offer_apply[0].bidder_id,
+                                        offer.depositor_id
+                                      )
+                                    }
                                   >
                                     <div className="flex align-middle justify-center gap-14 relative mb-12 mr-8">
                                       {[1, 2, 3, 4, 5].map((value) => (
@@ -313,7 +325,12 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
                                 <>
                                   <TooltipTrigger
                                     className="h-6 rounded-full text-white text-xs bg-red-600 hover:bg-red-500 px-2"
-                                    onClick={() => handleDelete(offer._id, offer.depositor_id)}
+                                    onClick={() =>
+                                      handleDelete(
+                                        offer._id,
+                                        offer.depositor_id
+                                      )
+                                    }
                                   >
                                     {Content("Delete")}
                                   </TooltipTrigger>

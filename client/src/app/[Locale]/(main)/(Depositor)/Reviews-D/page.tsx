@@ -87,7 +87,7 @@ const DepositorReviews = () => {
     if (user_role !== "depositor" && user_role !== null) {
       window.location.href = `/${Language}`;
     }
-  }, [user_role]);
+  }, [user_role, Language]);
 
   const getDepositorID = useBoundStore((state) => state.getDepositorID);
   const fetchDepositorReview = useBoundStore(

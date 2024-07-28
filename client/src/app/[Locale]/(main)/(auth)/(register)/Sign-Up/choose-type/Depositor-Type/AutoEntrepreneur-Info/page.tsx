@@ -31,14 +31,15 @@ import { useBoundStore } from "@/lib/store";
 // Internationalization
 import { useTranslations } from "next-intl";
 import { City } from "@/lib/Features/CitiesData";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 const AutoEntrepreneurInfo = () => {
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("");
   const [cin, setCin] = useState<File | null>(null);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState<any>("");
+  const [password, setPassword] = useState<any>("");
   const [activity, setActivity] = useState("");
   const [activities, setActivities] = useState<(string | number)[]>([]);
   const [error, setError] = useState("");
@@ -82,15 +83,13 @@ const AutoEntrepreneurInfo = () => {
 
   // get Auth Email
   useEffect(() => {
-    let getEmail = localStorage.getItem("email");
-    if (getEmail) {
-      setEmail(getEmail);
-    }
+    setEmail(localStorage.getItem("email"));
+    setPassword(localStorage.getItem("password"));
   }, []);
 
   useEffect(() => {
     if (status === "authenticated") {
-      window.location.href = `/${Language}/Dashboard-B`;
+      window.location.href = `/${Language}/dashboard-d`;
     }
   }, [status, Language]);
 
@@ -129,7 +128,7 @@ const AutoEntrepreneurInfo = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/add/bidder/AE",
+        "http://localhost:3001/add/depositor/AE",
         formData,
         {
           headers: {
@@ -140,9 +139,19 @@ const AutoEntrepreneurInfo = () => {
 
       if (response && response.data && response.data.success) {
         setSuccess(response.data.success);
-        setTimeout(() => {
-          window.location.href = `/${Language}/Dashboard-B`;
-        }, 2000);
+        const result = await signIn("credentials", {
+          redirect: false,
+          email,
+          password,
+        });
+
+        if (result?.error) {
+          setError(result.error);
+        } else if (result) {
+          setSuccess("Registered successfully");
+          localStorage.removeItem("email");
+          localStorage.removeItem("password");
+        }
       } else {
         setError(response.data.error);
       }
@@ -169,7 +178,7 @@ const AutoEntrepreneurInfo = () => {
       <div className="w-full text-xs text-end flex justify-between px-5">
         <Link
           className="flex items-center gap-2"
-          href={`/${Language}/Sign-Up/Choose-Type/Bidder-Type`}
+          href={`/${Language}/Sign-Up/Choose-Type/bidder-Type`}
         >
           <Image
             src={"/icons/arrowBack.svg"}
