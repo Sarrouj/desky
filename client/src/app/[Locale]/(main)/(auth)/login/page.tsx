@@ -122,7 +122,7 @@ const Login = () => {
               <div className="flex items-center">
                 <Label
                   htmlFor="password"
-                  className=" text-xs sm:text-sm md:text-base"
+                  className="text-xs sm:text-sm md:text-base"
                 >
                   {LoginContent("Password")}
                 </Label>

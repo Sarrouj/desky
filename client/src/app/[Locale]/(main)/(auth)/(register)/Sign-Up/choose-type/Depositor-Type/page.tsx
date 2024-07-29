@@ -53,15 +53,17 @@ const DepositorType = () => {
   };
 
   return (
-    <div className="flex flex-col py-8 justify-between">
+    <div className="flex flex-col py-8 justify-between min-h-screen">
       <div className="w-10/12 mx-auto text-xs text-end">
         <p className="text-gray-400">{ChooseTypeContent("Step")}</p>
         <p className="font-semibold">{ChooseTypeContent("LegalInfo")}</p>
       </div>
-      <div className="mx-auto grid w-7/12 gap-6 mb-10">
+      <div className="mx-auto grid w-full px-5 sm:px-10 md:px-32 lg:px-14 xl:px-0 xl:w-7/12 gap-6 mb-10">
         <div className="grid gap-2">
-          <h1 className="text-3xl font-bold">{ChooseTypeContent("Title")}</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">
+            {ChooseTypeContent("Title")}
+          </h1>
+          <p className="text-balance text-muted-foreground text-xs sm:text-sm md:text-base">
             {ChooseTypeContent("Description")}
           </p>
         </div>
@@ -76,17 +78,17 @@ const DepositorType = () => {
                 width={50}
                 height={50}
                 alt="shape"
-                className="depositorIcon"
+                className="depositorIcon  h-10 w-10 md:h-12 md:w-12"
               />
               <Image
                 src={"/icons/HoverDepositorIcon.svg"}
                 width={50}
                 height={50}
                 alt="shape"
-                className="hidden hoverDepositorIcon"
+                className="hidden hoverDepositorIcon  h-10 w-10 md:h-12 md:w-12"
               />
               <div>
-                <h3 className="font-semibold">
+                <h3 className="font-semibold text-sm md:text-base">
                   {ChooseTypeContent("individual")}
                 </h3>
                 <p className="text-xs">
@@ -112,17 +114,17 @@ const DepositorType = () => {
                 width={50}
                 height={50}
                 alt="shape"
-                className="depositorIcon"
+                className="depositorIcon h-10 w-10 md:h-12 md:w-12"
               />
               <Image
                 src={"/icons/HoverBidderIcon.svg"}
                 width={50}
                 height={50}
                 alt="shape"
-                className="hidden hoverDepositorIcon"
+                className="hidden hoverDepositorIcon h-10 w-10 md:h-12 md:w-12"
               />
               <div>
-                <h3 className="font-semibold">
+                <h3 className="font-semibold text-sm md:text-base">
                   {ChooseTypeContent("AutoEntrepreneur")}
                 </h3>
                 <p className="text-xs">
@@ -148,17 +150,17 @@ const DepositorType = () => {
                 width={50}
                 height={50}
                 alt="shape"
-                className="depositorIcon"
+                className="depositorIcon  h-10 w-10 md:h-12 md:w-12"
               />
               <Image
                 src={"/icons/HoverCompanyIcon.svg"}
                 width={50}
                 height={50}
                 alt="shape"
-                className="hidden hoverDepositorIcon"
+                className="hidden hoverDepositorIcon  h-10 w-10 md:h-12 md:w-12"
               />
               <div>
-                <h3 className="font-semibold">
+                <h3 className="font-semibold text-sm md:text-base">
                   {ChooseTypeContent("Company")}
                 </h3>
                 <p className="text-xs">
@@ -174,13 +176,15 @@ const DepositorType = () => {
               className="arrowRight hidden"
             />
           </Link>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-          {success && <p className="text-green-500 text-sm">{success}</p>}
+          {error && <p className="text-red-500 text-xs md:text-sm">{error}</p>}
+          {success && (
+            <p className="text-green-500  text-xs md:text-sm">{success}</p>
+          )}
         </div>
       </div>
-      <p className="w-10/12 mx-auto text-sm">
-        {ChooseTypeContent("CopyWrite")}
-      </p>
+      <div className="w-full text-center lg:text-start lg:px-10 xl:px-14 text-xs sm:text-sm">
+        <p>{ChooseTypeContent("CopyWrite")}</p>
+      </div>
     </div>
   );
 };
