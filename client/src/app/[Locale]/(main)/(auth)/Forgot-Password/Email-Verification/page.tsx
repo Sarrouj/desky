@@ -28,27 +28,39 @@ const EmailVerification = () => {
   };
 
   return (
-    <div className="flex flex-col py-8 justify-between">
-      <div className="mx-auto grid gap-16 mt-28 w-4/6">
+    <div className="flex flex-col py-8 justify-between min-h-screen">
+      <div className="mx-auto grid gap-16 mt-28 w-full md:w-4/6 px-5 sm:px-32 md:px-0">
         <div className="grid gap-2 w-full">
-          <h1 className="text-3xl font-bold">{Content("title")}</h1>
-          <p className="text-balance text-muted-foreground w-full">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">
+            {Content("title")}
+          </h1>
+          <p className="text-balance text-muted-foreground text-xs sm:text-sm md:text-base">
             {Content("Desc")} {email}.
           </p>
         </div>
         <div className="grid gap-4">
-          <p>{Content("resendMsg")}</p>
-          <Button onClick={handleSubmit} className="w-full text-white ">
+          <p className="text-xs md:text-sm lg:text-base">
+            {Content("resendMsg")}
+          </p>
+          <Button
+            onClick={handleSubmit}
+            className="w-full text-white text-xs md:text-sm "
+          >
             {Content("ResendEmail")}
           </Button>
           <Link href={`/${Language}/login`}>
-            <Button variant="outline" className="w-full">
+            <Button
+              variant="outline"
+              className="w-full text-xs md:text-sm "
+            >
               {Content("BackToLogin")}
             </Button>
           </Link>
         </div>
       </div>
-      <p className="w-10/12 mx-auto text-sm">{Content("CopyWrite")}</p>
+      <div className="w-full text-center lg:text-start lg:px-10 xl:px-14 text-xs sm:text-sm">
+        <p>{Content("CopyWrite")}</p>
+      </div>
     </div>
   );
 };

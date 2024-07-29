@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 
@@ -28,9 +27,12 @@ const ForgotPassword = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3001/auth/forgetPassword", {
-        email,
-      });
+      const response = await axios.post(
+        "http://localhost:3001/auth/forgetPassword",
+        {
+          email,
+        }
+      );
       if (response && response.data && response.data.success) {
         localStorage.setItem("email", email);
         setTimeout(() => {
@@ -43,40 +45,50 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="flex flex-col py-8 justify-between">
+    <div className="flex flex-col py-8 justify-between min-h-screen">
       <form
         onSubmit={handleSubmit}
-        className="mx-auto grid w-7/12 gap-16 mt-28"
+        className="mx-auto grid w-full px-5 sm:px-32 md:px-40 lg:px-16 pt-20 pb-16 sm:py-20 xl:pt-32 xl:px-0 xl:w-7/12 gap-6"
       >
         <div className="grid gap-2">
-          <h1 className="text-3xl font-bold">{Content("Title")}</h1>
-          <p className="text-balance text-muted-foreground">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">
+            {Content("Title")}
+          </h1>
+          <p className="text-balance text-muted-foreground text-xs sm:text-sm md:text-base">
             {Content("Description")}
           </p>
         </div>
         <div className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="email">{Content("Email")}</Label>
+            <Label htmlFor="email" className="text-xs sm:text-sm md:text-base">
+              {Content("Email")}
+            </Label>
             <Input
               id="email"
               type="email"
               placeholder="m@example.com"
+              className="text-xs sm:text-sm md:text-base"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <Button type="submit" className="w-full text-white">
+          <Button
+            type="submit"
+            className="w-full text-white text-xs sm:text-sm "
+          >
             {Content("CallToAction")}
           </Button>
           <Link href={`/${Language}/login`}>
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full text-xs sm:text-sm ">
               {Content("BackToLogin")}
             </Button>
           </Link>
         </div>
       </form>
-      <p className="w-10/12 mx-auto text-sm">{Content("CopyWrite")}</p>
+      <div className="w-full text-center lg:text-start lg:px-10 xl:px-14 text-xs sm:text-sm">
+        <p>{Content("CopyWrite")}</p>
+      </div>
     </div>
   );
 };

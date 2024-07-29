@@ -47,40 +47,52 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="flex flex-col py-8 justify-between">
-      <div className="mx-auto grid w-7/12 gap-16 mt-28">
+    <div className="flex flex-col py-8 justify-between min-h-screen">
+      <div className="mx-auto grid w-full px-5 sm:px-32 md:px-40 lg:px-16 pt-10 pb-16 sm:py-20 xl:py-32 xl:px-0 xl:w-7/12 gap-6">
         <div className="grid gap-2">
-          <h1 className="text-3xl font-bold">{Content("title")}</h1>
-          <p className=" text-muted-foreground">{Content("Description")}</p>
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">
+            {Content("title")}
+          </h1>
+          <p className="text-balance text-muted-foreground text-xs sm:text-sm md:text-base">
+            {Content("Description")}
+          </p>
         </div>
         <form onSubmit={handleSubmit} className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="email">{Content("NewPassword")}</Label>
+            <Label htmlFor="email" className="text-xs sm:text-sm md:text-base">
+              {Content("NewPassword")}
+            </Label>
             <Input
               id="Password"
               type="Password"
+              className="text-xs sm:text-sm md:text-base"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email">{Content("ConfirmPassword")}</Label>
+            <Label htmlFor="email" className="text-xs sm:text-sm md:text-base">
+              {Content("ConfirmPassword")}
+            </Label>
             <Input
               id="Password"
               type="Password"
+              className="text-xs sm:text-sm md:text-base"
               required
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
           {error && <p className="text-red-500">{error}</p>}
-          <Button type="submit" className="w-full text-white">
+          <Button type="submit" className="w-full text-white text-xs sm:text-sm">
             {Content("ResetPassword")}
           </Button>
         </form>
       </div>
-      <p className="w-10/12 mx-auto text-sm">{Content("CopyWrite")}</p>
+      <div className="w-full text-center lg:text-start lg:px-10 xl:px-14 text-xs sm:text-sm">
+        <p>{Content("CopyWrite")}</p>
+      </div>
     </div>
   );
 };

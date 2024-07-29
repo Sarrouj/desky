@@ -4,12 +4,11 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { signIn, useSession } from "next-auth/react";
-import AuthCopywrite from "@/Components/common/AuthCopywrite";
 import { Button } from "@/Components/ui/Button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 // Internationalization
-import {useTranslations} from 'next-intl';
+import { useTranslations } from "next-intl";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -19,24 +18,23 @@ const Login = () => {
   const { data: session, status } = useSession();
   const [Language, setLanguage] = useState();
   // Content
-  const LoginContent = useTranslations('Auth.Login');
+  const LoginContent = useTranslations("Auth.Login");
   //User Data
-  const userType : string | null = session ? session.user?.role : null;
+  const userType: string | null = session ? session.user?.role : null;
 
   // Language
-  useEffect(()=>{
-    let lg = JSON.parse(localStorage.getItem('lg'));
+  useEffect(() => {
+    let lg = JSON.parse(localStorage.getItem("lg"));
     setLanguage(lg);
-  }, [Language])
-  
+  }, [Language]);
 
   useEffect(() => {
     if (status === "authenticated") {
-      if(userType == "bidder"){
+      if (userType == "bidder") {
         window.location.href = `/${Language}/Dashboard-B`;
-      }else if(userType == "depositor"){
+      } else if (userType == "depositor") {
         window.location.href = `/${Language}/dashboard-d`;
-      }else if(userType == "admin"){
+      } else if (userType == "admin") {
         window.location.href = `/${Language}/Dashboard-A/Offers-verification`;
       }
     }
@@ -70,11 +68,11 @@ const Login = () => {
         window.location.href = `/${Language}/(main)/(register)/Sign-Up/Choose-Type`;
       } else {
         if (status === "authenticated") {
-          if(userType == "bidder"){
+          if (userType == "bidder") {
             window.location.href = `/${Language}/dashboard-b`;
-          }else if(userType == "depositor"){
+          } else if (userType == "depositor") {
             window.location.href = `/${Language}/dashboard-d`;
-          }else if(userType == "admin"){
+          } else if (userType == "admin") {
             window.location.href = `/${Language}/Dashboard-A/Offers-verification`;
           }
         }
@@ -87,20 +85,29 @@ const Login = () => {
       <div className="flex flex-col py-8 justify-between">
         <Link
           href={`/${Language}`}
-          className="w-10/12 mx-auto text-primary font-bold text-2xl"
+          className="w-full text-center md:text-start md:w-10/12 mx-auto"
         >
-          Desky
+          <p className="text-primary font-bold text-2xl sm:text-xl md:text-2xl">
+            Desky
+          </p>
         </Link>
-        <div className="mx-auto grid w-7/12 gap-6">
+        <div className="mx-auto grid w-full px-5 sm:px-32 md:px-40 lg:px-16 pt-10 pb-16 sm:py-20 xl:py-0 xl:px-0 xl:w-7/12 gap-6">
           <div className="grid gap-2">
-            <h1 className="text-3xl font-bold">{LoginContent("title")}</h1>
-            <p className="text-balance text-muted-foreground">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">
+              {LoginContent("title")}
+            </h1>
+            <p className="text-balance text-muted-foreground text-xs sm:text-sm md:text-base">
               {LoginContent("Description")}
             </p>
           </div>
           <form onSubmit={handleSubmit} className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="email">{LoginContent("Email")}</Label>
+              <Label
+                htmlFor="email"
+                className="text-xs sm:text-sm md:text-base"
+              >
+                {LoginContent("Email")}
+              </Label>
               <Input
                 id="email"
                 type="email"
@@ -108,14 +115,20 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="m@example.com"
                 required
+                className="text-xs sm:text-sm md:text-base"
               />
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
-                <Label htmlFor="password">{LoginContent("Password")}</Label>
+                <Label
+                  htmlFor="password"
+                  className=" text-xs sm:text-sm md:text-base"
+                >
+                  {LoginContent("Password")}
+                </Label>
                 <Link
                   href={`/${Language}/Forgot-Password`}
-                  className="ml-auto inline-block text-sm underline"
+                  className="ml-auto inline-block  text-xs sm:text-sm underline"
                 >
                   {LoginContent("Forgot")}
                 </Link>
@@ -126,35 +139,46 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                className="text-xs sm:text-sm md:text-base"
               />
             </div>
-            {error && <p className="text-red-500 text-sm">{error}</p>}
-            {success && <p className="text-green-500 text-sm">{success}</p>}
-            <Button type="submit" className="w-full text-white">
+            {error && (
+              <p className="text-red-500 text-xs md:text-sm ">{error}</p>
+            )}
+            {success && (
+              <p className="text-green-500 text-xs md:text-sm">{success}</p>
+            )}
+            <Button
+              type="submit"
+              className="w-full text-white text-xs sm:text-sm"
+            >
               {LoginContent("CallToAction")}
             </Button>
           </form>
-          <p className="text-center"> {LoginContent("OR")} </p>
+          <p className="text-center  text-xs sm:text-sm ">
+            {" "}
+            {LoginContent("OR")}{" "}
+          </p>
           <Button
             variant="outline"
-            className="w-full"
+            className="w-full text-xs sm:text-sm "
             onClick={handleGoogleSignIn}
           >
             {LoginContent("LGGoogle")}
           </Button>
-          <div className="mt-4 text-center text-sm">
+          <div className="mt-4 text-center text-xs sm:text-sm">
             {LoginContent("Dont")}{" "}
             <Link href={`/${Language}/Sign-Up`} className="underline">
-            {LoginContent("SignUP")}
+              {LoginContent("SignUP")}
             </Link>
           </div>
         </div>
-        <p className="w-10/12 mx-auto text-sm">
-          {LoginContent("CopyWrite")}
-        </p>
+        <div className="w-full text-center lg:text-start lg:px-10 xl:px-14 text-xs sm:text-sm">
+          <p>{LoginContent("CopyWrite")}</p>
+        </div>
       </div>
-      <div className="bg-muted lg:block rounded-lg m-5 bg-gradient-to-r from-custom-yellow to-custom-orange flex flex-col justify-end items-end">
-        <div className="h-2/4 text-custom-yellow">r</div>
+      <div className="bg-muted rounded-lg m-5 bg-gradient-to-r from-custom-yellow to-custom-orange hidden lg:flex flex-col justify-end items-end">
+        <div className="h-2/4 text-custom-yellow"></div>
         <div className="h-2/4 flex justify-end px-8">
           <Image
             src={"/authShape.svg"}
