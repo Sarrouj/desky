@@ -13,14 +13,13 @@ const ProcessGoogleSignIn = () => {
     if (googleEmail && googlePassword) {
       localStorage.setItem("email", googleEmail);
       localStorage.setItem("password", googlePassword);
-      window.location.replace(`/${lg}/Sign-Up/Choose-Type`);
+      window.location.replace(`/${lg}/Sign-Up/choose-type`);
     }
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center gap-3 h-screen">
-      <Spinner size={"large"}/>
-      <p className="text-2xl">Processing Google Sign-In...</p>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-neutralBg">
+      <Spinner size={"medium"}/>
     </div>
   );
 };
