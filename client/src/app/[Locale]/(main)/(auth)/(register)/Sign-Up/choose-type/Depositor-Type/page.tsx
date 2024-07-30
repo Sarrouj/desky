@@ -78,7 +78,7 @@ const DepositorType = () => {
                 width={50}
                 height={50}
                 alt="shape"
-                className="depositorIcon  h-10 w-10 md:h-12 md:w-12"
+                className="depositorIcon h-10 w-10 md:h-12 md:w-12"
               />
               <Image
                 src={"/icons/HoverDepositorIcon.svg"}

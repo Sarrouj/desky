@@ -218,7 +218,7 @@ const AutoEntrepreneurInfo = () => {
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-[450px] p-0 text-xs md:text-sm">
+              <PopoverContent className="w-[300px] sm:w-[450px] md:w-[300px] lg:w-[450px]  p-0 text-xs md:text-sm">
                 <Command>
                   <CommandInput placeholder={Content("Search")} />
                   <CommandEmpty>{Content("NotFound")}</CommandEmpty>

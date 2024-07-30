@@ -8,7 +8,7 @@ export default function forgotPasswordLayout({
   }) {
     return (
         <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] text-secondaryDarkBlue">
-        <div className=" bg-muted lg:block rounded-lg m-5 bg-gradient-to-r from-custom-yellow to-custom-orange flex flex-col justify-end items-end ">
+        <div className=" bg-muted rounded-lg m-5 bg-gradient-to-r from-custom-yellow to-custom-orange hidden lg:flex flex-col justify-start items-start">
           <div className="h-2/4 p-8">
               <Link href={"/"}>
                 <h1 className="text-white text-2xl font-bold">Desky</h1>
