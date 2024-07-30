@@ -165,7 +165,7 @@ const AutoEntrepreneurInfo = () => {
   const Content = useTranslations("Auth.AutoEntrepreneurInfo");
 
   return (
-    <div className="flex flex-col py-8 gap-20">
+    <div className="flex flex-col py-8 justify-between min-h-screen">
       <div className="w-full text-xs text-end flex justify-between px-5">
         <Link
           className="flex items-center gap-2"
@@ -185,23 +185,23 @@ const AutoEntrepreneurInfo = () => {
           <p className="font-semibold">{Content("LegalInfo")}</p>
         </div>
       </div>
-      <div className="mx-auto grid w-7/12 gap-6 ">
+      <div className="mx-auto grid w-full xl:w-7/12 py-10 px-5 sm:px-32 md:px-40 lg:px-16 xl:px-0 gap-6 ">
         <div className="grid gap-2">
-          <h1 className="text-3xl font-bold">{Content("title")}</h1>
-          <p className="text-balance text-muted-foreground">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">{Content("title")}</h1>
+          <p className="text-balance text-muted-foreground text-xs sm:text-sm md:text-base">
             {Content("Description")}
           </p>
         </div>
         <form onSubmit={handleSubmit} className="grid gap-4">
           <div className="grid gap-2 w-full">
-            <Label htmlFor="email">{Content("Location")}</Label>
+            <Label htmlFor="email" className="text-xs sm:text-sm md:text-base">{Content("Location")}</Label>
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"
                   role="combobox"
                   aria-expanded={open}
-                  className="w-[100%] justify-between"
+                  className="w-[100%] justify-between text-xs md:text-sm"
                 >
                   {value
                     ? Cities.find((city) => city.value === value)?.label
@@ -209,7 +209,7 @@ const AutoEntrepreneurInfo = () => {
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-[450px] p-0">
+              <PopoverContent className="w-[400px] sm:w-[550px] md:w-[400px] lg:w-[450px] p-0 text-xs md:text-sm">
                 <Command>
                   <CommandInput placeholder={Content("Search")} />
                   <CommandEmpty>{Content("NotFound")}</CommandEmpty>
@@ -241,20 +241,22 @@ const AutoEntrepreneurInfo = () => {
             </Popover>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="password">{Content("Address")}</Label>
+            <Label htmlFor="password" className="text-xs sm:text-sm md:text-base">{Content("Address")}</Label>
             <Input
               id="text"
               type="text"
               required
               placeholder=""
               onChange={(e) => setAddress(e.target.value)}
+              className="text-xs md:text-sm"
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email">{Content("Card")}</Label>
+            <Label htmlFor="email" className="text-xs sm:text-sm md:text-base">{Content("Card")}</Label>
             <Input
               id="picture"
               type="file"
+              className="text-xs md:text-sm"
               onChange={(e) => {
                 if (e.target.files && e.target.files[0]) {
                   setCin(e.target.files[0]);
@@ -263,19 +265,19 @@ const AutoEntrepreneurInfo = () => {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email">{Content("PhoneNumber")}</Label>
+            <Label htmlFor="email" className="text-xs sm:text-sm md:text-base">{Content("PhoneNumber")}</Label>
             <div className="flex border border-black rounded-lg">
               <div className="px-5 py-2 border-r border-black">+212</div>
               <input
                 type="tel"
-                className="w-4/5 h-10 px-5 rounded focus:outline-0 text-sm"
+                className="w-4/5 h-10 px-5 rounded focus:outline-0 text-xs md:text-sm"
                 placeholder="61 45 99 19 89"
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email">{Content("Activities")}</Label>
+            <Label htmlFor="email" className="text-xs sm:text-sm md:text-base">{Content("Activities")}</Label>
             <div className="flex gap-2">
               <Input
                 id="text"
@@ -283,6 +285,7 @@ const AutoEntrepreneurInfo = () => {
                 placeholder="Activity..."
                 onChange={(e) => setActivity(e.target.value)}
                 value={activity}
+                className="text-xs md:text-sm"
               />
               <Button
                 type="button"
@@ -298,9 +301,9 @@ const AutoEntrepreneurInfo = () => {
                   key={index}
                   className="flex gap-2 justify-center bg-orange-400 px-3 py-1.5 rounded-full hover:bg-primary"
                 >
-                  <p className="text-sm text-white">{act}</p>
+                  <p className="text-xs md:text-sm text-white">{act}</p>
                   <button
-                    className="text-sm text-white"
+                    className="text-xs md:text-sm text-white"
                     onClick={() => removeActivity(index)}
                   >
                     x
@@ -310,18 +313,20 @@ const AutoEntrepreneurInfo = () => {
             </ul>
           </div>
           {error && (
-            <p className="text-red-500 text-sm">
+            <p className="text-red-500 text-xs md:text-sm">
               {typeof error === "string" ? error : "An error occurred"}
             </p>
           )}
-          {success && <p className="text-green-500 text-sm">{success}</p>}
+          {success && <p className="text-green-500 text-xs md:text-sm">{success}</p>}
 
-          <Button type="submit" className="w-full text-white">
+          <Button type="submit" className="w-full text-white text-xs md:text-sm">
             {Content("Submit")}
           </Button>
         </form>
       </div>
-      <p className="w-10/12 mx-auto text-sm">{Content("CopyWrite")}</p>
+      <div className="w-full text-center lg:text-start lg:px-10 xl:px-14 text-xs sm:text-sm">
+        <p>{Content("CopyWrite")}</p>
+      </div>
     </div>
   );
 };

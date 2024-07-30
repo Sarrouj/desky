@@ -34,9 +34,9 @@ const ResetPassword = () => {
   }, [token]);
 
   return (
-    <div className="flex flex-col py-8 justify-between">
-      <div className="mx-auto grid w-7/12 gap-16 mt-56">
-        <div className="grid gap-8">
+    <div className="flex flex-col py-8 justify-between min-h-screen">
+      <div className="mx-auto grid  w-full lg:w-7/12 gap-16 mt-20 lg:mt-32 xl:mt-56 px-5 sm:px-10 md:px-32 lg:px-0">
+        <div className="grid gap-4 md:gap-6 lg:gap-8">
           <div className="flex flex-col justify-center items-center gap-8">
             <Image
               src={"/icons/success.svg"}
@@ -45,16 +45,18 @@ const ResetPassword = () => {
               alt="shape"
               className=""
             />
-            <h1 className="text-xl font-bold">{Content("title")}</h1>
+            <h1 className="text-base md:text-lg lg:text-xl font-bold">{Content("title")}</h1>
           </div>
           <Link href={`/${Language}/Sign-Up/Choose-Type`}>
-            <Button type="submit" className="w-full text-white">
+            <Button type="submit" className="w-full text-white text-xs sm:text-sm">
               {Content("CallToAction")}
             </Button>
           </Link>
         </div>
       </div>
-      <p className="w-10/12 mx-auto text-sm">{Content("CopyWrite")}</p>
+      <div className="w-full text-center lg:text-start lg:px-10 xl:px-14 text-xs sm:text-sm">
+          <p>{Content("CopyWrite")}</p>
+       </div>
     </div>
   );
 };

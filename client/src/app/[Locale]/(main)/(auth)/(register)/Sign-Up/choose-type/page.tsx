@@ -67,7 +67,7 @@ const Type = () => {
 
   return (
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] text-secondaryDarkBlue">
-      <div className="bg-muted lg:block rounded-lg m-5 bg-gradient-to-r from-custom-yellow to-custom-orange flex flex-col justify-end items-end">
+      <div className="bg-muted rounded-lg m-5 bg-gradient-to-r from-custom-yellow to-custom-orange hidden lg:flex flex-col justify-start items-start">
         <div className="h-2/4 p-8">
           <Link href="/">
             <h1 className="text-white text-2xl font-bold">Desky</h1>
@@ -77,12 +77,11 @@ const Type = () => {
           <Image src="/authShape.svg" width={400} height={400} alt="shape" />
         </div>
       </div>
-      <div className="flex flex-col py-8 justify-between">
-        <div className="w-10/12 mx-auto text-sm text-end"></div>
-        <div className="mx-auto grid w-7/12 gap-6">
+      <div className="flex flex-col py-0 lg:py-8 justify-between min-h-screen">
+        <div className="mx-auto grid w-full px-5 sm:px-10 md:px-32 lg:px-14 xl:px-0 xl:w-7/12 gap-6 mt-32  xl:mt-48">
           <div className="grid gap-2">
-            <h1 className="text-3xl font-bold">{ChooseTypeContent("title")}</h1>
-            <p className="text-muted-foreground">{ChooseTypeContent("Desc")}</p>
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">{ChooseTypeContent("title")}</h1>
+            <p className="text-balance text-muted-foreground text-xs sm:text-sm md:text-base">{ChooseTypeContent("Desc")}</p>
           </div>
           <div className="flex flex-col gap-5">
             {disable == true ? (
@@ -93,17 +92,17 @@ const Type = () => {
                     width={50}
                     height={50}
                     alt="depositor icon"
-                    className="depositorIcon"
+                    className="depositorIcon  h-10 w-10 md:h-12 md:w-12"
                   />
                   <Image
                     src="/icons/HoverDepositorIcon.svg"
                     width={50}
                     height={50}
                     alt="hover depositor icon"
-                    className="hidden hoverDepositorIcon"
+                    className="hidden hoverDepositorIcon  h-10 w-10 md:h-12 md:w-12"
                   />
                   <div>
-                    <h3 className="font-semibold">
+                    <h3 className="font-semibold text-sm md:text-base">
                       {ChooseTypeContent("Depositor")}
                     </h3>
                     <p className="text-xs">
@@ -130,17 +129,17 @@ const Type = () => {
                     width={50}
                     height={50}
                     alt="depositor icon"
-                    className="depositorIcon"
+                    className="depositorIcon h-10 w-10 md:h-12 md:w-12"
                   />
                   <Image
                     src="/icons/HoverDepositorIcon.svg"
                     width={50}
                     height={50}
                     alt="hover depositor icon"
-                    className="hidden hoverDepositorIcon"
+                    className="hidden hoverDepositorIcon h-10 w-10 md:h-12 md:w-12"
                   />
                   <div>
-                    <h3 className="font-semibold">
+                    <h3 className="font-semibold text-sm md:text-base">
                       {ChooseTypeContent("Depositor")}
                     </h3>
                     <p className="text-xs">
@@ -165,17 +164,17 @@ const Type = () => {
                     width={50}
                     height={50}
                     alt="bidder icon"
-                    className="depositorIcon"
+                    className="depositorIcon h-10 w-10 md:h-12 md:w-12"
                   />
                   <Image
                     src="/icons/HoverBidderIcon.svg"
                     width={50}
                     height={50}
                     alt="hover bidder icon"
-                    className="hidden hoverDepositorIcon"
+                    className="hidden hoverDepositorIcon h-10 w-10 md:h-12 md:w-12"
                   />
                   <div>
-                    <h3 className="font-semibold">
+                    <h3 className="font-semibold text-sm md:text-base">
                       {ChooseTypeContent("Bidder")}
                     </h3>
                     <p className="text-xs">
@@ -202,17 +201,17 @@ const Type = () => {
                     width={50}
                     height={50}
                     alt="bidder icon"
-                    className="depositorIcon"
+                    className="depositorIcon h-10 w-10 md:h-12 md:w-12"
                   />
                   <Image
                     src="/icons/HoverBidderIcon.svg"
                     width={50}
                     height={50}
                     alt="hover bidder icon"
-                    className="hidden hoverDepositorIcon"
+                    className="hidden hoverDepositorIcon h-10 w-10 md:h-12 md:w-12"
                   />
                   <div>
-                    <h3 className="font-semibold">
+                    <h3 className="font-semibold text-sm md:text-base">
                       {ChooseTypeContent("Bidder")}
                     </h3>
                     <p className="text-xs">
@@ -233,9 +232,9 @@ const Type = () => {
             {success && <p className="text-green-500 text-sm">{success}</p>}
           </div>
         </div>
-        <p className="w-10/12 mx-auto text-sm">
-          {ChooseTypeContent("CopyWriteMSG")}
-        </p>
+        <div className="w-full text-center lg:text-start lg:px-10 xl:px-14 text-xs sm:text-sm mb-2">
+          <p>{ChooseTypeContent("CopyWriteMSG")}</p>
+        </div>
       </div>
     </div>
   );
