@@ -358,7 +358,15 @@ const Details = ({ params }: { params: any }) => {
                 offerApply.some(
                   (apply: any) => apply.bidder_id === session?.user.id
                 ) ? (
-                  <div>You already applied to this offer</div>
+                  <div>
+                    <button
+                      disabled
+                      className="text-white bg-gray-400 rounded-full w-10/12 py-2"
+                    >
+                      {Content("CallToAction")}
+                    </button>
+                    <p>You already applied to this offer</p>
+                  </div>
                 ) : (
                   <Dialog>
                     <DialogTrigger>
