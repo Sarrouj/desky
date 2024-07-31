@@ -25,27 +25,30 @@ import { FetchDepositorOffers } from "./Features/fetchDepositorOffers";
 import { FetchDepositorOffersState } from "./Features/fetchDepositorOffers";
 import { BidderReviews } from "./Features/BidderReview";
 import { BidderReviewsState } from "./Features/BidderReview";
-import { DepositorBids } from "./Features/DepositorBidds";
-import { DepositorManageBidsData } from "./Features/DepositorBidds";
+import { DepositorBids } from "./Features/DepositorBids";
+import { DepositorManageBidsData } from "./Features/DepositorBids";
 import { DepositorReviewInfoType } from "./Features/DepositorReviews";
 import { DepositorReviewSlice } from "./Features/DepositorReviews";
+import { BidderReviewInfoType } from "./Features/BidderReviews";
+import { BidderReviewSlice } from "./Features/BidderReviews";
 
-export interface CombinedState extends 
-  OffersState, 
-  OfferDetails,
-  Cities,
-  Categories,
-  searchState,
-  depositorDataInfoType,
-  DepositorLegalData,
-  addOfferState,
-  deleteOfferState,
-  HandleCompleteState,
-  HandleAcceptBidState,
-  FetchDepositorOffersState,
-  BidderReviewsState, 
-  DepositorManageBidsData,
-  DepositorReviewInfoType {}
+export interface CombinedState
+  extends OffersState,
+    OfferDetails,
+    Cities,
+    Categories,
+    searchState,
+    depositorDataInfoType,
+    DepositorLegalData,
+    addOfferState,
+    deleteOfferState,
+    HandleCompleteState,
+    HandleAcceptBidState,
+    FetchDepositorOffersState,
+    BidderReviewsState,
+    DepositorManageBidsData,
+    DepositorReviewInfoType,
+    BidderReviewInfoType {}
 
 export const useBoundStore = create<CombinedState>((...a) => ({
   ...createOffersSlice(...a),
@@ -62,6 +65,6 @@ export const useBoundStore = create<CombinedState>((...a) => ({
   ...FetchDepositorOffers(...a),
   ...BidderReviews(...a),
   ...DepositorBids(...a),
-  ...DepositorReviewSlice(...a)
-}))
-
+  ...DepositorReviewSlice(...a),
+  ...BidderReviewSlice(...a),
+}));

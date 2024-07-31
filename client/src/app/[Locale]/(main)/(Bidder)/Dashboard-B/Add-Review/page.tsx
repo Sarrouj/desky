@@ -18,33 +18,48 @@ import {
 } from "@/Components/ui/breadcrumb";
 import { Button } from "@/Components/ui/Button";
 import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
+import DropDownDepositor from "@/Components/common/DropDownDepositor";
 import BidderAside from "@/Components/common/BidderAside";
 import BidderClosedBidsList from "@/Components/common/BidderClosedBidsList";
 import NotFoundDataBidder from "@/Components/common/NotFoundDataBidder";
 
+import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import axios from "axios";
 
 const AddReview = () => {
-  const [Language, setLanguage] = useState<any>();
-  const { data: session } = useSession();
-  const user_id = session ? session.user?.id : null;
-  const user_role: string | null = session ? session.user?.role : null;
-  const [bids, setBids] = useState<any>(null);
+  // Content
+  const SideBarContent = useTranslations("BidderDashboard.SideBar");
+  const BreadcrumbListContent = useTranslations(
+    "BidderDashboard.BreadcrumbList"
+  );
+  let DropDownMenuContent = useTranslations("DepositorDashboard.DropDownMenu");
+  const AddReviewContent = useTranslations("BidderDashboard.AddReview");
+  const NotFoundContent = useTranslations("BidderDashboard.NotFound");
 
   // Language
+  const [Language, setLanguage] = useState<any>();
+
   useEffect(() => {
-    const lg = JSON.parse(localStorage.getItem("lg"));
+    let lg = JSON.parse(localStorage.getItem("lg"));
     setLanguage(lg);
-  }, []);
+  }, [Language]);
+
+  // Auth
+  const { data: session, status } = useSession();
+  const user_id = session ? session.user?.id : null;
+  const user_role: string | null = session ? session.user?.role : null;
 
   useEffect(() => {
     if (user_role !== "bidder" && user_role !== null) {
       window.location.href = `/${Language}`;
     }
   }, [user_role, Language]);
+
+  // Data
+  const [bids, setBids] = useState<any>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,7 +77,7 @@ const AddReview = () => {
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40 text-secondaryDarkBlue">
-      <BidderAside Language={Language} />
+      <BidderAside Language={Language} Content={SideBarContent} />
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
         <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <Sheet>
@@ -123,7 +138,9 @@ const AddReview = () => {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${Language}/Dashboard-B`}>Dashboard</Link>
+                  <Link href={`/${Language}/Dashboard-B`}>
+                    {BreadcrumbListContent("Dashboard")}
+                  </Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
@@ -131,24 +148,32 @@ const AddReview = () => {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${Language}/Dashboard-B/Review`}>My Bids</Link>
+                  <Link href={`/${Language}/Dashboard-B/Review`}>
+                    {BreadcrumbListContent("AddReview")}
+                  </Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
-          {/* <DropDownDepositor
+          <DropDownDepositor
             content={DropDownMenuContent}
             Language={Language}
-          /> */}
+          />
         </header>
         <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
           <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
             {bids !== null ? (
               bids.totalBidsAccepted !== 0 ? (
-                <BidderClosedBidsList bids={bids.detailedBids} />
+                <BidderClosedBidsList
+                  bids={bids.detailedBids}
+                  content={AddReviewContent}
+                />
               ) : (
                 // <div>hi</div>
-                <NotFoundDataBidder Language={Language} />
+                <NotFoundDataBidder
+                  Language={Language}
+                  content={NotFoundContent}
+                />
               )
             ) : (
               // <BidsListSkeleton Content={Content} seeMore={true} amount={6}

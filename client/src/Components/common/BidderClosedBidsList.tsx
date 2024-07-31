@@ -47,7 +47,13 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 
-const ClosedBidderBidsList = ({ bids }: { bids: any }) => {
+const ClosedBidderBidsList = ({
+  bids,
+  content,
+}: {
+  bids: any;
+  content: any;
+}) => {
   const { data: session } = useSession();
   const [Language, setLanguage] = useState("fr");
   // Language
@@ -98,8 +104,8 @@ const ClosedBidderBidsList = ({ bids }: { bids: any }) => {
         <Card x-chunk="dashboard-05-chunk-3">
           <CardHeader className="px-7 flex flex-row justify-between">
             <div className="flex flex-col gap-2">
-              <CardTitle>Bids List</CardTitle>
-              <CardDescription>Your bids list</CardDescription>
+              <CardTitle>{content("Title")}</CardTitle>
+              <CardDescription>{content("Description")}</CardDescription>
             </div>
           </CardHeader>
           <CardContent>
@@ -109,9 +115,9 @@ const ClosedBidderBidsList = ({ bids }: { bids: any }) => {
                   <TableHead>
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>Offer Name</TooltipTrigger>
+                        <TooltipTrigger>{content("OfferName")}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
-                          the name of the offer
+                          {content("OfferNameTooltip")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -119,9 +125,12 @@ const ClosedBidderBidsList = ({ bids }: { bids: any }) => {
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>Depositor Name</TooltipTrigger>
+                        <TooltipTrigger>
+                          {content("DepositorName")}
+                        </TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
-                          the name of the depositor <br /> who posted the offer
+                          {content("DepositorNameDesc1")} <br />{" "}
+                          {content("DepositorNameDesc2")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -129,9 +138,9 @@ const ClosedBidderBidsList = ({ bids }: { bids: any }) => {
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>Date</TooltipTrigger>
+                        <TooltipTrigger>{content("Date")}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
-                          the date of the bid
+                          {content("DateTooltip")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -139,9 +148,9 @@ const ClosedBidderBidsList = ({ bids }: { bids: any }) => {
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>Estimate</TooltipTrigger>
+                        <TooltipTrigger>{content("Estimate")}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
-                          estimate
+                          {content("Estimate")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -149,10 +158,10 @@ const ClosedBidderBidsList = ({ bids }: { bids: any }) => {
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>Add Review</TooltipTrigger>
+                        <TooltipTrigger>{content("AddReview")}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
-                          Submit a review for the depositor <br />
-                          after the completion of the work.
+                          {content("AddReviewNameDesc1")} <br />
+                          {content("AddReviewNameDesc2")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -204,28 +213,26 @@ const ClosedBidderBidsList = ({ bids }: { bids: any }) => {
                                     <Tooltip>
                                       <TooltipTrigger>
                                         <Button className="h-6 rounded-full text-white text-xs bg-green-600 hover:bg-green-500">
-                                          Review
+                                          {content("CallToAction")}
                                         </Button>
                                       </TooltipTrigger>
                                       <TooltipContent
                                         side="top"
                                         className="text-xs font-sm "
                                       >
-                                        add a review
+                                        {content("CallToActionTooltip")}
                                       </TooltipContent>
                                     </Tooltip>
                                   </DialogTrigger>
                                   <DialogContent>
                                     <DialogHeader>
                                       <DialogTitle className="font-bold text-2xl text-primary text-center">
-                                        Review
+                                        {content("Review.Title")}
                                       </DialogTitle>
                                       <DialogDescription className="text-center">
-                                        Add a review for the depositor after the
-                                        completion of the work.
+                                        {content("Review.Description")}
                                       </DialogDescription>
                                     </DialogHeader>
-                                    {/* rating */}
                                     <form
                                       onSubmit={(e) =>
                                         handleSubmit(
@@ -276,7 +283,9 @@ const ClosedBidderBidsList = ({ bids }: { bids: any }) => {
                                         value={review}
                                         className="ring-0 border-input focus:ring-0 focus-visible:ring-white focus-visible:ring-1"
                                         id="message"
-                                        placeholder={"review"}
+                                        placeholder={content(
+                                          "Review.PlaceHolder"
+                                        )}
                                         maxLength={2000}
                                         required
                                       />
@@ -285,7 +294,7 @@ const ClosedBidderBidsList = ({ bids }: { bids: any }) => {
                                           className="text-white bg-green-600 hover:bg-green-500 mt-4"
                                           type="submit"
                                         >
-                                          Confirm
+                                          {content("Review.CallToAction")}
                                         </Button>
                                       </DialogFooter>
                                     </form>

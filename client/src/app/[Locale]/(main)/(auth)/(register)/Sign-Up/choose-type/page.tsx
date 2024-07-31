@@ -39,18 +39,13 @@ const Type = () => {
     setSuccess("");
     setError("");
     try {
-      const response = await axios.post(
-        "http://localhost:3001/auth/register/user",
-        {
-          email,
-          userType,
-        }
-      );
+      await axios.post("http://localhost:3001/auth/register/user", {
+        email,
+        userType,
+      });
 
-      if (response && response.data && response.data.success) {
-        if (userType === "depositor") {
-          window.location.href = `/${Language}/Sign-Up/Choose-Type/Depositor-Type`;
-        }
+      if (userType === "depositor") {
+        window.location.href = `/${Language}/Sign-Up/Choose-Type/Depositor-Type`;
       } else if (userType === "bidder") {
         window.location.href = `/${Language}/Sign-Up/Choose-Type/Bidder-Type`;
       }

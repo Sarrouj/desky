@@ -508,5 +508,113 @@
         "LogOut": "Log Out"
       }
     }
+  },
+  "BidderDashboard": {
+    "SideBar": {
+      "Dashboard": "Dashboard",
+      "MyBids": "My Bids",
+      "AddReview": "Add Review"
+    },
+    "BreadcrumbList": {
+      "Dashboard": "Dashboard",
+      "MyBids": "My Bids",
+      "AddReview": "Add Review",
+      "Reviews": "My Reviews",
+      "Profile": "Profile"
+    },
+    "Statistic": {
+      "TotalBids": "Total of Bids",
+      "WaitingBids": "Waiting Bids",
+      "AcceptedBids": "Accepted Bids",
+      "AccountRating": "Your Account Rating"
+    },
+    "BidsList": {
+      "Title": "Bids List",
+      "Description": "Your bids list",
+      "SeeMore": "See more...",
+      "OfferName": "Offer Name",
+      "OfferNameTooltip": "the name of the offer",
+      "DepositorName": "Depositor Name",
+      "DepositorNameTooltip1": "the name of the depositor",
+      "DepositorNameTooltip2": "who posted the offer",
+      "Date": "Date",
+      "DateTooltip": "the date that the offer was posted",
+      "Estimate": "Estimate"
+    },
+    "AddReview": {
+      "Title": "Bids List",
+      "Description": "Your bids list",
+      "OfferName": "Offer Name",
+      "OfferNameTooltip": "the name of the offer",
+      "DepositorName": "Depositor Name",
+      "DepositorNameDesc1": "The Name of the Depositor",
+      "DepositorNameDesc2": "that Posted that Offer",
+      "Date": "Date",
+      "DateTooltip": "the date of the bid",
+      "Estimate": "Estimate",
+      "AddReview": "Add Review",
+      "AddReviewNameDesc1": "Submit a review for the depositor",
+      "AddReviewNameDesc2": "after the completion of the work.",
+      "CallToAction": "Review",
+      "CallToActionTooltip": "Add a review",
+      "Review": {
+        "Title": "Review",
+        "Description": "Add a review for the depositor after the completion of the work.",
+        "PlaceHolder": "Review",
+        "CallToAction": "Confirm"
+      }
+    },
+    "NotFound": {
+      "Title": "No Bid Found",
+      "Description": "To Find The Best Offers,Go To Market Place",
+      "CallToAction": "Market Place"
+    },
+    "Profile": {
+      "AE": {
+        "Card": "Card",
+        "PhoneNumber": "Phone Number",
+        "Location": "Location",
+        "Address": "Address",
+        "Activities": "Activities"
+      },
+      "Company": {
+        "CompanyName": "Company Name",
+        "Type": "Type",
+        "CR": "CR",
+        "Size": "Size",
+        "PhoneNumber": "Phone Number",
+        "Location": "Location",
+        "Address": "Address",
+        "Activities": "Activities"
+      },
+      "Verification": {
+        "Title": "Verification in Progress",
+        "Description": "Your account will be verified within 24 hours"
+      },
+      "NotFound": {
+        "NoAvailable": "You don`t have Company information",
+        "NoAvailableDesc": "To become a trusted account, please add your company information",
+        "CallToAction": "Add Info"
+      }
+    },
+    "reviews": {
+      "NoAvailable": "No Available Reviews",
+      "NoAvailableDesc": "No available reviews because there are no completed transactions between you and a depositor.",
+      "CallToAction": "Apply to an Offer",
+      "title": "My Reviews",
+      "date": {
+        "yearAgo": "1 year ago",
+        "yearsAgo": "years ago",
+        "monthAgo": "1 month ago",
+        "monthsAgo": "months ago",
+        "dayAgo": "1 day ago",
+        "daysAgo": "days ago",
+        "hourAgo": "1 hour ago",
+        "hoursAgo": "hours ago",
+        "minuteAgo": "1 minute ago",
+        "minutesAgo": "minutes ago",
+        "justNow": "just now"
+      }
+    }
   }
 }
