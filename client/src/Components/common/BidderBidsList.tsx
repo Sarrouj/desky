@@ -32,10 +32,12 @@ const BidderBidsList = ({
   seeMore,
   limit,
   bids,
+  content,
 }: {
   seeMore: boolean;
   limit: boolean;
   bids: any;
+  content: any;
 }) => {
   const { data: session } = useSession();
   const [Language, setLanguage] = useState("fr");
@@ -51,13 +53,13 @@ const BidderBidsList = ({
         <Card x-chunk="dashboard-05-chunk-3">
           <CardHeader className="px-7 flex flex-row justify-between">
             <div className="flex flex-col gap-2">
-              <CardTitle>Bids List</CardTitle>
-              <CardDescription>Your bids list</CardDescription>
+              <CardTitle>{content("Title")}</CardTitle>
+              <CardDescription>{content("Description")}</CardDescription>
             </div>
             {seeMore ? (
               <Link href={`/${Language}/Dashboard-B/My-Bids`}>
                 <Button size={"sm"} className="h-7 gap-1 text-xs text-white">
-                  See more...
+                  {content("SeeMore")}
                 </Button>
               </Link>
             ) : null}
@@ -69,9 +71,9 @@ const BidderBidsList = ({
                   <TableHead>
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>Offer Name</TooltipTrigger>
+                        <TooltipTrigger>{content("OfferName")}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
-                          the name of the offer
+                          {content("OfferNameTooltip")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -79,9 +81,12 @@ const BidderBidsList = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>Depositor Name</TooltipTrigger>
+                        <TooltipTrigger>
+                          {content("DepositorName")}
+                        </TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
-                          the name of the depositor <br /> who posted the offer
+                          {content("DepositorNameTooltip1")} <br />{" "}
+                          {content("DepositorNameTooltip2")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -89,9 +94,9 @@ const BidderBidsList = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>Date</TooltipTrigger>
+                        <TooltipTrigger>{content("Date")}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
-                          the date of the bid
+                          {content("DateTooltip")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -99,9 +104,9 @@ const BidderBidsList = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>Estimate</TooltipTrigger>
+                        <TooltipTrigger>{content("Estimate")}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
-                          estimate
+                          {content("Estimate")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>

@@ -1,5 +1,4 @@
-function CompanyProfile(user: any) {
-  const User = user.user;
+function CompanyProfile({ user, content }: { user: any; content: any }) {
   return (
     <div className="grid gap-6 py-3">
       <div
@@ -12,14 +11,16 @@ function CompanyProfile(user: any) {
           </h3>
         </div>
         <div className="flex flex-col gap-2 px-8 pb-8">
-          <p>Company Name: {User.company.company_name}</p>
-          <p>Type: {User.company.company_type}</p>
-          <p>CR: {User.company.company_CR}</p>
-          <p>Size: {User.company.company_size}</p>
-          <p>Phone Number: {User.company.company_phoneNumber}</p>
-          <p>Location: {User.company.company_location}</p>
-          <p>Address: {User.company.company_address}</p>
-          <p>Activities: {User.company.company_DoA.join(", ")}</p>
+          <p>
+            {content("CompanyName")}: {user.company.company_name}
+          </p>
+          <p>Type: {user.company.company_type}</p>
+          <p>CR: {user.company.company_CR}</p>
+          <p>Size: {user.company.company_size}</p>
+          <p>Phone Number: {user.company.company_phoneNumber}</p>
+          <p>Location: {user.company.company_location}</p>
+          <p>Address: {user.company.company_address}</p>
+          <p>Activities: {user.company.company_DoA.join(", ")}</p>
         </div>
       </div>
     </div>
