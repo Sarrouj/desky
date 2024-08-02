@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Settings, GanttChart, Home, CopyPlus } from "lucide-react";
+import { GanttChart, Home, CopyPlus } from "lucide-react";
 
 import {
   Tooltip,
@@ -11,7 +11,13 @@ import {
 
 import Link from "next/link";
 
-const BidderAside = ({ Language }: { Language: string | undefined }) => {
+const BidderAside = ({
+  Language,
+  Content,
+}: {
+  Language: string | undefined;
+  Content: any;
+}) => {
   return (
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
@@ -30,10 +36,10 @@ const BidderAside = ({ Language }: { Language: string | undefined }) => {
                 className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8 text-muted-foreground hover:text-foreground`}
               >
                 <Home className="h-5 w-5" />
-                <span className="sr-only">Dashboard</span>
+                <span className="sr-only">{Content("Dashboard")}</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Dashboard</TooltipContent>
+            <TooltipContent side="right">{Content("Dashboard")}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
         <TooltipProvider>
@@ -44,10 +50,10 @@ const BidderAside = ({ Language }: { Language: string | undefined }) => {
                 className={`flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8`}
               >
                 <GanttChart className="h-5 w-5" />
-                <span className="sr-only">My Bids</span>
+                <span className="sr-only">{Content("MyBids")}</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">My Bids</TooltipContent>
+            <TooltipContent side="right">{Content("MyBids")}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
         <TooltipProvider>
@@ -58,14 +64,14 @@ const BidderAside = ({ Language }: { Language: string | undefined }) => {
                 className={`flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8`}
               >
                 <CopyPlus className="h-5 w-5" />
-                <span className="sr-only">Add Review</span>
+                <span className="sr-only">{Content("AddReview")}</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Add Review</TooltipContent>
+            <TooltipContent side="right">{Content("AddReview")}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </nav>
-      <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+      {/* <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -80,7 +86,7 @@ const BidderAside = ({ Language }: { Language: string | undefined }) => {
             <TooltipContent side="right">Settings</TooltipContent>
           </Tooltip>
         </TooltipProvider>
-      </nav>
+      </nav> */}
     </aside>
   );
 };

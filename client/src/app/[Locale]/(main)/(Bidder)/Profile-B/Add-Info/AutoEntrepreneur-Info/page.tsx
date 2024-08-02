@@ -31,19 +31,20 @@ import { useBoundStore } from "@/lib/store";
 // Internationalization
 import { useTranslations } from "next-intl";
 import { City } from "@/lib/Features/CitiesData";
+
 import { useSession } from "next-auth/react";
 
 const AutoEntrepreneurInfo = () => {
+  const { data: session } = useSession();
+  const email = session ? session.user?.email : null;
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("");
   const [cin, setCin] = useState<File | null>(null);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [email, setEmail] = useState("");
   const [activity, setActivity] = useState("");
   const [activities, setActivities] = useState<(string | number)[]>([]);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const { data: session, status } = useSession();
   const [Language, setLanguage] = useState();
   const [Cities, setCity] = useState<City[]>([]);
 
@@ -79,20 +80,6 @@ const AutoEntrepreneurInfo = () => {
     let filteredActivities = activities.filter((act, index) => index !== i);
     setActivities(filteredActivities);
   }
-
-  // get Auth Email
-  useEffect(() => {
-    let getEmail = localStorage.getItem("email");
-    if (getEmail) {
-      setEmail(getEmail);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (status === "authenticated") {
-      window.location.href = `/${Language}/Dashboard-B`;
-    }
-  }, [status, Language]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -140,7 +127,7 @@ const AutoEntrepreneurInfo = () => {
 
       if (response && response.data && response.data.success) {
         setSuccess(response.data.success);
-          window.location.href = `/${Language}/`;
+        window.location.href = `/${Language}/Profile-B`;
       } else {
         setError(response.data.error);
       }
@@ -163,11 +150,11 @@ const AutoEntrepreneurInfo = () => {
   const Content = useTranslations("Auth.AutoEntrepreneurInfo");
 
   return (
-    <div className="flex flex-col py-8 justify-between min-h-screen">
+    <div className="flex flex-col py-8 gap-20">
       <div className="w-full text-xs text-end flex justify-between px-5">
         <Link
           className="flex items-center gap-2"
-          href={`/${Language}/Sign-Up/Choose-Type/Bidder-Type`}
+          href={`/${Language}/Profile-B/Add-Info`}
         >
           <Image
             src={"/icons/arrowBack.svg"}
@@ -183,23 +170,23 @@ const AutoEntrepreneurInfo = () => {
           <p className="font-semibold">{Content("LegalInfo")}</p>
         </div>
       </div>
-      <div className="mx-auto grid w-full xl:w-7/12 py-10 px-5 sm:px-32 md:px-40 lg:px-16 xl:px-0 gap-6 ">
+      <div className="mx-auto grid w-7/12 gap-6 ">
         <div className="grid gap-2">
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">{Content("title")}</h1>
-          <p className="text-balance text-muted-foreground text-xs sm:text-sm md:text-base">
+          <h1 className="text-3xl font-bold">{Content("title")}</h1>
+          <p className="text-balance text-muted-foreground">
             {Content("Description")}
           </p>
         </div>
         <form onSubmit={handleSubmit} className="grid gap-4">
           <div className="grid gap-2 w-full">
-            <Label htmlFor="email" className="text-xs sm:text-sm md:text-base">{Content("Location")}</Label>
+            <Label htmlFor="email">{Content("Location")}</Label>
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"
                   role="combobox"
                   aria-expanded={open}
-                  className="w-[100%] justify-between text-xs md:text-sm"
+                  className="w-[100%] justify-between"
                 >
                   {value
                     ? Cities.find((city) => city.value === value)?.label
@@ -207,7 +194,7 @@ const AutoEntrepreneurInfo = () => {
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-[400px] sm:w-[550px] md:w-[400px] lg:w-[450px] p-0 text-xs md:text-sm">
+              <PopoverContent className="w-[450px] p-0">
                 <Command>
                   <CommandInput placeholder={Content("Search")} />
                   <CommandEmpty>{Content("NotFound")}</CommandEmpty>
@@ -239,22 +226,20 @@ const AutoEntrepreneurInfo = () => {
             </Popover>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="password" className="text-xs sm:text-sm md:text-base">{Content("Address")}</Label>
+            <Label htmlFor="password">{Content("Address")}</Label>
             <Input
               id="text"
               type="text"
               required
               placeholder=""
               onChange={(e) => setAddress(e.target.value)}
-              className="text-xs md:text-sm"
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email" className="text-xs sm:text-sm md:text-base">{Content("Card")}</Label>
+            <Label htmlFor="email">{Content("Card")}</Label>
             <Input
               id="picture"
               type="file"
-              className="text-xs md:text-sm"
               onChange={(e) => {
                 if (e.target.files && e.target.files[0]) {
                   setCin(e.target.files[0]);
@@ -263,19 +248,19 @@ const AutoEntrepreneurInfo = () => {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email" className="text-xs sm:text-sm md:text-base">{Content("PhoneNumber")}</Label>
+            <Label htmlFor="email">{Content("PhoneNumber")}</Label>
             <div className="flex border border-black rounded-lg">
               <div className="px-5 py-2 border-r border-black">+212</div>
               <input
                 type="tel"
-                className="w-4/5 h-10 px-5 rounded focus:outline-0 text-xs md:text-sm"
+                className="w-4/5 h-10 px-5 rounded focus:outline-0 text-sm"
                 placeholder="61 45 99 19 89"
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email" className="text-xs sm:text-sm md:text-base">{Content("Activities")}</Label>
+            <Label htmlFor="email">{Content("Activities")}</Label>
             <div className="flex gap-2">
               <Input
                 id="text"
@@ -283,7 +268,6 @@ const AutoEntrepreneurInfo = () => {
                 placeholder="Activity..."
                 onChange={(e) => setActivity(e.target.value)}
                 value={activity}
-                className="text-xs md:text-sm"
               />
               <Button
                 type="button"
@@ -299,9 +283,9 @@ const AutoEntrepreneurInfo = () => {
                   key={index}
                   className="flex gap-2 justify-center bg-orange-400 px-3 py-1.5 rounded-full hover:bg-primary"
                 >
-                  <p className="text-xs md:text-sm text-white">{act}</p>
+                  <p className="text-sm text-white">{act}</p>
                   <button
-                    className="text-xs md:text-sm text-white"
+                    className="text-sm text-white"
                     onClick={() => removeActivity(index)}
                   >
                     x
@@ -311,20 +295,18 @@ const AutoEntrepreneurInfo = () => {
             </ul>
           </div>
           {error && (
-            <p className="text-red-500 text-xs md:text-sm">
+            <p className="text-red-500 text-sm">
               {typeof error === "string" ? error : "An error occurred"}
             </p>
           )}
-          {success && <p className="text-green-500 text-xs md:text-sm">{success}</p>}
+          {success && <p className="text-green-500 text-sm">{success}</p>}
 
-          <Button type="submit" className="w-full text-white text-xs md:text-sm">
+          <Button type="submit" className="w-full text-white">
             {Content("Submit")}
           </Button>
         </form>
       </div>
-      <div className="w-full text-center lg:text-start lg:px-10 xl:px-14 text-xs sm:text-sm">
-        <p>{Content("CopyWrite")}</p>
-      </div>
+      <p className="w-10/12 mx-auto text-sm">{Content("CopyWrite")}</p>
     </div>
   );
 };

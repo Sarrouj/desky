@@ -1,13 +1,6 @@
 import React from "react";
 
-import {
-  Settings,
-  LifeBuoy,
-  LogOut,
-  User,
-  Package,
-  CircleCheck,
-} from "lucide-react";
+import { LifeBuoy, LogOut, User, Package, CircleCheck } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -121,6 +114,8 @@ const DropDownDepositor = ({
         <DropdownMenuLabel>{content("title")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
+          {userType == "depositor" ? (
+            <>
           <Link href={`/${Language}/Profile-D`}>
             <DropdownMenuItem>
               <User className="mr-2 h-4 w-4" />
@@ -132,7 +127,19 @@ const DropDownDepositor = ({
               <CircleCheck className="mr-2 h-4 w-4" />
               <span>{content("Reviews")}</span>
             </DropdownMenuItem>
+          </Link></>) :(  <>
+          <Link href={`/${Language}/Profile-B`}>
+            <DropdownMenuItem>
+              <User className="mr-2 h-4 w-4" />
+              <span>{content("Profile")}</span>
+            </DropdownMenuItem>
           </Link>
+          <Link href={`/${Language}/Reviews-B`}>
+            <DropdownMenuItem>
+              <CircleCheck className="mr-2 h-4 w-4" />
+              <span>{content("Reviews")}</span>
+            </DropdownMenuItem>
+          </Link></>)}
           <Link href={`/${Language}/offers`}>
             <DropdownMenuItem>
               <Package className="mr-2 h-4 w-4" />

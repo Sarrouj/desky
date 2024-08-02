@@ -1,6 +1,4 @@
-function AEProfile(user: any) {
-  const User = user.user;
-  
+function AEProfile({ user, content }: { user: any; content: any }) {
   return (
     <div className="grid gap-6 py-3">
       <div
@@ -14,20 +12,31 @@ function AEProfile(user: any) {
         </div>
         <div className="flex flex-col gap-2 px-8 pb-8">
           <p>
-            {" "}
-            Card:{" "}
+            {content("Card")}:
             <a
               target="_blank"
-              href={`http://localhost:3001/uploads/${User.ae.AE_CIN}`}
+              href={`http://localhost:3001/uploads/${user.ae.AE_CIN}`}
               className=" mt-2 underline text-primary hover:text-orange-600"
             >
-              {User.ae.AE_CIN}
+              {user.ae.AE_CIN}
             </a>
           </p>
-          <p> Phone Number: +212 {User.ae.AE_phoneNumber}</p>
-          <p> Location: {User.ae.AE_location}</p>
-          <p> Address: {User.ae.AE_address}</p>
-          <p> Activities: {JSON.parse(User.ae.AE_DoA).join(' , ')}</p>
+          <p>
+            {" "}
+            {content("PhoneNumber")}: +212 {user.ae.AE_phoneNumber}
+          </p>
+          <p>
+            {" "}
+            {content("Location")}: {user.ae.AE_location}
+          </p>
+          <p>
+            {" "}
+            {content("Address")}: {user.ae.AE_address}
+          </p>
+          <p>
+            {" "}
+            {content("Activities")}: {JSON.parse(user.ae.AE_DoA).join(" , ")}
+          </p>
         </div>
       </div>
     </div>

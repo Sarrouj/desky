@@ -24,6 +24,7 @@ import {
   PanelLeft,
   ShoppingCart,
   Users2,
+  Clock4,
 } from "lucide-react";
 
 import { useEffect, useState } from "react";
@@ -43,6 +44,7 @@ function Profile() {
   const user_id = session ? session.user?.id : null;
   const user_role = session ? session.user?.role : null;
   const [user, setUser] = useState<any>(null);
+  const [legal, setLegal] = useState<any>(null);
 
   useEffect(() => {
     const lg = JSON.parse(localStorage.getItem("lg"));
@@ -73,6 +75,22 @@ function Profile() {
       }
     };
 
+    const fetchLegalData = async () => {
+      if (user_id !== null) {
+        try {
+          const info = await axios.get(
+            `http://localhost:3001/depositor/info/${user_id}`
+          );
+          if (info.data.success) {
+            setLegal(info.data.success);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    fetchLegalData();
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_id]);
@@ -186,6 +204,18 @@ function Profile() {
               <CompanyProfile user={user} />
             ) : user?.ae ? (
               <AEProfile user={user} />
+            ) : legal ? (
+              <div className="w-full flex flex-col items-center justify-center gap-2 text-center md:pr-5 lg:pr-10 xl:pr-20 pt-16">
+                <Clock4 size={64} className="text-primary" />
+                <div>
+                  <h2 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold mb-1">
+                    Verification in Progress
+                  </h2>
+                  <p className="text-gray-600 text-xs sm:text-sm lg:text-base">
+                    Your account will be verified within 24 hours
+                  </p>
+                </div>
+              </div>
             ) : (
               <NotFoundProfileDepositor Language={Language} />
             )}

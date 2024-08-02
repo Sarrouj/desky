@@ -4,10 +4,12 @@ function ProfileCard({
   LetterFullName,
   user_role,
   user,
+  language,
 }: {
   LetterFullName: any;
   user_role: any;
   user: any;
+  language: any;
 }) {
   return (
     <div className="rounded-lg border bg-card text-card-foreground shadow-sm mt-4">
@@ -22,7 +24,15 @@ function ProfileCard({
           <div className="text-muted-foreground">
             {user?.depositor_email || user?.bidder_email}
           </div>
-          <div className="text-muted-foreground">{user_role}</div>
+          {language == "fr" ? (
+            user_role == "depositor" ? (
+              <div className="text-muted-foreground">déposante</div>
+            ) : (
+              <div className="text-muted-foreground">soumissionnaire</div>
+            )
+          ) : (
+            <div className="text-muted-foreground">{user_role}</div>
+          )}
         </div>
       </div>
     </div>

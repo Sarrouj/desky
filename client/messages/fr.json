@@ -336,7 +336,7 @@
       "MyOffers": "Mes Offres",
       "CreateOffer": "Créer une Offre",
       "Reviews": "Mes Avis",
-      "Profile": "Profile"
+      "Profile": "Profil"
     },
     "SideBar": {
       "Dashboard": "Tableau de Bord",
@@ -520,6 +520,114 @@
         "Offers": "Offres",
         "Support": "Support",
         "LogOut": "Se déconnecter"
+      }
+    }
+  },
+  "BidderDashboard": {
+    "SideBar": {
+      "Dashboard": "Tableau de Bord",
+      "MyBids": "Mes enchères",
+      "AddReview": "Ajouter un avis"
+    },
+    "BreadcrumbList": {
+      "Dashboard": "Tableau de Bord",
+      "MyBids": "Mes enchères",
+      "AddReview": "Ajouter un avis",
+      "Reviews": "Mes Avis",
+      "Profile": "Profil"
+    },
+    "Statistic": {
+      "TotalBids": "Total des enchères",
+      "WaitingBids": "Enchères en attente",
+      "AcceptedBids": "Enchères acceptées",
+      "AccountRating": "Votre note de compte"
+    },
+    "BidsList": {
+      "Title": "Liste des offres",
+      "Description": "Votre liste d'offres",
+      "SeeMore": "Voir plus...",
+      "OfferName": "Nom de l'offre",
+      "OfferNameTooltip": "le nom de l'offre",
+      "DepositorName": "Nom du déposant",
+      "DepositorNameTooltip1": "le nom du déposant",
+      "DepositorNameTooltip2": "qui a publié l'offre",
+      "Date": "Date",
+      "DateTooltip": "la date à laquelle l'offre a été publiée",
+      "Estimate": "Devi"
+    },
+    "AddReview": {
+      "Title": "Liste des offres",
+      "Description": "Votre liste d'offres",
+      "OfferName": "Nom de l'offre",
+      "OfferNameTooltip": "le nom de l'offre",
+      "DepositorName": "Nom du déposant",
+      "DepositorNameDesc1": "Le nom du déposant",
+      "DepositorNameDesc2": "qui a publié cette offre",
+      "Date": "Date",
+      "DateTooltip": "la date de l'offre",
+      "Estimate": "Estimation",
+      "AddReview": "Ajouter un avis",
+      "AddReviewNameDesc1": "Soumettre un avis pour le déposant",
+      "AddReviewNameDesc2": "après l'achèvement des travaux.",
+      "CallToAction": "Avis",
+      "CallToActionTooltip": "Ajouter un avis",
+      "Review": {
+        "Title": "Avis",
+        "Description": "Ajouter un avis pour le déposant après l'achèvement des travaux.",
+        "PlaceHolder": "Avis",
+        "CallToAction": "Confirmer"
+      }
+    },
+    "NotFound": {
+      "Title": "Aucune offre trouvée",
+      "Description": "Pour trouver les meilleures offres, rendez-vous sur Market Place",
+      "CallToAction": "Market Place"
+    },
+    "Profile": {
+      "AE": {
+        "Card": "Carte",
+        "PhoneNumber": "Numéro de téléphone",
+        "Location": "Localisation",
+        "Address": "Adresse",
+        "Activities": "Activités"
+      },
+      "Company": {
+        "CompanyName": "Nom de l'entreprise",
+        "Type": "Type",
+        "CR": "RC",
+        "Size": "Taille",
+        "PhoneNumber": "Numéro de téléphone",
+        "Location": "Localisation",
+        "Address": "Adresse",
+        "Activities": "Activités"
+      },
+      "Verification": {
+        "Title": "Vérification en cours",
+        "Description": "Votre compte sera vérifié dans les 24 heures"
+      },
+      "NotFound": {
+        "NoAvailable": "Vous n'avez pas d'informations sur votre entreprise",
+        "NoAvailableDesc": "Pour devenir un compte de confiance, veuillez ajouter les informations sur votre entreprise",
+        "CallToAction": "Ajouter des informations"
+      }
+    },
+    "reviews": {
+      "NoAvailable": "Aucun Avis Disponible",
+      "NoAvailableDesc": "Aucun avis disponible car il n'y a pas de transactions terminées entre vous et un déposante.",
+      "CallToAction": "Postuler à une Offre",
+      "title": "Mes avis",
+      "date": {
+        "yearAgo": "Il y a 1 an",
+        "yearsAgo": "ans",
+        "monthAgo": "Il y a 1 mois",
+        "monthsAgo": "mois",
+        "dayAgo": "Il y a 1 jour",
+        "daysAgo": "jours",
+        "hourAgo": "Il y a 1 heure",
+        "hoursAgo": "heures",
+        "minuteAgo": "Il y a 1 minute",
+        "minutesAgo": "minutes",
+        "justNow": "À l'instant"
       }
     }
   }

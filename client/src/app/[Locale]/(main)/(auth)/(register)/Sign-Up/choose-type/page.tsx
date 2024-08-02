@@ -39,13 +39,11 @@ const Type = () => {
     setSuccess("");
     setError("");
     try {
-      const response = await axios.post(
-        "http://localhost:3001/auth/register/user",
-        {
-          email,
-          userType,
-        }
-      );
+      await axios.post("http://localhost:3001/auth/register/user", {
+        email,
+        userType,
+      });
+
 
       if (response && response.data && response.data.success) {
         if (userType === "depositor") {
