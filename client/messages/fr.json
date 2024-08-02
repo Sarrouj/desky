@@ -5,11 +5,11 @@
       "mainHeadline1": "Desky, La Première",
       "mainHeadline2": "Plateforme Pour les ",
       "mainHeadline3": "Appels d'Offres",
-      "heroDescription": "Jamais à l'eau, nous pourrions. Sur les mérites formés chassés simplement par M. d'où ou. Possession la simplicité déplaisante extraordinairement la sienne.",
+      "heroDescription": "Desky est la solution révolutionnaire conçue pour propulser votre entreprise en avant en concluant des affaires plus rapidement et plus efficacement que jamais.",
       "SubmitCallToAction": "Soumettre une offre",
       "SeeCallsCallToAction": "Voir les appels",
       "trust1": "Commencez gratuitement",
-      "trust2": "Soumettez une offre et obtenez des crédits Connects"
+      "trust2": "Soumettre des offres illimitées"
     },
     "CompaniesSection": "Plus de 1000 entreprises grandissent avec Desky",
     "LatestSection": {
@@ -17,14 +17,28 @@
       "CallToAction": "Voir plus"
     },
     "Credibility": {
-      "title": "Système de crédibilité de Desky",
-      "description": "Nous offrons une variété de fonctionnalités intéressantes qui peuvent vous aider à augmenter votre productivité au travail et à gérer facilement vos projets.",
-      "LegalStatus": "Statut légal",
-      "LegalStatusDesc": "Chaque soumissionnaire a un statut légal : Desky vous met en relation avec des entreprises de premier plan et des entrepreneurs qualifiés, vous garantissant ainsi un accès aux meilleures options pour vos projets.",
-      "RatingSystem": "Système de notation",
-      "RatingSystemDesc": "Chaque soumissionnaire dispose d'un statut légal : Desky vous met en relation avec des entreprises de premier plan et des entrepreneurs qualifiés, vous garantissant ainsi un accès aux meilleures options pour vos projets.",
-      "Statistic": "Statistique",
-      "StatisticDesc": "Chaque soumissionnaire a un statut légal : Desky vous met en relation avec des entreprises de premier plan et des entrepreneurs qualifiés, vous garantissant ainsi un accès aux meilleures options pour vos projets."
+      "title": "Système de Crédibilité Desky",
+      "description": "Nous proposons une variété de fonctionnalités intéressantes qui peuvent vous aider à augmenter votre productivité au travail et à gérer facilement vos projets.",
+      "LegalStatus": "Crédibilité",
+      "LegalStatusDesc": "Chaque enchérisseur a un statut juridique : Desky vous connecte avec des entreprises de premier plan et des entrepreneurs qualifiés, vous garantissant un accès aux meilleures options pour vos projets.",
+      "RatingSystem": "Système de Notation",
+      "RatingSystemDesc": "Sur Desky, les utilisateurs reçoivent des notes allant de 1 à 5 étoiles et des avis détaillés basés sur la qualité du service et la fiabilité. Ces notes et avis sont visibles pour aider les autres à prendre des décisions éclairées et impactent le succès des enchères.",
+      "Statistic": "Statistiques",
+      "StatisticDesc": "Desky fournit un tableau de bord complet qui vous permet de gérer efficacement vos offres et les enchères reçues. Le tableau de bord inclut des statistiques détaillées pour vous aider à suivre les performances."
+    },
+    "ProcessSection": {
+      "Title": "Choisissez les Meilleurs Soumissionnaires",
+      "UpTitle": "LE PROCESSUS LE PLUS SIMPLE",
+      "Desc": "Examinez et sélectionnez les soumissionnaires les plus adaptés en fonction de leurs propositions, évaluations et prix pour vous assurer de travailler avec le meilleur partenaire.",
+      "CallToAction": "Commencez",
+      "Process": {
+        "SubmitAnOffer": "Soumettez une Offre",
+        "SubmitDesc": "Créez un compte Déposant, publiez votre offre avec tous les détails nécessaires, et attendez la vérification.",
+        "ReceiveBids": "Recevez des Offres",
+        "ReceiveBidsDesc": "Une fois vérifiée, votre offre sera mise en ligne sur la plateforme. Les soumissionnaires soumettront ensuite leurs propositions pour votre examen.",
+        "AcceptTheBest": "Acceptez la Meilleure",
+        "AcceptDesc": "Évaluez les offres reçues en fonction du tarif, des évaluations et du prix. Acceptez l'offre qui répond le mieux à vos critères."
+      }
     }
   },
   "NavBar": {

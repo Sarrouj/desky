@@ -49,10 +49,10 @@ const Type = () => {
 
       if (response && response.data && response.data.success) {
         if (userType === "depositor") {
-          window.location.href = `/${Language}/Sign-Up/Choose-Type/Depositor-Type`;
+          window.location.href = `/${Language}/Sign-Up/choose-type/Depositor-Type`;
         }
       } else if (userType === "bidder") {
-        window.location.href = `/${Language}/Sign-Up/Choose-Type/Bidder-Type`;
+        window.location.href = `/${Language}/Sign-Up/choose-type/bidder-Type`;
       }
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.error) {

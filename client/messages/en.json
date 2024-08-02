@@ -5,11 +5,11 @@
       "mainHeadline1": "Desky, The First Platform",
       "mainHeadline2": "For Private",
       "mainHeadline3": "Calls For Bids",
-      "heroDescription": "Never at water me might. On formed merits hunted unable merely by mr whence or. Possession the unpleasing simplicity her uncommonly.",
+      "heroDescription": "Desky is the game-changing solution designed to propel your business forward by making deals faster and more efficiently than ever.",
       "SubmitCallToAction": "Submit an offer",
       "SeeCallsCallToAction": "See Calls",
       "trust1": "Get started free",
-      "trust2": "Submit an offer and get Connects credit"
+      "trust2": "Submit Unlimited offers"
     },
     "CompaniesSection": "Over 1000 Businesses Growing With Desky",
     "LatestSection": {
@@ -18,13 +18,27 @@
     },
     "Credibility": {
       "title": "Desky Credibility System",
-      "description": "We offer a variety of interesting features that you can help increase yor productivity at work and manage your projrct esaly",
-      "LegalStatus": "Legal Status",
-      "LegalStatusDesc": " Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects.",
+      "description": "We offer a variety of interesting features that you can help increase yor productivity at work and manage your project easily",
+      "LegalStatus": "Credibility",
+      "LegalStatusDesc": "Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects.",
       "RatingSystem": "Rating System",
-      "RatingSystemDesc": "Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects. ensuring you have access to the best options for your projects. ensuring you have access to the best options for your projects.",
+      "RatingSystemDesc": "On Desky, users receive ratings from 1 to 5 stars and detailed reviews based on service quality and reliability. These ratings and reviews are visible to help others make informed decisions and impact bidding success.",
       "Statistic": "Statistic",
-      "StatisticDesc": "Each bidder has a legal status: Desky connects you with top-tier companies and skilled entrepreneurs, ensuring you have access to the best options for your projects."
+      "StatisticDesc": "Desky provides a comprehensive dashboard that lets you efficiently manage your offers and received bids. The dashboard includes detailed statistics to help you track performance, analyze trends, and make data-driven decisions."
+    },
+    "ProcessSection": {
+      "Title": "Choose The Best Bidders To Work With",
+      "UpTitle": "THE EASIEST PROCESS EVER",
+      "Desc": "Review and select the most suitable bidders based on their proposals, ratings, and pricing to ensure you work with the best fit for your project.",
+      "CallToAction": "Get Started",
+      "Process": {
+        "SubmitAnOffer" : "Submit an Offer",
+        "SubmitDesc" : "Create a Depositor account, post your offer with all necessary details, and wait for verification..",
+        "ReceiveBids" : "Receive Bids",
+        "ReceiveBidsDesc" : "Once verified, your offer will go live on the platform. Bidders will then submit their proposals for your review.",
+        "AcceptTheBest" : "Accept The Best",
+        "AcceptDesc" : "Evaluate the received bids based on rate, reviews, and price. Accept the bid that best meets your criteria."
+      }
     }
   },
   "NavBar": {
