@@ -267,58 +267,6 @@ router.get("/bidder/dashboard/:id", checkObjectId, async (req, res, next) => {
 
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
-// Bidder's my bids info
-router.get("/bidder/myBids/:id", checkObjectId, async (req, res, next) => {
-  const { id } = req.params;
-  try {
-    const bidder = await Bidders.findById(id);
-    if (!bidder) {
-      return res.status(404).json({ error: "Bidder not found" });
-    }
-
-    const offers = await Offers.find({ "offer_apply.bidder_id": id });
-    if (offers.length === 0) {
-      return res.status(200).json({
-        success: {
-          detailedBids: [],
-        },
-      });
-    }
-
-    const detailedBids = await Promise.all(
-      offers.flatMap(
-        async (offer) =>
-          await Promise.all(
-            offer.offer_apply
-              .filter((apply) => apply.bidder_id.toString() === id)
-              .map(async (apply) => {
-                const depositor = await Depositors.findById(offer.depositor_id);
-                return {
-                  offer_id: offer._id,
-                  offer_title: offer.offer_title,
-                  depositor_id: offer.depositor_id,
-                  depositor_name: depositor.depositor_name,
-                  depositor_review: depositor.depositor_review,
-                  offer_state: offer.offer_state,
-                  bid: apply,
-                };
-              })
-          )
-      )
-    );
-
-    res.status(200).json({
-      success: {
-        detailedBids,
-      },
-    });
-  } catch (err) {
-    next(err);
-  }
-});
-
-// \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
-
 // Edit bidder's Info
 router.put(
   "/edit/bidder",

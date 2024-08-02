@@ -123,7 +123,7 @@ const CompanyInfo = () => {
           setSuccess("registered successfully");
           localStorage.removeItem("email");
           localStorage.removeItem("password");
-          window.location.href = `/${Language}/Dashboard-B`;
+          window.location.href = `/${Language}/`;
         }
       }
     } catch (error: any) {
@@ -175,7 +175,9 @@ const CompanyInfo = () => {
       </div>
       <div className="mx-auto grid w-full px-5 sm:px-32 md:px-40 lg:px-16 pt-10 pb-16 sm:py-20 xl:py-0 xl:px-0 xl:w-7/12 gap-6">
         <div className="grid gap-2">
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">{ChooseTypeContent("title")}</h1>
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">
+            {ChooseTypeContent("title")}
+          </h1>
           <p className="text-balance text-muted-foreground text-xs sm:text-sm md:text-base">
             {ChooseTypeContent("Desc")}
           </p>
@@ -185,7 +187,12 @@ const CompanyInfo = () => {
             <>
               {" "}
               <div className="grid gap-2">
-                <Label htmlFor="type" className="text-xs sm:text-sm md:text-base">{ChooseTypeContent("type")}</Label>
+                <Label
+                  htmlFor="type"
+                  className="text-xs sm:text-sm md:text-base"
+                >
+                  {ChooseTypeContent("type")}
+                </Label>
                 <Select onValueChange={(value) => setType(value)}>
                   <SelectTrigger className="w-full text-xs sm:text-sm ">
                     <SelectValue placeholder="Select your Company Type" />
@@ -216,7 +223,12 @@ const CompanyInfo = () => {
                 </Select>
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="name" className="text-xs sm:text-sm md:text-base">{ChooseTypeContent("CompanyName")}</Label>
+                <Label
+                  htmlFor="name"
+                  className="text-xs sm:text-sm md:text-base"
+                >
+                  {ChooseTypeContent("CompanyName")}
+                </Label>
                 <Input
                   id="name"
                   type="text"
@@ -227,7 +239,9 @@ const CompanyInfo = () => {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="cr" className="text-xs sm:text-sm md:text-base">{ChooseTypeContent("CompanyRC")}</Label>
+                <Label htmlFor="cr" className="text-xs sm:text-sm md:text-base">
+                  {ChooseTypeContent("CompanyRC")}
+                </Label>
                 <Input
                   id="cr"
                   type="Number"
@@ -238,7 +252,12 @@ const CompanyInfo = () => {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="size" className="text-xs sm:text-sm md:text-base">{ChooseTypeContent("CompanySize")}</Label>
+                <Label
+                  htmlFor="size"
+                  className="text-xs sm:text-sm md:text-base"
+                >
+                  {ChooseTypeContent("CompanySize")}
+                </Label>
                 <Select onValueChange={(value) => setSize(value)}>
                   <SelectTrigger className="w-full text-xs sm:text-sm ">
                     <SelectValue
@@ -267,7 +286,6 @@ const CompanyInfo = () => {
                 className="text-white text-xs sm:text-sm md:text-base"
                 type="button"
                 onClick={() => setNext(true)}
-               
               >
                 Next
               </Button>
@@ -275,7 +293,12 @@ const CompanyInfo = () => {
           ) : (
             <>
               <div className="grid gap-2 w-full">
-                <Label htmlFor="location" className="text-xs sm:text-sm md:text-base">{ChooseTypeContent("City")}</Label>
+                <Label
+                  htmlFor="location"
+                  className="text-xs sm:text-sm md:text-base"
+                >
+                  {ChooseTypeContent("City")}
+                </Label>
                 <Popover open={open} onOpenChange={setOpen}>
                   <PopoverTrigger asChild>
                     <Button
@@ -331,7 +354,12 @@ const CompanyInfo = () => {
                 </Popover>
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="address" className="text-xs sm:text-sm md:text-base">{ChooseTypeContent("Address")}</Label>
+                <Label
+                  htmlFor="address"
+                  className="text-xs sm:text-sm md:text-base"
+                >
+                  {ChooseTypeContent("Address")}
+                </Label>
                 <Input
                   id="address"
                   type="text"
@@ -342,7 +370,12 @@ const CompanyInfo = () => {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="phoneNumber" className="text-xs sm:text-sm md:text-base">{ChooseTypeContent("PN")}</Label>
+                <Label
+                  htmlFor="phoneNumber"
+                  className="text-xs sm:text-sm md:text-base"
+                >
+                  {ChooseTypeContent("PN")}
+                </Label>
                 <div className="flex border border-black rounded-lg">
                   <div className="px-5 py-2 border-r border-black">+212</div>
                   <input
@@ -354,7 +387,10 @@ const CompanyInfo = () => {
                 </div>
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="activity" className="text-xs sm:text-sm md:text-base">
+                <Label
+                  htmlFor="activity"
+                  className="text-xs sm:text-sm md:text-base"
+                >
                   {ChooseTypeContent("CompanyActivites")}
                 </Label>
                 <div className="flex gap-2">
@@ -391,9 +427,16 @@ const CompanyInfo = () => {
                   ))}
                 </ul>
               </div>
-              {error && <p className="text-red-500 text-xs sm:text-sm ">{error}</p>}
-              {success && <p className="text-green-500 text-xs sm:text-sm ">{success}</p>}
-              <Button type="submit" className="w-full text-white text-xs sm:text-sm ">
+              {error && (
+                <p className="text-red-500 text-xs sm:text-sm ">{error}</p>
+              )}
+              {success && (
+                <p className="text-green-500 text-xs sm:text-sm ">{success}</p>
+              )}
+              <Button
+                type="submit"
+                className="w-full text-white text-xs sm:text-sm "
+              >
                 {ChooseTypeContent("Submit")}
               </Button>
             </>
@@ -401,8 +444,8 @@ const CompanyInfo = () => {
         </form>
       </div>
       <div className="w-full text-center lg:text-start lg:px-10 xl:px-14 text-xs sm:text-sm">
-          <p>{ChooseTypeContent("CopyWrite")}</p>
-        </div>
+        <p>{ChooseTypeContent("CopyWrite")}</p>
+      </div>
     </div>
   );
 };
