@@ -1,23 +1,13 @@
 "use client";
 
 import {
-  Home,
-  LineChart,
-  Package,
-  Package2,
-  PanelLeft,
-  ShoppingCart,
-  Users2,
-} from "lucide-react";
-import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/Components/ui/breadcrumb";
-import { Button } from "@/Components/ui/Button";
-import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
+import BidderSheet from "@/Components/common/BidderSheet";
 import BidderAside from "@/Components/common/BidderAside";
 import DropDownDepositor from "@/Components/common/DropDownDepositor";
 import BidderBidsList from "@/Components/common/BidderBidsList";
@@ -66,7 +56,7 @@ const MyBids = () => {
     const fetchData = async () => {
       if (user_id !== null) {
         const bids = await axios.get(
-          `http://localhost:3001/bidder/myBids/${user_id}`
+          `http://localhost:3001/bidder/dashboard/${user_id}`
         );
         setBids(bids.data.success);
       }
@@ -81,53 +71,15 @@ const MyBids = () => {
       <BidderAside Language={Language} Content={SideBarContent} />
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
         <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button size="icon" variant="outline" className="sm:hidden">
-                <PanelLeft className="h-5 w-5" />
-                <span className="sr-only">Toggle Menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="sm:max-w-xs">
-              <nav className="grid gap-6 text-lg font-medium">
-                <Link
-                  href="#"
-                  className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
-                >
-                  <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />
-                  <span className="sr-only">Acme Inc</span>
-                </Link>
-                <Link
-                  href="#"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <Home className="h-5 w-5" />
-                  Dashboard
-                </Link>
-                <Link
-                  href="#"
-                  className="flex items-center gap-4 px-2.5 text-foreground"
-                >
-                  <ShoppingCart className="h-5 w-5" />
-                  Orders
-                </Link>
-                <Link
-                  href="#"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <Package className="h-5 w-5" />
-                  Products
-                </Link>
-                <Link
-                  href="#"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <Users2 className="h-5 w-5" />
-                  Customers
-                </Link>
-              </nav>
-            </SheetContent>
-          </Sheet>
+          <BidderSheet
+            Dashboard={"Dashboard-B"}
+            Profile={"Profile-B"}
+            MyBids={"Dashboard-B/My-Bids"}
+            AddReview={"Dashboard-B/Add-Review"}
+            Reviews={"Reviews-B"}
+            Offers={"offers"}
+            Support={"Contact-Us"}
+          />
           <Breadcrumb className="hidden md:flex">
             <BreadcrumbList>
               <BreadcrumbItem>

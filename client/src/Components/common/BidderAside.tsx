@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Settings, GanttChart, Home, CopyPlus } from "lucide-react";
+import { GanttChart, Home, CopyPlus } from "lucide-react";
 
 import {
   Tooltip,

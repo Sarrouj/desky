@@ -140,9 +140,7 @@ const AutoEntrepreneurInfo = () => {
 
       if (response && response.data && response.data.success) {
         setSuccess(response.data.success);
-        setTimeout(() => {
-          window.location.href = `/${Language}/Dashboard-B`;
-        }, 2000);
+          window.location.href = `/${Language}/`;
       } else {
         setError(response.data.error);
       }
