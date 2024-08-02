@@ -59,9 +59,9 @@ const HomeNavbar: React.FC<HomeNavbarProps>  = ({NavbarContent}) => {
 
 
   return (
-    <header className="flex items-center py-3 px-10 justify-between text-secondaryDarkBlue ">
+    <header className="flex items-center py-3 px-20 justify-between text-secondaryDarkBlue ">
       <Link href={"/"} className="text-2xl font-bold text-primaryOrange">Desky</Link>
-      <nav className="flex gap-8 text-sm font-medium">
+      <nav className="flex gap-8 text-sm font-medium ml-44">
         <Link href={"/"} className="text-primaryOrange font-bold">
           {NavbarContent("NavLinks.Home")}
         </Link>

@@ -76,3 +76,8 @@
     }
   }
 
+
+  .winding-shape {
+    clip-path: ellipse(50% 40% at 50% 50%);
+  }
+  
