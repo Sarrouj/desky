@@ -13,15 +13,15 @@ import {
 } from "@/Components/ui/breadcrumb";
 import { Button } from "@/Components/ui/Button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/Components/ui/avatar";
-// import DropDownBidder from "@/Components/common/DropDownBidder";
+import DropDownDepositor from "@/Components/common/DropDownDepositor";
 import BidderAside from "@/Components/common/BidderAside";
 import { useBoundStore } from "@/lib/store";
 import { Skeleton } from "@/Components/ui/skeleton";
-// import DepositorSheet from "@/Components/common/DepositorSheet";
+import BidderSheet from "@/Components/common/BidderSheet";
 
 const BidderReviews = () => {
   const reviewsContent = useTranslations("BidderDashboard.reviews");
-  // const DropDownMenu = useTranslations("BidderDashboard.DropDownMenu");
+  let DropDownMenuContent = useTranslations("DepositorDashboard.DropDownMenu");
   const BreadcrumbListContent = useTranslations(
     "BidderDashboard.BreadcrumbList"
   );
@@ -104,15 +104,15 @@ const BidderReviews = () => {
     <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg min-h-screen">
       <BidderAside Language={Language} Content={SideBarContent} />
       <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-        {/* <DepositorSheet
-          Dashboard={"dashboard-d"}
-          Profile={""}
-          ManageBids={"dashboard-d/manage-bids"}
-          MyOffers={"dashboard-d/my-offers"}
-          Reviews={"dashboard-d/my-reviews"}
+        <BidderSheet
+          Dashboard={"Dashboard-B"}
+          Profile={"Profile-B"}
+          MyBids={"Dashboard-B/My-Bids"}
+          AddReview={"Dashboard-B/Add-Review"}
+          Reviews={"Reviews-B"}
           Offers={"offers"}
           Support={"Contact-Us"}
-        /> */}
+        />
         <Breadcrumb className="hidden sm:flex">
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -135,7 +135,10 @@ const BidderReviews = () => {
           </BreadcrumbList>
         </Breadcrumb>
         <div className="hidden sm:block">
-          {/* <DropDownBidder content={DropDownMenu} Language={Language} /> */}
+          <DropDownDepositor
+            content={DropDownMenuContent}
+            Language={Language}
+          />
         </div>
       </header>
       {BidderReview?.length !== 0 ? (
