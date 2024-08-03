@@ -12,6 +12,7 @@ import BidderAside from "@/Components/common/BidderAside";
 import DropDownDepositor from "@/Components/common/DropDownDepositor";
 import BidderBidsList from "@/Components/common/BidderBidsList";
 import NotFoundDataBidder from "@/Components/common/NotFoundDataBidder";
+import BidderBidsListSkeleton from "@/Components/common/BidderBidsListSkeleton";
 
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
@@ -125,8 +126,7 @@ const MyBids = () => {
                 />
               )
             ) : (
-              // <BidsListSkeleton Content={Content} seeMore={true} amount={6} />
-              <div>skeleton</div>
+              <BidderBidsListSkeleton Content={BidsListContent} amount={6} />
             )}
           </div>
         </main>
