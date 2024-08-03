@@ -159,7 +159,7 @@ const CompanyInfo = () => {
       <div className="w-full text-xs text-end flex justify-between px-5">
         <Link
           className="flex items-center gap-2"
-          href={`/${Language}/Sign-Up/Choose-Type/bidder-Type`}
+          href={`/${Language}/Sign-Up/Choose-Type/Depositor-type`}
         >
           <Image
             src={"/icons/arrowBack.svg"}
