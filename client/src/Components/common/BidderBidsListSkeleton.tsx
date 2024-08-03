@@ -2,7 +2,6 @@
 
 import { Skeleton } from "@/Components/ui/skeleton";
 import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
 import { Button } from "@/Components/ui/Button";
 import {
   Card,
@@ -29,15 +28,13 @@ import {
   TooltipProvider,
 } from "@/Components/ui/tooltip";
 
-const BidsListSkeleton = ({
+const BidderBidsListSkeleton = ({
   Content,
   amount,
 }: {
   Content: any;
   amount: number;
 }) => {
-  const { data: session } = useSession();
-  const user_id = session ? session.user?.id : null;
   const [Language, setLanguage] = useState("fr");
 
   // Language
@@ -52,7 +49,7 @@ const BidsListSkeleton = ({
     skeleton.push(
       <TableRow className="">
         <TableCell className="text-center">
-          <Skeleton className="h-4 w-72" />
+          <Skeleton className="h-4 w-32" />
         </TableCell>
         <TableCell className="text-center">
           <Skeleton className="h-4 w-32 inline-block" />
@@ -61,12 +58,6 @@ const BidsListSkeleton = ({
           <Skeleton className="h-4 w-14 inline-block" />
         </TableCell>
         <TableCell className="text-center  ">
-          <Skeleton className="h-4 w-14 inline-block" />
-        </TableCell>
-        <TableCell className="text-center ">
-          <Skeleton className="h-4 w-14 inline-block" />
-        </TableCell>
-        <TableCell className="text-center">
           <Skeleton className="h-4 w-14 inline-block" />
         </TableCell>
       </TableRow>
@@ -80,18 +71,11 @@ const BidsListSkeleton = ({
           <CardHeader className="px-7 flex flex-row justify-between">
             <div className="flex flex-col gap-2">
               <CardTitle className="text-secondaryDarkBlue text-lg lg:text-xl">
-                {Content("title")}
+                {Content("Title")}
               </CardTitle>
               <CardDescription className="text-xs sm:text-sm">
-                {Content("Desc")}
+                {Content("Description")}
               </CardDescription>
-            </div>
-            <div className="hidden sm:flex gap-2">
-              <Link href={`/${Language}/Create-Offer`}>
-                <Button size={"sm"} className="text-xs text-white">
-                  {Content("AddOffer")}
-                </Button>
-              </Link>
             </div>
           </CardHeader>
           <CardContent>
@@ -102,20 +86,12 @@ const BidsListSkeleton = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>{Content("BidderName")}</TooltipTrigger>
+                        <TooltipTrigger>
+                          {Content("DepositorName")}
+                        </TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
-                          {Content("BidderNameDesc1")} <br />{" "}
-                          {Content("BidderNameDesc2")}
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </TableHead>
-                  <TableHead className="text-center">
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>{Content("Rate")}</TooltipTrigger>
-                        <TooltipContent side="top" className="text-xs font-sm ">
-                          {Content("RateDesc1")} <br /> {Content("RateDesc2")}
+                          {Content("DepositorNameTooltip1")} <br />{" "}
+                          {Content("DepositorNameTooltip2")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -125,7 +101,7 @@ const BidsListSkeleton = ({
                       <Tooltip>
                         <TooltipTrigger>{Content("Date")}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
-                          {Content("DateDesc1")} <br /> {Content("DateDesc2")}
+                          {Content("DateTooltip")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -133,20 +109,9 @@ const BidsListSkeleton = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>{Content("Devi")}</TooltipTrigger>
+                        <TooltipTrigger>{Content("Estimate")}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
-                          {Content("DeviDesc1")}
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </TableHead>
-                  <TableHead className="text-center">
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>{Content("AcceptBid")}</TooltipTrigger>
-                        <TooltipContent side="top" className="text-xs font-sm ">
-                          {Content("AcceptBidDesc1")} <br />{" "}
-                          {Content("AcceptBidDesc2")}
+                          {Content("Estimate")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -162,4 +127,4 @@ const BidsListSkeleton = ({
   );
 };
 
-export default BidsListSkeleton;
+export default BidderBidsListSkeleton;

@@ -12,6 +12,7 @@ import DropDownDepositor from "@/Components/common/DropDownDepositor";
 import BidderAside from "@/Components/common/BidderAside";
 import BidderClosedBidsList from "@/Components/common/BidderClosedBidsList";
 import NotFoundDataBidder from "@/Components/common/NotFoundDataBidder";
+import AddReviewSkeleton from "@/Components/common/AddReviewSkeleton";
 
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
@@ -114,15 +115,13 @@ const AddReview = () => {
                   content={AddReviewContent}
                 />
               ) : (
-                // <div>hi</div>
                 <NotFoundDataBidder
                   Language={Language}
                   content={NotFoundContent}
                 />
               )
             ) : (
-              // <BidsListSkeleton Content={Content} seeMore={true} amount={6}
-              <div>skeleton</div>
+              <AddReviewSkeleton Content={AddReviewContent} seeMore={true} amount={6} />
             )}
           </div>
         </main>
