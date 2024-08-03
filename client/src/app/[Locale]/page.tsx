@@ -21,26 +21,20 @@ export default function Home() {
   const Content = useTranslations("Home");
   const NavbarContent = useTranslations("NavBar");
   const OfferContent = useTranslations("offer");
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    fetchOffers();
-  }, [fetchOffers]);
 
   // Language
   useEffect(() => {
     let lg = JSON.parse(localStorage.getItem("lg"));
     setLanguage(lg);
-    setIsLoading(false);
   }, [Language]);
+
+  useEffect(() => {
+    fetchOffers();
+  }, [fetchOffers]);
 
   // Determine if offersData is available and has at least two items
   const hasOffers = offersData && offersData.length > 0;
   const lastTwoOffers = hasOffers ? offersData.slice(-2) : [];
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return (
     <div className="relative">
