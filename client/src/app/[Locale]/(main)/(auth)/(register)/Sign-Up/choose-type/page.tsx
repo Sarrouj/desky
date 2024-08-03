@@ -28,6 +28,7 @@ const Type = () => {
     setLanguage(lg);
   }, []);
 
+  // Check if Authenticated and redirect
   useEffect(() => {
     if (status === "authenticated") {
       window.location.href = `/${Language}`;
@@ -49,9 +50,9 @@ const Type = () => {
 
       if (response && response.data && response.data.success) {
         if (userType === "depositor") {
-          window.location.href = `/${Language}/Sign-Up/Choose-type/Depositor-Type`;
+          window.location.href = `/${Language}/Sign-Up/Choose-Type/Depositor-Type`;
         } else if (userType === "bidder") {
-          window.location.href = `/${Language}/Sign-Up/Choose-type/Bidder-Type`;
+          window.location.href = `/${Language}/Sign-Up/Choose-Type/Bidder-Type`;
         }
       } else {
         setError(response.data.error);
