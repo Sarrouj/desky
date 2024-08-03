@@ -728,6 +728,64 @@ const Details = ({ params }: { params: any }) => {
                     )}
                   </div>
                 </div>
+                <div className="mt-12 flex flex-col items-center">
+                  {isLoggedIn && session?.user.role === "bidder" ? (
+                    offerApply &&
+                    offerApply.length > 0 &&
+                    offerApply.some(
+                      (apply: any) => apply.bidder_id === session?.user.id
+                    ) ? (
+                      <div>
+                        <button
+                          disabled
+                          className="text-white bg-gray-200 rounded-full w-10/12 py-2"
+                        >
+                          {Content("CallToAction")}
+                        </button>
+                      </div>
+                    ) : (
+                      <Dialog>
+                        <DialogTrigger>
+                          <Button className="text-white rounded-full w-10/12 py-2">
+                            {Content("CallToAction")}
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader className="text-2xl font-bold text-primary">
+                            Add The Estimate
+                          </DialogHeader>
+                          <Input
+                            id="Attachment"
+                            type="file"
+                            className="cursor-pointer text-xs lg:text-sm"
+                            required
+                            onChange={(e) =>
+                              setAttachment(
+                                e.target.files ? e.target.files[0] : ""
+                              )
+                            }
+                          />
+                          <DialogFooter>
+                            <Button
+                              type="submit"
+                              onClick={handleApply}
+                              className="text-white rounded-full py-2"
+                            >
+                              {Content("CallToAction")}
+                            </Button>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
+                    )
+                  ) : (
+                    <button
+                      disabled
+                      className="text-white bg-slate-200 rounded-full w-full py-2"
+                    >
+                      {Content("CallToAction")}
+                    </button>
+                  )}
+                </div>
               </div>
             )
           ) : depositorLegalDetails == null && depositorDetails ? (
@@ -836,11 +894,10 @@ const Details = ({ params }: { params: any }) => {
                     <div>
                       <button
                         disabled
-                        className="text-white bg-gray-400 rounded-full w-10/12 py-2"
+                        className="text-white bg-gray-200 rounded-full w-10/12 py-2"
                       >
                         {Content("CallToAction")}
                       </button>
-                      <p>You already applied to this offer</p>
                     </div>
                   ) : (
                     <Dialog>
