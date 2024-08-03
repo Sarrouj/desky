@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  Star,
-  Blocks,
-  CopyPlus,
-  CircleCheckBig,
-} from "lucide-react";
+import { Star, Blocks, CopyPlus, CircleCheckBig } from "lucide-react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -18,6 +13,7 @@ import DropDownDepositor from "@/Components/common/DropDownDepositor";
 import DashboardCard from "@/Components/common/DashboardCard";
 import BidderBidsList from "@/Components/common/BidderBidsList";
 import NotFoundDataBidder from "@/Components/common/NotFoundDataBidder";
+import BidderBidsListSkeleton from "@/Components/common/BidderBidsListSkeleton";
 
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
@@ -142,8 +138,7 @@ const BidderDashboard = () => {
                 />
               )
             ) : (
-              // <BidsListSkeleton Content={Content} seeMore={true} amount={6} />
-              <div>skeleton</div>
+              <BidderBidsListSkeleton Content={BidsListContent} amount={6} />
             )}
           </div>
         </main>
