@@ -49,21 +49,18 @@ const Type = () => {
 
       if (response && response.data && response.data.success) {
         if (userType === "depositor") {
-          window.location.href = `/${Language}/Sign-Up/Choose-type/Depositor-Type`;
+          window.location.href = `/${Language}/Sign-Up/Choose-Type/Depositor-Type`;
         } else if (userType === "bidder") {
-          window.location.href = `/${Language}/Sign-Up/Choose-type/Bidder-Type`;
+          window.location.href = `/${Language}/Sign-Up/Choose-Type/Bidder-Type`;
         }
       } else {
         setError(response.data.error);
-        setDisable(false);
       }
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.error) {
         setError(error.response.data.error);
-        setDisable(false);
       } else {
         setError("API Error");
-        setDisable(false);
       }
     }
   };
