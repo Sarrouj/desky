@@ -39,18 +39,23 @@ const Type = () => {
     setSuccess("");
     setError("");
     try {
-      await axios.post("http://localhost:3001/auth/register/user", {
-        email,
-        userType,
-      });
-
+      const response = await axios.post(
+        "http://localhost:3001/auth/register/user",
+        {
+          email,
+          userType,
+        }
+      );
 
       if (response && response.data && response.data.success) {
         if (userType === "depositor") {
-          window.location.href = `/${Language}/Sign-Up/choose-type/Depositor-Type`;
+          window.location.href = `/${Language}/Sign-Up/Choose-type/Depositor-Type`;
+        } else if (userType === "bidder") {
+          window.location.href = `/${Language}/Sign-Up/Choose-type/Bidder-Type`;
         }
-      } else if (userType === "bidder") {
-        window.location.href = `/${Language}/Sign-Up/choose-type/bidder-Type`;
+      } else {
+        setError(response.data.error);
+        setDisable(false);
       }
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.error) {
@@ -78,8 +83,12 @@ const Type = () => {
       <div className="flex flex-col py-0 lg:py-8 justify-between min-h-screen">
         <div className="mx-auto grid w-full px-5 sm:px-10 md:px-32 lg:px-14 xl:px-0 xl:w-7/12 gap-6 mt-32  xl:mt-48">
           <div className="grid gap-2">
-            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">{ChooseTypeContent("title")}</h1>
-            <p className="text-balance text-muted-foreground text-xs sm:text-sm md:text-base">{ChooseTypeContent("Desc")}</p>
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">
+              {ChooseTypeContent("title")}
+            </h1>
+            <p className="text-balance text-muted-foreground text-xs sm:text-sm md:text-base">
+              {ChooseTypeContent("Desc")}
+            </p>
           </div>
           <div className="flex flex-col gap-5">
             {disable == true ? (
