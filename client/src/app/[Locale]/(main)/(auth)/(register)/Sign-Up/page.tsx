@@ -37,7 +37,7 @@ const SignUp = () => {
   useEffect(() => {
     if (status === "authenticated") {
       if (userType == "bidder") {
-        window.location.href = `/${Language}/dashboard-b`;
+        window.location.href = `/${Language}/dashboard-B`;
       } else if (userType == "depositor") {
         window.location.href = `/${Language}/dashboard-d`;
       } else if (userType == "admin") {

@@ -1,38 +1,37 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import "./style.css";
 
 // Internationalization
-import {useTranslations} from 'next-intl';
+import { useTranslations } from "next-intl";
 
 const BidderType = () => {
   const [Language, setLanguage] = useState();
 
-  // Content
-  const ChooseTypeContent = useTranslations('Auth.BidderType');
+  const ChooseTypeContent = useTranslations("Auth.BidderType");
 
-  // Language
-  useEffect(()=>{
-    let lg = JSON.parse(localStorage.getItem('lg'));
+  useEffect(() => {
+    let lg = JSON.parse(localStorage.getItem("lg"));
     setLanguage(lg);
-  }, [Language])
-  
+  }, [Language]);
 
   return (
     <div className="flex flex-col py-8 justify-between min-h-screen">
       <div className="w-10/12 mx-auto text-xs text-end">
-        <p className="text-gray-400">{ChooseTypeContent('Step')}</p>
-        <p className="font-semibold">{ChooseTypeContent('LegalInfo')}</p>
+        <p className="text-gray-400">{ChooseTypeContent("Step")}</p>
+        <p className="font-semibold">{ChooseTypeContent("LegalInfo")}</p>
       </div>
       <div className="mx-auto grid w-full px-5 sm:px-32 md:px-40 lg:px-16  pb-16 sm:py-20 xl:py-0 xl:px-0 xl:w-7/12 gap-6">
         <div className="grid gap-2">
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">
-            {ChooseTypeContent('Title')}
+            {ChooseTypeContent("Title")}
           </h1>
-          <p className="text-balance text-muted-foreground text-xs sm:text-sm md:text-base">{ChooseTypeContent('Description')}</p>
+          <p className="text-balance text-muted-foreground text-xs sm:text-sm md:text-base">
+            {ChooseTypeContent("Description")}
+          </p>
         </div>
         <div className="flex flex-col gap-5">
           <Link
@@ -55,9 +54,11 @@ const BidderType = () => {
                 className="hidden hoverDepositorIcon h-10 w-10 md:h-12 md:w-12"
               />
               <div>
-                <h3 className="font-semibold text-sm md:text-base">{ChooseTypeContent('AutoEntrepreneur')}</h3>
+                <h3 className="font-semibold text-sm md:text-base">
+                  {ChooseTypeContent("AutoEntrepreneur")}
+                </h3>
                 <p className="text-xs">
-                  {ChooseTypeContent('AutoDescription')}
+                  {ChooseTypeContent("AutoDescription")}
                 </p>
               </div>
             </div>
@@ -89,9 +90,11 @@ const BidderType = () => {
                 className="hidden hoverDepositorIcon h-10 w-10 md:h-12 md:w-12"
               />
               <div>
-                <h3 className="font-semibold text-sm md:text-base">{ChooseTypeContent('Company')}</h3>
+                <h3 className="font-semibold text-sm md:text-base">
+                  {ChooseTypeContent("Company")}
+                </h3>
                 <p className="text-xs">
-                  {ChooseTypeContent('CompanyDescription')}
+                  {ChooseTypeContent("CompanyDescription")}
                 </p>
               </div>
             </div>
@@ -106,7 +109,7 @@ const BidderType = () => {
         </div>
       </div>
       <div className="w-full text-center lg:text-start lg:px-10 xl:px-14 text-xs sm:text-sm">
-          <p>{ChooseTypeContent('CopyWrite')}</p>
+        <p>{ChooseTypeContent("CopyWrite")}</p>
       </div>
     </div>
   );
