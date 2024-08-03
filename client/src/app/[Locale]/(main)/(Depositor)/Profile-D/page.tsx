@@ -39,6 +39,12 @@ function Profile() {
   let BreadcrumbListContent = useTranslations(
     "DepositorDashboard.BreadcrumbList"
   );
+  const AEContent = useTranslations("BidderDashboard.Profile.AE");
+  const CompanyContent = useTranslations("BidderDashboard.Profile.Company");
+  const NotFoundProfile = useTranslations("BidderDashboard.Profile.NotFound");
+  const VerificationContent = useTranslations(
+    "BidderDashboard.Profile.Verification"
+  );
 
   const { data: session } = useSession();
   const user_id = session ? session.user?.id : null;
@@ -195,29 +201,33 @@ function Profile() {
         </header>
         <div className="w-full max-w-3xl mx-auto">
           <ProfileCard
+            language={Language}
             LetterFullName={LetterFullName}
             user_role={user_role}
             user={user}
           />
           <div className="mt-2">
             {user?.company ? (
-              <CompanyProfile user={user} />
+              <CompanyProfile user={user} content={CompanyContent} />
             ) : user?.ae ? (
-              <AEProfile user={user} />
+              <AEProfile user={user} content={AEContent} />
             ) : legal ? (
               <div className="w-full flex flex-col items-center justify-center gap-2 text-center md:pr-5 lg:pr-10 xl:pr-20 pt-16">
                 <Clock4 size={64} className="text-primary" />
                 <div>
                   <h2 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold mb-1">
-                    Verification in Progress
+                    {VerificationContent("Title")}
                   </h2>
                   <p className="text-gray-600 text-xs sm:text-sm lg:text-base">
-                    Your account will be verified within 24 hours
+                    {VerificationContent("Description")}
                   </p>
                 </div>
               </div>
             ) : (
-              <NotFoundProfileDepositor Language={Language} />
+              <NotFoundProfileDepositor
+                Language={Language}
+                content={NotFoundProfile}
+              />
             )}
           </div>
         </div>
