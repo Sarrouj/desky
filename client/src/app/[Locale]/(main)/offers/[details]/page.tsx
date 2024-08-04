@@ -29,7 +29,7 @@ import {
 
 const Details = ({ params }: { params: any }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const user_id = session ? session.user?.id : null;
   const [offerDetails, setOfferDetails] = useState<any>(null);
   const [depositorDetails, setDepositorDetails] = useState<any>(null);
@@ -40,6 +40,8 @@ const Details = ({ params }: { params: any }) => {
   const [error, setError] = useState<string | null>(null);
   const [AutoEntrepreneur, SetAutoEntrepreneur] = useState(false);
   const [Company, setCompany] = useState(false);
+  // Language
+  const [Language, setLanguage] = useState<string | null>(null);
 
   useEffect(() => {
     const lg = localStorage.getItem("lg");
@@ -47,10 +49,6 @@ const Details = ({ params }: { params: any }) => {
       setLanguage(JSON.parse(lg));
     }
   }, []);
-
-  useEffect(() => {
-    setIsLoggedIn(status === "authenticated");
-  }, [status]);
 
   const { details } = params;
   const detailsData = useBoundStore((state) => state.offerData);
@@ -150,14 +148,6 @@ const Details = ({ params }: { params: any }) => {
   };
 
   // DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
-
-  // Language
-  const [Language, setLanguage] = useState<string | null>(null);
-
-  useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
-  }, [Language]);
 
   const offer_id = params.adminDetail;
   useEffect(() => {
@@ -326,6 +316,12 @@ const Details = ({ params }: { params: any }) => {
     }
   }, [depositorLegalDetails]);
 
+  useEffect(() => {
+    if (status == "authenticated") {
+      setIsLoggedIn(true);
+    }
+  }, [status]);
+
   return (
     <>
       <div className="bg-white border-b-2">
@@ -337,7 +333,7 @@ const Details = ({ params }: { params: any }) => {
           AboutUS={"hover:text-primary"}
         />
       </div>
-      <main className="py-4 px-6 sm:py-6 sm:px-8 md:py-12 md:px-14 lg:py-14 lg:px-16 xl:py-16 xl:px-20 bg-neutralBg text-secondaryDarkBlue">
+      <main className="py-4 px-6 sm:py-6 sm:px-8 md:py-12 md:px-14 lg:py-14 lg:px-16 xl:pl-20 xl:pr-16  bg-neutralBg text-secondaryDarkBlue">
         <section className="flex flex-col md:flex-row  text-secondaryDarkBlue">
           <div className="w-full md:w-9/12 md:border-r-2">
             <div className="border-b-2 pb-5 lg:pb-10 xl:pb-12 pr-12">
@@ -523,7 +519,7 @@ const Details = ({ params }: { params: any }) => {
                     )}
                   </div>
                 </div>
-                <div className="mt-0 lg:mt-4 xl:mt-5 md:flex flex-col gap-4 hidden">
+                <div className="md:mt-2 lg:mt-4 xl:mt-5 md:flex flex-col gap-4 hidden">
                   {averageRating == "N/A" ? (
                     <div className="md:mt-5 flex flex-col gap-5">
                       <div className="flex gap-1">
@@ -537,7 +533,7 @@ const Details = ({ params }: { params: any }) => {
                     </div>
                   ) : (
                     <div>
-                      <div className="flex gap-1 text-xs lg:text-sm xl:text-base">
+                      <div className="flex gap-1 text-xs lg:text-sm xl:text-base items-center">
                         {
                           <>
                             {Array.from({
@@ -545,14 +541,14 @@ const Details = ({ params }: { params: any }) => {
                             }).map((_, index) => (
                               <StarIcon
                                 key={index}
-                                className="w-4 h-4 md:w-5 md:h-5 fill-yellow-500 stroke-yellow-500"
+                                className="w-4 h-4 lg:w-5 lg:h-5 fill-yellow-500 stroke-yellow-500"
                               />
                             ))}
                             {averageRating % 1 !== 0 &&
                               averageRating % 1 >= 0.5 && (
                                 <StarIcon
                                   key="half-star"
-                                  className="w-4 h-4 md:w-5 md:h-5 fill-yellow-500 stroke-yellow-500"
+                                  className="w-4 h-4 lg:w-5 lg:h-5 fill-yellow-500 stroke-yellow-500"
                                 />
                               )}
                             {Array.from({
@@ -560,12 +556,12 @@ const Details = ({ params }: { params: any }) => {
                             }).map((_, index) => (
                               <StarIcon
                                 key={`empty-${index}`}
-                                className="w-4 h-4 md:w-5 md:h-5 fill-gray-100 stroke-yellow-500"
+                                className="w-4 h-4 lg:w-5 lg:h-5 fill-gray-100 stroke-yellow-500"
                               />
                             ))}
                           </>
                         }
-                        <p>{averageRating}</p>
+                        <p className="text-xs lg:text-sm xl:text-base">{averageRating}</p>
                       </div>
                       <p className="text-xs lg:text-sm xl:text-base">
                         {averageRating} of {totalReviews} reviews
@@ -607,31 +603,27 @@ const Details = ({ params }: { params: any }) => {
                     )}
                   </div>
                 </div>
-                <div className="mt-12 flex flex-col items-center">
+                <div className="mt-2 md:mt-8 xl:mt-12 flex flex-col items-center">
                   {isLoggedIn && session?.user.role === "bidder" ? (
                     offerApply &&
                     offerApply.length > 0 &&
                     offerApply.some(
                       (apply: any) => apply.bidder_id === session?.user.id
                     ) ? (
-                      <div>
-                        <button
-                          disabled
-                          className="text-white bg-gray-200 rounded-full w-10/12 py-2"
-                        >
-                          {Content("CallToAction")}
-                        </button>
-                      </div>
+                      <button
+                        disabled
+                        className="text-white bg-gray-200 rounded-full w-full py-2 text-xs lg:text-sm"
+                      >
+                        {Content("CallToAction")}
+                      </button>
                     ) : (
                       <Dialog>
-                        <DialogTrigger>
-                          <Button className="text-white rounded-full w-10/12 py-2">
-                            {Content("CallToAction")}
-                          </Button>
+                        <DialogTrigger className="w-full bg-primary py-2 text-white rounded-full font-semibold text-sm hover:bg-orange-400 transition ease-in-out duration-250">
+                          {Content("CallToAction")}
                         </DialogTrigger>
                         <DialogContent>
-                          <DialogHeader className="text-2xl font-bold text-primary">
-                            Add The Estimate
+                          <DialogHeader className="text-lg font-bold text-secondaryDarkBlue">
+                            Add your Estimate
                           </DialogHeader>
                           <Input
                             id="Attachment"
@@ -648,7 +640,7 @@ const Details = ({ params }: { params: any }) => {
                             <Button
                               type="submit"
                               onClick={handleApply}
-                              className="text-white rounded-full py-2"
+                              className="text-white rounded-md py-2 text-xs lg:text-sm"
                             >
                               {Content("CallToAction")}
                             </Button>
@@ -659,7 +651,7 @@ const Details = ({ params }: { params: any }) => {
                   ) : (
                     <button
                       disabled
-                      className="text-white bg-slate-200 rounded-full w-full py-2"
+                      className="text-white bg-slate-200 rounded-full w-full py-2 text-xs lg:text-sm"
                     >
                       {Content("CallToAction")}
                     </button>
@@ -697,7 +689,7 @@ const Details = ({ params }: { params: any }) => {
                     </h2>
                   </div>
                 </div>
-                <div className="mt-0 lg:mt-4 xl:mt-5 md:flex flex-col gap-2 lg:gap-4 hidden">
+                <div className="md:mt-2 lg:mt-4 xl:mt-5 md:flex flex-col gap-2 lg:gap-4 hidden">
                   {averageRating == "N/A" ? (
                     <div className="mt-5 flex flex-col  gap-5">
                       <div className="flex gap-1">
@@ -711,7 +703,7 @@ const Details = ({ params }: { params: any }) => {
                     </div>
                   ) : (
                     <div>
-                      <div className="flex gap-1 text-xs lg:text-sm xl:text-base">
+                      <div className="flex gap-1 text-xs lg:text-sm xl:text-base items-center">
                         {
                           <>
                             {Array.from({
@@ -719,7 +711,7 @@ const Details = ({ params }: { params: any }) => {
                             }).map((_, index) => (
                               <StarIcon
                                 key={index}
-                                className="w-4 h-4 md:w-5 md:h-5 fill-yellow-500 stroke-yellow-500"
+                                className="w-4 h-4 lg:w-5 lg:h-5 fill-yellow-500 stroke-yellow-500"
                               />
                             ))}
 
@@ -727,7 +719,7 @@ const Details = ({ params }: { params: any }) => {
                               averageRating % 1 >= 0.5 && (
                                 <StarIcon
                                   key="half-star"
-                                  className="w-4 h-4 md:w-5 md:h-5 fill-yellow-500 stroke-yellow-500"
+                                  className="w-4 h-4 lg:w-5 lg:h-5 fill-yellow-500 stroke-yellow-500"
                                 />
                               )}
 
@@ -736,7 +728,7 @@ const Details = ({ params }: { params: any }) => {
                             }).map((_, index) => (
                               <StarIcon
                                 key={`empty-${index}`}
-                                className="w-4 h-4 md:w-5 md:h-5 fill-gray-100 stroke-yellow-500"
+                                className="w-4 h-4 lg:w-5 lg:h-5 fill-gray-100 stroke-yellow-500"
                               />
                             ))}
                           </>
@@ -786,31 +778,27 @@ const Details = ({ params }: { params: any }) => {
                     )}
                   </div>
                 </div>
-                <div className="mt-12 flex flex-col items-center">
+                <div className="mt-2 md:mt-8 xl:mt-12 flex flex-col items-center">
                   {isLoggedIn && session?.user.role === "bidder" ? (
                     offerApply &&
                     offerApply.length > 0 &&
                     offerApply.some(
                       (apply: any) => apply.bidder_id === session?.user.id
                     ) ? (
-                      <div>
-                        <button
-                          disabled
-                          className="text-white bg-gray-200 rounded-full w-10/12 py-2"
-                        >
-                          {Content("CallToAction")}
-                        </button>
-                      </div>
+                      <button
+                        disabled
+                        className="text-white bg-gray-200 rounded-full w-full py-2 text-xs lg:text-sm"
+                      >
+                        {Content("CallToAction")}
+                      </button>
                     ) : (
                       <Dialog>
-                        <DialogTrigger>
-                          <Button className="text-white rounded-full w-10/12 py-2">
-                            {Content("CallToAction")}
-                          </Button>
+                        <DialogTrigger className="w-full bg-primary py-2 text-white rounded-full font-semibold text-sm hover:bg-orange-400 transition ease-in-out duration-250">
+                          {Content("CallToAction")}
                         </DialogTrigger>
                         <DialogContent>
-                          <DialogHeader className="text-2xl font-bold text-primary">
-                            Add The Estimate
+                          <DialogHeader className="text-lg font-bold text-secondaryDarkBlue">
+                            Add your Estimate
                           </DialogHeader>
                           <Input
                             id="Attachment"
@@ -827,7 +815,7 @@ const Details = ({ params }: { params: any }) => {
                             <Button
                               type="submit"
                               onClick={handleApply}
-                              className="text-white rounded-full py-2"
+                              className="text-white rounded-md py-2 text-xs lg:text-sm"
                             >
                               {Content("CallToAction")}
                             </Button>
@@ -838,7 +826,7 @@ const Details = ({ params }: { params: any }) => {
                   ) : (
                     <button
                       disabled
-                      className="text-white bg-slate-200 rounded-full w-full py-2"
+                      className="text-white bg-slate-200 rounded-full w-full py-2 text-xs lg:text-sm"
                     >
                       {Content("CallToAction")}
                     </button>
@@ -877,7 +865,7 @@ const Details = ({ params }: { params: any }) => {
                   </div>
                 </div>
               </div>
-              <div className="mt-0 lg:mt-4 xl:mt-5 md:flex flex-col gap-4 hidden">
+              <div className="md:mt-2 lg:mt-4 xl:mt-5 md:flex flex-col gap-4 hidden">
                 {averageRating == "N/A" ? (
                   <div className="md:mt-5 flex flex-col gap-5">
                     <div className="flex gap-1">
@@ -899,7 +887,7 @@ const Details = ({ params }: { params: any }) => {
                           }).map((_, index) => (
                             <StarIcon
                               key={index}
-                              className="w-4 h-4 md:w-5 md:h-5 fill-yellow-500 stroke-yellow-500"
+                              className="w-4 h-4 lg:w-5 lg:h-5 fill-yellow-500 stroke-yellow-500"
                             />
                           ))}
 
@@ -907,7 +895,7 @@ const Details = ({ params }: { params: any }) => {
                             averageRating % 1 >= 0.5 && (
                               <StarIcon
                                 key="half-star"
-                                className="w-4 h-4 md:w-5 md:h-5 fill-yellow-500 stroke-yellow-500"
+                                className="w-4 h-4 lg:w-5 lg:h-5 fill-yellow-500 stroke-yellow-500"
                               />
                             )}
 
@@ -916,7 +904,7 @@ const Details = ({ params }: { params: any }) => {
                           }).map((_, index) => (
                             <StarIcon
                               key={`empty-${index}`}
-                              className="w-4 h-4 md:w-5 md:h-5 fill-gray-100 stroke-yellow-500"
+                              className="w-4 h-4 lg:w-5 lg:h-5 fill-gray-100 stroke-yellow-500"
                             />
                           ))}
                         </>
@@ -942,36 +930,32 @@ const Details = ({ params }: { params: any }) => {
                   <p className="text-xs xl:text-sm">No Data Found</p>
                 </div>
               </div>
-              <div className="mt-12 flex flex-col items-center">
+              <div className="mt-2 md:mt-8 xl:mt-12 flex flex-col items-center">
                 {isLoggedIn && session?.user.role === "bidder" ? (
                   offerApply &&
                   offerApply.length > 0 &&
                   offerApply.some(
                     (apply: any) => apply.bidder_id === session?.user.id
                   ) ? (
-                    <div>
-                      <button
-                        disabled
-                        className="text-white bg-gray-200 rounded-full w-10/12 py-2"
-                      >
-                        {Content("CallToAction")}
-                      </button>
-                    </div>
+                    <button
+                      disabled
+                      className="text-white bg-slate-200 rounded-full w-full py-2 text-xs lg:text-sm"
+                    >
+                      {Content("CallToAction")}
+                    </button>
                   ) : (
                     <Dialog>
-                      <DialogTrigger>
-                        <Button className="text-white rounded-full w-10/12 py-2">
-                          {Content("CallToAction")}
-                        </Button>
+                      <DialogTrigger className="w-full bg-primary py-2 text-white rounded-full font-semibold text-sm hover:bg-orange-400 transition ease-in-out duration-250">
+                        {Content("CallToAction")}
                       </DialogTrigger>
                       <DialogContent>
-                        <DialogHeader className="text-2xl font-bold text-primary">
-                          Add The Estimate
+                        <DialogHeader className="text-lg font-bold text-secondaryDarkBlue">
+                          Add your Estimate
                         </DialogHeader>
                         <Input
                           id="Attachment"
                           type="file"
-                          className="cursor-pointer text-xs lg:text-sm"
+                          className="text-white rounded-md py-2 text-xs lg:text-sm"
                           required
                           onChange={(e) =>
                             setAttachment(
@@ -994,7 +978,7 @@ const Details = ({ params }: { params: any }) => {
                 ) : (
                   <button
                     disabled
-                    className="text-white bg-slate-200 rounded-full w-full py-2"
+                    className="text-white bg-slate-200 rounded-full w-full py-2 text-xs lg:text-sm"
                   >
                     {Content("CallToAction")}
                   </button>
@@ -1005,34 +989,33 @@ const Details = ({ params }: { params: any }) => {
             <DetailsInfoSkeleton />
           )}
         </section>
-        <section className="mt-20 border-2 rounded-lg py-10">
           {success && success.length > 0 ? (
-            <>
-              <div className="border-b-2 px-10">
-                <h3 className="font-bold text-lg mb-8">
+            <section className="mt-5 md:mt-10 lg:mt-16 xl:mt-20 border-2 rounded-lg py-4 md:py-6 lg:py-8 xl:py-10 ">
+              <div className="border-b-2 px-4 md:px-6 lg:px-8 xl:px-10">
+                <h3 className="font-bold text-sm md:text-base lg:text-lg mb-2 md:mb-4 lg:mb-6 xl:mb-8">
                   {Content("ReviewsHistory")}{" "}
                   <span className="text-primary font-medium">
                     {success?.length}
                   </span>
                 </h3>
               </div>
-              <div className="px-10 py-10 flex flex-col gap-12">
+              <div className="px-4 md:px-6 lg:px-8 xl:px-10 py-4 md:py-6 lg:py-8 xl:py-10 flex flex-col gap-6 md:gap-8 lg:gap-10 xl:gap-12">
                 {success?.map((review: any, index) => (
                   <div key={index}>
                     <div className="flex items-center gap-3">
-                      <div className="rounded-full bg-slate-200 text-blue-400 w-10 h-10 flex items-center justify-center">
+                      <div className="rounded-full bg-slate-200 text-blue-400 w-8 h-8 lg:w-10 lg:h-10 text-xs md:text-sm lg:text-base  flex items-center justify-center">
                         {review.bidder_name
                           .split(" ")
                           .map((n: any) => n[0].toUpperCase())
                           .join("")}
                       </div>
-                      <h6 className="font-semibold">{review.bidder_name}</h6>
+                      <h6 className="font-semibold text-xs md:text-sm lg:text-base">{review.bidder_name}</h6>
                     </div>
                     <div className="flex justify-between items-center mt-3">
-                      <h3 className="text-lg font-semibold">
+                      <h3 className="text-sm md:text-base lg:text-lg font-semibold">
                         {review.offer_title}
                       </h3>
-                      <p className="text-neutralGray">
+                      <p className="text-neutralGray text-xs md:text-sm lg:text-base">
                         {new Date(review.reviews[0].date).toLocaleDateString(
                           "en-CA"
                         )}
@@ -1040,50 +1023,48 @@ const Details = ({ params }: { params: any }) => {
                     </div>
                     <div className="mt-3">
                       <div className="flex gap-1 items-center">
-                        <Image
-                          src={"/icons/ReviewStart.svg"}
-                          width={20}
-                          height={20}
-                          alt="shape"
-                        />
-                        <Image
-                          src={"/icons/ReviewStart.svg"}
-                          width={20}
-                          height={20}
-                          alt="shape"
-                        />
-                        <Image
-                          src={"/icons/ReviewStart.svg"}
-                          width={20}
-                          height={20}
-                          alt="shape"
-                        />
-                        <Image
-                          src={"/icons/ReviewStart.svg"}
-                          width={20}
-                          height={20}
-                          alt="shape"
-                        />
-                        <Image
-                          src={"/icons/ReviewStart.svg"}
-                          width={20}
-                          height={20}
-                          alt="shape"
-                        />
-                        <p>{review.reviews[0].rating}</p>
+                      {
+                        <>
+                          {Array.from({
+                            length: Math.floor(review.reviews[0].rating),
+                          }).map((_, index) => (
+                            <StarIcon
+                              key={index}
+                              className="w-4 h-4 md:w-5 md:h-5 fill-yellow-500 stroke-yellow-500"
+                            />
+                          ))}
+
+                          {review.reviews[0].rating % 1 !== 0 &&
+                            review.reviews[0].rating % 1 >= 0.5 && (
+                              <StarIcon
+                                key="half-star"
+                                className="w-4 h-4 md:w-5 md:h-5 fill-yellow-500 stroke-yellow-500"
+                              />
+                            )}
+
+                          {Array.from({
+                            length: 5 - Math.ceil(review.reviews[0].rating),
+                          }).map((_, index) => (
+                            <StarIcon
+                              key={`empty-${index}`}
+                              className="w-4 h-4 md:w-5 md:h-5 fill-gray-100 stroke-yellow-500"
+                            />
+                          ))}
+                        </>
+                      }
+                        <p className="text-sm lg:text-base">{review.reviews[0].rating}</p>
                       </div>
-                      <p className="text-sm mt-1 w-10/12">
+                      <p className="text-xs lg:text-sm mt-1 w-10/12">
                         {review.reviews[0].text}
                       </p>
                     </div>
                   </div>
                 ))}
               </div>
-            </>
+              </section>
           ) : (
-            <div>{error}</div>
+            null
           )}
-        </section>
       </main>
     </>
   );
@@ -1091,84 +1072,4 @@ const Details = ({ params }: { params: any }) => {
 
 export default Details;
 
-{
-  /* <section className="mt-20 border-2 rounded-lg py-10">
-          {success && success.length > 0 ? (
-            <>
-              <div className="border-b-2 px-10">
-                <h3 className="font-bold text-lg mb-8">
-                  {Content("ReviewsHistory")}{" "}
-                  <span className="text-primary font-medium">
-                    {success?.length}
-                  </span>
-                </h3>
-              </div>
-              <div className="px-10 py-10 flex flex-col gap-12">
-                {success?.map((review: any, index) => (
-                  <div key={index}>
-                    <div className="flex items-center gap-3">
-                      <div className="rounded-full bg-slate-200 text-blue-400 w-10 h-10 flex items-center justify-center">
-                        {review.bidder_name
-                          .split(" ")
-                          .map((n: any) => n[0].toUpperCase())
-                          .join("")}
-                      </div>
-                      <h6 className="font-semibold">{review.bidder_name}</h6>
-                    </div>
-                    <div className="flex justify-between items-center mt-3">
-                      <h3 className="text-lg font-semibold">
-                        {review.offer_title}
-                      </h3>
-                      <p className="text-neutralGray">
-                        {new Date(review.reviews[0].date).toLocaleDateString(
-                          "en-CA"
-                        )}
-                      </p>
-                    </div>
-                    <div className="mt-3">
-                      <div className="flex gap-1 items-center">
-                        <Image
-                          src={"/icons/ReviewStart.svg"}
-                          width={20}
-                          height={20}
-                          alt="shape"
-                        />
-                        <Image
-                          src={"/icons/ReviewStart.svg"}
-                          width={20}
-                          height={20}
-                          alt="shape"
-                        />
-                        <Image
-                          src={"/icons/ReviewStart.svg"}
-                          width={20}
-                          height={20}
-                          alt="shape"
-                        />
-                        <Image
-                          src={"/icons/ReviewStart.svg"}
-                          width={20}
-                          height={20}
-                          alt="shape"
-                        />
-                        <Image
-                          src={"/icons/ReviewStart.svg"}
-                          width={20}
-                          height={20}
-                          alt="shape"
-                        />
-                        <p>{review.reviews[0].rating}</p>
-                      </div>
-                      <p className="text-sm mt-1 w-10/12">
-                        {review.reviews[0].text}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </>
-          ) : (
-            <div>{error}</div>
-          )}
-</section> */
-}
+
