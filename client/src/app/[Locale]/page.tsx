@@ -1,46 +1,38 @@
 "use client";
-import CallToAction from "@/Components/common/CallToAction";
-import Footer from "@/Components/layout/footer";
-import HomeNavbar from "@/Components/layout/HomeNavbar";
-import OfferCard from "@/Components/layout/OfferCard";
-import Image from "next/image";
-import Link from "next/link";
+
 import { useBoundStore } from "@/lib/store";
 import { useEffect, useState } from "react";
 import OfferCardSkeleton from "@/Components/layout/OfferCardSkeleton";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
+import Link from "next/link";
+import CallToAction from "@/Components/common/CallToAction";
+import Footer from "@/Components/layout/footer";
+import HomeNavbar from "@/Components/layout/HomeNavbar";
+import OfferCard from "@/Components/layout/OfferCard";
 import { Button } from "@/Components/ui/Button";
-import Loading from "@/Components/common/Loading";
 import { MoveUp, MoveDown } from "lucide-react";
 
 export default function Home() {
   const [Language, setLanguage] = useState();
-
   const offersData = useBoundStore((state) => state.offersData);
   const fetchOffers = useBoundStore((state) => state.fetchOffers);
   const Content = useTranslations("Home");
   const NavbarContent = useTranslations("NavBar");
   const OfferContent = useTranslations("offer");
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchOffers();
   }, [fetchOffers]);
 
-  // Language
   useEffect(() => {
     let lg = JSON.parse(localStorage.getItem("lg"));
     setLanguage(lg);
-    setIsLoading(false);
   }, [Language]);
 
   // Determine if offersData is available and has at least two items
   const hasOffers = offersData && offersData.length > 0;
   const lastTwoOffers = hasOffers ? offersData.slice(-2) : [];
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return (
     <div className="relative">
