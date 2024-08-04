@@ -28,6 +28,7 @@ const Type = () => {
     setLanguage(lg);
   }, []);
 
+  // Check if Authenticated and redirect
   useEffect(() => {
     if (status === "authenticated") {
       window.location.href = `/${Language}`;

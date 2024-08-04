@@ -22,13 +22,13 @@ export default function Home() {
   const OfferContent = useTranslations("offer");
 
   useEffect(() => {
-    fetchOffers();
-  }, [fetchOffers]);
-
-  useEffect(() => {
     let lg = JSON.parse(localStorage.getItem("lg"));
     setLanguage(lg);
   }, [Language]);
+
+  useEffect(() => {
+    fetchOffers();
+  }, [fetchOffers]);
 
   // Determine if offersData is available and has at least two items
   const hasOffers = offersData && offersData.length > 0;
