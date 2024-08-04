@@ -1,4 +1,6 @@
-const Loading = () => {
+"use client";
+
+export default function Loading() {
   return (
     <div className="loading-container">
       <div className="spinner"></div>
@@ -13,15 +15,14 @@ const Loading = () => {
           top: 0;
           left: 0;
           background: white;
-          z-index: 9998;
+          z-index: 9999;
         }
         .spinner {
-          border: 8px solid #ff6e00;
-          border-top: 8px solid #ff6e00;
+          border: 8px solid #f3f3f3;
+          border-top: 8px solid #3498db;
           border-radius: 50%;
           width: 60px;
           height: 60px;
-          z-index: 9999;
           animation: spin 1s linear infinite;
         }
         @keyframes spin {
@@ -35,6 +36,4 @@ const Loading = () => {
       `}</style>
     </div>
   );
-};
-
-export default Loading;
+}
