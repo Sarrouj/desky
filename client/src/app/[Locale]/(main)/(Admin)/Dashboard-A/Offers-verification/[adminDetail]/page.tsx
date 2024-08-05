@@ -252,10 +252,16 @@ const AdminDetails = ({ params }: { params: any }) => {
   };
 
   const handleRefuse = () => {
-    axios.put(`http://localhost:3001/admin/offer/refuse/${offer_id}`, {
-      user_id,
-      message,
-    });
+    try {
+      axios.put(`http://localhost:3001/admin/offer/refuse/${offer_id}`, {
+        user_id,
+        message,
+      });
+      window.location.href = `/${Language}/Dashboard-A/Offers-verification`;
+    }catch (error) {
+      console.error("Error refusing offer:", error);
+    }
+   
   };
 
   return (

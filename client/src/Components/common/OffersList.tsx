@@ -126,14 +126,14 @@ const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user
                     };
 
                     const handleRefuse = async () => {
-                      const result = await axios.put(
+                       await axios.put(
                         `http://localhost:3001/admin/offer/refuse/${offer._id}`,
                         {
                           user_id,
                           message,
                         }
                       );
-                      console.log(result.data);
+                      window.location.reload();
                     };
                     return (
                       <TableRow
