@@ -14,6 +14,8 @@ import {
     SelectValue,
 } from "@/Components/ui/select"
 
+import ResponsiveHomeMenu from "@/Components/common/ResponsiveHomeMenu";
+
 interface HomeNavbarProps {
     NavbarContent: any;
 }
@@ -61,6 +63,7 @@ const HomeNavbar: React.FC<HomeNavbarProps>  = ({NavbarContent}) => {
   return (
     <header className="flex items-center py-3 px-5 md:px-12 lg:px-18 xl:px-20 justify-between text-secondaryDarkBlue ">
       <Link href={"/"} className="text-xl lg:text-2xl font-bold text-primaryOrange">Desky</Link>
+      <ResponsiveHomeMenu Language={rout}/>
       <nav className="hidden md:flex gap-4 lg:ga-6 xl:gap-8 text-sm font-medium  xl:ml-44">
         <Link href={"/"} className="text-primaryOrange font-bold text-xs lg:text-sm ">
           {NavbarContent("NavLinks.Home")}
