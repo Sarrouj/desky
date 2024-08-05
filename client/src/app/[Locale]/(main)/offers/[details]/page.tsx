@@ -328,7 +328,7 @@ const Details = ({ params }: { params: any }) => {
         <Header
           NavbarContent={NavbarContent}
           HomePage={"hover:text-primary"}
-          Offers={"text-primary font-bold "}
+          Offers={"hover:text-primary"}
           FAQ={"hover:text-primary"}
           AboutUS={"hover:text-primary"}
         />

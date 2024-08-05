@@ -15,6 +15,7 @@ import { MoveUp, MoveDown } from "lucide-react";
 
 export default function Home() {
   const [Language, setLanguage] = useState();
+  const [latestOffersData, setLastestOffersData] = useState<any>([]);
   const offersData = useBoundStore((state) => state.offersData);
   const fetchOffers = useBoundStore((state) => state.fetchOffers);
   const Content = useTranslations("Home");
@@ -30,9 +31,20 @@ export default function Home() {
     fetchOffers();
   }, [fetchOffers]);
 
-  // Determine if offersData is available and has at least two items
-  const hasOffers = offersData && offersData.length > 0;
-  const lastTwoOffers = hasOffers ? offersData.slice(-2) : [];
+  
+  useEffect(() => {
+    // Determine if offersData is available and has at least two items
+    const hasOffers = offersData && offersData.length > 0;
+    const data = hasOffers ? [...offersData] : [];
+    // Filter by status Open
+    let filterData = data ? data.filter((offer)=>
+      offer.offer_state === "open"
+    ) : [];
+    const lastTwoOffers : any = hasOffers ? filterData.slice(-2) : [];
+    if(lastTwoOffers.length > 0){
+      setLastestOffersData(lastTwoOffers);
+    }
+  }, [offersData])
 
   return (
     <div className="relative">
@@ -47,14 +59,14 @@ export default function Home() {
         <HomeNavbar NavbarContent={NavbarContent} />
         <main className="text-secondaryDarkBlue">
           <section className="border-b-2 pb-10 overflow-hidden">
-            <div className="pl-20 flex">
-              <div className="w-2/4 mt-28">
-                <h2 className="text-xl text-neutralGray">
+            <div className="px-4 sm:px-6 md:px-8 lg:pl-16 xl:pl-20 flex">
+              <div className="w-full lg:w-2/4 mt-28 flex flex-col justify-center lg:justify-start items-center lg:items-start text-center lg:text-start">
+                <h2 className="text-sm sm:text-base md:text-lg xl:text-xl text-neutralGray">
                   {Content("Hero.headlineAbove")}
                 </h2>
                 <p
                   style={{ lineHeight: "1.30" }}
-                  className="text-4xl lg:text-5xl xl:text-[55px] font-extrabold mt-5"
+                  className="text-2xl md:text-4xl lg:text-4xl xl:text-[55px] font-extrabold mt-5"
                 >
                   {Content("Hero.mainHeadline1")}{" "}
                   <span className="text-primaryOrange">
@@ -62,23 +74,25 @@ export default function Home() {
                   </span>
                   {Content("Hero.mainHeadline3")}
                 </p>
-                <p className="mt-5">{Content("Hero.heroDescription")}</p>
+                <p className="mt-5 text-xs md:text-sm lg:text-base">
+                  {Content("Hero.heroDescription")}
+                </p>
                 <div className="mt-20">
                   <div className="mb-8">
                     <Link
-                      href={""}
-                      className="bg-primaryOrange text-white px-8 py-3 rounded-md mr-3"
+                      href={`${Language}/login`}
+                      className="bg-primaryOrange text-white px-8 py-3 rounded-md mr-3 text-xs md:text-sm xl:text-base"
                     >
                       {Content("Hero.SubmitCallToAction")}
                     </Link>
                     <Link
                       href={`${Language}/offers`}
-                      className="px-7 py-2 rounded-md border-4 border-primaryOrange text-primaryOrange font-semibold"
+                      className="px-7 py-2 rounded-md border-4 border-primaryOrange text-primaryOrange bg-white font-semibold text-xs md:text-sm xl:text-base"
                     >
                       {Content("Hero.SeeCallsCallToAction")}
                     </Link>
                   </div>
-                  <div className="flex gap-5">
+                  <div className="hidden lg:flex gap-5">
                     <div className="flex gap-2">
                       <Image
                         src={"/trustIcon.svg"}
@@ -86,7 +100,9 @@ export default function Home() {
                         width={18}
                         height={18}
                       />
-                      <p className="text-sm">{Content("Hero.trust1")}</p>
+                      <p className="text-xs lg:text-sm">
+                        {Content("Hero.trust1")}
+                      </p>
                     </div>
                     <div className="flex gap-2">
                       <Image
@@ -96,14 +112,16 @@ export default function Home() {
                         height={18}
                         className=""
                       />
-                      <p className="text-sm">{Content("Hero.trust2")}</p>
+                      <p className="text-xs lg:text-sm">
+                        {Content("Hero.trust2")}
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="w-2/4 items-start flex flex-col gap-3 -rotate-45 ml-36">
+              <div className="w-2/4 items-start hidden lg:flex flex-col gap-3 -rotate-[25deg] xl:-rotate-45 ml-36 mt-20">
                 <div className="flex items-center gap-5">
-                  <div className="p-3.5 bg-white w-52 shadow-lg">
+                  <div className="p-2 xl:p-3.5 bg-white w-44 xl:w-52 shadow-lg">
                     <p className="text-xs mb-2">Offers Accepted</p>
                     <div className="w-full flex justify-between">
                       <h1 className="text-lg font-bold text-secondaryDarkBlue">
@@ -125,7 +143,7 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                  <div className="p-3.5 bg-white w-52 shadow-lg">
+                  <div className="p-2 xl:p-3.5 bg-white w-44 xl:w-52 shadow-lg">
                     <p className="text-xs mb-2">Offers Rejected</p>
                     <div className="w-full flex justify-between">
                       <h1 className="text-lg font-bold text-secondaryDarkBlue">
@@ -147,7 +165,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex relative bg-slate-600 w-full">
-                  <div className="bg-white shadow-lg py-2 px-5 rounded-lg -rotate-90 absolute top-12 left-[-35px]">
+                  <div className="bg-white shadow-lg py-2 px-3 xl:px-5 rounded-lg -rotate-90 absolute top-12 left-[-35px]">
                     <p className="text-xs mb-1">Total of bids</p>
                     <div className="flex items-center justify-between mb-2">
                       <p className="font-semibold text-xs">230</p>
@@ -212,14 +230,14 @@ export default function Home() {
                   </div>
                   <div className="rounded-lg shadow-lg bg-white p-5 absolute left-40">
                     <div className="flex items-center justify-between pb-3">
-                      <h2 className="font-semibold text-sm">
+                      <h2 className="font-semibold text-xs xl:text-sm">
                         Account Performance
                       </h2>
                       <button className="rounded border border-secondaryDarkBlue text-[10px] px-2 py-[4px]">
                         See More
                       </button>
                     </div>
-                    <div className="bg-gray-100 w-72 h-64 flex items-center justify-center">
+                    <div className="bg-gray-100 w-60 xl:w-72 h-56 xl:h-64 flex items-center justify-center">
                       <Image
                         src={"/HeroChartLine.svg"}
                         alt={""}
@@ -228,7 +246,7 @@ export default function Home() {
                       />
                     </div>
                   </div>
-                  <div className="mt-5 bg-white absolute flex items-center gap-3 pr-8 pl-3 py-2.5 shadow-lg rounded-lg top-40 left-80">
+                  <div className="mt-5 bg-white absolute flex items-center gap-3 pr-8 pl-3 py-2.5 shadow-lg rounded-lg top-40 left-80 min-w-56">
                     <div className="text-xs text-primary rounded-full bg-slate-100 w-12 h-12 text-center flex justify-center items-center">
                       <p>ZS</p>
                     </div>
@@ -239,7 +257,7 @@ export default function Home() {
                       <h1 className="text-xs mt-2 ">Received From Zaid</h1>
                     </div>
                   </div>
-                  <div className="mt-5 bg-white absolute flex items-center gap-3 pr-8 pl-3 py-2.5 shadow-lg rounded-lg top-[235px] left-96">
+                  <div className="mt-5 bg-white absolute flex items-center gap-3 pr-8 pl-3 py-2.5 shadow-lg rounded-lg top-[235px] left-96 min-w-56">
                     <div className="text-xs text-primary rounded-full bg-slate-100 w-12 h-12 text-center flex justify-center items-center">
                       <p>FS</p>
                     </div>
@@ -291,57 +309,64 @@ export default function Home() {
             </div>
           </section>
           <section className="border-b-2 bg-white">
-            <div className="px-20 py-10 gap-10 flex flex-col justify-center items-center">
-              <h2 className="text-lg font-medium">
+            <div className="px-4 md:px-16 lg:px-18 xl:px-20 flex flex-col justify-center items-center text-center">
+              <h2 className="text-sm md:text-base lg:text-lg xl:text-xl font-semibold mt-6 lg:mt-8 xl:mt-10">
                 {Content("CompaniesSection")}
               </h2>
-              <div className="flex gap-10 justify-center">
+              <div className="flex gap-4 md:gap-6 lg:gap-8 xl:gap-10 justify-center">
                 <Image
                   src={"/logos/logo1.svg"}
                   alt={""}
                   width={150}
                   height={150}
+                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-40 xl:h-40 hidden lg:block"
                 />
                 <Image
                   src={"/logos/logo2.svg"}
                   alt={""}
                   width={150}
                   height={150}
+                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-40 xl:h-40 hidden sm:block"
                 />
                 <Image
                   src={"/logos/logo3.svg"}
                   alt={""}
                   width={150}
                   height={150}
+                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-40 xl:h-40"
                 />
                 <Image
                   src={"/logos/logo7.svg"}
                   alt={""}
                   width={150}
                   height={150}
+                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-40 xl:h-40"
                 />
                 <Image
                   src={"/logos/logo4.svg"}
                   alt={""}
                   width={150}
                   height={150}
+                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-40 xl:h-40"
                 />
                 <Image
                   src={"/logos/logo5.svg"}
                   alt={""}
                   width={150}
                   height={150}
+                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-40 xl:h-40 hidden sm:block"
                 />
                 <Image
                   src={"/logos/logo6.svg"}
                   alt={""}
                   width={150}
                   height={150}
+                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-40 xl:h-40 hidden lg:block"
                 />
               </div>
             </div>
           </section>
-          <section className="py-36 border-b-2 relative overflow-hidden">
+          <section className="py-36 border-b-2 relative overflow-hidden hidden lg:block">
             <div className="bg-gray-100 w-[500px] h-[500px] rounded-full absolute -right-36 top-20"></div>
             <div></div>
             <div className="w-full px-20">
@@ -418,13 +443,13 @@ export default function Home() {
             </div>
           </section>
           <section className="bg-neutralBg">
-            <div className="px-16 py-20 flex flex-col items-center gap-16">
-              <h1 className="text-4xl font-extrabold">
+            <div className="px-4 sm:px-6 md:px-8 lg:px-14 xl:px-16 py-6 md:py-12 lg:py-16 xl:py-20 flex flex-col items-center gap-4 md:gap-6 lg:gap-14 xl:gap-16">
+              <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-center">
                 {Content("LatestSection.title")}
               </h1>
               <div className="grid grid-cols-1 lg:grid-cols-2 grid-flow-row content-start gap-3 lg:gap-5 w-full">
-                {lastTwoOffers && lastTwoOffers.length > 0 ? (
-                  lastTwoOffers.map((offer: any, index: number) =>
+                {latestOffersData && latestOffersData.length > 0 ? (
+                  latestOffersData.map((offer: any, index: number) =>
                     offer.offer_state === "open" ? (
                       <OfferCard
                         key={offer._id}
@@ -456,15 +481,15 @@ export default function Home() {
             </div>
           </section>
           <section>
-            <div className="px-32 py-10">
-              <div className="py-20 flex flex-col justify-center items-center gap-8">
-                <h1 className="text-4xl font-extrabold">
+            <div className="px-4 sm:px-6 md:px-16 lg:px-18 xl:px-32 py-4 md:py-6 lg:py-8 xl:py-10">
+              <div className="py-4 md:py-8 lg:py-12 xl:py-20 flex flex-col justify-center text-center items-center gap-2 md:gap-4 lg:gap-6 xl:gap-8">
+                <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold">
                   {Content("Credibility.title")}
                 </h1>
-                <p>{Content("Credibility.description")}</p>
+                <p className="text-xs md:text-sm lg:text-base">{Content("Credibility.description")}</p>
               </div>
               <div className="flex">
-                <div className="w-2/4">
+                <div className="w-2/4 hidden lg:block">
                   <Image
                     src={"/Credibility.svg"}
                     alt={""}
@@ -472,10 +497,10 @@ export default function Home() {
                     height={1000}
                   />
                 </div>
-                <div className="w-2/4 flex flex-col gap-8">
-                  <div className="p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white transition-colors ease-in-out delay-200">
+                <div className="w-full lg:w-2/4 flex flex-col gap-2 md:gap-4 lg:gap-6 xl:gap-8">
+                  <div className="p-3 md:p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white transition-colors ease-in-out delay-150	">
                     <div className="flex items-start justify-between">
-                      <h2 className="font-bold text-2xl mb-5">
+                      <h2 className="font-bold text-base md:text-lg lg:text-xl xl:text-2xl mb-2 xl:mb-5">
                         {Content("Credibility.LegalStatus")}
                       </h2>
                       <Image
@@ -485,13 +510,13 @@ export default function Home() {
                         height={28}
                       />
                     </div>
-                    <p className="text-sm w-11/12	">
+                    <p className="text-xs md:text-sm w-11/12	">
                       {Content("Credibility.LegalStatusDesc")}
                     </p>
                   </div>
-                  <div className="p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white transition-colors ease-in-out delay-200">
+                  <div className="p-3 md:p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white transition-colors ease-in-out delay-150	">
                     <div className="flex items-start justify-between">
-                      <h2 className="font-bold text-2xl mb-5">
+                      <h2 className="font-bold text-base md:text-lg lg:text-xl xl:text-2xl mb-2 xl:mb-5">
                         {Content("Credibility.RatingSystem")}
                       </h2>
                       <Image
@@ -501,13 +526,13 @@ export default function Home() {
                         height={28}
                       />
                     </div>
-                    <p className="text-sm w-11/12	">
+                    <p className="text-xs md:text-sm w-11/12	">
                       {Content("Credibility.RatingSystemDesc")}
                     </p>
                   </div>
-                  <div className="p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white transition-colors ease-in-out delay-200">
+                  <div className="p-3 md:p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white transition-colors ease-in-out delay-150	">
                     <div className="flex items-start justify-between">
-                      <h2 className="font-bold text-2xl mb-5">
+                      <h2 className="font-bold text-base md:text-lg lg:text-xl xl:text-2xl mb-2 xl:mb-5">
                         {Content("Credibility.Statistic")}
                       </h2>
                       <Image
@@ -517,7 +542,7 @@ export default function Home() {
                         height={28}
                       />
                     </div>
-                    <p className="text-sm w-11/12">
+                    <p className="text-xs md:text-sm  w-11/12">
                       {Content("Credibility.StatisticDesc")}
                     </p>
                   </div>

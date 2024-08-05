@@ -19,14 +19,18 @@ const Type = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // Content
-  const ChooseTypeContent = useTranslations("Auth.ChooseType");
+// Content
+const ChooseTypeContent = useTranslations("Auth.ChooseType");
 
-  // Language
-  useEffect(() => {
+// Check if we are in the browser environment
+const isBrowser = typeof window !== "undefined";
+
+useEffect(() => {
+  if (isBrowser) {
     const lg = JSON.parse(localStorage.getItem("lg") || "null");
     setLanguage(lg);
-  }, []);
+  }
+}, [isBrowser]);
 
   // Check if Authenticated and redirect
   useEffect(() => {

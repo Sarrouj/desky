@@ -21,8 +21,8 @@ useEffect(() => {
             </div>
             <ul className="flex gap-8 sm:gap-12 md:gap-14 lg:gap-16 xl:gap-20 text-xs md:text-sm font-semibold text-secondaryDarkBlue">
                 <li><Link href={`/${Language}/`}>Home</Link></li>
-                <li><Link href={""}>About</Link></li>
-                <li><Link href={`/${Language}/About-Us`}>Contact</Link></li>
+                <li><Link href={`/${Language}/About-Us`}>About</Link></li>
+                <li><Link href={`/${Language}/Contact-Us`}>Contact</Link></li>
                 <li><Link href={`/${Language}/FAQ`}>FAQ</Link></li>
             </ul>
         </div>

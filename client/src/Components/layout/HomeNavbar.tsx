@@ -59,28 +59,28 @@ const HomeNavbar: React.FC<HomeNavbarProps>  = ({NavbarContent}) => {
 
 
   return (
-    <header className="flex items-center py-3 px-20 justify-between text-secondaryDarkBlue ">
-      <Link href={"/"} className="text-2xl font-bold text-primaryOrange">Desky</Link>
-      <nav className="flex gap-8 text-sm font-medium ml-44">
-        <Link href={"/"} className="text-primaryOrange font-bold">
+    <header className="flex items-center py-3 px-5 md:px-12 lg:px-18 xl:px-20 justify-between text-secondaryDarkBlue ">
+      <Link href={"/"} className="text-xl lg:text-2xl font-bold text-primaryOrange">Desky</Link>
+      <nav className="hidden md:flex gap-4 lg:ga-6 xl:gap-8 text-sm font-medium  xl:ml-44">
+        <Link href={"/"} className="text-primaryOrange font-bold text-xs lg:text-sm ">
           {NavbarContent("NavLinks.Home")}
         </Link>
-        <Link href={`/${rout}/offers`} className="hover:text-primary ">{NavbarContent("NavLinks.Offers")}</Link>
-        <Link href={"/"} className="hover:text-primary ">{NavbarContent("NavLinks.FAQ")}</Link>
-        <Link href={"/"} className="hover:text-primary ">{NavbarContent("NavLinks.AboutUs")}</Link>
+        <Link href={`/${rout}/offers`} className="hover:text-primary text-xs lg:text-sm ">{NavbarContent("NavLinks.Offers")}</Link>
+        <Link href={`/${rout}/FAQ`} className="hover:text-primary text-xs lg:text-sm ">{NavbarContent("NavLinks.FAQ")}</Link>
+        <Link href={`/${rout}/About-Us`} className="hover:text-primary text-xs lg:text-sm ">{NavbarContent("NavLinks.AboutUs")}</Link>
       </nav>
-      <div className="flex items-center gap-2">
+      <div className="items-center gap-2 hidden md:flex">
         <Link href={`/${rout}/login`}>
-            <Button className="px-5 bg-white border text-secondaryDarkBlue hover:bg-neutralBg">{NavbarContent("Auth.Login")}</Button>
+            <Button className="px-5 bg-white border text-secondaryDarkBlue hover:bg-neutralBg text-xs lg:text-sm ">{NavbarContent("Auth.Login")}</Button>
         </Link>
         <Link href={`/${rout}/Sign-Up`}>
-            <Button className="text-white px-5">{NavbarContent("Auth.SignUp")}</Button>
+            <Button className="text-white px-5 text-xs lg:text-sm">{NavbarContent("Auth.SignUp")}</Button>
         </Link>
         <Select onValueChange={changeSelectedValue}>
-            <SelectTrigger className="w-[90px] border-none focus:ring-0 focus:ring-white">
+            <SelectTrigger className="w-[90px] border-none focus:ring-0 focus:ring-white text-xs lg:text-sm">
                 <SelectValue placeholder={currentLang}/>
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="text-xs lg:text-sm">
                 <SelectGroup>
                     <SelectItem value="French" className={currentLang == "French" || currentLang == 'Français' ? "bg-neutralBg" : "bg-white"}>{NavbarContent("Languages.French")}</SelectItem>
                     <SelectItem value="English" className={currentLang == "English" || currentLang == "Anglais" ? "bg-neutralBg" : "bg-white"}>{NavbarContent("Languages.English")}</SelectItem>
