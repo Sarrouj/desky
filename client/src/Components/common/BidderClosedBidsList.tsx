@@ -148,9 +148,9 @@ const ClosedBidderBidsList = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>{content("")}</TooltipTrigger>
+                        <TooltipTrigger>{content("Estimate")}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
-                          {content("Estimate")}
+                          {content("Review")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -158,7 +158,7 @@ const ClosedBidderBidsList = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>{content("")}</TooltipTrigger>
+                        <TooltipTrigger>{content("AddReview")}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
                           {content("AddReviewNameDesc1")} <br />
                           {content("AddReviewNameDesc2")}
