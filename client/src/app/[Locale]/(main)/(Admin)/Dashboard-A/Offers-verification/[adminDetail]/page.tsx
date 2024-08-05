@@ -234,10 +234,23 @@ const AdminDetails = ({ params }: { params: any }) => {
   }, [depositorLegalDetails]);
 
   const handleAccept = async () => {
-    await axios.put(`http://localhost:3001/admin/offer/verify/${offer_id}`, {
-      user_id,
-    });
+    console.log(offer_id);
+    console.log(user_id);
+    if (offer_id) {
+      try {
+        await axios.put(
+          `http://localhost:3001/admin/offer/verify/${offer_id}`,
+          {
+            user_id,
+          }
+        );
+        window.location.href = `/${Language}/Dashboard-A/Offers-verification`;
+      } catch (error) {
+        console.error("Error verifying offer:", error);
+      }
+    }
   };
+
   const handleRefuse = () => {
     axios.put(`http://localhost:3001/admin/offer/refuse/${offer_id}`, {
       user_id,
@@ -551,7 +564,10 @@ const AdminDetails = ({ params }: { params: any }) => {
                 </div>
               </div>
               <div className="mt-2 md:mt-12 flex flex-row md:flex-col lg:flex-row items-center gap-2">
-                <button className="bg-green-600 text-white px-4 py-2 hover:bg-green-500 w-full rounded-full text-xs lg:text-sm transition duration-500 ease-in-out">
+                <button
+                  onClick={handleAccept}
+                  className="bg-green-600 text-white px-4 py-2 hover:bg-green-500 w-full rounded-full text-xs lg:text-sm transition duration-500 ease-in-out"
+                >
                   Accept
                 </button>
                 <Dialog>
@@ -706,7 +722,10 @@ const AdminDetails = ({ params }: { params: any }) => {
                 </div>
               </div>
               <div className="mt-2 md:mt-12 flex flex-row md:flex-col lg:flex-row items-center gap-2">
-                <button className="bg-green-600 text-white px-4 py-2 hover:bg-green-500 w-full rounded-full text-xs lg:text-sm transition duration-500 ease-in-out">
+                <button
+                  onClick={handleAccept}
+                  className="bg-green-600 text-white px-4 py-2 hover:bg-green-500 w-full rounded-full text-xs lg:text-sm transition duration-500 ease-in-out"
+                >
                   Accept
                 </button>
                 <Dialog>
@@ -838,7 +857,10 @@ const AdminDetails = ({ params }: { params: any }) => {
               </div>
             </div>
             <div className="mt-2 md:mt-12 flex flex-row md:flex-col lg:flex-row items-center gap-2">
-              <button className="bg-green-600 text-white px-4 py-2 hover:bg-green-500 w-full rounded-full text-xs lg:text-sm transition duration-500 ease-in-out">
+              <button
+                onClick={handleAccept}
+                className="bg-green-600 text-white px-4 py-2 hover:bg-green-500 w-full rounded-full text-xs lg:text-sm transition duration-500 ease-in-out"
+              >
                 Accept
               </button>
               <Dialog>
