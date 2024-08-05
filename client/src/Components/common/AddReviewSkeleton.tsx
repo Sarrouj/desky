@@ -55,9 +55,6 @@ const AddReviewSkeleton = ({
           <Skeleton className="h-4 w-32 inline-block" />
         </TableCell>
         <TableCell className="text-center">
-          <Skeleton className="h-4 w-32 inline-block" />
-        </TableCell>
-        <TableCell className="text-center">
           <Skeleton className="h-4 w-14 inline-block" />
         </TableCell>
         <TableCell className="text-center  ">
@@ -89,19 +86,6 @@ const AddReviewSkeleton = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>
-                          {Content("DepositorName")}
-                        </TooltipTrigger>
-                        <TooltipContent side="top" className="text-xs font-sm ">
-                          {Content("DepositorNameDesc1")} <br />
-                          {Content("DepositorNameDesc2")}
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </TableHead>
-                  <TableHead className="text-center">
-                    <TooltipProvider>
-                      <Tooltip>
                         <TooltipTrigger>{Content("Date")}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
                           {Content("DateTooltip")}
@@ -109,7 +93,6 @@ const AddReviewSkeleton = ({
                       </Tooltip>
                     </TooltipProvider>
                   </TableHead>
-
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>

@@ -131,14 +131,13 @@ router.post(
         depositor_id: user_id,
       });
 
-      const email = process.env.EMAIL_USER;
-
       const mailOptions = {
         from: "Desky",
-        to: email,
-        subject: "New Offer Notification",
-        text: `Hello Admin`,
+        to: "sarrouj.zaid.solicode@gmail.com",
+        subject: "New Offer",
+        text: "New Offer",
         html: `<!DOCTYPE html>
+  <html>
     <head>
       <style>
         .email-container {
@@ -208,18 +207,16 @@ router.post(
   `,
       };
 
-      // Send the email
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-          console.error("Failed to send email:", error);
           return res.status(500).json({ error: "Failed to send email" });
         }
-
-        // Respond with success after the email is sent successfully
         res.status(201).json({
-          success: "A New Offer has been added and email sent successfully",
+          success: "Auto entrepreneur information added successfully",
         });
       });
+
+      res.status(201).json({ success: "Offer created successfully" });
     } catch (err) {
       next(err);
     }
