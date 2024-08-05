@@ -119,8 +119,8 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="w-2/4 items-start hidden lg:flex flex-col gap-3 -rotate-[25deg] xl:-rotate-45 ml-36 mt-20">
-                <div className="flex items-center gap-5">
+              <div className="w-2/4 items-start hidden lg:flex flex-col gap-3   xl:-rotate-45 xl:ml-36 lg:mt-20 xl:mt-12">
+                <div className="hidden xl:flex items-center gap-5">
                   <div className="p-2 xl:p-3.5 bg-white w-44 xl:w-52 shadow-lg">
                     <p className="text-xs mb-2">Offers Accepted</p>
                     <div className="w-full flex justify-between">
@@ -165,7 +165,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex relative bg-slate-600 w-full">
-                  <div className="bg-white shadow-lg py-2 px-3 xl:px-5 rounded-lg -rotate-90 absolute top-12 left-[-35px]">
+                  <div className="bg-white shadow-lg py-2 px-5 rounded-lg -rotate-90 absolute top-12 left-[-35px] ">
                     <p className="text-xs mb-1">Total of bids</p>
                     <div className="flex items-center justify-between mb-2">
                       <p className="font-semibold text-xs">230</p>
@@ -237,7 +237,7 @@ export default function Home() {
                         See More
                       </button>
                     </div>
-                    <div className="bg-gray-100 w-60 xl:w-72 h-56 xl:h-64 flex items-center justify-center">
+                    <div className="bg-gray-100 w-72 h-64 flex items-center justify-center">
                       <Image
                         src={"/HeroChartLine.svg"}
                         alt={""}
@@ -366,7 +366,7 @@ export default function Home() {
               </div>
             </div>
           </section>
-          <section className="py-36 border-b-2 relative overflow-hidden hidden lg:block">
+          <section className="py-36 border-b-2 relative overflow-hidden hidden xl:block">
             <div className="bg-gray-100 w-[500px] h-[500px] rounded-full absolute -right-36 top-20"></div>
             <div></div>
             <div className="w-full px-20">
@@ -388,10 +388,10 @@ export default function Home() {
               <div className="w-full flex gap-20 absolute top-20 z-50">
                 <div className="flex flex-col gap-52">
                   <div className="w-[500px]">
-                    <h6 className="text-primary">
+                    <h6 className="text-primary text-sm xl:text-base">
                       {Content("ProcessSection.UpTitle")}
                     </h6>
-                    <h1 className="font-extrabold	text-4xl ">
+                    <h1 className="font-extrabold	text-2xl xl:text-4xl ">
                       {Content("ProcessSection.Title")}
                     </h1>
                     <p className="mt-1">{Content("ProcessSection.Desc")}</p>
