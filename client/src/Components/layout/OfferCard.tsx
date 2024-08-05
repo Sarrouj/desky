@@ -53,7 +53,7 @@ const OfferCard: React.FC<OfferCardProps> = ({
       <div className="bg-white transition-colors duration-300 hover:bg-gray-50 rounded-lg p-4 lg:p-6 xl:p-8 shadow">
         <h2 className="text-md md:text-lg xl:text-xl font-bold">{title}</h2>
         <div className="flex text-xs xl:text-sm gap-5 mt-1 text-neutralGray">
-          <p>{OfferContent('Posted')} {timeSince(date)}</p>
+          <p className="hidden md:block">{OfferContent('Posted')} {timeSince(date)}</p>
           <div className="flex gap-1 items-center">
             <MapPin size={15} className="text-primary"/>
             <p>{location}</p>
@@ -68,14 +68,14 @@ const OfferCard: React.FC<OfferCardProps> = ({
         <div className="mt-3">
           <div className="flex gap-8 text-xs xl:text-sm items-center">
             <div className="flex gap-2 items-center justify-center">
-              <p className="text-neutralGray">{OfferContent('Cat')} :</p>
+              <p className="text-neutralGray hidden md:block">{OfferContent('Cat')} :</p>
               <ul className="flex gap-2 items-center">
                 {Category.map((c, index) => (
                   <CategoryBtnCard key={index} value={c}/>
                 ))}
               </ul>
             </div>
-            <p className="text-neutralGray">
+            <p className="text-neutralGray hidden md:block">
             {OfferContent('Proposals')} :{" "}
               <span className="font-semibold text-secondary">{ProposalsNumber}</span>
             </p>
