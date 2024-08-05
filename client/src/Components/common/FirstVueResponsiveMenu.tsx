@@ -20,7 +20,7 @@ import { Button } from "../ui/Button";
 import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 
-const FirstVueResponsiveMenu = ({ Language } : {Language : any}) => {
+const FirstVueResponsiveMenu = ({ Language }: { Language: any }) => {
   const [LogedOut, setLogedOut] = useState(true);
   const { data: session, status } = useSession();
   const userType: string | null = session ? session.user?.role : null;
@@ -55,21 +55,39 @@ const FirstVueResponsiveMenu = ({ Language } : {Language : any}) => {
                 <p className="text-white">D</p>
               </Link>
               {userType == "depositor" ? (
-                <Link
-                  href={`/${Language}/dashboard-d`}
-                  className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary "
-                >
-                  <Home className="h-5 w-5" />
-                  Dashboard
-                </Link>
+                <>
+                  <Link
+                    href={`/${Language}/dashboard-d`}
+                    className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary "
+                  >
+                    <Home className="h-5 w-5" />
+                    Dashboard
+                  </Link>
+                  <Link
+                    href={`/${Language}/Profile-D`}
+                    className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
+                  >
+                    <User className="h-5 w-5" />
+                    Profile
+                  </Link>
+                </>
               ) : userType == "bidder" ? (
-                <Link
-                  href={`/${Language}/Dashboard-B`}
-                  className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
-                >
-                  <Home className="h-5 w-5" />
-                  Dashboard
-                </Link>
+                <>
+                  <Link
+                    href={`/${Language}/Dashboard-B`}
+                    className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
+                  >
+                    <Home className="h-5 w-5" />
+                    Dashboard
+                  </Link>
+                  <Link
+                    href={`/${Language}/Profile-B`}
+                    className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
+                  >
+                    <User className="h-5 w-5" />
+                    Profile
+                  </Link>
+                </>
               ) : (
                 <Link
                   href={`/${Language}/Dashboard-A/Offers-verification`}
@@ -79,13 +97,6 @@ const FirstVueResponsiveMenu = ({ Language } : {Language : any}) => {
                   Dashboard
                 </Link>
               )}
-              <Link
-                href="#"
-                className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
-              >
-                <User className="h-5 w-5" />
-                Profile
-              </Link>
               <Link
                 href={`/${Language}/`}
                 className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
@@ -101,21 +112,21 @@ const FirstVueResponsiveMenu = ({ Language } : {Language : any}) => {
                 Offers
               </Link>
               <Link
-                href="#"
+                href={`/${Language}/About-Us`}
                 className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
               >
                 <Info className="h-5 w-5" />
                 About Us
               </Link>
               <Link
-                href="#"
+                href={`/${Language}/FAQ`}
                 className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
               >
                 <MessagesSquare className="h-5 w-5" />
                 FAQ
               </Link>
               <Link
-                href="#"
+                href={`/${Language}/Contact-Us`}
                 className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
               >
                 <LifeBuoy className="h-5 w-5" />
@@ -177,7 +188,7 @@ const FirstVueResponsiveMenu = ({ Language } : {Language : any}) => {
                 FAQ
               </Link>
               <Link
-                href="#"
+                href={`/${Language}/Contact-Us`}
                 className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
               >
                 <LifeBuoy className="h-5 w-5" />

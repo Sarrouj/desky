@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Settings, LifeBuoy, LogOut, User, Package2 } from "lucide-react";
+import { LifeBuoy, LogOut, User, Package2 } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -62,7 +62,6 @@ const FirstVueDropDownMenu = ({
     if (status == "unauthenticated") {
       setLogedOut(false);
     }
-
   }, [status, Language]);
 
   const handleLogout = () => {
@@ -149,14 +148,12 @@ const FirstVueDropDownMenu = ({
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>{content("User.Settings")}</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <LifeBuoy className="mr-2 h-4 w-4" />
-                <span>{content("User.Support")}</span>
-              </DropdownMenuItem>
+              <Link href={`/${Language}/Contact-Us`}>
+                <DropdownMenuItem>
+                  <LifeBuoy className="mr-2 h-4 w-4" />
+                  <span>{content("User.Support")}</span>
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout}>
