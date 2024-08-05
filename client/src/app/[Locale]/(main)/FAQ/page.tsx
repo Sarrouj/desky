@@ -13,6 +13,7 @@ import { useTranslations } from "next-intl";
 const FAQ = () => {
   // Content
   const NavbarContent = useTranslations("NavBar");
+  const Content = useTranslations("FAQ");
   return (
     <>
       <Header
@@ -22,81 +23,71 @@ const FAQ = () => {
         FAQ={"text-primary font-semibold"}
         AboutUS={"hover:text-primary"}
       />
-      <main className="bg-neutralBg">
-        <div className="flex flex-col gap-10 justify-around items-center p-10">
-          <div className="flex flex-col justify-center align-middle gap-2 w-2/3">
-            <h1 className="text-4xl font-semibold text-center">
-              We Are Here To Answer All Your Questions
+      <main className="bg-neutralBg text-secondaryDarkBlue border-t-2">
+        <div className="flex flex-col gap-10 justify-around items-center p-5 md:p-10">
+          <div className="flex flex-col justify-center align-middle gap-2 w-full lg:w-2/3 py-6 md:py-8 lg:py-12 xl:py-14">
+            <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-center text-secondaryDarkBlue">
+            {Content("Title")}
             </h1>
-            <p className="text-center">
-              if you are new to{" "}
-              <span className="text-primary text-xl font-bold">DESKY</span> this
-              session will help you to learn more about our services
+            <p className="text-center text-xs md:text-sm lg:text-base">
+            {Content("Desc")}
             </p>
           </div>
           <Accordion
             type="single"
             collapsible
-            className="w-1/2 bg-white rounded-lg"
+            className="w-full lg:w-3/4 xl:w-2/3	 bg-white rounded-lg"
           >
-            <AccordionItem value="item-1" className="px-5">
-              <AccordionTrigger>What is DESKY ?</AccordionTrigger>
-              <AccordionContent>
-                Desky is the first platform for private calls for bids
+            <AccordionItem value="item-1" className="px-5 text-center md:text-start">
+              <AccordionTrigger className="text-sm md:text-base">{Content("Items.Item1.Title")}</AccordionTrigger>
+              <AccordionContent className="text-xs md:text-sm">
+              {Content("Items.Item1.Desc")}
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="item-2" className="px-5">
-              <AccordionTrigger>How to place a bid ?</AccordionTrigger>
-              <AccordionContent>
-                To place a bid, first go to the offers page, then choose the
-                offer that you want to bid on, and click the &apos;Apply
-                Now&apos; button.
+            <AccordionItem value="item-2" className="px-5 text-center md:text-start">
+              <AccordionTrigger className="text-sm md:text-base">{Content("Items.Item2.Title")}</AccordionTrigger>
+              <AccordionContent className="text-xs md:text-sm">
+              {Content("Items.Item2.Desc")}
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="item-3" className="px-5">
-              <AccordionTrigger>
-                What happens once a bid is accepted?
+            <AccordionItem value="item-3" className="px-5 text-center md:text-start">
+              <AccordionTrigger className="text-sm md:text-base">
+              {Content("Items.Item3.Title")}
               </AccordionTrigger>
-              <AccordionContent>
-                Once the bid is accepted the offer is no longer available for
-                bids. then the bidder and the depositor can work together
+              <AccordionContent className="text-xs md:text-sm">
+              {Content("Items.Item3.Desc")}
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="item-4" className="px-5">
-              <AccordionTrigger>
-                Is there a feedback or rating system for calls and bids?
+            <AccordionItem value="item-4" className="px-5 text-center md:text-start">
+              <AccordionTrigger className="text-sm md:text-base">
+              {Content("Items.Item4.Title")}
               </AccordionTrigger>
-              <AccordionContent>
-                Yes. When the depositor and the bidder finish working together,
-                they can rate and review each other.
+              <AccordionContent className="text-xs md:text-sm">
+              {Content("Items.Item4.Desc")}
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="item-5" className="px-5">
-              <AccordionTrigger>
-                How can users track their activity and success rates?
+            <AccordionItem value="item-5" className="px-5 text-center md:text-start">
+              <AccordionTrigger className="text-sm md:text-base">
+              {Content("Items.Item5.Title")}
               </AccordionTrigger>
-              <AccordionContent>
-                Click on the menu bar in the top right corner, then select
-                Dashboard. There, you can view all the analytics and activities
-                of your account.
+              <AccordionContent className="text-xs md:text-sm">
+              {Content("Items.Item5.Desc")}
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="item-6" className="px-5">
-              <AccordionTrigger>
-                How does the platform verify the identity of users?
+            <AccordionItem value="item-6" className="px-5 text-center md:text-start">
+              <AccordionTrigger className="text-sm md:text-base">
+              {Content("Items.Item6.Title")}
               </AccordionTrigger>
-              <AccordionContent>
-                The platform verifies the identity of users by email and CR for
-                companies, or an auto entrepreneur card for individuals.
+              <AccordionContent className="text-xs md:text-sm">
+              {Content("Items.Item6.Desc")}
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="item-7" className="px-5">
-              <AccordionTrigger>
-                How does the platform verify the offers?
+            <AccordionItem value="item-7" className="px-5 text-center md:text-start">
+              <AccordionTrigger className="text-sm md:text-base">
+              {Content("Items.Item7.Title")}
               </AccordionTrigger>
-              <AccordionContent>
-                The platform verify the offers based on the Platform&apos;s
-                strict Terms and conditions.{" "}
+              <AccordionContent className="text-xs md:text-sm">
+              {Content("Items.Item7.Desc")}
               </AccordionContent>
             </AccordionItem>
           </Accordion>

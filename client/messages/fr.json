@@ -632,5 +632,39 @@
         "justNow": "À l'instant"
       }
     }
+  },
+  "FAQ": {
+    "Title": "Nous Sommes Ici pour Répondre à Toutes vos Questions",
+    "Desc": "Si vous êtes nouveau sur Desky, cette session vous aidera à en savoir plus sur nos services.",
+    "Items": {
+      "Item1": {
+        "Title": "Qu'est-ce que DESKY ?",
+        "Desc": "Desky est la première plateforme de demandes de propositions privées."
+      },
+      "Item2": {
+        "Title": "Comment soumettre une offre ?",
+        "Desc": "Pour soumettre une offre, rendez-vous d'abord sur la page des offres, choisissez ensuite l'offre sur laquelle vous souhaitez enchérir, et cliquez sur le bouton Postuler maintenant."
+      },
+      "Item3": {
+        "Title": "Que se passe-t-il une fois qu'une offre est acceptée ?",
+        "Desc": "Une fois l'offre acceptée, l'offre n'est plus disponible pour les enchères. Ensuite, l'enchérisseur et le déposant peuvent travailler ensemble."
+      },
+      "Item4": {
+        "Title": "Existe-t-il un système de rétroaction ou de notation pour les appels et les offres ?",
+        "Desc": "Oui. Lorsque le déposant et l'enchérisseur ont terminé de travailler ensemble, ils peuvent s'évaluer mutuellement et laisser des avis."
+      },
+      "Item5": {
+        "Title": "Comment les utilisateurs peuvent-ils suivre leur activité et leur taux de succès ?",
+        "Desc": "Cliquez sur la barre de menu en haut à droite, puis sélectionnez Tableau de bord. Vous y trouverez toutes les analyses et activités de votre compte."
+      },
+      "Item6": {
+        "Title": "Comment la plateforme vérifie-t-elle l'identité des utilisateurs ?",
+        "Desc": "La plateforme vérifie l'identité des utilisateurs par e-mail et CR pour les entreprises, ou une carte d'auto-entrepreneur pour les individus."
+      },
+      "Item7": {
+        "Title": "Comment la plateforme vérifie-t-elle les offres ?",
+        "Desc": "La plateforme vérifie les offres en fonction des termes et conditions stricts de la plateforme."
+      }
+    }
   }
 }
