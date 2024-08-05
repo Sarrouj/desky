@@ -4,6 +4,7 @@ import Header from "@/Components/layout/Header";
 import { useTranslations } from "next-intl";
 function AboutUs() {
   const NavbarContent = useTranslations("NavBar");
+  const Content = useTranslations("AboutUs");
   return (
     <>
       <Header
@@ -13,7 +14,9 @@ function AboutUs() {
         FAQ={"text-primary font-semibold"}
         AboutUS={"hover:text-primary"}
       />
-      <div>AboutUs</div>
+      <div className="bg-neutralBg text-secondaryDarkBlue min-h-screen w-full flex flex-col justify-center items-center text-center">
+        <p className="text-lg md:text-xl lg:text-2xl font-bold mb-16">{Content('Title')}</p>
+      </div>
     </>
   );
 }
