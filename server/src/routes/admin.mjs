@@ -390,7 +390,7 @@ router.put(
 
       const mailOptions = {
         from: "Desky",
-        to: user[type + "_email"],
+        to: depositor.depositor_email,
         subject: "Your Offer is Verified!",
         text: `Your Offer "${offer.offer_title}" is verified`,
         html: `<!DOCTYPE html>
@@ -620,7 +620,7 @@ router.post(
         return res.status(404).json({ error: "Admin not found" });
       }
 
-      const existingAdmin = await Admins.findOne(admin_email);
+      const existingAdmin = await Admins.findOne({admin_email:admin_email});
       if (existingAdmin) {
         return res.status(400).json({ error: "email already exists" });
       }
