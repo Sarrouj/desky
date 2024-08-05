@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import CategoryBtn from "@/Components/common/CategoryBtn";
 import Image from "next/image";
-import Link from "next/link";
 import { useBoundStore } from "@/lib/store";
 import { timeSince } from "@/Components/common/timeSince";
 import Header from "@/Components/layout/Header";
@@ -20,14 +19,14 @@ import { MapPin, StarIcon } from "lucide-react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogFooter,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 
 const Details = ({ params }: { params: any }) => {
+  const DetailContent = useTranslations("OffersDetail");
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { data: session, status } = useSession();
   const user_id = session ? session.user?.id : null;
@@ -35,7 +34,6 @@ const Details = ({ params }: { params: any }) => {
   const [depositorDetails, setDepositorDetails] = useState<any>(null);
   const [depositorOffers, setDepositorOffers] = useState<any>(null);
   const [depositorLegalDetails, setDepositorLegalDetails] = useState<any>(null);
-  const [message, setMessage] = useState("");
   const [success, setSuccess] = useState<[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [AutoEntrepreneur, SetAutoEntrepreneur] = useState(false);
@@ -146,8 +144,6 @@ const Details = ({ params }: { params: any }) => {
       console.error(error);
     }
   };
-
-  // DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
 
   const offer_id = params.adminDetail;
   useEffect(() => {
@@ -347,7 +343,7 @@ const Details = ({ params }: { params: any }) => {
               <div className="hidden sm:flex pag-2 gap-4 md:gap-6 lg:gap-8 xl:gap-10 text-neutralGray text-xs sm:text-sm lg:text-base">
                 {OfferDateOfPosting ? (
                   <p>
-                    Posted
+                    {DetailContent("Posted")}
                     {timeSince(OfferDateOfPosting)}
                   </p>
                 ) : (
@@ -360,7 +356,7 @@ const Details = ({ params }: { params: any }) => {
                         size={20}
                         className="text-primary w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5"
                       />
-                      <p>Location :</p>
+                      <p>{DetailContent("Location")}</p>
                       <ul className="flex gap-1.5">
                         <li>{OfferLocation}</li>
                       </ul>
@@ -374,7 +370,7 @@ const Details = ({ params }: { params: any }) => {
                 {CategoriesElement ? (
                   <>
                     <h6 className="font-semibold hidden md:block text-sm lg:text-base">
-                      Category :
+                      {DetailContent("Category")}
                     </h6>
                     <ul className="md:flex gap-2 hidden">
                       {CategoriesElement.map((c: any, index: any) => (
@@ -415,7 +411,7 @@ const Details = ({ params }: { params: any }) => {
                       className="w-4 h-4 lg:w-5 lg:h-5 hidden sm:block"
                     />
                     <h6 className="font-bold">
-                      <span>Est.Budget : </span>
+                      <span>{DetailContent("EstBudget")}</span>
                       <span className="font-medium"> {OfferBudget} DH</span>
                     </h6>
                   </>
@@ -434,7 +430,7 @@ const Details = ({ params }: { params: any }) => {
                       className="w-4 h-4 lg:w-5 lg:h-5 hidden sm:block"
                     />
                     <h6 className="font-bold">
-                      Deadline :
+                      {DetailContent("Deadline")}
                       <span className="font-medium"> {offerDeadline}</span>
                     </h6>
                   </>
@@ -446,7 +442,7 @@ const Details = ({ params }: { params: any }) => {
             <div className="py-4 md:py-6 lg:py-8 xl:py-10 pr-20 border-b-2 md:border-none">
               {OfferAttachment || depositorDetails ? (
                 <h3 className="font-bold text-xs sm:text-sm lg:text-lg mb-4 lg:mb-6 xl:mb-8">
-                  Attachments
+                  {DetailContent("Attachements")}
                 </h3>
               ) : (
                 <Skeleton className="w-48 h-6 rounded-full bg-gray-200 mb-8" />
@@ -476,7 +472,7 @@ const Details = ({ params }: { params: any }) => {
                         </a>
                       </>
                     ) : (
-                      <p>No Attachments Found</p>
+                      <p>{DetailContent("NoAttachments")}</p>
                     )}
                   </>
                 ) : (
@@ -525,8 +521,8 @@ const Details = ({ params }: { params: any }) => {
                       <div className="flex gap-1">
                         <p className="text-xs lg:text-sm xl:text-base">
                           <span className="text-secondaryDarkBlue font-semibold">
-                            Rating:
-                          </span>{" "}
+                            {DetailContent("Rating")}
+                          </span>
                           {averageRating}
                         </p>
                       </div>
@@ -561,10 +557,13 @@ const Details = ({ params }: { params: any }) => {
                             ))}
                           </>
                         }
-                        <p className="text-xs lg:text-sm xl:text-base">{averageRating}</p>
+                        <p className="text-xs lg:text-sm xl:text-base">
+                          {averageRating}
+                        </p>
                       </div>
                       <p className="text-xs lg:text-sm xl:text-base">
-                        {averageRating} of {totalReviews} reviews
+                        {averageRating} {DetailContent("of")} {totalReviews}{" "}
+                        {DetailContent("reviews")}
                       </p>
                     </div>
                   )}
@@ -580,7 +579,11 @@ const Details = ({ params }: { params: any }) => {
                           : null}
                       </p>
                     )}
-                    {!companySize ? null : <p>{companySize} Company</p>}
+                    {!companySize ? null : (
+                      <p>
+                        {companySize} {DetailContent("Company")}
+                      </p>
+                    )}
                   </div>
                   <div className="text-xs lg:text-sm xl:text-base">
                     {CompanyCity ? (
@@ -593,13 +596,15 @@ const Details = ({ params }: { params: any }) => {
                   </div>
                   <div className="text-xs lg:text-sm xl:text-base">
                     <p className="font-bold text-xs lg:text-sm xl:text-base">
-                      Offer posted: {postedOffers}
+                      {DetailContent("OfferPosted")} {postedOffers}
                     </p>
 
                     {activeOffers == 0 ? (
-                      <p>No active offers</p>
+                      <p>{DetailContent("NoActiveOffers")} </p>
                     ) : (
-                      <p>Active Offers: {activeOffers}</p>
+                      <p>
+                        {DetailContent("ActiveOffers")} {activeOffers}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -623,7 +628,7 @@ const Details = ({ params }: { params: any }) => {
                         </DialogTrigger>
                         <DialogContent>
                           <DialogHeader className="text-lg font-bold text-secondaryDarkBlue">
-                            Add your Estimate
+                            {Content("AddEstimate")}
                           </DialogHeader>
                           <Input
                             id="Attachment"
@@ -695,7 +700,7 @@ const Details = ({ params }: { params: any }) => {
                       <div className="flex gap-1">
                         <p className="text-xs lg:text-sm xl:text-base">
                           <span className="text-secondaryDarkBlue font-semibold">
-                            Rating:
+                            {Content("Rating")}
                           </span>{" "}
                           {averageRating}
                         </p>
@@ -739,7 +744,8 @@ const Details = ({ params }: { params: any }) => {
                         </p>
                       </div>
                       <p className="text-xs lg:text-sm xl:text-base">
-                        {averageRating} of {totalReviews} reviews
+                        {averageRating} {Content("of")} {totalReviews}{" "}
+                        {Content("reviews")}
                       </p>
                     </div>
                   )}
@@ -768,13 +774,15 @@ const Details = ({ params }: { params: any }) => {
                   </div>
                   <div className="text-xs lg:text-sm xl:text-base">
                     <p className="font-bold text-xs lg:text-sm xl:text-base">
-                      Offer posted: {postedOffers}
+                      {Content("NoActiveOffers")} {postedOffers}
                     </p>
 
                     {activeOffers == 0 ? (
-                      <p>No active offers</p>
+                      <p>{Content("CallToAction")}</p>
                     ) : (
-                      <p>Active Offers: {activeOffers}</p>
+                      <p>
+                        {Content("ActiveOffers")} {activeOffers}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -798,7 +806,7 @@ const Details = ({ params }: { params: any }) => {
                         </DialogTrigger>
                         <DialogContent>
                           <DialogHeader className="text-lg font-bold text-secondaryDarkBlue">
-                            Add your Estimate
+                            {Content("AddEstimate")}
                           </DialogHeader>
                           <Input
                             id="Attachment"
@@ -871,7 +879,7 @@ const Details = ({ params }: { params: any }) => {
                     <div className="flex gap-1">
                       <p className="text-xs lg:text-sm xl:text-base">
                         <span className="text-secondaryDarkBlue font-semibold">
-                          Rating:
+                          {Content("Rating")}
                         </span>{" "}
                         {averageRating}
                       </p>
@@ -914,20 +922,25 @@ const Details = ({ params }: { params: any }) => {
                       </p>
                     </div>
                     <p className="text-xs lg:text-sm xl:text-base">
-                      {averageRating} of {totalReviews} reviews
+                      {averageRating} {Content("of")} {totalReviews}{" "}
+                      {Content("reviews")}
                     </p>
                   </div>
                 )}
                 <div className="text-xs lg:text-sm xl:text-base">
-                  <p className="font-bold">Offer posted: {postedOffers}</p>
+                  <p className="font-bold">
+                    {Content("OfferPosted")} {postedOffers}
+                  </p>
                   {activeOffers == 0 ? (
-                    <p>No active offers</p>
+                    <p>{Content("NoActiveOffers")}</p>
                   ) : (
-                    <p>Active Offers: {activeOffers}</p>
+                    <p>
+                      {Content("ActiveOffers")} {activeOffers}
+                    </p>
                   )}
                 </div>
                 <div className="py-10 lg:py-16 xl:py-20 w-full flex justify-center items-center">
-                  <p className="text-xs xl:text-sm">No Data Found</p>
+                  <p className="text-xs xl:text-sm">{Content("NoData")}</p>
                 </div>
               </div>
               <div className="mt-2 md:mt-8 xl:mt-12 flex flex-col items-center">
@@ -950,7 +963,7 @@ const Details = ({ params }: { params: any }) => {
                       </DialogTrigger>
                       <DialogContent>
                         <DialogHeader className="text-lg font-bold text-secondaryDarkBlue">
-                          Add your Estimate
+                          {Content("AddEstimate")}
                         </DialogHeader>
                         <Input
                           id="Attachment"
@@ -989,40 +1002,42 @@ const Details = ({ params }: { params: any }) => {
             <DetailsInfoSkeleton />
           )}
         </section>
-          {success && success.length > 0 ? (
-            <section className="mt-5 md:mt-10 lg:mt-16 xl:mt-20 border-2 rounded-lg py-4 md:py-6 lg:py-8 xl:py-10 ">
-              <div className="border-b-2 px-4 md:px-6 lg:px-8 xl:px-10">
-                <h3 className="font-bold text-sm md:text-base lg:text-lg mb-2 md:mb-4 lg:mb-6 xl:mb-8">
-                  {Content("ReviewsHistory")}{" "}
-                  <span className="text-primary font-medium">
-                    {success?.length}
-                  </span>
-                </h3>
-              </div>
-              <div className="px-4 md:px-6 lg:px-8 xl:px-10 py-4 md:py-6 lg:py-8 xl:py-10 flex flex-col gap-6 md:gap-8 lg:gap-10 xl:gap-12">
-                {success?.map((review: any, index) => (
-                  <div key={index}>
-                    <div className="flex items-center gap-3">
-                      <div className="rounded-full bg-slate-200 text-blue-400 w-8 h-8 lg:w-10 lg:h-10 text-xs md:text-sm lg:text-base  flex items-center justify-center">
-                        {review.bidder_name
-                          .split(" ")
-                          .map((n: any) => n[0].toUpperCase())
-                          .join("")}
-                      </div>
-                      <h6 className="font-semibold text-xs md:text-sm lg:text-base">{review.bidder_name}</h6>
+        {success && success.length > 0 ? (
+          <section className="mt-5 md:mt-10 lg:mt-16 xl:mt-20 border-2 rounded-lg py-4 md:py-6 lg:py-8 xl:py-10 ">
+            <div className="border-b-2 px-4 md:px-6 lg:px-8 xl:px-10">
+              <h3 className="font-bold text-sm md:text-base lg:text-lg mb-2 md:mb-4 lg:mb-6 xl:mb-8">
+                {Content("ReviewsHistory")}{" "}
+                <span className="text-primary font-medium">
+                  {success?.length}
+                </span>
+              </h3>
+            </div>
+            <div className="px-4 md:px-6 lg:px-8 xl:px-10 py-4 md:py-6 lg:py-8 xl:py-10 flex flex-col gap-6 md:gap-8 lg:gap-10 xl:gap-12">
+              {success?.map((review: any, index) => (
+                <div key={index}>
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-full bg-slate-200 text-blue-400 w-8 h-8 lg:w-10 lg:h-10 text-xs md:text-sm lg:text-base  flex items-center justify-center">
+                      {review.bidder_name
+                        .split(" ")
+                        .map((n: any) => n[0].toUpperCase())
+                        .join("")}
                     </div>
-                    <div className="flex justify-between items-center mt-3">
-                      <h3 className="text-sm md:text-base lg:text-lg font-semibold">
-                        {review.offer_title}
-                      </h3>
-                      <p className="text-neutralGray text-xs md:text-sm lg:text-base">
-                        {new Date(review.reviews[0].date).toLocaleDateString(
-                          "en-CA"
-                        )}
-                      </p>
-                    </div>
-                    <div className="mt-3">
-                      <div className="flex gap-1 items-center">
+                    <h6 className="font-semibold text-xs md:text-sm lg:text-base">
+                      {review.bidder_name}
+                    </h6>
+                  </div>
+                  <div className="flex justify-between items-center mt-3">
+                    <h3 className="text-sm md:text-base lg:text-lg font-semibold">
+                      {review.offer_title}
+                    </h3>
+                    <p className="text-neutralGray text-xs md:text-sm lg:text-base">
+                      {new Date(review.reviews[0].date).toLocaleDateString(
+                        "en-CA"
+                      )}
+                    </p>
+                  </div>
+                  <div className="mt-3">
+                    <div className="flex gap-1 items-center">
                       {
                         <>
                           {Array.from({
@@ -1052,24 +1067,22 @@ const Details = ({ params }: { params: any }) => {
                           ))}
                         </>
                       }
-                        <p className="text-sm lg:text-base">{review.reviews[0].rating}</p>
-                      </div>
-                      <p className="text-xs lg:text-sm mt-1 w-10/12">
-                        {review.reviews[0].text}
+                      <p className="text-sm lg:text-base">
+                        {review.reviews[0].rating}
                       </p>
                     </div>
+                    <p className="text-xs lg:text-sm mt-1 w-10/12">
+                      {review.reviews[0].text}
+                    </p>
                   </div>
-                ))}
-              </div>
-              </section>
-          ) : (
-            null
-          )}
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
       </main>
     </>
   );
 };
 
 export default Details;
-
-
