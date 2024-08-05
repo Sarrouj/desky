@@ -13,7 +13,9 @@ function AboutUs() {
         FAQ={"text-primary font-semibold"}
         AboutUS={"hover:text-primary"}
       />
-      <div>AboutUs</div>
+      <div className="bg-neutralBg text-secondaryDarkBlue min-h-screen w-full flex flex-col justify-center items-center text-center">
+        <p className="text-lg md:text-xl lg:text-2xl font-bold mb-16">Steal In Progress...</p>
+      </div>
     </>
   );
 }
