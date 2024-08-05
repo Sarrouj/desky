@@ -632,5 +632,39 @@
         "justNow": "just now"
       }
     }
+  },
+  "FAQ":{
+    "Title" : "We Are Here To Answer All Your Questions",
+    "Desc" : "If you are new to Desky this session will help you to learn more about our services.",
+    "Items": {
+      "Item1" : {
+        "Title" : "What is DESKY ?",
+        "Desc" : "Desky is the first platform for private calls for bids"
+      },
+      "Item2" : {
+        "Title" : "How to place a bid ?",
+        "Desc" : "To place a bid, first go to the offers page, then choose the offer that you want to bid on, and click the Apply Now button."
+      },
+      "Item3" : {
+        "Title" : "What happens once a bid is accepted?",
+        "Desc" : "Once the bid is accepted the offer is no longer available for bids. then the bidder and the depositor can work together"
+      },
+      "Item4" : {
+        "Title" : "Is there a feedback or rating system for calls and bids?",
+        "Desc" : "Yes. When the depositor and the bidder finish working together, they can rate and review each other."
+      },
+      "Item5" : {
+        "Title" : "How can users track their activity and success rates?",
+        "Desc" : " Click on the menu bar in the top right corner, then select Dashboard. There, you can view all the analytics and activities of your account."
+      },
+      "Item6" : {
+        "Title" : "How does the platform verify the identity of users?",
+        "Desc" : "The platform verifies the identity of users by email and CR for companies, or an auto entrepreneur card for individuals."
+      },
+      "Item7" : {
+        "Title" : "How does the platform verify the offers?",
+        "Desc" : "The platform verify the offers based on the Platform's strict Terms and conditions."
+      }
+    }
   }
 }
