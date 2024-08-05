@@ -319,49 +319,49 @@ export default function Home() {
                   alt={""}
                   width={150}
                   height={150}
-                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-40 xl:h-40 hidden lg:block"
+                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-36 xl:h-36 hidden lg:block"
                 />
                 <Image
                   src={"/logos/logo2.svg"}
                   alt={""}
                   width={150}
                   height={150}
-                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-40 xl:h-40 hidden sm:block"
+                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-36 xl:h-36 hidden sm:block"
                 />
                 <Image
                   src={"/logos/logo3.svg"}
                   alt={""}
                   width={150}
                   height={150}
-                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-40 xl:h-40"
+                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-36 xl:h-36"
                 />
                 <Image
                   src={"/logos/logo7.svg"}
                   alt={""}
                   width={150}
                   height={150}
-                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-40 xl:h-40"
+                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-36 xl:h-36"
                 />
                 <Image
                   src={"/logos/logo4.svg"}
                   alt={""}
                   width={150}
                   height={150}
-                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-40 xl:h-40"
+                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-36 xl:h-36"
                 />
                 <Image
                   src={"/logos/logo5.svg"}
                   alt={""}
                   width={150}
                   height={150}
-                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-40 xl:h-40 hidden sm:block"
+                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-36 xl:h-36 hidden sm:block"
                 />
                 <Image
                   src={"/logos/logo6.svg"}
                   alt={""}
                   width={150}
                   height={150}
-                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-40 xl:h-40 hidden lg:block"
+                  className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-36 xl:h-36 hidden lg:block"
                 />
               </div>
             </div>
