@@ -8,7 +8,11 @@ import React from "react";
 
 const EmailVerification = () => {
   const [Language, setLanguage] = useState();
+  const [name, setName] = useState<any>();
+  const [email, setEmail] = useState<any>();
+  const [password, setPassword] = useState<any>();
   const Content = useTranslations("Auth.EmailVerification");
+
 
   // Language
   useEffect(() => {
@@ -16,9 +20,14 @@ const EmailVerification = () => {
     setLanguage(lg);
   }, [Language]);
 
-  const name = localStorage.getItem("name");
-  const email = localStorage.getItem("email");
-  const password = localStorage.getItem("password");
+  useEffect(() => {
+    const name = localStorage.getItem("name");
+    if(name) setName(name);
+    const email = localStorage.getItem("email");
+    if(email) setEmail(email)
+    const password = localStorage.getItem("password");
+    if(password) setPassword(password)
+  }, []);
 
   const handleSubmit = async () => {
     try {
@@ -36,14 +45,21 @@ const EmailVerification = () => {
     <div className="flex flex-col py-8 justify-between min-h-screen">
       <div className="mx-auto grid gap-16 mt-28 w-full px-5 sm:px-10 md:px-32 lg:px-0 lg:w-4/6">
         <div className="grid gap-2 w-full">
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">{Content("title")}</h1>
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">
+            {Content("title")}
+          </h1>
           <p className="text-balance text-muted-foreground text-xs sm:text-sm md:text-base w-full">
             {Content("Desc")} {email}.
           </p>
         </div>
         <div className="grid gap-4">
-          <p className="text-xs sm:text-sm md:text-base">{Content("resendMsg")}</p>
-          <Button onClick={handleSubmit} className="w-full text-white  text-xs sm:text-sm">
+          <p className="text-xs sm:text-sm md:text-base">
+            {Content("resendMsg")}
+          </p>
+          <Button
+            onClick={handleSubmit}
+            className="w-full text-white  text-xs sm:text-sm"
+          >
             {Content("ResendEmail")}
           </Button>
           <Link href={`/${Language}/login`}>

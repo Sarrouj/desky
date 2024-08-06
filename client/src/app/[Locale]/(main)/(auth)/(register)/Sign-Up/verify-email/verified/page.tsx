@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 const ResetPassword = () => {
   const [Language, setLanguage] = useState();
+  const [token, setToken] = useState<any>();
   const Content = useTranslations("Auth.EmailVerification.verified");
 
   // Language
@@ -17,8 +18,15 @@ const ResetPassword = () => {
     setLanguage(lg);
   }, [Language]);
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const token = urlParams.get("token");
+
+  useEffect(()=>{
+    const urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams)
+    if(urlParams){
+      const token = urlParams.get("token");
+      if(token) setToken(token);
+    }
+  }, [])
 
   useEffect(() => {
     const verifyToken = async () => {
