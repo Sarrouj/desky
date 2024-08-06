@@ -30,7 +30,7 @@ import {
   DialogFooter,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import AEDetails from "@/Components/common/AEDetails";
 
 import { Tabs, TabsContent } from "@/Components/ui/tabs";
@@ -58,16 +58,24 @@ const AEList = ({ AE, user_id }: { AE: any; user_id: any }) => {
   }, []);
 
   const handleAccept = async (type: string, id: string) => {
-    await axios.put(`http://localhost:3001/admin/verify/${type}/${id}`, {
-      user_id,
-    });
+    try {
+      await axios.put(`http://localhost:3001/admin/verify/${type}/${id}`, {
+        user_id,
+      });
+    } catch (Error) {
+      console.log(Error);
+    }
   };
 
   const handleRefuse = async (type: string, id: string) => {
-    await axios.put(`http://localhost:3001/admin/refuse/${type}/${id}`, {
-      user_id,
-      message,
-    });
+    try{
+      await axios.put(`http://localhost:3001/admin/refuse/${type}/${id}`, {
+        user_id,
+        message,
+      });
+    }catch(Error){
+      console.log(Error)
+    }
   };
 
   return (
@@ -76,17 +84,17 @@ const AEList = ({ AE, user_id }: { AE: any; user_id: any }) => {
         <Card x-chunk="dashboard-05-chunk-3">
           <CardHeader className="px-7 flex flex-row justify-between">
             <div className="flex flex-col gap-2">
-              <CardTitle>Auto Entrepreneur Verification</CardTitle>
+              <CardTitle className="text-base lg:text-lg text-secondaryDarkBlue">Auto-Entrepreneur Users</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
-            <Table>
+            <Table className="min-w-[800px]">
               <TableHeader>
                 <TableRow className="hover:bg-white">
                   <TableHead>
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>User Name</TooltipTrigger>
+                        <TooltipTrigger className="text-xs md:text-sm lg:text-base">User Name</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm">
                           The name of the user
                         </TooltipContent>
@@ -96,7 +104,7 @@ const AEList = ({ AE, user_id }: { AE: any; user_id: any }) => {
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>Phone Number</TooltipTrigger>
+                        <TooltipTrigger className="text-xs md:text-sm lg:text-base">Phone Number</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm">
                           the phone number of the user
                         </TooltipContent>
@@ -106,7 +114,7 @@ const AEList = ({ AE, user_id }: { AE: any; user_id: any }) => {
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>AEC</TooltipTrigger>
+                        <TooltipTrigger className="text-xs md:text-sm lg:text-base">AEC</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm">
                           Auto Entrepreneur Card
                         </TooltipContent>
@@ -116,7 +124,7 @@ const AEList = ({ AE, user_id }: { AE: any; user_id: any }) => {
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>Accept</TooltipTrigger>
+                        <TooltipTrigger className="text-xs md:text-sm lg:text-base">Accept</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm">
                           Accept the offer as a valid offer
                         </TooltipContent>
@@ -126,7 +134,7 @@ const AEList = ({ AE, user_id }: { AE: any; user_id: any }) => {
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>Refuse</TooltipTrigger>
+                        <TooltipTrigger className="text-xs md:text-sm lg:text-base">Refuse</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm">
                           Refuse the offer, <br />
                           and add a message of the reason
@@ -137,7 +145,7 @@ const AEList = ({ AE, user_id }: { AE: any; user_id: any }) => {
                   <TableHead className="text-start">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>See Details</TooltipTrigger>
+                        <TooltipTrigger className="text-xs md:text-sm lg:text-base">See Details</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm">
                           See User Details
                         </TooltipContent>
@@ -153,14 +161,14 @@ const AEList = ({ AE, user_id }: { AE: any; user_id: any }) => {
                       className="cursor-pointer"
                       key={`${ae.bidder_name}-${index}`}
                     >
-                      <TableCell>
+                      <TableCell className="text-xs md:text-sm lg:text-base">
                         {ae.bidder_name || ae.depositor_name}
                       </TableCell>
 
-                      <TableCell className="text-center">
+                      <TableCell className="text-center text-xs md:text-sm lg:text-base">
                         {ae.aeInfo.AE_phoneNumber}
                       </TableCell>
-                      <TableCell className="text-center">
+                      <TableCell className="text-center text-xs md:text-sm lg:text-base">
                         <a
                           target="_blank"
                           href={`http://localhost:3001/uploads/${ae.aeInfo.AE_CIN}`}
@@ -208,7 +216,7 @@ const AEList = ({ AE, user_id }: { AE: any; user_id: any }) => {
                             </DialogTrigger>
                             <DialogContent>
                               <DialogHeader>
-                                <DialogTitle>Refuse Message</DialogTitle>
+                                <DialogTitle className="text-secondaryDarkBlue">Refuse Message</DialogTitle>
                                 <DialogDescription>
                                   Write a message describing the reason for
                                   refusing the offer.
@@ -256,7 +264,7 @@ const AEList = ({ AE, user_id }: { AE: any; user_id: any }) => {
                         <DialogContent>
                           <DialogHeader>
                             <DialogTitle>
-                              <h1 className="font-bold text-2xl text-primary">
+                              <h1 className="font-bold  text-lg lg:text-xl xl:text-2xl text-primary">
                                 Auto Entrepreneur Details
                               </h1>
                             </DialogTitle>

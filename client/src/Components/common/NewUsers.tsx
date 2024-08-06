@@ -30,13 +30,11 @@ import {
   DialogFooter,
   DialogTitle,
   DialogTrigger,
-} from "@/Components/ui/dialog";
-
-import { Tabs, TabsContent } from "@/Components/ui/tabs";
+} from "@/components/ui/dialog";
+import AEDetails from "@/Components/common/AEDetails";
 import CompanyDetails from "@/Components/common/CompanyDetails";
-
+import { Tabs, TabsContent } from "@/Components/ui/tabs";
 import Link from "next/link";
-
 import {
   Tooltip,
   TooltipContent,
@@ -45,7 +43,15 @@ import {
 } from "@/Components/ui/tooltip";
 import axios from "axios";
 
-const CompanyList = ({ Company, user_id }: { Company: any; user_id: any }) => {
+const NewUsers = ({
+  AE,
+  Company,
+  user_id,
+}: {
+  AE: any;
+  Company: any;
+  user_id: any;
+}) => {
   const [Language, setLanguage] = useState("fr");
   const [message, setMessage] = useState("");
 
@@ -62,8 +68,6 @@ const CompanyList = ({ Company, user_id }: { Company: any; user_id: any }) => {
       await axios.put(`http://localhost:3001/admin/verify/${type}/${id}`, {
         user_id,
       });
-      // Reload the current page upon success
-      window.location.reload();
     } catch (Error) {
       console.log(Error);
     }
@@ -75,8 +79,6 @@ const CompanyList = ({ Company, user_id }: { Company: any; user_id: any }) => {
         user_id,
         message,
       });
-      // Reload the current page upon success
-      window.location.reload();
     } catch (Error) {
       console.log(Error);
     }
@@ -86,9 +88,11 @@ const CompanyList = ({ Company, user_id }: { Company: any; user_id: any }) => {
     <Tabs defaultValue="week">
       <TabsContent value="week">
         <Card x-chunk="dashboard-05-chunk-3">
-          <CardHeader className="px-7 flex flex-row justify-between">
+          <CardHeader className="px-4 md:px-7 flex flex-row justify-between">
             <div className="flex flex-col gap-2">
-              <CardTitle className="text-base lg:text-lg text-secondaryDarkBlue">Companies Users</CardTitle>
+              <CardTitle className="text-base lg:text-lg text-secondaryDarkBlue">
+                Verify New User
+              </CardTitle>
             </div>
           </CardHeader>
           <CardContent>
@@ -108,9 +112,9 @@ const CompanyList = ({ Company, user_id }: { Company: any; user_id: any }) => {
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger className="text-xs md:text-sm lg:text-base">CR</TooltipTrigger>
+                        <TooltipTrigger className="text-xs md:text-sm lg:text-base">Phone Number</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm">
-                          RC
+                          the phone number of the user
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -118,9 +122,9 @@ const CompanyList = ({ Company, user_id }: { Company: any; user_id: any }) => {
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger className="text-xs md:text-sm lg:text-base">Phone Number</TooltipTrigger>
+                        <TooltipTrigger className="text-xs md:text-sm lg:text-base">AEC or RC</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm">
-                          the phone number of the user
+                          Auto Entrepreneur Card or Company RC
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -159,31 +163,39 @@ const CompanyList = ({ Company, user_id }: { Company: any; user_id: any }) => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {Company &&
-                  Company.map((company: any, index: number) => (
+                {AE &&
+                  AE.map((ae: any, index: number) => (
                     <TableRow
                       className="cursor-pointer"
-                      key={`${company.bidder_name}-${index}`}
+                      key={`${ae.bidder_name}-${index}`}
                     >
                       <TableCell className="text-xs md:text-sm lg:text-base">
-                        {company.bidder_name || company.depositor_name}
+                        {ae.bidder_name || ae.depositor_name}
+                      </TableCell>
+
+                      <TableCell className="text-center text-xs md:text-sm lg:text-base">
+                        {ae.aeInfo.AE_phoneNumber}
                       </TableCell>
                       <TableCell className="text-center text-xs md:text-sm lg:text-base">
-                        {company.companyInfo.company_CR}
+                        <a
+                          target="_blank"
+                          href={`http://localhost:3001/uploads/${ae.aeInfo.AE_CIN}`}
+                          className="font-extralight mt-2 text-primary hover:text-orange-600"
+                        >
+                          <Download
+                            size={22}
+                            className="font-extralight mt-2 text-primary hover:text-orange-600 inline-block"
+                          />
+                        </a>
                       </TableCell>
-                      <TableCell className="text-center text-xs md:text-sm lg:text-base">
-                        {company.companyInfo.company_phoneNumber}
-                      </TableCell>
-                      <TableCell className="text-center text-xs md:text-sm lg:text-base">
+                      <TableCell className="text-center">
                         <TooltipProvider>
                           <Tooltip>
                             <TooltipTrigger
-                              onClick={() =>
-                                handleAccept(company.userType, company._id)
-                              }
+                              onClick={() => handleAccept(ae.userType, ae._id)}
                               className="h-6 rounded-full text-white text-xs px-2 bg-green-600 hover:bg-green-500"
                             >
-                              Accept
+                              accept
                             </TooltipTrigger>
                             <TooltipContent
                               side="top"
@@ -212,7 +224,122 @@ const CompanyList = ({ Company, user_id }: { Company: any; user_id: any }) => {
                             </DialogTrigger>
                             <DialogContent>
                               <DialogHeader>
-                                <DialogTitle>Refuse Message</DialogTitle>
+                                <DialogTitle className="text-secondaryDarkBlue">
+                                  Refuse Message
+                                </DialogTitle>
+                                <DialogDescription>
+                                  Write a message describing the reason for
+                                  refusing the offer.
+                                </DialogDescription>
+                              </DialogHeader>
+                              <textarea
+                                name="message"
+                                id="message"
+                                className="border border-gray-400 rounded-md p-2 w-full"
+                                onChange={(e) => setMessage(e.target.value)}
+                              ></textarea>
+                              <DialogFooter>
+                                <Button
+                                  className="text-white bg-red-600 hover:bg-red-500 "
+                                  onClick={() =>
+                                    handleRefuse(ae.userType, ae._id)
+                                  }
+                                  type="submit"
+                                >
+                                  Confirm
+                                </Button>
+                              </DialogFooter>
+                            </DialogContent>
+                          </Dialog>
+                        </TooltipProvider>
+                      </TableCell>
+                      <Dialog>
+                        <DialogTrigger>
+                          <TableCell>
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger className="h-6 rounded-full text-white text-xs bg-orange-600 hover:bg-orange-500 px-2 inline-block">
+                                  See Details
+                                </TooltipTrigger>
+                                <TooltipContent
+                                  side="top"
+                                  className="text-xs font-sm"
+                                >
+                                  See User Details
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          </TableCell>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>
+                              <h1 className="font-bold text-lg lg:text-xl xl:text-2xl text-primary">
+                                Auto Entrepreneur Details
+                              </h1>
+                            </DialogTitle>
+                          </DialogHeader>
+                          <AEDetails ae={ae} />
+                        </DialogContent>
+                      </Dialog>
+                    </TableRow>
+                  ))}
+                {Company &&
+                  Company.map((company: any, index: number) => (
+                    <TableRow
+                      className="cursor-pointer"
+                      key={`${company.bidder_name}-${index}`}
+                    >
+                      <TableCell className="text-xs md:text-sm lg:text-base">
+                        {company.bidder_name || company.depositor_name}
+                      </TableCell>
+                      <TableCell className="text-center text-xs md:text-sm lg:text-base">
+                        {company.companyInfo.company_phoneNumber}
+                      </TableCell>
+                      <TableCell className="text-center text-xs md:text-sm lg:text-base">
+                        {company.companyInfo.company_CR}
+                      </TableCell>
+                      <TableCell className="text-center ">
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger
+                              onClick={() =>
+                                handleAccept(company.userType, company._id)
+                              }
+                              className="h-6 rounded-full text-white text-xs px-2 bg-green-600 hover:bg-green-500"
+                            >
+                              accept
+                            </TooltipTrigger>
+                            <TooltipContent
+                              side="top"
+                              className="text-xs font-sm"
+                            >
+                              Accept the offer
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </TableCell>
+                      <TableCell className="text-center">
+                        <TooltipProvider>
+                          <Dialog>
+                            <DialogTrigger>
+                              <Tooltip>
+                                <TooltipTrigger className="h-6 rounded-full text-white text-xs bg-red-600 hover:bg-red-500 px-2">
+                                  Refuse
+                                </TooltipTrigger>
+                                <TooltipContent
+                                  side="top"
+                                  className="text-xs font-sm"
+                                >
+                                  Refuse the offer
+                                </TooltipContent>
+                              </Tooltip>
+                            </DialogTrigger>
+                            <DialogContent>
+                              <DialogHeader>
+                                <DialogTitle className="text-secondaryDarkBlue">
+                                  Refuse Message
+                                </DialogTitle>
                                 <DialogDescription>
                                   Write a message describing the reason for
                                   refusing the offer.
@@ -279,4 +406,4 @@ const CompanyList = ({ Company, user_id }: { Company: any; user_id: any }) => {
   );
 };
 
-export default CompanyList;
+export default NewUsers;

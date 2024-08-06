@@ -1,6 +1,6 @@
 function AEDetails({ ae }: { ae: any }) {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 text-secondaryDarkBlue text-xs md:text-sm lg:text-base">
       <p>
         <strong>User Name:</strong> {ae.bidder_name || ae.depositor_name}
       </p>
