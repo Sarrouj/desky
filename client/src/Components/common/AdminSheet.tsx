@@ -48,7 +48,7 @@ const AdminSheet = () => {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="sm:max-w-xs">
+      <SheetContent side="left" className="sm:max-w-xs">
         <nav className="grid gap-6 text-lg font-medium">
           <Link
             href={`/${Language}/`}

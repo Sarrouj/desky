@@ -1,6 +1,6 @@
 function CompanyDetails({ company }: { company: any }) {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 text-secondaryDarkBlue text-xs md:text-sm lg:text-base">
       <p>
         <strong>User Name:</strong>{" "}
         {company.bidder_name || company.depositor_name}

@@ -30,6 +30,7 @@ import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import CompanyList from "@/Components/common/CompanyList";
+import NewUsers from "@/Components/common/NewUsers";
 
 function UsersVerification() {
   // Content
@@ -44,7 +45,7 @@ function UsersVerification() {
   const user_role = session ? session.user.role : null;
   const [AE, setAE] = useState<any>(null);
   const [Company, setCompany] = useState<any>(null);
-  const [type, setType] = useState<any>("ae");
+  const [type, setType] = useState<any>(null);
 
   useEffect(() => {
     const lg = JSON.parse(localStorage.getItem("lg"));
@@ -64,6 +65,7 @@ function UsersVerification() {
         const result = await axios.get("http://localhost:3001/admin/users");
         setAE(result.data.data.unverifiedAE);
         setCompany(result.data.data.unverifiedCompany);
+       
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -97,29 +99,27 @@ function UsersVerification() {
           <DropDownAdmin content={DropDownMenuContent} Language={Language} />
         </div>
       </header>
-      <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
+      <main className="gap-4 p-2 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
         <div className="mb-4">
           <Select onValueChange={(value) => setType(value)}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-full mxd:w-[180px] text-xs md:text-sm">
               <SelectValue placeholder="Users" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="ae">Auto entrepreneur</SelectItem>
-              <SelectItem value="companies">Company</SelectItem>
+            <SelectContent >
+              <SelectItem value="ae" className="text-xs md:text-sm">Auto entrepreneur</SelectItem>
+              <SelectItem value="companies" className="text-xs md:text-sm">Company</SelectItem>
             </SelectContent>
           </Select>
         </div>
-        {type == "ae" ? (
-          AE && AE.length > 0 ? (
-            <AEList AE={AE} user_id={user_id} />
-          ) : (
-            <NotFoundDataUser />
-          )
-        ) : Company && Company.length > 0 ? (
+        {AE && !type || Company && !type ? 
+          <NewUsers AE={AE} Company={Company} user_id={user_id} />
+        : ( type == "ae" && AE && AE.length > 0 ? 
+          <AEList AE={AE} user_id={user_id} />
+          :type == "companies" && Company && Company.length > 0 ? 
           <CompanyList Company={Company} user_id={user_id} />
-        ) : (
-          <NotFoundDataUser />
-        )}
+          : <NotFoundDataUser />
+        )
+         }
       </main>
     </div>
   );
