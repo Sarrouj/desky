@@ -114,7 +114,7 @@ function Profile() {
             Offers={"offers"}
             Support={"Contact-Us"}
           />
-          <Breadcrumb className="hidden sm:flex">
+          <Breadcrumb className="hidden md:flex">
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
@@ -135,10 +135,12 @@ function Profile() {
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
-          <DropDownDepositor
-            content={DropDownMenuContent}
-            Language={Language}
-          />
+          <div className="hidden md:block">
+            <DropDownDepositor
+              content={DropDownMenuContent}
+              Language={Language}
+            />
+          </div>
         </header>
         <div className="w-full max-w-3xl mx-auto">
           <ProfileCard
