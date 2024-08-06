@@ -85,7 +85,6 @@ const ClosedBidderBidsList = ({
           user_id: session?.user.id,
         }
       );
-      console.log(response.status);
       if (response.status === 200) {
         setRating(0);
         setReview("");
