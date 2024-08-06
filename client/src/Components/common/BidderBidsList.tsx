@@ -1,7 +1,7 @@
 "use client";
 
 import { Download } from "lucide-react";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import {
   Card,
   CardContent,

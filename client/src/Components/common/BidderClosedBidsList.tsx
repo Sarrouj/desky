@@ -4,7 +4,7 @@ import Image from "next/image";
 import { StarFill } from "react-bootstrap-icons";
 import { Download, Star } from "lucide-react";
 import { Textarea } from "@/Components/ui/textarea";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 
 import {
   Card,
@@ -40,7 +40,7 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogDescription,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
