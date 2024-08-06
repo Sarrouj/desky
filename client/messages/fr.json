@@ -1,0 +1,680 @@
+{
+  "Home": {
+    "Hero": {
+      "headlineAbove": "Solution de croissance sur une plateforme unique.",
+      "mainHeadline1": "Desky, La Première",
+      "mainHeadline2": "Plateforme Pour les ",
+      "mainHeadline3": "Appels d'Offres",
+      "heroDescription": "Desky est la solution révolutionnaire conçue pour propulser votre entreprise en avant en concluant des affaires plus rapidement et plus efficacement que jamais.",
+      "SubmitCallToAction": "Soumettre une offre",
+      "SeeCallsCallToAction": "Voir les appels",
+      "trust1": "Commencez gratuitement",
+      "trust2": "Soumettre des offres illimitées"
+    },
+    "CompaniesSection": "Plus de 1000 entreprises grandissent avec Desky",
+    "LatestSection": {
+      "title": "Les Derniers Appels Privés Publiés",
+      "CallToAction": "Voir plus"
+    },
+    "Credibility": {
+      "title": "Système de Crédibilité Desky",
+      "description": "Nous proposons une variété de fonctionnalités intéressantes qui peuvent vous aider à augmenter votre productivité au travail et à gérer facilement vos projets.",
+      "LegalStatus": "Crédibilité",
+      "LegalStatusDesc": "Chaque enchérisseur a un statut juridique : Desky vous connecte avec des entreprises de premier plan et des entrepreneurs qualifiés, vous garantissant un accès aux meilleures options pour vos projets.",
+      "RatingSystem": "Système de Notation",
+      "RatingSystemDesc": "Sur Desky, les utilisateurs reçoivent des notes allant de 1 à 5 étoiles et des avis détaillés basés sur la qualité du service et la fiabilité. Ces notes et avis sont visibles pour aider les autres à prendre des décisions éclairées et impactent le succès des enchères.",
+      "Statistic": "Statistiques",
+      "StatisticDesc": "Desky fournit un tableau de bord complet qui vous permet de gérer efficacement vos offres et les enchères reçues. Le tableau de bord inclut des statistiques détaillées pour vous aider à suivre les performances."
+    },
+    "ProcessSection": {
+      "Title": "Choisissez les Meilleurs Soumissionnaires",
+      "UpTitle": "LE PROCESSUS LE PLUS SIMPLE",
+      "Desc": "Examinez et sélectionnez les soumissionnaires les plus adaptés en fonction de leurs propositions, évaluations et prix pour vous assurer de travailler avec le meilleur partenaire.",
+      "CallToAction": "Commencez",
+      "Process": {
+        "SubmitAnOffer": "Soumettez une Offre",
+        "SubmitDesc": "Créez un compte Déposant, publiez votre offre avec tous les détails nécessaires, et attendez la vérification.",
+        "ReceiveBids": "Recevez des Offres",
+        "ReceiveBidsDesc": "Une fois vérifiée, votre offre sera mise en ligne sur la plateforme. Les soumissionnaires soumettront ensuite leurs propositions pour votre examen.",
+        "AcceptTheBest": "Acceptez la Meilleure",
+        "AcceptDesc": "Évaluez les offres reçues en fonction du tarif, des évaluations et du prix. Acceptez l'offre qui répond le mieux à vos critères."
+      }
+    }
+  },
+  "NavBar": {
+    "NavLinks": {
+      "Home": "Accueil",
+      "Offers": "Offres",
+      "FAQ": "FAQ",
+      "AboutUs": "À Propos de Nous"
+    },
+    "Auth": {
+      "Login": "Connexion",
+      "SignUp": "S'incrire"
+    },
+    "Languages": {
+      "English": "Anglais",
+      "French": "Français"
+    },
+    "User": {
+      "title": "Mon Compte",
+      "Profile": "Profil",
+      "Home": "Accueil",
+      "Marketplace": "Place de Marché",
+      "Settings": "Paramètres",
+      "Support": "Support",
+      "LogOut": "Déconnexion",
+      "Account": "Compte",
+      "Dashboard": "Tableau de Bord"
+    }
+  },
+  "Offers": {
+    "Title": "Trouvez la Meilleure Offre Pour Votre Entreprise",
+    "CallToAction": "Publier une Offre",
+    "CallToActionPopMsg1": "Connectez-vous ou Inscrivez-vous au Compte",
+    "CallToActionPopMsg2": "de Déposant pour Publier une Offre",
+    "Results": "Résultats",
+    "Result": "Résultat",
+    "SearchPlaceholder": "Recherche",
+    "SortBy": "Trier par",
+    "Newest": "Récent",
+    "Oldest": "Ancien",
+    "ClearFilters": "Effacer les Filtres",
+    "NotFoundMsg": "Aucun Résultat Trouvé",
+    "NotFoundMsgDesc": "Nous n'avons trouvé aucune correspondance pour vos critères de recherche. Veuillez réessayer avec des mots-clés ou des filtres différents."
+  },
+  "Auth": {
+    "Login": {
+      "title": "Connexion",
+      "Description": "Entrez vos informations pour vous connecter",
+      "Email": "Email",
+      "Password": "Mot de passe",
+      "Forgot": "Mot de passe oublié ?",
+      "CallToAction": "Se Connecter",
+      "OR": "OU",
+      "LGGoogle": "Se Connecter avec Google",
+      "Dont": "Vous n'avez pas de compte ?",
+      "SignUP": "S'inscrire",
+      "CopyWrite": "© 2024 Desky.ma. Tous droits réservés"
+    },
+    "SignUp": {
+      "title": "S'inscrire",
+      "Description": "Entrez vos informations pour créer un compte",
+      "FullName": "Nom complet",
+      "Email": "Email",
+      "Password": "Mot de passe",
+      "CallToAction": "S'inscrire",
+      "OR": "OU",
+      "RGoogle": "S'inscrire avec Google",
+      "Already": "Vous avez déjà un compte ?",
+      "Login": "Se connecter",
+      "CopyWrite": "© 2024 Desky.ma. Tous droits réservés"
+    },
+    "EmailVerification": {
+      "title": "Vérifiez votre adresse e-mail",
+      "Desc": "Nous avons envoyé un e-mail de vérification à",
+      "resendMsg": "Vous n'avez pas reçu l'e-mail ? Vérifiez votre dossier spam ou ",
+      "ResendEmail": "Renvoyer l'e-mail",
+      "BackToLogin": "Retour à la connexion",
+      "CopyWrite": "© 2024 Desky.ma. Tous droits réservés",
+      "verified": {
+        "title": "Vérification de l'email réussie",
+        "CallToAction": "Compléter l'inscription",
+        "CopyWrite": "© 2024 Desky.ma. Tous droits réservés"
+      }
+    },
+    "ChooseType": {
+      "title": "Rejoignez-nous !",
+      "Desc": "Pour commencer ce voyage, dites-nous quel type de compte vous ouvririez.",
+      "Depositor": "Déposant",
+      "DespositorActionDesc": "Déposer des offres et gérer les offres reçues.",
+      "Bidder": "Soumissionnaire",
+      "BidderActionDesc": "Propriétaire ou membre d'une entreprise, c'est pour vous.",
+      "CopyWriteMSG": "© 2024 Desky.ma. Tous droits réservés."
+    },
+    "BidderType": {
+      "Title": "Choisissez votre statut juridique",
+      "Description": "Complétez le processus d'inscription",
+      "individual": "Individual",
+      "individualDescription": "Vous recherchez une croissance personnelle ? Ceci est pour vous.",
+      "AutoEntrepreneur": "Auto entrepreneur",
+      "AutoDescription": "Vous gérez votre propre entreprise ? Ceci est pour vous.",
+      "Company": "Entreprise",
+      "CompanyDescription": "Propriétaire une entreprise? C'est pour vous.",
+      "CopyWrite": "© 2024 Desky.ma. Tous droits réservés",
+      "Step": "ÉTAPE 01/02",
+      "LegalInfo": "Informations légales",
+      "back": "retourner"
+    },
+    "AutoEntrepreneurInfo": {
+      "title": "Informations légales",
+      "Description": "Entrez vos informations pour activer votre compte",
+      "Back": "Retour",
+      "Location": "Emplacement (Ville)",
+      "SelectLocation": "Sélectionnez votre ville",
+      "NotFound": "Aucune ville trouvée.",
+      "Search": "Rechercher",
+      "Address": "Adresse",
+      "Card": "Carte d'auto-entrepreneur (PDF, PNG)",
+      "PhoneNumber": "Numéro de téléphone",
+      "Activities": "Ajouter des activités",
+      "Activity": "Activité...",
+      "ADD": "AJOUTER",
+      "Submit": "Soumettre",
+      "CopyWrite": "© 2024 Desky.ma. Tous droits réservés",
+      "Step": "ÉTAPE 02/02",
+      "LegalInfo": "Informations légales"
+    },
+    "CompanyInformation": {
+      "title": "Informations de l'entreprise",
+      "Desc": "Entrez vos informations pour activer votre compte",
+      "type": "Type d'entreprise",
+      "CompanyName": "Nom de l'entreprise",
+      "City": "Emplacement (Ville)",
+      "SelectLocation": "Sélectionnez la ville de votre entreprise",
+      "NotFound": "Aucune ville trouvée.",
+      "Search": "Rechercher...",
+      "Address": "Adresse de l'entreprise",
+      "AddressPlaceHolder": "BU.23 AV Y.BEN TACHFINE, Tanger 90000",
+      "CompanyRC": "Numéro d'immatriculation au registre du commerce (RC)",
+      "RC": "Numéro RC",
+      "PN": "Numéro de téléphone",
+      "CompanyActivites": "Activités de l'entreprise",
+      "Activity": "Activité...",
+      "RequiredAct": "Au moins une activité est requise.",
+      "ADD": "AJOUTER",
+      "Submit": "Soumettre",
+      "CopyWrite": "© 2024 Desky.ma. Tous droits réservés",
+      "Step": "ÉTAPE 02/02",
+      "LegalInfo": "Informations légales",
+      "Back": "Retour",
+      "CompanySize": "Taille de l'entreprise",
+      "SelectCompanySize": "Sélectionnez la taille de votre entreprise",
+      "Sizes": {
+        "Small": "Petite (2 à 10 employés)",
+        "Medium": "Moyenne (11 à 100 employés)",
+        "Large": "Grande (plus de 100 employés)"
+      }
+    },
+    "ForgotPassword": {
+      "Title": "Mot de Passe Oublié",
+      "Description": "Entrez l'adresse e-mail de votre compte pour les instructions de réinitialisation.",
+      "Email": "Email",
+      "CallToAction": "Envoyer",
+      "BackToLogin": "Retour à la connexion",
+      "CopyWrite": "© 2024 Desky.ma. Tous droits réservés",
+      "EmailVerification": {
+        "title": "Vérifiez votre e-mail",
+        "Desc": "Nous avons envoyé un e-mail contenant les informations de réinitialisation du mot de passe à",
+        "resendMsg": "Vous n'avez pas reçu l'e-mail ? Vérifiez le dossier spam  ou",
+        "ResendEmail": "Renvoyer l'e-mail",
+        "BackToLogin": "Retour à la connexion",
+        "CopyWrite": "© 2024 Desky.ma. Tous droits réservés"
+      },
+      "ResetPassword": {
+        "title": "Réinitialiser le mot de passe",
+        "Description": "Réinitialiser le mot de passe en créant un nouveau mot de passe.",
+        "NewPassword": "Nouveau mot de passe",
+        "ConfirmPassword": "Confirmez le mot de passe",
+        "ResetPassword": "Réinitialiser le mot de passe",
+        "CopyWrite": "© 2024 Desky.ma. Tous droits réservés"
+      },
+      "RessetSuccessful": {
+        "title": "Réinitialisation du mot de passe réussie",
+        "CallToAction": "Connexion",
+        "CopyWrite": "© 2024 Desky.ma. Tous droits réservés"
+      }
+    }
+  },
+  "OffersDetail": {
+    "Location": "Lieu ciblé :",
+    "Posted": "Posté ",
+    "Category": "Catégorie :",
+    "EstBudget": "Budget estimé :",
+    "Deadline": "Date limite :",
+    "Attachements": "Pièces jointes",
+    "NoAttachments": "Aucune pièce jointe trouvée",
+    "Rating": "Note :",
+    "of": "de",
+    "reviews": "avis",
+    "Company":"Société",
+    "OfferPosted": "Offres publiée :",
+    "ActiveOffers": "Offres Actives :",
+    "NoActiveOffers": "Aucune Offre Active",
+    "OfferActivity": "Activité dans cette offre :",
+    "NoData":"Aucune Donnée Disponible",
+    "Proposals": "Propositions :",
+    "CallToAction": "Postuler maintenant",
+    "loggedToApply": "Vous devez être connecté en tant qu'enchérisseur pour postuler à une offre,",
+    "login": "Connexion",
+    "ReviewsHistory": "Historique des avis"
+  },
+  "offer": {
+    "Posted": "Posté",
+    "EstBudget": "Budget estimé",
+    "Cat": "Catégorie",
+    "Proposals": "Propositions"
+  },
+  "DepositorDashboard": {
+    "bidsList": {
+      "title": "Devis",
+      "Desc": "Dernières Devis de vos offres publiées",
+      "OfferName": "Nom de l'offre",
+      "BidderName": "Nom du soumissionnaire",
+      "BidderNameDesc1": "L'entreprise ou l'auto-entrepreneur",
+      "BidderNameDesc2": "qui a soumissionné sur votre offre",
+      "Rate": "Taux",
+      "RateDesc1": "Avis et évaluation",
+      "RateDesc2": "du soumissionnaire",
+      "Date": "Date",
+      "DateDesc1": "La date à laquelle ils ont",
+      "DateDesc2": "soumissionné sur votre offre",
+      "AcceptBid": "Accepter l'offre",
+      "AcceptBidDesc1": "Accepter le bon soumissionnaire",
+      "AcceptBidDesc2": "pour votre offre",
+      "Devi": "Devis",
+      "DeviDesc1": "Download Devis",
+      "Accept": "Accepter",
+      "AcceptDesc1": "Lorsque vous acceptez une offre",
+      "AcceptDesc2": "toutes les autres offres seront rejetées.",
+      "AllInfo": "Toutes les Informations",
+      "AllInfoDesc1": "Voir toutes les informations",
+      "AllInfoDesc2": "sur l'acheteur",
+      "SeeMore": "Voir plus...",
+      "NoReviews": "Aucun avis disponible",
+      "ReviewsHistory": "Historique des avis",
+      "AddOffer": "Ajouter Une Offre"
+    },
+    "bidsListAll": {
+      "title": "Devis",
+      "Desc": "Toutes Devis de vos offres publiées",
+      "OfferName": "Nom de l'offre",
+      "BidderName": "Nom du soumissionnaire",
+      "BidderNameDesc1": "L'entreprise ou l'auto-entrepreneur",
+      "BidderNameDesc2": "qui a soumissionné sur votre offre",
+      "Rate": "Taux",
+      "RateDesc1": "Avis et évaluation",
+      "RateDesc2": "du soumissionnaire",
+      "Date": "Date",
+      "DateDesc1": "La date à laquelle ils ont",
+      "DateDesc2": "soumissionné sur votre offre",
+      "AcceptBid": "Accepter l'offre",
+      "AcceptBidDesc1": "Accepter le bon soumissionnaire",
+      "AcceptBidDesc2": "pour votre offre",
+      "Devi": "Devis",
+      "DeviDesc1": "Download Devis",
+      "Accept": "Accepter",
+      "AcceptDesc1": "Lorsque vous acceptez une offre",
+      "AcceptDesc2": "toutes les autres offres seront rejetées.",
+      "AllInfo": "Toutes les informations",
+      "AllInfoDesc1": "Voir toutes les informations",
+      "AllInfoDesc2": "sur l'acheteur",
+      "SeeMore": "Voir plus...",
+      "NoReviews": "Aucun avis disponible",
+      "ReviewsHistory": "Historique des avis",
+      "AddOffer": "Ajouter Une Offre"
+    },
+    "NoAvailableDate": {
+      "title": "Actuellement Aucune Donnée Disponible",
+      "Desc": "Créez des offres pour recevoir des soumissions des meilleures entreprises de la région",
+      "CreateOfferCallToAction": "Créer une Nouvelle Offre",
+      "GoToMarketplaceCallToAction": "Accéder au Marché Des Offres"
+    },
+    "DropDownMenu": {
+      "title": "Mon Compte",
+      "Profile": "Profil",
+      "Home": "Accueil",
+      "Marketplace": "Offres",
+      "Settings": "Paramètres",
+      "Support": "Support",
+      "LogOut": "Déconnexion",
+      "Account": "Compte",
+      "Reviews": "Avis"
+    },
+    "Statistic": {
+      "OffersPosted": "Total des Offres Publiées",
+      "BidsReceived": "Total des Offres Reçues",
+      "OffersClosed": "Total des Offres Fermées",
+      "AccountRating": "Votre évaluation de Compte"
+    },
+    "BreadcrumbList": {
+      "Dashboard": "Tableau de Bord",
+      "ManageBids": "Gérer les Offres",
+      "MyOffers": "Mes Offres",
+      "CreateOffer": "Créer une Offre",
+      "Reviews": "Mes Avis",
+      "Profile": "Profil"
+    },
+    "SideBar": {
+      "Dashboard": "Tableau de Bord",
+      "ManageBids": "Gérer les Offres",
+      "MyOffers": "Mes Offres",
+      "CreateOffer": "Créer une Offre",
+      "Settings": "Paramètres"
+    },
+    "MyOffers": {
+      "title": "Mes Offres",
+      "Desc": "Toutes vos offres publiées",
+      "offerName": "Nom de l'Offre",
+      "TotalBids": "Total des Offres",
+      "TotalBidsDesc": "Nombre total de propositions reçues pour vos offres",
+      "Status": "Statut",
+      "StatusDesc": "Statut actuel de l'offre",
+      "DeleteTitle": "Supprimer l'Offre",
+      "DeleteHeaderDesc": "Supprimer l'offre du marché",
+      "Delete": "Supprimer",
+      "DeleteDesc1": "Avertissement : L'offre sera complètement",
+      "DeleteDesc2": "retirée du marché",
+      "finished": "Terminé",
+      "Done": "Complété",
+      "DoneDesc1": "La transaction a été",
+      "DoneDesc2": "complétée avec succès.",
+      "CantDeleteDesc": "Impossible de Supprimer les Offres Actives",
+      "freezeCompleted1": "Le bouton Terminé ne fonctionnera pas",
+      "freezeCompleted2": "jusqu'à ce qu'un soumissionnaire soit accepté",
+      "OfferStatus": {
+        "Pending": "En attente",
+        "PendingDesc": "Vérification en cours...",
+        "Open": "Ouvert",
+        "OpenDesc": "Votre offre est active",
+        "inProgress": "En cours",
+        "inProgressDesc1": "La transaction est actuellement",
+        "inProgressDesc2": "en cours avec l'enchérisseur accepté.",
+        "Closed": "Fermé",
+        "ClosedDesc1": "La transaction avec l'enchérisseur accepté est terminée.",
+        "ClosedDesc2": "L'enchérisseur accepté est fermé.",
+        "Rejected": "Rejeté",
+        "RejectedDesc": "Votre offre est rejetée"
+      },
+      "AddOffer": "Ajouter Une Offre"
+    },
+    "CreateOffer": {
+      "form": {
+        "Title": "Titre",
+        "titlePlaceHolder": "Tapez votre titre ici",
+        "Location": "Lieu",
+        "selectLocation": "Sélectionnez votre lieu d'offre ...",
+        "NoCityFound": "Aucune ville trouvée.",
+        "Description": "Description",
+        "DescriptionPlaceholder": "Tapez votre description ici.",
+        "DescPlaceHolder": "Tapez votre description ici...",
+        "Category": "Catégorie",
+        "SelectCategory": "Sélectionnez votre catégorie d'offre...",
+        "NoCategoryFound": "Aucune catégorie trouvée.",
+        "Budget": "Budget",
+        "BudgetPlaceholder": "Tapez votre budget ici",
+        "Deadline": "Date Limite",
+        "Attachment": "Pièce jointe",
+        "search": "Rechercher...",
+        "AddMore": "Ajouter Plus",
+        "CallToAction": "AJOUTER",
+        "Optional": "optionnel",
+        "datePlaceholder": "Sélectionnez une date",
+        "errorMsg": {
+          "title": "Le titre est requis. Veuillez fournir un titre.",
+          "Description": "La description est requise. Veuillez fournir une description.",
+          "Location": "L'emplacement est requis. Veuillez fournir un emplacement.",
+          "Deadline": "La date limite est requise. Veuillez fournir une date limite.",
+          "Budget": "Le budget est requis. Veuillez fournir un budget.",
+          "Category": "La catégorie est requise. Veuillez fournir une catégorie."
+        },
+        "toast": {
+          "success": "Offre ajoutée avec succès.",
+          "error": "Erreur : Échec de la connexion"
+        }
+      },
+      "CreateNewOffer": {
+        "title": "Créer une Nouvelle Offre",
+        "desc": "Créez une offre et recevez des offres des meilleures entreprises de la région",
+        "CallToAction": "Créer une Offre"
+      },
+      "Verification": {
+        "title": "Vérification en Cours",
+        "desc": "Votre offre sera vérifiée dans les 24 heures et sera publiée sur le marché.",
+        "addMore": "Ajouter Plus D'offres",
+        "MyOffers": "Mes Offres"
+      }
+    },
+    "reviews": {
+      "NoAvailable": "Aucun Avis Disponible",
+      "NoAvailableDesc": "Aucun avis disponible car il n'y a pas de transactions terminées entre vous et un soumissionnaire.",
+      "CallToAction": "Ajoutez une Offre",
+      "title": "Mes avis",
+      "date": {
+        "yearAgo": "Il y a 1 an",
+        "yearsAgo": "ans",
+        "monthAgo": "Il y a 1 mois",
+        "monthsAgo": "mois",
+        "dayAgo": "Il y a 1 jour",
+        "daysAgo": "jours",
+        "hourAgo": "Il y a 1 heure",
+        "hoursAgo": "heures",
+        "minuteAgo": "Il y a 1 minute",
+        "minutesAgo": "minutes",
+        "justNow": "À l'instant"
+      }
+    },
+    "ResponsiveMenuBar": {
+      "Dashboard": "Tableau de bord",
+      "Profile": "Profil",
+      "ManageBids": "Gérer les Devis",
+      "MyBids": "Mes enchères",
+      "MyOffers": "Mes offres",
+      "AddReview": "Ajouter un avis",
+      "Reviews": "Avis",
+      "Offers": "Offres",
+      "Support": "Support",
+      "LogOut": "Déconnexion"
+    }
+  },
+  "AdminDashboard": {
+    "DropDownMenu": {
+      "title": "Mon compte",
+      "Home": "Accueil",
+      "Marketplace": "Offres",
+      "Support": "Support",
+      "LogOut": "Déconnexion",
+      "Account": "Compte"
+    },
+    "NotFound": {
+      "Title": "Actuellement Aucune Donnée Disponible",
+      "Description": "Il n'y a pas d'offres à vérifier"
+    },
+    "Breadcrumb": {
+      "Dashboard": "Tableau de bord",
+      "OffersVerification": "Vérification des Offres"
+    },
+    "OffersVerificationSkeleton": {
+      "title": "Vérification des offres",
+      "OfferName": "Nom de l'offre",
+      "OfferNameDesc": "Le nom des offres",
+      "DepositorName": "Nom du déposant",
+      "DepositorNameDesc1": "Le nom du déposant",
+      "DepositorNameDesc2": "qui a publié cette offre",
+      "datePost": "Date de publication",
+      "datePostDesc": "La date à laquelle l'offre a été publiée",
+      "Accept": "Accepter l'offre",
+      "AcceptDesc": "Accepter l'offre comme une offre valide",
+      "Refuse": "Refuser l'offre",
+      "RefuseDesc1": "Refuser l'offre et ajouter",
+      "RefuseDesc2": "un message expliquant la raison"
+    },
+    "OffersVerification": {
+      "title": "Vérification des Offres",
+      "OfferName": "Nom de l'Offre",
+      "OfferNameDesc": "Le Nom des Offres",
+      "DepositorName": "Nom du Déposant",
+      "DepositorNameDesc1": "Le Nom du Déposant",
+      "DepositorNameDesc2": "qui a Publié Cette Offre",
+      "datePost": "Date de Publication",
+      "datePostDesc": "La Date à Laquelle l'Offre a été Publiée",
+      "Accept": "Accepter l'Offre",
+      "AcceptDesc": "Accepter l'Offre Comme une Offre Valide",
+      "Refuse": "Refuser l'Offre",
+      "RefuseDesc1": "Refuser l'Offre et Ajouter",
+      "RefuseDesc2": "un Message Expliquant la Raison",
+      "AcceptCallToAction": "Accepter",
+      "AcceptCallToActionDesc": "Valider et Accepter l'Offre",
+      "RefuseCalToAction": "Refuser",
+      "RefuseCalToActionDesc": "Valider et Refuser l'Offre",
+      "RefuseMessage": "Message de Refus",
+      "RefuseMessageDesc": "Écrire un message décrivant la raison du refus de l'offre.",
+      "Send": "Envoyer",
+      "ResponsiveMenuBar": {
+        "Dashboard": "Tableau de bord",
+        "Profile": "Profil",
+        "ManageBids": "Gérer les enchères",
+        "MyOffers": "Mes offres",
+        "Reviews": "Avis",
+        "Offers": "Offres",
+        "Support": "Support",
+        "LogOut": "Se déconnecter"
+      }
+    }
+  },
+  "BidderDashboard": {
+    "SideBar": {
+      "Dashboard": "Tableau de Bord",
+      "MyBids": "Mes enchères",
+      "AddReview": "Ajouter un avis"
+    },
+    "BreadcrumbList": {
+      "Dashboard": "Tableau de Bord",
+      "MyBids": "Mes enchères",
+      "AddReview": "Ajouter un avis",
+      "Reviews": "Mes Avis",
+      "Profile": "Profil"
+    },
+    "Statistic": {
+      "TotalBids": "Total des enchères",
+      "WaitingBids": "Enchères en attente",
+      "AcceptedBids": "Enchères acceptées",
+      "AccountRating": "Votre note de compte"
+    },
+    "BidsList": {
+      "Title": "Liste des offres",
+      "Description": "Votre liste d'offres",
+      "SeeMore": "Voir plus...",
+      "OfferName": "Nom de l'offre",
+      "OfferNameTooltip": "le nom de l'offre",
+      "DepositorName": "Nom du déposant",
+      "DepositorNameTooltip1": "le nom du déposant",
+      "DepositorNameTooltip2": "qui a publié l'offre",
+      "Date": "Date",
+      "DateTooltip": "la date à laquelle l'offre a été publiée",
+      "Estimate": "Devi"
+    },
+    "AddReview": {
+      "Title": "Liste des offres",
+      "Description": "Votre liste d'offres",
+      "OfferName": "Nom de l'offre",
+      "OfferNameTooltip": "le nom de l'offre",
+      "DepositorName": "Nom du déposant",
+      "DepositorNameDesc1": "Le nom du déposant",
+      "DepositorNameDesc2": "qui a publié cette offre",
+      "Date": "Date",
+      "DateTooltip": "la date de l'offre",
+      "Estimate": "Estimation",
+      "AddReview": "Ajouter un avis",
+      "AddReviewNameDesc1": "Soumettre un avis pour le déposant",
+      "AddReviewNameDesc2": "après l'achèvement des travaux.",
+      "CallToAction": "Avis",
+      "CallToActionTooltip": "Ajouter un avis",
+      "Review": {
+        "Title": "Avis",
+        "Description": "Ajouter un avis pour le déposant après l'achèvement des travaux.",
+        "PlaceHolder": "Avis",
+        "CallToAction": "Confirmer"
+      }
+    },
+    "NotFound": {
+      "Title": "Aucune offre trouvée",
+      "Description": "Pour trouver les meilleures offres, rendez-vous sur Market Place",
+      "CallToAction": "Market Place"
+    },
+    "Profile": {
+      "AE": {
+        "Card": "Carte",
+        "PhoneNumber": "Numéro de téléphone",
+        "Location": "Localisation",
+        "Address": "Adresse",
+        "Activities": "Activités"
+      },
+      "Company": {
+        "CompanyName": "Nom de l'entreprise",
+        "Type": "Type",
+        "CR": "RC",
+        "Size": "Taille",
+        "PhoneNumber": "Numéro de téléphone",
+        "Location": "Localisation",
+        "Address": "Adresse",
+        "Activities": "Activités"
+      },
+      "Verification": {
+        "Title": "Vérification en cours",
+        "Description": "Votre compte sera vérifié dans les 24 heures"
+      },
+      "NotFound": {
+        "NoAvailable": "Vous n'avez pas d'informations sur votre entreprise",
+        "NoAvailableDesc": "Pour devenir un compte de confiance, veuillez ajouter les informations sur votre entreprise",
+        "CallToAction": "Ajouter des informations"
+      }
+    },
+    "reviews": {
+      "NoAvailable": "Aucun Avis Disponible",
+      "NoAvailableDesc": "Aucun avis disponible car il n'y a pas de transactions terminées entre vous et un déposante.",
+      "CallToAction": "Postuler à une Offre",
+      "title": "Mes avis",
+      "date": {
+        "yearAgo": "Il y a 1 an",
+        "yearsAgo": "ans",
+        "monthAgo": "Il y a 1 mois",
+        "monthsAgo": "mois",
+        "dayAgo": "Il y a 1 jour",
+        "daysAgo": "jours",
+        "hourAgo": "Il y a 1 heure",
+        "hoursAgo": "heures",
+        "minuteAgo": "Il y a 1 minute",
+        "minutesAgo": "minutes",
+        "justNow": "À l'instant"
+      }
+    }
+  },
+  "FAQ": {
+    "Title": "Nous Sommes Ici pour Répondre à Toutes vos Questions",
+    "Desc": "Si vous êtes nouveau sur Desky, cette session vous aidera à en savoir plus sur nos services.",
+    "Items": {
+      "Item1": {
+        "Title": "Qu'est-ce que DESKY ?",
+        "Desc": "Desky est la première plateforme de demandes de propositions privées."
+      },
+      "Item2": {
+        "Title": "Comment soumettre une offre ?",
+        "Desc": "Pour soumettre une offre, rendez-vous d'abord sur la page des offres, choisissez ensuite l'offre sur laquelle vous souhaitez enchérir, et cliquez sur le bouton Postuler maintenant."
+      },
+      "Item3": {
+        "Title": "Que se passe-t-il une fois qu'une offre est acceptée ?",
+        "Desc": "Une fois l'offre acceptée, l'offre n'est plus disponible pour les enchères. Ensuite, l'enchérisseur et le déposant peuvent travailler ensemble."
+      },
+      "Item4": {
+        "Title": "Existe-t-il un système de rétroaction ou de notation pour les appels et les offres ?",
+        "Desc": "Oui. Lorsque le déposant et l'enchérisseur ont terminé de travailler ensemble, ils peuvent s'évaluer mutuellement et laisser des avis."
+      },
+      "Item5": {
+        "Title": "Comment les utilisateurs peuvent-ils suivre leur activité et leur taux de succès ?",
+        "Desc": "Cliquez sur la barre de menu en haut à droite, puis sélectionnez Tableau de bord. Vous y trouverez toutes les analyses et activités de votre compte."
+      },
+      "Item6": {
+        "Title": "Comment la plateforme vérifie-t-elle l'identité des utilisateurs ?",
+        "Desc": "La plateforme vérifie l'identité des utilisateurs par e-mail et CR pour les entreprises, ou une carte d'auto-entrepreneur pour les individus."
+      },
+      "Item7": {
+        "Title": "Comment la plateforme vérifie-t-elle les offres ?",
+        "Desc": "La plateforme vérifie les offres en fonction des termes et conditions stricts de la plateforme."
+      }
+    }
+  },
+  "AboutUs": {
+    "Title": "Vol en cours..."
+  }
+}

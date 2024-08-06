@@ -21,6 +21,15 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.tsx",
+    "**/*.ts",
+    ".next/types/**/*.ts",
+    "src/app/[Locale]/(main)/(auth)/(register)/Sign-Up/choose-type/bidder-Type"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/Cities.ts" 
+  ]
 }
