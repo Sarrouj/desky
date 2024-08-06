@@ -124,19 +124,35 @@ const FirstVueDropDownMenu = ({
                 <span>{content("User.Profile")}</span>
               </DropdownMenuItem>
               {userType == "depositor" ? (
-                <Link href={`/${Language}/dashboard-d`}>
-                  <DropdownMenuItem>
-                    <Package2 className="mr-2 h-4 w-4" />
-                    <span>{content("User.Dashboard")}</span>
-                  </DropdownMenuItem>
-                </Link>
+                <>
+                  <Link href={`/${Language}/Profile-D`}>
+                    <DropdownMenuItem>
+                      <User className="mr-2 h-4 w-4" />
+                      <span>{content("User.Profile")}</span>
+                    </DropdownMenuItem>
+                  </Link>
+                  <Link href={`/${Language}/dashboard-d`}>
+                    <DropdownMenuItem>
+                      <Package2 className="mr-2 h-4 w-4" />
+                      <span>{content("User.Dashboard")}</span>
+                    </DropdownMenuItem>
+                  </Link>
+                </>
               ) : userType == "bidder" ? (
-                <Link href={`/${Language}/Dashboard-B`}>
-                  <DropdownMenuItem>
-                    <Package2 className="mr-2 h-4 w-4" />
-                    <span>{content("User.Dashboard")}</span>
-                  </DropdownMenuItem>
-                </Link>
+                <>
+                  <Link href={`/${Language}/Profile-B`}>
+                    <DropdownMenuItem>
+                      <User className="mr-2 h-4 w-4" />
+                      <span>{content("User.Profile")}</span>
+                    </DropdownMenuItem>
+                  </Link>
+                  <Link href={`/${Language}/Dashboard-B`}>
+                    <DropdownMenuItem>
+                      <Package2 className="mr-2 h-4 w-4" />
+                      <span>{content("User.Dashboard")}</span>
+                    </DropdownMenuItem>
+                  </Link>
+                </>
               ) : (
                 <Link href={`/${Language}/Dashboard-A/Offers-verification`}>
                   <DropdownMenuItem>

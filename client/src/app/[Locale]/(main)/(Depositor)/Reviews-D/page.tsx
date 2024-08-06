@@ -115,7 +115,7 @@ const DepositorReviews = () => {
       <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
         <DepositorSheet
           Dashboard={"dashboard-d"}
-          Profile={""}
+          Profile={"Profile-D"}
           ManageBids={"dashboard-d/manage-bids"}
           MyOffers={"dashboard-d/my-offers"}
           Reviews={"dashboard-d/my-reviews"}
