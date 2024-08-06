@@ -41,31 +41,34 @@ const ContactUs = () => {
         FAQ={"hover:text-primary"}
         AboutUS={"hover:text-primary"}
       />
-      <main className="bg-neutralBg space-y-8 px-12 pt-10 text-center">
+      <main className="bg-neutralBg space-y-8 px-4 md:px-6 lg:px-8 xl:px-12   pt-10 text-center border-t-2">
         <div className="flex flex-col gap-3 items-center ">
-          <h1 className="text-4xl font-bold text-primary">Contact Us</h1>
-          <span>Any questions or remarks? Just write us a message!</span>
+          <h1 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-secondaryDarkBlue">
+            Contact Us
+          </h1>
+          <span className="text-secondaryDarkBlue text-xs md:text-sm lg:text-base">
+            Any questions or remarks? Just write us a message!
+          </span>
         </div>
-        <div className="w-full grid grid-cols-2">
-          <div className=" bg-muted rounded-lg m-5 bg-primary w-3/4">
-            <div className="h-2/4 text-white p-10">
-              <h3 className="text-3xl font-semibold mb-4">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2">
+          <div className=" bg-muted rounded-lg  bg-primary w-full hidden md:block">
+            <div className="h-2/4 text-white p-4  md:p-6 lg:p-8 xl:p-10">
+              <h3 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold lg:mb-2 xl:mb-4">
                 Contact information
               </h3>
-
-              <span className="font-light">
-                feel free to contact our team for any information
+              <span className="font-light text-xs md:text-sm lg:text-base">
+                Feel free to contact our team for any information
               </span>
-              <div className="flex flex-col gap-8 mt-24">
-                <div className="flex gap-4">
+              <div className="flex flex-col gap-4 lg:gap-8 md:mt-20 lg:mt-28">
+                <div className="flex gap-4 text-xs md:text-sm lg:text-base">
                   <Phone />
-                  <span>+123 456 7890</span>
+                  <span>+212 614 599 198</span>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 text-xs md:text-sm lg:text-base">
                   <Mail />
-                  <span>email@example.com</span>
+                  <span>zaydssh500@gmail.com</span>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 text-xs md:text-sm lg:text-base">
                   <MapPin />
                   <span>123 somewhere street 12345</span>
                 </div>
@@ -82,7 +85,7 @@ const ContactUs = () => {
           </div>
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col justify-center align-middle w-3/4"
+            className="flex flex-col justify-center align-middle w-full md:px-5 lg:px-10"
           >
             <div className="flex flex-col gap-2 text-start pt-6 ">
               <Label htmlFor="name">Name</Label>

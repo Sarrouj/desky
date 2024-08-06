@@ -22,6 +22,7 @@ import Link from "next/link";
 
 // Skeleton
 import { Skeleton } from "@/Components/ui/skeleton";
+import { CircleCheck } from "lucide-react";
 
 const FirstVueDropDownMenu = ({
   content,
@@ -119,10 +120,6 @@ const FirstVueDropDownMenu = ({
             <DropdownMenuLabel>{content("User.title")}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <User className="mr-2 h-4 w-4" />
-                <span>{content("User.Profile")}</span>
-              </DropdownMenuItem>
               {userType == "depositor" ? (
                 <>
                   <Link href={`/${Language}/Profile-D`}>

@@ -68,6 +68,7 @@ const NewUsers = ({
       await axios.put(`http://localhost:3001/admin/verify/${type}/${id}`, {
         user_id,
       });
+      window.location.reload();
     } catch (Error) {
       console.log(Error);
     }
@@ -79,6 +80,7 @@ const NewUsers = ({
         user_id,
         message,
       });
+      window.location.reload();
     } catch (Error) {
       console.log(Error);
     }

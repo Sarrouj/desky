@@ -12,26 +12,23 @@ function ProfileCard({
   language: any;
 }) {
   return (
-    <div className="rounded-lg border bg-card text-card-foreground shadow-sm mt-4">
-      <div className="flex items-center gap-6 p-6">
-        <div className="rounded-full bg-slate-200 text-primary w-24 h-24 flex items-center justify-center text-4xl">
+    <div className="rounded-lg border bg-card text-card-foreground shadow-sm mt-4 w-full">
+      <div className="flex items-center gap-6 p-4 lg:p-6">
+        <div className="rounded-full bg-slate-200 text-blue-400 w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 flex items-center justify-center text-xl md:text-2xl lg:text-3xl xl:text-4xl">
           {LetterFullName}
         </div>
-        <div className="grid gap-1">
-          <div className="text-2xl font-bold text-secondaryDarkBlue">
+        <div className="grid md:gap-1">
+          <div className="text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-secondaryDarkBlue">
             {user?.depositor_name || user?.bidder_name}
-          </div>
-          <div className="text-muted-foreground">
-            {user?.depositor_email || user?.bidder_email}
           </div>
           {language == "fr" ? (
             user_role == "depositor" ? (
-              <div className="text-muted-foreground">déposante</div>
+              <div className="text-muted-foreground text-sm md:text-base">Déposante</div>
             ) : (
-              <div className="text-muted-foreground">soumissionnaire</div>
+              <div className="text-muted-foreground text-sm md:text-base">Soumissionnaire</div>
             )
           ) : (
-            <div className="text-muted-foreground">{user_role}</div>
+            <div className="text-muted-foreground text-sm md:text-base">{user_role}</div>
           )}
         </div>
       </div>

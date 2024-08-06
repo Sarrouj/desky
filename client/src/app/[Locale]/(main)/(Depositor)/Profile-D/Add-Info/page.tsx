@@ -40,7 +40,7 @@ const BidderType = () => {
       </div>
       <div className="mx-auto grid w-7/12 gap-6 mb-10">
         <div className="grid gap-2">
-          <h1 className="text-3xl font-bold">{ChooseTypeContent("Title")}</h1>
+          <h1 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold">{ChooseTypeContent("Title")}</h1>
           <p className="text-muted-foreground">
             {ChooseTypeContent("Description")}
           </p>

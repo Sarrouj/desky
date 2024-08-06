@@ -147,7 +147,7 @@ function Profile() {
             />
           </div>
         </header>
-        <div className="w-full max-w-3xl mx-5 md:mx-10 lg:mx-auto">
+        <div className="mx-5 md:mx-10 lg:mx-18">
           <ProfileCard
             language={Language}
             LetterFullName={LetterFullName}
