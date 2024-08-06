@@ -13,8 +13,8 @@ import { useTranslations } from "next-intl";
 const Type = () => {
   const { data: session, status } = useSession();
   const [Language, setLanguage] = useState<string>();
-  const email = localStorage.getItem("email");
-  const password = localStorage.getItem("password");
+  const [email, setEmail] =  useState<any>();
+  // const password = localStorage.getItem("password");
   const [disable, setDisable] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -22,15 +22,15 @@ const Type = () => {
 // Content
 const ChooseTypeContent = useTranslations("Auth.ChooseType");
 
-// Check if we are in the browser environment
-const isBrowser = typeof window !== "undefined";
 
 useEffect(() => {
-  if (isBrowser) {
-    const lg = JSON.parse(localStorage.getItem("lg") || "null");
-    setLanguage(lg);
+  if (typeof window !== "undefined") {
+    const Email = window.localStorage.getItem("email");
+    const lg = window.localStorage.getItem("lg");
+    if (Email) setEmail(Email);
+    if (lg) setLanguage(JSON.parse(lg));
   }
-}, [isBrowser]);
+}, []);;
 
   // Check if Authenticated and redirect
   useEffect(() => {

@@ -12,8 +12,8 @@ import { useTranslations } from "next-intl";
 const DepositorType = () => {
   const { data: session, status } = useSession();
   const [Language, setLanguage] = useState<string>();
-  const email = localStorage.getItem("email");
-  const password = localStorage.getItem("password");
+  const [email, setEmail] = useState<any>()
+  const [password, setPassword] = useState<any>()
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -22,6 +22,10 @@ const DepositorType = () => {
 
   // Language
   useEffect(() => {
+    const email = localStorage.getItem("email");
+    if(email) setEmail(email);
+    const password = localStorage.getItem("password");
+    if(password) setPassword(password);
     const lg = JSON.parse(localStorage.getItem("lg") || "null");
     setLanguage(lg);
   }, []);

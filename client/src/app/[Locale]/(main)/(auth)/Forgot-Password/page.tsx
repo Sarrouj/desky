@@ -13,7 +13,7 @@ import { useTranslations } from "next-intl";
 
 const ForgotPassword = () => {
   const [Language, setLanguage] = useState();
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState<any>();
 
   // Language
   useEffect(() => {
