@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { Download, Users } from "lucide-react";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import axios from "axios";
 import Image from "next/image";
 import {
