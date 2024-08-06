@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
