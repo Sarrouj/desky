@@ -1,5 +1,5 @@
 import { Label } from "@/Components/ui/label";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/Components/ui/Button";
 import { Input } from "@/Components/ui/input";
 import { Tabs } from "@/Components/ui/tabs";
 import { Textarea } from "@/Components/ui/textarea";

@@ -32,11 +32,9 @@ import {
 const BidsListSkeleton = ({
   Content,
   amount,
-  seeMore
 }: {
   Content: any;
   amount: number;
-  seeMore: any;
 }) => {
   const { data: session } = useSession();
   const user_id = session ? session.user?.id : null;
