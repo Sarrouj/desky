@@ -39,8 +39,8 @@ const BidderReviews = () => {
     .join("");
 
   const formattedDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
+    const date : any = new Date(dateString);
+    const now : any = new Date();
 
     const seconds = Math.floor((now - date) / 1000);
 
@@ -79,8 +79,9 @@ const BidderReviews = () => {
   };
 
   useEffect(() => {
-    const lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "defaultLanguage"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, []);
 
   useEffect(() => {
