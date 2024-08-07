@@ -258,7 +258,7 @@ const AddOfferForm = ({
                   required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  maxLength="55"
+                  maxLength={55}
                   className={`text-xs lg:text-sm ${
                     titleErrorMsg
                       ? "ring-0 border-2 border-red-600 focus:ring-0 focus-visible:ring-white focus-visible:ring-1"
@@ -352,7 +352,7 @@ const AddOfferForm = ({
                 required
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
-                maxLength="2000"
+                maxLength={2000}
                 className={` text-xs lg:text-sm ${
                   descriptionErrorMsg
                     ? "ring-0 border-2 border-red-600 focus:ring-0 focus-visible:ring-white focus-visible:ring-1"
