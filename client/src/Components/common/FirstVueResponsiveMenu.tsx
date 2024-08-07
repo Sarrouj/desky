@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 import Link from "next/link";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 
