@@ -3,7 +3,7 @@
 import { Skeleton } from "@/Components/ui/skeleton";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import {
   Card,
   CardContent,
