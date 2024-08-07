@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/Components/ui/Button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { useState, useEffect } from "react";

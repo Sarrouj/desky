@@ -6,7 +6,7 @@ import { MapPin, Phone, Mail } from "lucide-react";
 import { Input } from "@/Components/ui/input";
 import { Textarea } from "@/Components/ui/textarea";
 import { Label } from "@/Components/ui/label";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/Components/ui/Button";
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";

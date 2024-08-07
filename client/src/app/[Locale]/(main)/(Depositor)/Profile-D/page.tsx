@@ -7,6 +7,7 @@ import NotFoundProfileDepositor from "@/Components/common/NotFoundProfileDeposit
 import ProfileCard from "@/Components/common/ProfileCard";
 import CompanyProfile from "@/Components/common/CompanyProfile";
 import AEProfile from "@/Components/common/AEProfile";
+import { Button } from "@/Components/ui/Button";
 import {
   Breadcrumb,
   BreadcrumbItem,

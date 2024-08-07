@@ -14,7 +14,7 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar";
 
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/Components/ui/Button";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";

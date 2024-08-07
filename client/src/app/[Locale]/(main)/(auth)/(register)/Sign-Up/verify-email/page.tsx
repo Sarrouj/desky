@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import axios from "axios";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/Components/ui/Button";
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import React from "react";

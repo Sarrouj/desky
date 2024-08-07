@@ -9,7 +9,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/Components/ui/breadcrumb";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/Components/ui/Button";
 import React, { useEffect, useState } from "react";
 
 // Components

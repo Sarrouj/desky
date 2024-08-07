@@ -6,7 +6,7 @@ import Link from "next/link";
 import axios from "axios";
 import { signIn, useSession } from "next-auth/react";
 
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/Components/ui/Button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 

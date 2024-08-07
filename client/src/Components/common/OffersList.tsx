@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/Components/ui/Button";
 import {
   Card,
   CardContent,
