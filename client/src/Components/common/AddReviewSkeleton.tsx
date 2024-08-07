@@ -39,8 +39,9 @@ const AddReviewSkeleton = ({
 
   // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "en"; 
+    setLanguage(language);
   }, [Language]);
 
   let skeleton = [];
