@@ -49,7 +49,7 @@ const Details = ({ params }: { params: any }) => {
   }, []);
 
   const { details } = params;
-  const detailsData = useBoundStore((state) => state.offerData);
+  const detailsData : any = useBoundStore((state) => state.offerData);
   const getOfferID = useBoundStore((state) => state.getOfferID);
   const fetchDetails = useBoundStore((state) => state.fetchOfferDetails);
 
@@ -71,7 +71,7 @@ const Details = ({ params }: { params: any }) => {
     (state) => state.DespositorLegalData
   );
 
-  const offerApply = Array.isArray(detailsData)
+  const offerApply : any = Array.isArray(detailsData)
     ? detailsData.find((data: any) => data !== null)?.offer_apply ?? []
     : detailsData?.offer_apply ?? [];
 
