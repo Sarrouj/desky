@@ -12,7 +12,7 @@ import {
   DialogFooter,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import DropDownAdmin from "@/Components/common/DropDownAdmin";
 import Link from "next/link";
 import { MapPin, StarIcon } from "lucide-react";
@@ -23,7 +23,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/Components/ui/breadcrumb";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 
 import AdminAside from "@/Components/common/AdminAside";
 import { Skeleton } from "@/Components/ui/skeleton";

@@ -23,7 +23,6 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 import axios from "axios";
-import { notFound } from "next/navigation";
 
 function Profile() {
   const [Language, setLanguage] = useState("fr");

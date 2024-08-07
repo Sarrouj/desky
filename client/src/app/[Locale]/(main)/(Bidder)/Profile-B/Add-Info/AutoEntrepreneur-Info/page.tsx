@@ -7,7 +7,7 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import axios from "axios";
 
 // Shadcn UI
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { cn } from "@/lib/utils";

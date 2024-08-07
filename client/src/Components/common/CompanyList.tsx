@@ -1,14 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Download } from "lucide-react";
 
-import { Badge } from "@/Components/ui/badge";
 import { Button } from "@/Components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/Components/ui/card";
