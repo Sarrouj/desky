@@ -118,13 +118,11 @@ const Offers: React.FC = () => {
   }
 
   useEffect(() => {
-    let sortData = [...searchedData];
-    if (selectedValue == "Newest") {
-      sortData.sort(
-        (a: any, b: any) => new Date(b.offer_DoP) - new Date(a.offer_DoP)
-      );
-    } else if (selectedValue == "Oldest") {
-      sortData.sort((a, b) => new Date(a.offer_DoP) - new Date(b.offer_DoP));
+    let sortData: any = [...searchedData];
+    if (selectedValue === "Newest") {
+      sortData.sort((a: any, b: any) => new Date(b.offer_DoP).getTime() - new Date(a.offer_DoP).getTime());
+    } else if (selectedValue === "Oldest") {
+      sortData.sort((a: any, b: any) => new Date(a.offer_DoP).getTime() - new Date(b.offer_DoP).getTime());
     }
     setSortedData(sortData);
   }, [selectedValue, searchedData]);
