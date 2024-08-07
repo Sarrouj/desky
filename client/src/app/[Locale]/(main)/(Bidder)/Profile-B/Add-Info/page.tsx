@@ -14,10 +14,10 @@ const BidderType = () => {
   // Content
   const ChooseTypeContent = useTranslations("Auth.BidderType");
 
-  // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
 
   return (

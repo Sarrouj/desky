@@ -43,9 +43,10 @@ function Profile() {
   const [legal, setLegal] = useState<any>(null);
 
   useEffect(() => {
-    const lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
-  }, []);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; 
+    setLanguage(language);
+  }, [Language]);
 
   useEffect(() => {
     if (user_role !== "depositor" && user_role !== null) {

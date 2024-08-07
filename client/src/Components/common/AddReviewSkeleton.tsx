@@ -30,7 +30,7 @@ import {
 
 const AddReviewSkeleton = ({
   Content,
-  amount,
+  amount
 }: {
   Content: any;
   amount: number;

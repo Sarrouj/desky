@@ -22,10 +22,12 @@ export default function Home() {
   const NavbarContent = useTranslations("NavBar");
   const OfferContent = useTranslations("offer");
 
-  useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
-  }, [Language]);
+// Language
+useEffect(() => {
+  const lg = localStorage.getItem("lg");
+  const language = lg ? JSON.parse(lg) : "fr"; 
+  setLanguage(language);
+}, [Language]);
 
   useEffect(() => {
     fetchOffers();

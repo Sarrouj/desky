@@ -33,10 +33,12 @@ const AdminSheet = () => {
     signOut();
   };
 
+  // Language
   useEffect(() => {
-    const lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
-  }, []);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; 
+    setLanguage(language);
+  }, [Language]);
 
   const Content = useTranslations("DepositorDashboard.ResponsiveMenuBar");
 

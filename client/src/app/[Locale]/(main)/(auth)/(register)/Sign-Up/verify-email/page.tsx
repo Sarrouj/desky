@@ -13,20 +13,19 @@ const EmailVerification = () => {
   const [password, setPassword] = useState<any>();
   const Content = useTranslations("Auth.EmailVerification");
 
-
-  // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
 
   useEffect(() => {
     const name = localStorage.getItem("name");
-    if(name) setName(name);
+    if (name) setName(name);
     const email = localStorage.getItem("email");
-    if(email) setEmail(email)
+    if (email) setEmail(email);
     const password = localStorage.getItem("password");
-    if(password) setPassword(password)
+    if (password) setPassword(password);
   }, []);
 
   const handleSubmit = async () => {

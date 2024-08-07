@@ -13,16 +13,16 @@ const ResetPassword = () => {
   const [Language, setLanguage] = useState();
   const Content = useTranslations("Auth.ForgotPassword.ResetPassword");
 
-  // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
 
   const email = localStorage.getItem("email");
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
-  const [error, setError] = useState();
+  const [password, setPassword] = useState<any>();
+  const [confirmPassword, setConfirmPassword] = useState<any>();
+  const [error, setError] = useState<any>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

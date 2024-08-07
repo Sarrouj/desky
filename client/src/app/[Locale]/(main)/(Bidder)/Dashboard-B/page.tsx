@@ -36,10 +36,11 @@ const BidderDashboard = () => {
   const [Language, setLanguage] = useState<any>();
 
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
-
+  
   // Auth
   const { data: session, status } = useSession();
   const user_id = session ? session.user?.id : null;

@@ -45,12 +45,12 @@ const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user
   const [Language, setLanguage] = useState("fr");
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    const lg = JSON.parse(localStorage.getItem("lg"));
-    if (lg) {
-      setLanguage(lg);
-    }
-  }, []);
+ // Language
+ useEffect(() => {
+  const lg = localStorage.getItem("lg");
+  const language = lg ? JSON.parse(lg) : "fr"; 
+  setLanguage(language);
+}, [Language]);
 
   return (
     <Tabs defaultValue="week">

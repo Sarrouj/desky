@@ -31,16 +31,13 @@ import {
   TooltipProvider,
 } from "@/Components/ui/tooltip";
 
-const AdminOffersListSkeleton = ({
-  Content,
-}: {
-  Content: any;
-}) => {
+const AdminOffersListSkeleton = ({ Content }: { Content: any }) => {
   const [Language, setLanguage] = useState("fr");
   // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; 
+    setLanguage(language);
   }, [Language]);
 
   let arr = [];
@@ -86,9 +83,12 @@ const AdminOffersListSkeleton = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>{Content("DepositorName")}</TooltipTrigger>
+                        <TooltipTrigger>
+                          {Content("DepositorName")}
+                        </TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
-                          {Content("DepositorNameDesc1")} <br /> {Content("DepositorNameDesc2")}
+                          {Content("DepositorNameDesc1")} <br />{" "}
+                          {Content("DepositorNameDesc2")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -106,9 +106,7 @@ const AdminOffersListSkeleton = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>
-                          {Content("Accept")}
-                        </TooltipTrigger>
+                        <TooltipTrigger>{Content("Accept")}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
                           {Content("AcceptDesc")}
                         </TooltipContent>
@@ -118,11 +116,10 @@ const AdminOffersListSkeleton = ({
                   <TableHead className="text-center">
                     <TooltipProvider>
                       <Tooltip>
-                        <TooltipTrigger>
-                          {Content("Refuse")}
-                        </TooltipTrigger>
+                        <TooltipTrigger>{Content("Refuse")}</TooltipTrigger>
                         <TooltipContent side="top" className="text-xs font-sm ">
-                          {Content("RefuseDesc1")} <br />  {Content("RefuseDesc2")}
+                          {Content("RefuseDesc1")} <br />{" "}
+                          {Content("RefuseDesc2")}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>

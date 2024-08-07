@@ -34,8 +34,9 @@ const AddReview = () => {
   const [Language, setLanguage] = useState<any>();
 
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
 
   // Auth
@@ -121,7 +122,7 @@ const AddReview = () => {
                 />
               )
             ) : (
-              <AddReviewSkeleton Content={AddReviewContent} seeMore={true} amount={6} />
+              <AddReviewSkeleton Content={AddReviewContent} amount={6} />
             )}
           </div>
         </main>

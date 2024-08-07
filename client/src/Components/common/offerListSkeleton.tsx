@@ -42,10 +42,10 @@ const OffersListSkeleton = ({
   const [Language, setLanguage] = useState("fr");
   // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr";
+    setLanguage(language);
   }, [Language]);
-
   let arr = [];
 
   for (let i = 0; i < 9; i++) {
@@ -90,7 +90,7 @@ const OffersListSkeleton = ({
             </Link>
           </CardHeader>
           <CardContent>
-            <Table >
+            <Table>
               <TableHeader className="">
                 <TableRow className="hover:bg-white">
                   <TableHead>{Content("offerName")}</TableHead>

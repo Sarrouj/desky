@@ -36,7 +36,7 @@ import { useSession } from "next-auth/react";
 
 const AutoEntrepreneurInfo = () => {
   const { data: session } = useSession();
-  const email = session ? session.user?.email : null;
+  const email : any = session ? session.user?.email : null;
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("");
   const [cin, setCin] = useState<File | null>(null);
@@ -53,8 +53,9 @@ const AutoEntrepreneurInfo = () => {
 
   // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
 
   const [open, setOpen] = React.useState<boolean>(false);

@@ -56,8 +56,9 @@ const BidsList = ({
 
   // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr";
+    setLanguage(language);
   }, [Language]);
 
   const putAcceptOffer = useBoundStore((state) => state.putAcceptOffer);

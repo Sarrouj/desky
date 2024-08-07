@@ -62,10 +62,12 @@ const Offers: React.FC = () => {
   const userRole = session ? session?.user.role : null;
   const [Language, setLanguage] = useState("fr");
 
+
   // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; 
+    setLanguage(language);
     searchedData;
   }, [Language, searchedData]);
 
