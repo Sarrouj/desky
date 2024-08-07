@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 import Link from "next/link";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 import { useSession, signOut } from "next-auth/react";
 
 const ResponsiveHomeMenu = ({ Language }: { Language: any }) => {

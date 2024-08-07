@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import axios from "axios";
 
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 const ResetPassword = () => {
