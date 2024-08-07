@@ -1,5 +1,5 @@
 {
   "typeAcquisition": {
-    "include": ["jest", "./api/*.js"]
+    "include": ["jest"]
   }
 }
