@@ -28,11 +28,11 @@ import {
   DialogFooter,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import AEDetails from "@/Components/common/AEDetails";
 import CompanyDetails from "@/Components/common/CompanyDetails";
 import { Tabs, TabsContent } from "@/Components/ui/tabs";
-import Link from "next/link";
+
 import {
   Tooltip,
   TooltipContent,

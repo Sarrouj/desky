@@ -42,7 +42,7 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogDescription,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 
 import axios from "axios";
 import { useBoundStore } from "@/lib/store";

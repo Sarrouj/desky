@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { StarFill } from "react-bootstrap-icons";
 import { Download, Star } from "lucide-react";
 import { Textarea } from "@/Components/ui/textarea";
