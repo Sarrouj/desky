@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Download } from "lucide-react";
 
 import { Badge } from "@/Components/ui/badge";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import {
   Card,
   CardContent,
