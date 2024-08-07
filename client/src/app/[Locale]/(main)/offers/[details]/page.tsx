@@ -12,7 +12,7 @@ import { useTranslations } from "next-intl";
 import { Input } from "@/Components/ui/input";
 import DetailsInfoSkeleton from "@/Components/common/DetailsInfoSkeleton";
 
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { Skeleton } from "@/Components/ui/skeleton";
 import { MapPin, StarIcon } from "lucide-react";
 
@@ -22,7 +22,7 @@ import {
   DialogHeader,
   DialogFooter,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 
 const Details = ({ params }: { params: any }) => {
   const DetailContent = useTranslations("OffersDetail");
