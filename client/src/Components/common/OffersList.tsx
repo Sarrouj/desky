@@ -27,7 +27,7 @@ import {
   DialogFooter,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 
 import { Tabs, TabsContent } from "@/Components/ui/tabs";
 
