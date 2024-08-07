@@ -28,7 +28,7 @@ export const SearchSlice: StateCreator<searchState> = (set, get) => ({
     fetchSearchedOffers: async () => {
         set({ offerIsLoading: true });
         const { searchValue, CategoryValue, CityValue } = get();
-        let url = 'http://localhost:3001/search/offer?';
+        let url = 'https://server-ebon-gamma.vercel.app/search/offer?';
 
         // Build the URL based on the combination of values
         if (searchValue !== "" && CategoryValue !== "" && CityValue !== "") {
