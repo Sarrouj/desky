@@ -470,7 +470,9 @@ const AddOfferForm = ({
                   </PopoverTrigger>
                   <PopoverContent
                     className={`${
-                      secondCategoryToggling ? " w-[350px] sm:w-[450px] md:w-[600px] lg:w-[800px] xl:w-[1200px]" : "w-[350px] sm:w-[450px] md:w-[300px] lg:w-[450px] xl:w-[650px]"
+                      secondCategoryToggling
+                        ? " w-[350px] sm:w-[450px] md:w-[600px] lg:w-[800px] xl:w-[1200px]"
+                        : "w-[350px] sm:w-[450px] md:w-[300px] lg:w-[450px] xl:w-[650px]"
                     } p-0`}
                   >
                     <Command>
@@ -534,21 +536,16 @@ const AddOfferForm = ({
                     </p>
                   </div>
                   <Popover open={categoryOpen2} onOpenChange={categorySetOpen2}>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        aria-expanded={categorySetOpen2}
-                        className="justify-between text-xs lg:text-sm"
-                        onClick={() => categorySetOpen2(!categoryOpen2)}
-                      >
-                        {CategoryValue2
-                          ? Categories.find(
-                              (categorie) => categorie.value === CategoryValue2
-                            )?.label
-                          : Content("SelectCategory")}
-                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                      </Button>
+                    <PopoverTrigger
+                      className="justify-between text-xs lg:text-sm bg-primary p-4 text-white"
+                      onClick={() => categorySetOpen2(!categoryOpen2)}
+                    >
+                      {CategoryValue2
+                        ? Categories.find(
+                            (categorie) => categorie.value === CategoryValue2
+                          )?.label
+                        : Content("SelectCategory")}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </PopoverTrigger>
                     <PopoverContent className="w-[350px] sm:w-[450px] md:w-[300px] lg:w-[450px] xl:w-[650px] p-0">
                       <Command>
