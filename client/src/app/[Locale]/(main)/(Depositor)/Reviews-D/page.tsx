@@ -94,7 +94,7 @@ const DepositorReviews = () => {
   const fetchDepositorReview = useBoundStore(
     (state) => state.fetchDepositorReview
   );
-  const DepositorReview = useBoundStore((state) => state.DepositorReview);
+  const DepositorReview : any = useBoundStore((state) => state.DepositorReview);
 
   useEffect(() => {
     if (user_id) {

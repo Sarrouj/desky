@@ -92,7 +92,7 @@ const BidderReviews = () => {
 
   const getBidderID = useBoundStore((state) => state.getBidderID);
   const fetchBidderReview = useBoundStore((state) => state.fetchBidderReview);
-  const BidderReview = useBoundStore((state) => state.BidderReview);
+  const BidderReview : any = useBoundStore((state) => state.BidderReview);
 
   useEffect(() => {
     if (user_id !== null) {
