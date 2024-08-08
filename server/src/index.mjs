@@ -29,7 +29,7 @@ const connectToDatabase = async () => {
 // Express App Setup
 const app = express();
 app.use(cors({
-  origin: 'https://desky-vnua.vercel.app/', // Replace with your actual Vercel app URL
+  origin: 'https://desky-vnua.vercel.app', // Replace with your actual Vercel app URL
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
