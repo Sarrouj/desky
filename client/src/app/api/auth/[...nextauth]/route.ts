@@ -49,7 +49,7 @@ const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         try {
           const response = await axios.post(
-            "http://localhost:3001/auth/login",
+            "https://desky-2.onrender.com/auth/login",
             {
               email: credentials?.email,
               password: credentials?.password,
@@ -84,7 +84,7 @@ const authOptions: NextAuthOptions = {
       if (account?.provider === "google") {
         try {
           const response = await axios.post(
-            "http://localhost:3001/auth/google",
+            "https://desky-2.onrender.com/auth/google",
             {
               email: user.email ?? "",
               name: user.name ?? "",
@@ -131,7 +131,7 @@ const authOptions: NextAuthOptions = {
       if (account?.provider === "google") {
         try {
           const response = await axios.post(
-            "http://localhost:3001/auth/google",
+            "https://desky-2.onrender.com/auth/google",
             {
               name: profile?.name ?? "",
               email: profile?.email ?? "",

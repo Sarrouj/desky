@@ -161,7 +161,7 @@ router.post(
         </p>
         <div>
           <a
-            href="http://localhost:3000/en/Sign-Up/verify-email/verified?token=${token}"
+            href="https://desky-2.onrender.com/en/Sign-Up/verify-email/verified?token=${token}"
           >
             Confirm Your Email
           </a>
@@ -414,7 +414,7 @@ router.post("/auth/forgetPassword", findUserByEmail, async (req, res, next) => {
         </p>
         <div>
           <a
-            href="http://localhost:3000/en/Forgot-Password/Email-Verification/Reset-Password"
+            href="https://desky-2.onrender.com/en/Forgot-Password/Email-Verification/Reset-Password"
           >
             Reset Your Password
           </a>
