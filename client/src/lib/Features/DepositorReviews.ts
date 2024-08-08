@@ -27,7 +27,7 @@ export const DepositorReviewSlice: StateCreator<DepositorReviewInfoType> = (
     const { DepositorID } = get();
     try {
       const response = await axios.get(
-        `http://localhost:3001/depositor/reviews/${DepositorID}`
+        `https://desky-2.onrender.com/depositor/reviews/${DepositorID}`
       );
       const data = response.data.success;
       set({ DepositorReview: data, DepositorReviewIsLoading: false });

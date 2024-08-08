@@ -19,7 +19,7 @@ export const HandleAcceptSlice : StateCreator<HandleAcceptBidState> = (set, get)
         const { UserID } = get();
         try {
             const results = await axios.post(
-                `http://localhost:3001/accept/depositor/bid/${bidID}`,{ user_id :  UserID }
+                `https://desky-2.onrender.com/accept/depositor/bid/${bidID}`,{ user_id :  UserID }
             );
             window.location.reload();
           } catch (error) {

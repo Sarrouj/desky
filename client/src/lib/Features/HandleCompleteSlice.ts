@@ -22,7 +22,7 @@ export const HandleCompleteSlice: StateCreator<HandleCompleteState> = (
     const { HandleCompleteDepositorID } = get();
     try {
       await axios.put(
-        `http://localhost:3001/edit/offer/state/${HandleCompleteOfferID}`,
+        `https://desky-2.onrender.com/edit/offer/state/${HandleCompleteOfferID}`,
         {
           user_id: HandleCompleteDepositorID,
           offer_state: "closed",

@@ -30,7 +30,7 @@ export const getDepositorLegalDataSlice : StateCreator<DepositorLegalData> = (se
         set({ depositorLegalInfoIsLoading: true });
         const { DepositorLegalID } = get();
       try {
-        const response = await axios.get(`http://localhost:3001/depositor/info/${DepositorLegalID}`);
+        const response = await axios.get(`https://desky-2.onrender.com/depositor/info/${DepositorLegalID}`);
         const data = response.data.success;
         set({ DespositorLegalData : data , depositorLegalInfoIsLoading: false});
       } catch (error) {
