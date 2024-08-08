@@ -70,7 +70,7 @@ const AdminDetails = ({ params }: { params: any }) => {
     const fetchOfferData = async () => {
       try {
         const offer = await axios.get(
-          `http://localhost:3001/offer/${offer_id}`
+          `https://desky-2.onrender.com/offer/${offer_id}`
         );
         setOfferDetails(offer.data.success);
       } catch (error) {
@@ -88,14 +88,14 @@ const AdminDetails = ({ params }: { params: any }) => {
         try {
           const [depositor, offers, legal] = await Promise.all([
             axios.get(
-              `http://localhost:3001/depositor/${offerDetails.depositor_id}`
+              `https://desky-2.onrender.com/depositor/${offerDetails.depositor_id}`
             ),
-            axios.post("http://localhost:3001/depositor/offers", {
+            axios.post("https://desky-2.onrender.com/depositor/offers", {
               user_id: offerDetails.depositor_id,
             }),
             axios
               .get(
-                `http://localhost:3001/depositor/info/${offerDetails.depositor_id}`
+                `https://desky-2.onrender.com/depositor/info/${offerDetails.depositor_id}`
               )
               .catch((error) => {
                 if (error.response && error.response.status === 404) {
@@ -240,7 +240,7 @@ const AdminDetails = ({ params }: { params: any }) => {
     if (offer_id) {
       try {
         await axios.put(
-          `http://localhost:3001/admin/offer/verify/${offer_id}`,
+          `https://desky-2.onrender.com/admin/offer/verify/${offer_id}`,
           {
             user_id,
           }
@@ -254,7 +254,7 @@ const AdminDetails = ({ params }: { params: any }) => {
 
   const handleRefuse = () => {
     try {
-      axios.put(`http://localhost:3001/admin/offer/refuse/${offer_id}`, {
+      axios.put(`https://desky-2.onrender.com/admin/offer/refuse/${offer_id}`, {
         user_id,
         message,
       });
@@ -432,7 +432,7 @@ const AdminDetails = ({ params }: { params: any }) => {
                       />
                       <a
                         target="_blank"
-                        href={`http://localhost:3001/uploads/${OfferAttachment}`}
+                        href={`https://desky-2.onrender.com/uploads/${OfferAttachment}`}
                       >
                         <p className="text-primary underline underline-offset-1 text-xs lg:text-base hidden md:block">
                           {OfferAttachment}

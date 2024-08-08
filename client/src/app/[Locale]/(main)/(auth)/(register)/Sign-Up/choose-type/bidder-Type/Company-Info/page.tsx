@@ -96,7 +96,7 @@ const CompanyInfo = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/add/bidder/company",
+        "https://desky-2.onrender.com/add/bidder/company",
         {
           email,
           company_type: type,

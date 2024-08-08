@@ -28,7 +28,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3001/auth/forgetPassword",
+        "https://desky-2.onrender.com/auth/forgetPassword",
         {
           email,
         }

@@ -68,10 +68,10 @@ const DepositorDashboard = () => {
       if (user_id !== null) {
         try {
           const [info, offers] = await Promise.all([
-            axios.post("http://localhost:3001/depositor", {
+            axios.post("https://desky-2.onrender.com/depositor", {
               user_id,
             }),
-            axios.post("http://localhost:3001/depositor/offers", {
+            axios.post("https://desky-2.onrender.com/depositor/offers", {
               user_id,
             }),
           ]);

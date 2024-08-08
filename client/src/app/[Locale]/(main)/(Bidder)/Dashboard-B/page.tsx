@@ -59,7 +59,7 @@ const BidderDashboard = () => {
     const fetchData = async () => {
       if (user_id !== null) {
         const dashboard = await axios.get(
-          `http://localhost:3001/bidder/dashboard/${user_id}`
+          `https://desky-2.onrender.com/bidder/dashboard/${user_id}`
         );
         setBids(dashboard.data.success);
       }

@@ -78,7 +78,7 @@ const Details = ({ params }: { params: any }) => {
   const getDepositorReviews = async (DepositorId: string) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/depositor/reviews/${DepositorId}`
+        `https://desky-2.onrender.com/depositor/reviews/${DepositorId}`
       );
       if (response && response.data && response.data.success) {
         setSuccess(response.data.success);
@@ -129,7 +129,7 @@ const Details = ({ params }: { params: any }) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3001/apply/offer/${details}`,
+        `https://desky-2.onrender.com/apply/offer/${details}`,
         formData,
         {
           headers: {
@@ -149,7 +149,7 @@ const Details = ({ params }: { params: any }) => {
   useEffect(() => {
     const fetchOfferData = async () => {
       try {
-        const offer = await axios.get(`http://localhost:3001/offer/${details}`);
+        const offer = await axios.get(`https://desky-2.onrender.com/offer/${details}`);
         setOfferDetails(offer.data.success);
       } catch (error) {
         console.error("Error fetching offer data:", error);
@@ -166,14 +166,14 @@ const Details = ({ params }: { params: any }) => {
         try {
           const [depositor, offers, legal] = await Promise.all([
             axios.get(
-              `http://localhost:3001/depositor/${offerDetails.depositor_id}`
+              `https://desky-2.onrender.com/depositor/${offerDetails.depositor_id}`
             ),
-            axios.post("http://localhost:3001/depositor/offers", {
+            axios.post("https://desky-2.onrender.com/depositor/offers", {
               user_id: offerDetails.depositor_id,
             }),
             axios
               .get(
-                `http://localhost:3001/depositor/info/${offerDetails.depositor_id}`
+                `https://desky-2.onrender.com/depositor/info/${offerDetails.depositor_id}`
               )
               .catch((error) => {
                 if (error.response && error.response.status === 404) {
@@ -461,7 +461,7 @@ const Details = ({ params }: { params: any }) => {
                         />
                         <a
                           target="_blank"
-                          href={`http://localhost:3001/uploads/${OfferAttachment}`}
+                          href={`https://desky-2.onrender.com/uploads/${OfferAttachment}`}
                         >
                           <p className="text-primary underline underline-offset-1 text-xs lg:text-base hidden md:block">
                             {OfferAttachment}

@@ -77,7 +77,7 @@ const ClosedBidderBidsList = ({
     }
     try {
       const response = await axios.post(
-        `http://localhost:3001/rate/bidder/${depositor_id}/${offer_id}`,
+        `https://desky-2.onrender.com/rate/bidder/${depositor_id}/${offer_id}`,
         {
           rating,
           text: review,
@@ -194,7 +194,7 @@ const ClosedBidderBidsList = ({
                           <TableCell className="text-center">
                             <a
                               target="_blank"
-                              href={`http://localhost:3001/uploads/${bid[0].bid.estimate}`}
+                              href={`https://desky-2.onrender.com/uploads/${bid[0].bid.estimate}`}
                               className=" mt-2 text-primary hover:text-orange-600"
                             >
                               <Download

@@ -31,7 +31,7 @@ const ResetPassword = () => {
     }
     try {
       const response = await axios.put(
-        "http://localhost:3001/auth/changePassword",
+        "https://desky-2.onrender.com/auth/changePassword",
         {
           email,
           password,

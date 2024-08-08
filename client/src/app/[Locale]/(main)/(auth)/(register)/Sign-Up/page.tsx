@@ -51,7 +51,7 @@ const SignUp = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/auth/register/tempUser",
+        "https://desky-2.onrender.com/auth/register/tempUser",
         {
           name,
           email,

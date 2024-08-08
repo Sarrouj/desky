@@ -62,7 +62,7 @@ function Profile() {
       if (user_id !== null) {
         try {
           const info = await axios.post(
-            `http://localhost:3001/profile/${user_id}`,
+            `https://desky-2.onrender.com/profile/${user_id}`,
             {
               user_role,
             }
@@ -78,7 +78,7 @@ function Profile() {
       if (user_id !== null) {
         try {
           const info = await axios.get(
-            `http://localhost:3001/bidder/info/${user_id}`
+            `https://desky-2.onrender.com/bidder/info/${user_id}`
           );
           if (info.data.success) {
             setLegal(info.data.success);

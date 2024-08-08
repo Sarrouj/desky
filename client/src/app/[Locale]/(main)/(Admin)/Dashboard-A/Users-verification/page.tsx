@@ -63,7 +63,7 @@ function UsersVerification() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get("http://localhost:3001/admin/users");
+        const result = await axios.get("https://desky-2.onrender.com/admin/users");
         setAE(result.data.data.unverifiedAE);
         setCompany(result.data.data.unverifiedCompany);
        

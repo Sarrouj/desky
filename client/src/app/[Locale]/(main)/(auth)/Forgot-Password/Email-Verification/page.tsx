@@ -19,7 +19,7 @@ const EmailVerification = () => {
 
   const handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:3001/auth/forgetPassword", {
+      await axios.post("https://desky-2.onrender.com/auth/forgetPassword", {
         email,
       });
     } catch (err) {

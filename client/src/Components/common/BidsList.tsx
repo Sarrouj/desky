@@ -205,10 +205,10 @@ const BidsList = ({
                                   async (review: any, index: number) => {
                                     try {
                                       const response = await axios.get(
-                                        `http://localhost:3001/depositor/${review.depositor_id}`
+                                        `https://desky-2.onrender.com/depositor/${review.depositor_id}`
                                       );
                                       const responseOffer = await axios.get(
-                                        `http://localhost:3001/offer/${review.offer_id}`
+                                        `https://desky-2.onrender.com/offer/${review.offer_id}`
                                       );
                                       const data = response.data.success;
                                       const dataOffer =
@@ -298,10 +298,10 @@ const BidsList = ({
                                   async (review: any, index: number) => {
                                     try {
                                       const response = await axios.get(
-                                        `http://localhost:3001/depositor/${review.depositor_id}`
+                                        `https://desky-2.onrender.com/depositor/${review.depositor_id}`
                                       );
                                       const responseOffer = await axios.get(
-                                        `http://localhost:3001/offer/${review.offer_id}`
+                                        `https://desky-2.onrender.com/offer/${review.offer_id}`
                                       );
                                       const data = response.data.success;
                                       const dataOffer =
@@ -386,10 +386,10 @@ const BidsList = ({
                                   async (review: any, index: number) => {
                                     try {
                                       const response = await axios.get(
-                                        `http://localhost:3001/depositor/${review.depositor_id}`
+                                        `https://desky-2.onrender.com/depositor/${review.depositor_id}`
                                       );
                                       const responseOffer = await axios.get(
-                                        `http://localhost:3001/offer/${review.offer_id}`
+                                        `https://desky-2.onrender.com/offer/${review.offer_id}`
                                       );
                                       const data = response.data.success;
                                       const dataOffer =
@@ -459,7 +459,7 @@ const BidsList = ({
                         <TableCell className="flex justify-center items-center">
                           <a
                             target="_blank"
-                            href={`http://localhost:3001/uploads/${bid.bid_est}`}
+                            href={`https://desky-2.onrender.com/uploads/${bid.bid_est}`}
                             className=" mt-2 text-primary hover:text-orange-600"
                           >
                             <Download

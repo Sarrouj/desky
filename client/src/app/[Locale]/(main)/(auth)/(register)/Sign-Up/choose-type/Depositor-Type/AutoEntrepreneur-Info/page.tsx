@@ -128,7 +128,7 @@ const AutoEntrepreneurInfo = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/add/depositor/AE",
+        "https://desky-2.onrender.com/add/depositor/AE",
         formData,
         {
           headers: {

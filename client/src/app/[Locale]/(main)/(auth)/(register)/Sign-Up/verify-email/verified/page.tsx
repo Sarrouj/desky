@@ -30,7 +30,7 @@ const ResetPassword = () => {
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        await axios.get(`http://localhost:3001/auth/verify/${token}`);
+        await axios.get(`https://desky-2.onrender.com/auth/verify/${token}`);
       } catch (error) {
         console.error("There was an error verifying the token:", error);
       }
