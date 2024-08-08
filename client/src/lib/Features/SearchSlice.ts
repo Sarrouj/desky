@@ -28,7 +28,7 @@ export const SearchSlice: StateCreator<searchState> = (set, get) => ({
     fetchSearchedOffers: async () => {
         set({ offerIsLoading: true });
         const { searchValue, CategoryValue, CityValue } = get();
-        let url = 'https://desky-2.onrender.com/offer/search/offer?';
+        let url = 'https://desky-2.onrender.com/search/offer?';
 
         // Build the URL based on the combination of values
         if (searchValue !== "" && CategoryValue !== "" && CityValue !== "") {
