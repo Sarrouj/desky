@@ -53,10 +53,11 @@ const MyBids = () => {
   const user_role = session ? session.user?.role : null;
 
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
-
+  
   useEffect(() => {
     if (user_role !== "depositor" && user_role !== null) {
       window.location.href = `/${Language}`;

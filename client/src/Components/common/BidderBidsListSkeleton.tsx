@@ -37,12 +37,12 @@ const BidderBidsListSkeleton = ({
 }) => {
   const [Language, setLanguage] = useState("fr");
 
-  // Language
-  useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
-  }, [Language]);
-
+// Language
+useEffect(() => {
+  const lg = localStorage.getItem("lg");
+  const language = lg ? JSON.parse(lg) : "fr"; 
+  setLanguage(language);
+}, [Language]);
   let skeleton = [];
 
   for (let i = 0; i < amount; i++) {

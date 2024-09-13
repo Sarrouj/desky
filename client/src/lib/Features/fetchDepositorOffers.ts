@@ -17,7 +17,7 @@ export const FetchDepositorOffers : StateCreator<FetchDepositorOffersState> = (s
 
         try {
             const response = await axios.post(
-              "http://localhost:3001/depositor/offers",{ user_id : OffersUserID, }
+              "https://desky-2.onrender.com/depositor/offers",{ user_id : OffersUserID, }
             );
 
             set({ DepositorResponse  : response.data.success})

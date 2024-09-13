@@ -39,10 +39,10 @@ const DepositorReviews = () => {
     .join("");
 
   const formattedDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
+    const date : any = new Date(dateString);
+    const now : any = new Date();
 
-    const seconds = Math.floor((now - date) / 1000);
+    const seconds : any = Math.floor((now  - date) / 1000);
 
     let interval = Math.floor(seconds / 31536000);
 
@@ -79,9 +79,10 @@ const DepositorReviews = () => {
   };
 
   useEffect(() => {
-    const lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
-  }, []);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
+  }, [Language]);
 
   useEffect(() => {
     if (user_role !== "depositor" && user_role !== null) {
@@ -93,7 +94,7 @@ const DepositorReviews = () => {
   const fetchDepositorReview = useBoundStore(
     (state) => state.fetchDepositorReview
   );
-  const DepositorReview = useBoundStore((state) => state.DepositorReview);
+  const DepositorReview : any = useBoundStore((state) => state.DepositorReview);
 
   useEffect(() => {
     if (user_id) {

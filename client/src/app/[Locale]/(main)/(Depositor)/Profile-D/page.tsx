@@ -44,9 +44,10 @@ function Profile() {
   const [legal, setLegal] = useState<any>(null);
 
   useEffect(() => {
-    const lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
-  }, []);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; 
+    setLanguage(language);
+  }, [Language]);
 
   useEffect(() => {
     if (user_role !== "depositor" && user_role !== null) {
@@ -60,7 +61,7 @@ function Profile() {
       if (user_id !== null) {
         try {
           const info = await axios.post(
-            `http://localhost:3001/profile/${user_id}`,
+            `https://desky-2.onrender.com/profile/${user_id}`,
             {
               user_role,
             }
@@ -76,7 +77,7 @@ function Profile() {
       if (user_id !== null) {
         try {
           const info = await axios.get(
-            `http://localhost:3001/depositor/info/${user_id}`
+            `https://desky-2.onrender.com/depositor/info/${user_id}`
           );
           if (info.data.success) {
             setLegal(info.data.success);

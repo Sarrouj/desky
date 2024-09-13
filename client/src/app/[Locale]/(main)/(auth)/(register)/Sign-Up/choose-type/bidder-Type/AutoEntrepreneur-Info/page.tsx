@@ -50,10 +50,10 @@ const AutoEntrepreneurInfo = () => {
   const CitiesEN = useBoundStore((state) => state.CitiesEN);
   const CitiesFR = useBoundStore((state) => state.CitiesFR);
 
-  // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
 
   const [open, setOpen] = React.useState<boolean>(false);
@@ -129,7 +129,7 @@ const AutoEntrepreneurInfo = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/add/bidder/AE",
+        "https://desky-2.onrender.com/add/bidder/AE",
         formData,
         {
           headers: {

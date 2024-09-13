@@ -11,27 +11,26 @@ const ResetPassword = () => {
   const [Language, setLanguage] = useState();
   const [token, setToken] = useState<any>();
   const Content = useTranslations("Auth.EmailVerification.verified");
-
-  // Language
+  
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    console.log(urlParams)
-    if(urlParams){
+    console.log(urlParams);
+    if (urlParams) {
       const token = urlParams.get("token");
-      if(token) setToken(token);
+      if (token) setToken(token);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        await axios.get(`http://localhost:3001/auth/verify/${token}`);
+        await axios.get(`https://desky-2.onrender.com/auth/verify/${token}`);
       } catch (error) {
         console.error("There was an error verifying the token:", error);
       }
@@ -53,18 +52,23 @@ const ResetPassword = () => {
               alt="shape"
               className=""
             />
-            <h1 className="text-base md:text-lg lg:text-xl font-bold">{Content("title")}</h1>
+            <h1 className="text-base md:text-lg lg:text-xl font-bold">
+              {Content("title")}
+            </h1>
           </div>
           <Link href={`/${Language}/Sign-Up/Choose-Type`}>
-            <Button type="submit" className="w-full text-white text-xs sm:text-sm">
+            <Button
+              type="submit"
+              className="w-full text-white text-xs sm:text-sm"
+            >
               {Content("CallToAction")}
             </Button>
           </Link>
         </div>
       </div>
       <div className="w-full text-center lg:text-start lg:px-10 xl:px-14 text-xs sm:text-sm">
-          <p>{Content("CopyWrite")}</p>
-       </div>
+        <p>{Content("CopyWrite")}</p>
+      </div>
     </div>
   );
 };

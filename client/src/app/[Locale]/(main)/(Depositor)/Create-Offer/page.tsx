@@ -38,10 +38,11 @@ const CreateOffer: React.FC = () => {
 
   // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
-
+  
   // Language
   let SideBarContent = useTranslations("DepositorDashboard.SideBar");
   let BreadcrumbListContent = useTranslations(

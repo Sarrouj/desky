@@ -29,7 +29,7 @@ export const createOffersSlice : StateCreator<OffersState> = (set)=>({
   fetchOffers: async () => {
     set({ offersDataIsLoading: true });
     try {
-      const response = await axios.get('http://localhost:3001/offers');
+      const response = await axios.get('https://desky-2.onrender.com/offers');
       const data = response.data.success;
       set({ offersData: data , offersDataIsLoading : false});
     } catch (error) {

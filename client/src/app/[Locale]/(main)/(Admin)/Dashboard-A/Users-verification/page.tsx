@@ -48,9 +48,10 @@ function UsersVerification() {
   const [type, setType] = useState<any>(null);
 
   useEffect(() => {
-    const lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
-  }, []);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
+  }, [Language]);
 
   useEffect(() => {
     if (user_role !== "admin" && user_role !== null) {
@@ -62,7 +63,7 @@ function UsersVerification() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get("http://localhost:3001/admin/users");
+        const result = await axios.get("https://desky-2.onrender.com/admin/users");
         setAE(result.data.data.unverifiedAE);
         setCompany(result.data.data.unverifiedCompany);
        

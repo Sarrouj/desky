@@ -16,7 +16,7 @@ export const BidderReviews : StateCreator<BidderReviewsState> = (set, get) => ({
         const { ReviewsBidderID } = get();
         try {
             const response = await axios.get(
-              `http://localhost:3001/bidder/reviews/${ReviewsBidderID}`
+              `https://desky-2.onrender.com/bidder/reviews/${ReviewsBidderID}`
             );
             const data = response.data.success; 
           

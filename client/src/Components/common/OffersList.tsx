@@ -45,12 +45,12 @@ const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user
   const [Language, setLanguage] = useState("fr");
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    const lg = JSON.parse(localStorage.getItem("lg"));
-    if (lg) {
-      setLanguage(lg);
-    }
-  }, []);
+ // Language
+ useEffect(() => {
+  const lg = localStorage.getItem("lg");
+  const language = lg ? JSON.parse(lg) : "fr"; 
+  setLanguage(language);
+}, [Language]);
 
   return (
     <Tabs defaultValue="week">
@@ -117,7 +117,7 @@ const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user
                   offers.map((offer: any, index: number) => {
                     const handleAccept = async () => {
                       await axios.put(
-                        `http://localhost:3001/admin/offer/verify/${offer._id}`,
+                        `https://desky-2.onrender.com/admin/offer/verify/${offer._id}`,
                         {
                           user_id,
                         }
@@ -127,7 +127,7 @@ const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user
 
                     const handleRefuse = async () => {
                        await axios.put(
-                        `http://localhost:3001/admin/offer/refuse/${offer._id}`,
+                        `https://desky-2.onrender.com/admin/offer/refuse/${offer._id}`,
                         {
                           user_id,
                           message,

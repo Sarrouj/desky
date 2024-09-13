@@ -34,8 +34,9 @@ const MyBids = () => {
   const [Language, setLanguage] = useState<any>();
 
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
 
   // Auth
@@ -57,7 +58,7 @@ const MyBids = () => {
     const fetchData = async () => {
       if (user_id !== null) {
         const bids = await axios.get(
-          `http://localhost:3001/bidder/dashboard/${user_id}`
+          `https://desky-2.onrender.com/bidder/dashboard/${user_id}`
         );
         setBids(bids.data.success);
       }

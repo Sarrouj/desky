@@ -37,7 +37,7 @@ declare module "next-auth/jwt" {
   }
 }
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       id: "credentials",
@@ -49,7 +49,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         try {
           const response = await axios.post(
-            "http://localhost:3001/auth/login",
+            "https://desky-2.onrender.com/auth/login",
             {
               email: credentials?.email,
               password: credentials?.password,
@@ -84,7 +84,7 @@ export const authOptions: NextAuthOptions = {
       if (account?.provider === "google") {
         try {
           const response = await axios.post(
-            "http://localhost:3001/auth/google",
+            "https://desky-2.onrender.com/auth/google",
             {
               email: user.email ?? "",
               name: user.name ?? "",
@@ -131,7 +131,7 @@ export const authOptions: NextAuthOptions = {
       if (account?.provider === "google") {
         try {
           const response = await axios.post(
-            "http://localhost:3001/auth/google",
+            "https://desky-2.onrender.com/auth/google",
             {
               name: profile?.name ?? "",
               email: profile?.email ?? "",
@@ -175,5 +175,5 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-export const handler = NextAuth(authOptions);
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

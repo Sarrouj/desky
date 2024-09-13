@@ -59,7 +59,7 @@ const CompanyList = ({ Company, user_id }: { Company: any; user_id: any }) => {
 
   const handleAccept = async (type: string, id: string) => {
     try {
-      await axios.put(`http://localhost:3001/admin/verify/${type}/${id}`, {
+      await axios.put(`https://desky-2.onrender.com/admin/verify/${type}/${id}`, {
         user_id,
       });
       // Reload the current page upon success
@@ -71,7 +71,7 @@ const CompanyList = ({ Company, user_id }: { Company: any; user_id: any }) => {
 
   const handleRefuse = async (type: string, id: string) => {
     try {
-      await axios.put(`http://localhost:3001/admin/refuse/${type}/${id}`, {
+      await axios.put(`https://desky-2.onrender.com/admin/refuse/${type}/${id}`, {
         user_id,
         message,
       });

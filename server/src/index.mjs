@@ -28,9 +28,15 @@ const connectToDatabase = async () => {
 
 // Express App Setup
 const app = express();
+app.use(cors({
+  origin: 'https://desky-8wl9.vercel.app', // Replace with your actual Vercel app URL
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}));
+
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+// app.use(cors());
 app.use("/uploads", express.static("uploads"));
 
 // Routes
@@ -50,3 +56,5 @@ connectToDatabase().then(() => {
     console.log(`Server running on port ${PORT}`);
   });
 });
+
+export default app;

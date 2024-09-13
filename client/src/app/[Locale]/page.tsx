@@ -22,10 +22,12 @@ export default function Home() {
   const NavbarContent = useTranslations("NavBar");
   const OfferContent = useTranslations("offer");
 
-  useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
-  }, [Language]);
+// Language
+useEffect(() => {
+  const lg = localStorage.getItem("lg");
+  const language = lg ? JSON.parse(lg) : "fr"; 
+  setLanguage(language);
+}, [Language]);
 
   useEffect(() => {
     fetchOffers();
@@ -81,13 +83,13 @@ export default function Home() {
                   <div className="mb-8">
                     <Link
                       href={`${Language}/login`}
-                      className="bg-primaryOrange text-white px-8 py-3 rounded-md mr-3 text-xs md:text-sm xl:text-base"
+                      className="bg-primaryOrange text-white px-2 md:px-8 py-3 rounded-md mr-3 text-xs md:text-sm xl:text-base"
                     >
                       {Content("Hero.SubmitCallToAction")}
                     </Link>
                     <Link
                       href={`${Language}/offers`}
-                      className="px-7 py-2 rounded-md border-4 border-primaryOrange text-primaryOrange bg-white font-semibold text-xs md:text-sm xl:text-base"
+                      className="px-2 md:px-7 py-2 rounded-md border-4 border-primaryOrange text-primaryOrange bg-white font-semibold text-xs md:text-sm xl:text-base"
                     >
                       {Content("Hero.SeeCallsCallToAction")}
                     </Link>

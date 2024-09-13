@@ -45,7 +45,7 @@ useEffect(() => {
     setError("");
     try {
       const response = await axios.post(
-        "http://localhost:3001/auth/register/user",
+        "https://desky-2.onrender.com/auth/register/user",
         {
           email,
           userType,
@@ -101,14 +101,14 @@ useEffect(() => {
                     width={50}
                     height={50}
                     alt="depositor icon"
-                    className="depositorIcon  h-10 w-10 md:h-12 md:w-12"
+                    className="depositorIcon h-10 w-10 md:h-12 md:w-12"
                   />
                   <Image
                     src="/icons/HoverDepositorIcon.svg"
                     width={50}
                     height={50}
                     alt="hover depositor icon"
-                    className="hidden hoverDepositorIcon  h-10 w-10 md:h-12 md:w-12"
+                    className="hidden hoverDepositorIcon h-10 w-10 md:h-12 md:w-12"
                   />
                   <div>
                     <h3 className="font-semibold text-sm md:text-base">

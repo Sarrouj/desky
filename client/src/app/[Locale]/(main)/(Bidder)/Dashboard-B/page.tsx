@@ -36,10 +36,11 @@ const BidderDashboard = () => {
   const [Language, setLanguage] = useState<any>();
 
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
-
+  
   // Auth
   const { data: session, status } = useSession();
   const user_id = session ? session.user?.id : null;
@@ -58,7 +59,7 @@ const BidderDashboard = () => {
     const fetchData = async () => {
       if (user_id !== null) {
         const dashboard = await axios.get(
-          `http://localhost:3001/bidder/dashboard/${user_id}`
+          `https://desky-2.onrender.com/bidder/dashboard/${user_id}`
         );
         setBids(dashboard.data.success);
       }

@@ -15,7 +15,7 @@ function AEProfile({ user, content }: { user: any; content: any }) {
             {content("Card")}:
             <a
               target="_blank"
-              href={`http://localhost:3001/uploads/${user.ae.AE_CIN}`}
+              href={`https://desky-2.onrender.com/uploads/${user.ae.AE_CIN}`}
               className=" mt-2 underline text-primary hover:text-orange-600"
             >
               {user.ae.AE_CIN}

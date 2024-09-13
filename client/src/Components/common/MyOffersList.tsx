@@ -89,7 +89,7 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
     }
     try {
       const response = await axios.post(
-        `http://localhost:3001/rate/depositor/${bidderId}/${offerId}`,
+        `https://desky-2.onrender.com/rate/depositor/${bidderId}/${offerId}`,
         {
           rating,
           text: review,

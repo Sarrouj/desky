@@ -65,7 +65,7 @@ const NewUsers = ({
 
   const handleAccept = async (type: string, id: string) => {
     try {
-      await axios.put(`http://localhost:3001/admin/verify/${type}/${id}`, {
+      await axios.put(`https://desky-2.onrender.com/admin/verify/${type}/${id}`, {
         user_id,
       });
       window.location.reload();
@@ -76,7 +76,7 @@ const NewUsers = ({
 
   const handleRefuse = async (type: string, id: string) => {
     try {
-      await axios.put(`http://localhost:3001/admin/refuse/${type}/${id}`, {
+      await axios.put(`https://desky-2.onrender.com/admin/refuse/${type}/${id}`, {
         user_id,
         message,
       });
@@ -181,7 +181,7 @@ const NewUsers = ({
                       <TableCell className="text-center text-xs md:text-sm lg:text-base">
                         <a
                           target="_blank"
-                          href={`http://localhost:3001/uploads/${ae.aeInfo.AE_CIN}`}
+                          href={`https://desky-2.onrender.com/uploads/${ae.aeInfo.AE_CIN}`}
                           className="font-extralight mt-2 text-primary hover:text-orange-600"
                         >
                           <Download

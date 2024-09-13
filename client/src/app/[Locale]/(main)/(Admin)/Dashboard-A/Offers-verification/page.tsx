@@ -41,9 +41,10 @@ function OffersVerification() {
   const [offers, setOffers] = useState<any>(null);
 
   useEffect(() => {
-    const lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
-  }, []);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
+  }, [Language]);
 
   useEffect(() => {
     if (user_role !== "admin" && user_role !== null) {
@@ -55,12 +56,12 @@ function OffersVerification() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get("http://localhost:3001/offers");
+        const result = await axios.get("https://desky-2.onrender.com/offers");
         const fetchedOffers = [];
         for (const offer of result.data.success) {
           if (offer.offer_state === "pending") {
             const depositor = await axios.get(
-              `http://localhost:3001/depositor/${offer.depositor_id}`
+              `https://desky-2.onrender.com/depositor/${offer.depositor_id}`
             );
             fetchedOffers.push({
               ...offer,

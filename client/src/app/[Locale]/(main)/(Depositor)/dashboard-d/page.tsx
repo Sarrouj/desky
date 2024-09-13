@@ -46,9 +46,10 @@ const DepositorDashboard = () => {
   const user_role = session ? session.user?.role : null;
 
   useEffect(() => {
-    const lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
-  }, []);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
+  }, [Language]);
 
   useEffect(() => {
     if (user_role !== "depositor" && user_role !== null) {
@@ -67,10 +68,10 @@ const DepositorDashboard = () => {
       if (user_id !== null) {
         try {
           const [info, offers] = await Promise.all([
-            axios.post("http://localhost:3001/depositor", {
+            axios.post("https://desky-2.onrender.com/depositor", {
               user_id,
             }),
-            axios.post("http://localhost:3001/depositor/offers", {
+            axios.post("https://desky-2.onrender.com/depositor/offers", {
               user_id,
             }),
           ]);

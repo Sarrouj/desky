@@ -22,11 +22,12 @@ const Header: React.FC<Header>  = ({NavbarContent , HomePage, Offers, FAQ, About
   const { data: session, status } = useSession();
   const [Language, setLanguage] = useState();
 
-  // Language
-  useEffect(()=>{
-    let lg = JSON.parse(localStorage.getItem('lg'));
-    setLanguage(lg);
-  }, [Language])
+// Language
+useEffect(() => {
+  const lg = localStorage.getItem("lg");
+  const language = lg ? JSON.parse(lg) : "fr"; 
+  setLanguage(language);
+}, [Language]);
   
 
   useEffect(() => {

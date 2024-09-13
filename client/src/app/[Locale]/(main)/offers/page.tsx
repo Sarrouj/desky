@@ -62,10 +62,12 @@ const Offers: React.FC = () => {
   const userRole = session ? session?.user.role : null;
   const [Language, setLanguage] = useState("fr");
 
+
   // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; 
+    setLanguage(language);
     searchedData;
   }, [Language, searchedData]);
 
@@ -116,13 +118,11 @@ const Offers: React.FC = () => {
   }
 
   useEffect(() => {
-    let sortData = [...searchedData];
-    if (selectedValue == "Newest") {
-      sortData.sort(
-        (a: any, b: any) => new Date(b.offer_DoP) - new Date(a.offer_DoP)
-      );
-    } else if (selectedValue == "Oldest") {
-      sortData.sort((a, b) => new Date(a.offer_DoP) - new Date(b.offer_DoP));
+    let sortData: any = [...searchedData];
+    if (selectedValue === "Newest") {
+      sortData.sort((a: any, b: any) => new Date(b.offer_DoP).getTime() - new Date(a.offer_DoP).getTime());
+    } else if (selectedValue === "Oldest") {
+      sortData.sort((a: any, b: any) => new Date(a.offer_DoP).getTime() - new Date(b.offer_DoP).getTime());
     }
     setSortedData(sortData);
   }, [selectedValue, searchedData]);

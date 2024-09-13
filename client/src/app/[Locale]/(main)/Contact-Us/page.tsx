@@ -23,7 +23,7 @@ const ContactUs = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const response = await axios.post("http://localhost:3001/user/send-email", {
+    const response = await axios.post("https://desky-2.onrender.com/user/send-email", {
       name,
       email,
       message,
