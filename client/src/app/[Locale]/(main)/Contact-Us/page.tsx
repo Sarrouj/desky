@@ -6,7 +6,7 @@ import { MapPin, Phone, Mail } from "lucide-react";
 import { Input } from "@/Components/ui/input";
 import { Textarea } from "@/Components/ui/textarea";
 import { Label } from "@/Components/ui/label";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -23,7 +23,7 @@ const ContactUs = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const response = await axios.post("https://desky-2.onrender.com/user/send-email", {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_BackendURL}/user/send-email`, {
       name,
       email,
       message,

@@ -7,7 +7,7 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import axios from "axios";
 
 // Shadcn UI
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import {
@@ -96,7 +96,7 @@ const CompanyInfo = () => {
 
     try {
       const response = await axios.post(
-        "https://desky-2.onrender.com/add/depositor/company",
+        `${process.env.NEXT_PUBLIC_BackendURL}/add/depositor/company`,
         {
           email,
           company_type: type,

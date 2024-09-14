@@ -14,7 +14,6 @@ import Link from "next/link";
 const Aside = ({
   Language,
   Dashboard,
-  CreateOffer,
   MyOffers,
   ManageBids,
   Content,

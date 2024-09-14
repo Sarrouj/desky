@@ -57,7 +57,7 @@ const AddReview = () => {
     const fetchData = async () => {
       if (user_id !== null) {
         const bids = await axios.get(
-          `https://desky-2.onrender.com/bidder/dashboard/${user_id}`
+          `${process.env.NEXT_PUBLIC_BackendURL}/bidder/dashboard/${user_id}`
         );
         setBids(bids.data.success);
       }

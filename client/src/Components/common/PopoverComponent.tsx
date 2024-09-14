@@ -1,7 +1,7 @@
 import * as React from "react";
 
 // ShadCn UI
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { cn } from "@/lib/utils";
 import {
   Command,

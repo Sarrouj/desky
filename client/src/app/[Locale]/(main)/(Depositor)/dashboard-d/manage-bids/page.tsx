@@ -1,27 +1,16 @@
 "use client";
 
 import {
-  Home,
-  LineChart,
-  Package,
-  Package2,
-  PanelLeft,
-  ShoppingCart,
-  Users2,
-} from "lucide-react";
-
-import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/Components/ui/breadcrumb";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useSession } from "next-auth/react";
 
 // Content
@@ -180,7 +169,7 @@ const MyBids = () => {
             />
           )
         ) : (
-          <BidsListSkeleton Content={Content} seeMore={true} amount={9} />
+          <BidsListSkeleton Content={Content} amount={9} />
         )}
       </main>
     </div>

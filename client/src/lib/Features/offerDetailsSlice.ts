@@ -41,7 +41,7 @@ export const createOfferDetailsSlice : StateCreator<OfferDetails> = (set, get)=>
     fetchOfferDetails: async () => {
         const { OfferID } = get();
       try {
-        const response = await axios.get(`https://desky-2.onrender.com/offer/${OfferID}`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BackendURL}/offer/${OfferID}`);
         const data = response.data.success;
         set({ offerData : data });
       } catch (error) {

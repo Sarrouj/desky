@@ -49,7 +49,7 @@ const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         try {
           const response = await axios.post(
-            "https://desky-2.onrender.com/auth/login",
+            `${process.env.NEXT_PUBLIC_BackendURL}/auth/login`,
             {
               email: credentials?.email,
               password: credentials?.password,
@@ -84,7 +84,7 @@ const authOptions: NextAuthOptions = {
       if (account?.provider === "google") {
         try {
           const response = await axios.post(
-            "https://desky-2.onrender.com/auth/google",
+            `${process.env.NEXT_PUBLIC_BackendURL}/auth/google`,
             {
               email: user.email ?? "",
               name: user.name ?? "",
@@ -131,7 +131,7 @@ const authOptions: NextAuthOptions = {
       if (account?.provider === "google") {
         try {
           const response = await axios.post(
-            "https://desky-2.onrender.com/auth/google",
+            `${process.env.NEXT_PUBLIC_BackendURL}/auth/google`,
             {
               name: profile?.name ?? "",
               email: profile?.email ?? "",

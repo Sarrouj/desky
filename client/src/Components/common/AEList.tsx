@@ -3,14 +3,8 @@
 import { useState, useEffect } from "react";
 import { Download } from "lucide-react";
 
-import { Button } from "@/Components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/Components/ui/card";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
 
 import {
   Table,
@@ -34,8 +28,6 @@ import AEDetails from "@/Components/common/AEDetails";
 
 import { Tabs, TabsContent } from "@/Components/ui/tabs";
 
-import Link from "next/link";
-
 import {
   Tooltip,
   TooltipContent,
@@ -58,9 +50,12 @@ const AEList = ({ AE, user_id }: { AE: any; user_id: any }) => {
 
   const handleAccept = async (type: string, id: string) => {
     try {
-      await axios.put(`https://desky-2.onrender.com/admin/verify/${type}/${id}`, {
-        user_id,
-      });
+      await axios.put(
+        `${process.env.NEXT_PUBLIC_BackendURL}/admin/verify/${type}/${id}`,
+        {
+          user_id,
+        }
+      );
       window.location.reload();
     } catch (Error) {
       console.log(Error);
@@ -69,10 +64,13 @@ const AEList = ({ AE, user_id }: { AE: any; user_id: any }) => {
 
   const handleRefuse = async (type: string, id: string) => {
     try {
-      await axios.put(`https://desky-2.onrender.com/admin/refuse/${type}/${id}`, {
-        user_id,
-        message,
-      });
+      await axios.put(
+        `${process.env.NEXT_PUBLIC_BackendURL}/admin/refuse/${type}/${id}`,
+        {
+          user_id,
+          message,
+        }
+      );
       window.location.reload();
     } catch (Error) {
       console.log(Error);
@@ -186,7 +184,7 @@ const AEList = ({ AE, user_id }: { AE: any; user_id: any }) => {
                       <TableCell className="text-center text-xs md:text-sm lg:text-base">
                         <a
                           target="_blank"
-                          href={`https://desky-2.onrender.com/uploads/${ae.aeInfo.AE_CIN}`}
+                          href={`${process.env.NEXT_PUBLIC_BackendURL}/uploads/${ae.aeInfo.AE_CIN}`}
                           className="font-extralight mt-2 text-primary hover:text-orange-600"
                         >
                           <Download

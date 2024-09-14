@@ -27,7 +27,7 @@ export const DepositorReviewSlice: StateCreator<DepositorReviewInfoType> = (
     const { DepositorID } = get();
     try {
       const response = await axios.get(
-        `https://desky-2.onrender.com/depositor/reviews/${DepositorID}`
+        `${process.env.NEXT_PUBLIC_BackendURL}/depositor/reviews/${DepositorID}`
       );
       const data = response.data.success;
       set({ DepositorReview: data, DepositorReviewIsLoading: false });

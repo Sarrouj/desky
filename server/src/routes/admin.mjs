@@ -18,6 +18,11 @@ import AE from "../mongoose/schemas/AE.mjs";
 import Companies from "../mongoose/schemas/Company.mjs";
 import Offers from "../mongoose/schemas/Offer.mjs";
 
+// env Local
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
+const URL = process.env.URL;
+
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 //Get Unverified Users
@@ -197,7 +202,7 @@ router.put(
           hesitate to reach out.</p>
           <p>To get started, simply log in to your account:</p>
         <div>
-          <a href="http://localhost:3000/en/Login"> Login </a>
+          <a href="${URL}/en/Login"> Login </a>
         </div>
         <h5>
           Welcome aboard! <br />

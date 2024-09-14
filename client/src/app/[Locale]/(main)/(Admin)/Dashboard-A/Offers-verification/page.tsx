@@ -56,12 +56,12 @@ function OffersVerification() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get("https://desky-2.onrender.com/offers");
+        const result = await axios.get(`${process.env.NEXT_PUBLIC_BackendURL}/offers`);
         const fetchedOffers = [];
         for (const offer of result.data.success) {
           if (offer.offer_state === "pending") {
             const depositor = await axios.get(
-              `https://desky-2.onrender.com/depositor/${offer.depositor_id}`
+              `${process.env.NEXT_PUBLIC_BackendURL}/depositor/${offer.depositor_id}`
             );
             fetchedOffers.push({
               ...offer,

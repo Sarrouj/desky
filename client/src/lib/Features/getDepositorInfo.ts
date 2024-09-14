@@ -28,7 +28,7 @@ export const getDepositorDataSlice : StateCreator<depositorDataInfoType> = (set,
       set({ depositorInfoIsLoading: true });
         const { DepositorID } = get();
       try {
-        const response = await axios.get(`https://desky-2.onrender.com/depositor/${DepositorID}`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BackendURL}/depositor/${DepositorID}`);
         const data = response.data.success;
         set({ DespositorData : data , depositorInfoIsLoading: false});
       } catch (error) {

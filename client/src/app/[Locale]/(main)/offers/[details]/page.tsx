@@ -12,7 +12,7 @@ import { useTranslations } from "next-intl";
 import { Input } from "@/Components/ui/input";
 import DetailsInfoSkeleton from "@/Components/common/DetailsInfoSkeleton";
 
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { Skeleton } from "@/Components/ui/skeleton";
 import { MapPin, StarIcon } from "lucide-react";
 
@@ -22,7 +22,7 @@ import {
   DialogHeader,
   DialogFooter,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 
 const Details = ({ params }: { params: any }) => {
   const DetailContent = useTranslations("OffersDetail");
@@ -78,7 +78,7 @@ const Details = ({ params }: { params: any }) => {
   const getDepositorReviews = async (DepositorId: string) => {
     try {
       const response = await axios.get(
-        `https://desky-2.onrender.com/depositor/reviews/${DepositorId}`
+        `${process.env.NEXT_PUBLIC_BackendURL}/depositor/reviews/${DepositorId}`
       );
       if (response && response.data && response.data.success) {
         setSuccess(response.data.success);
@@ -129,7 +129,7 @@ const Details = ({ params }: { params: any }) => {
 
     try {
       const response = await axios.post(
-        `https://desky-2.onrender.com/apply/offer/${details}`,
+        `${process.env.NEXT_PUBLIC_BackendURL}/apply/offer/${details}`,
         formData,
         {
           headers: {
@@ -149,7 +149,7 @@ const Details = ({ params }: { params: any }) => {
   useEffect(() => {
     const fetchOfferData = async () => {
       try {
-        const offer = await axios.get(`https://desky-2.onrender.com/offer/${details}`);
+        const offer = await axios.get(`${process.env.NEXT_PUBLIC_BackendURL}/offer/${details}`);
         setOfferDetails(offer.data.success);
       } catch (error) {
         console.error("Error fetching offer data:", error);
@@ -166,14 +166,14 @@ const Details = ({ params }: { params: any }) => {
         try {
           const [depositor, offers, legal] = await Promise.all([
             axios.get(
-              `https://desky-2.onrender.com/depositor/${offerDetails.depositor_id}`
+              `${process.env.NEXT_PUBLIC_BackendURL}/depositor/${offerDetails.depositor_id}`
             ),
-            axios.post("https://desky-2.onrender.com/depositor/offers", {
+            axios.post(`${process.env.NEXT_PUBLIC_BackendURL}/depositor/offers`, {
               user_id: offerDetails.depositor_id,
             }),
             axios
               .get(
-                `https://desky-2.onrender.com/depositor/info/${offerDetails.depositor_id}`
+                `${process.env.NEXT_PUBLIC_BackendURL}/depositor/info/${offerDetails.depositor_id}`
               )
               .catch((error) => {
                 if (error.response && error.response.status === 404) {
@@ -461,7 +461,7 @@ const Details = ({ params }: { params: any }) => {
                         />
                         <a
                           target="_blank"
-                          href={`https://desky-2.onrender.com/uploads/${OfferAttachment}`}
+                          href={`${process.env.NEXT_PUBLIC_BackendURL}/uploads/${OfferAttachment}`}
                         >
                           <p className="text-primary underline underline-offset-1 text-xs lg:text-base hidden md:block">
                             {OfferAttachment}

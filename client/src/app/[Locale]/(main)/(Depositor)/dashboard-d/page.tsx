@@ -9,7 +9,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/Components/ui/breadcrumb";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import React, { useEffect, useState } from "react";
 
 // Components
@@ -68,10 +68,10 @@ const DepositorDashboard = () => {
       if (user_id !== null) {
         try {
           const [info, offers] = await Promise.all([
-            axios.post("https://desky-2.onrender.com/depositor", {
+            axios.post(`${process.env.NEXT_PUBLIC_BackendURL}/depositor`, {
               user_id,
             }),
-            axios.post("https://desky-2.onrender.com/depositor/offers", {
+            axios.post(`${process.env.NEXT_PUBLIC_BackendURL}/depositor/offers`, {
               user_id,
             }),
           ]);
@@ -240,7 +240,7 @@ const DepositorDashboard = () => {
                   />
                 )
               ) : (
-                <BidsListSkeleton Content={Content} seeMore={true} amount={6} />
+                <BidsListSkeleton Content={Content} amount={6} />
               )}
             </div>
           </div>

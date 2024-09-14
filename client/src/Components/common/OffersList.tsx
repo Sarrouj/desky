@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import {
   Card,
   CardContent,
@@ -117,7 +117,7 @@ const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user
                   offers.map((offer: any, index: number) => {
                     const handleAccept = async () => {
                       await axios.put(
-                        `https://desky-2.onrender.com/admin/offer/verify/${offer._id}`,
+                        `${process.env.NEXT_PUBLIC_BackendURL}/admin/offer/verify/${offer._id}`,
                         {
                           user_id,
                         }
@@ -127,7 +127,7 @@ const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user
 
                     const handleRefuse = async () => {
                        await axios.put(
-                        `https://desky-2.onrender.com/admin/offer/refuse/${offer._id}`,
+                        `${process.env.NEXT_PUBLIC_BackendURL}/admin/offer/refuse/${offer._id}`,
                         {
                           user_id,
                           message,

@@ -23,7 +23,6 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 import axios from "axios";
-import { notFound } from "next/navigation";
 
 function Profile() {
   const [Language, setLanguage] = useState("fr");
@@ -63,7 +62,7 @@ function Profile() {
       if (user_id !== null) {
         try {
           const info = await axios.post(
-            `https://desky-2.onrender.com/profile/${user_id}`,
+            `${process.env.NEXT_PUBLIC_BackendURL}/profile/${user_id}`,
             {
               user_role,
             }
@@ -79,7 +78,7 @@ function Profile() {
       if (user_id !== null) {
         try {
           const info = await axios.get(
-            `https://desky-2.onrender.com/bidder/info/${user_id}`
+            `${process.env.NEXT_PUBLIC_BackendURL}/bidder/info/${user_id}`
           );
           if (info.data.success) {
             setLegal(info.data.success);

@@ -27,7 +27,7 @@ export const BidderReviewSlice: StateCreator<BidderReviewInfoType> = (
     const { BidderID } = get();
     try {
       const response = await axios.get(
-        `https://desky-2.onrender.com/bidder/reviews/${BidderID}`
+        `${process.env.NEXT_PUBLIC_BackendURL}/bidder/reviews/${BidderID}`
       );
       const data = response.data.success;
       set({ BidderReview: data, BidderReviewIsLoading: false });

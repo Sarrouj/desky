@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 const router = express.Router();
 dotenv.config({ path: ".env.local" });
 
+const URL = process.env.URL;
+
 // Middlewares
 import { checkObjectId } from "../middlewares/checkObjectId.mjs";
 import { checkSessionId } from "../middlewares/checkSessionId.mjs";
