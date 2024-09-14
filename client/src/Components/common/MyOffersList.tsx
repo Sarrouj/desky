@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import {
   Card,
   CardContent,
@@ -89,7 +89,7 @@ const MyOffersList = ({ Content, dOffers }: { Content: any; dOffers: any }) => {
     }
     try {
       const response = await axios.post(
-        `https://desky-2.onrender.com/rate/depositor/${bidderId}/${offerId}`,
+        `${process.env.NEXT_PUBLIC_BackendURL}/rate/depositor/${bidderId}/${offerId}`,
         {
           rating,
           text: review,

@@ -7,7 +7,7 @@ import NotFoundProfileDepositor from "@/Components/common/NotFoundProfileDeposit
 import ProfileCard from "@/Components/common/ProfileCard";
 import CompanyProfile from "@/Components/common/CompanyProfile";
 import AEProfile from "@/Components/common/AEProfile";
-import { Button } from "@/Components/ui/Button";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -61,7 +61,7 @@ function Profile() {
       if (user_id !== null) {
         try {
           const info = await axios.post(
-            `https://desky-2.onrender.com/profile/${user_id}`,
+            `${process.env.NEXT_PUBLIC_BackendURL}/profile/${user_id}`,
             {
               user_role,
             }
@@ -77,7 +77,7 @@ function Profile() {
       if (user_id !== null) {
         try {
           const info = await axios.get(
-            `https://desky-2.onrender.com/depositor/info/${user_id}`
+            `${process.env.NEXT_PUBLIC_BackendURL}/depositor/info/${user_id}`
           );
           if (info.data.success) {
             setLegal(info.data.success);

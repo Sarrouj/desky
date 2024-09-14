@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect} from "react";
 import { redirect } from 'next/navigation';
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 
 import {
     Select,

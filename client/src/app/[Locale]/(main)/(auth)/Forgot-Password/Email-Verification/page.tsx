@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import axios from "axios";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 
@@ -19,7 +19,7 @@ const EmailVerification = () => {
 
   const handleSubmit = async () => {
     try {
-      await axios.post("https://desky-2.onrender.com/auth/forgetPassword", {
+      await axios.post(`${process.env.NEXT_PUBLIC_BackendURL}/auth/forgetPassword`, {
         email,
       });
     } catch (err) {

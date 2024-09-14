@@ -27,7 +27,7 @@ import {
   TooltipProvider,
 } from "@/Components/ui/tooltip";
 
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import Link from "next/link";
 import { Skeleton } from "@/Components/ui/skeleton";
 

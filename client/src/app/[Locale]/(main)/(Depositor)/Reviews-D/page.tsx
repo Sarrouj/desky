@@ -11,7 +11,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/Components/ui/breadcrumb";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/Components/ui/avatar";
 import DropDownDepositor from "@/Components/common/DropDownDepositor";
 import Aside from "@/Components/common/Aside";

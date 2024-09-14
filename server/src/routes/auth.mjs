@@ -16,6 +16,11 @@ import TempUser from "../mongoose/schemas/TempUser.mjs";
 import Depositor from "../mongoose/schemas/Depositor.mjs";
 import Bidder from "../mongoose/schemas/Bidder.mjs";
 
+// env Local
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
+const URL = process.env.URL;
+
 // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 
 // Login route
@@ -161,7 +166,7 @@ router.post(
         </p>
         <div>
           <a
-            href="https://desky-8wl9.vercel.app/en/Sign-Up/verify-email/verified?token=${token}"
+            href="${URL}/en/Sign-Up/verify-email/verified?token=${token}"
           >
             Confirm Your Email
           </a>
@@ -414,7 +419,7 @@ router.post("/auth/forgetPassword", findUserByEmail, async (req, res, next) => {
         </p>
         <div>
           <a
-            href="https://desky-8wl9.vercel.app/en/Forgot-Password/Email-Verification/Reset-Password"
+            href="${URL}/en/Forgot-Password/Email-Verification/Reset-Password"
           >
             Reset Your Password
           </a>

@@ -45,7 +45,7 @@ useEffect(() => {
     setError("");
     try {
       const response = await axios.post(
-        "https://desky-2.onrender.com/auth/register/user",
+        `${process.env.NEXT_PUBLIC_BackendURL}/auth/register/user`,
         {
           email,
           userType,

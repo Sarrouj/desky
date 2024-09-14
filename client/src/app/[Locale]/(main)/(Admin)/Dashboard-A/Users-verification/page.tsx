@@ -63,7 +63,7 @@ function UsersVerification() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get("https://desky-2.onrender.com/admin/users");
+        const result = await axios.get(`${process.env.NEXT_PUBLIC_BackendURL}/admin/users`);
         setAE(result.data.data.unverifiedAE);
         setCompany(result.data.data.unverifiedCompany);
        

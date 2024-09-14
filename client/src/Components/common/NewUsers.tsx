@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Download } from "lucide-react";
 
 import { Badge } from "@/Components/ui/badge";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import {
   Card,
   CardContent,
@@ -65,7 +65,7 @@ const NewUsers = ({
 
   const handleAccept = async (type: string, id: string) => {
     try {
-      await axios.put(`https://desky-2.onrender.com/admin/verify/${type}/${id}`, {
+      await axios.put(`${process.env.NEXT_PUBLIC_BackendURL}/admin/verify/${type}/${id}`, {
         user_id,
       });
       window.location.reload();
@@ -76,7 +76,7 @@ const NewUsers = ({
 
   const handleRefuse = async (type: string, id: string) => {
     try {
-      await axios.put(`https://desky-2.onrender.com/admin/refuse/${type}/${id}`, {
+      await axios.put(`${process.env.NEXT_PUBLIC_BackendURL}/admin/refuse/${type}/${id}`, {
         user_id,
         message,
       });
@@ -181,7 +181,7 @@ const NewUsers = ({
                       <TableCell className="text-center text-xs md:text-sm lg:text-base">
                         <a
                           target="_blank"
-                          href={`https://desky-2.onrender.com/uploads/${ae.aeInfo.AE_CIN}`}
+                          href={`${process.env.NEXT_PUBLIC_BackendURL}/uploads/${ae.aeInfo.AE_CIN}`}
                           className="font-extralight mt-2 text-primary hover:text-orange-600"
                         >
                           <Download

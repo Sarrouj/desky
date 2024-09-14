@@ -10,7 +10,7 @@ import CallToAction from "@/Components/common/CallToAction";
 import Footer from "@/Components/layout/footer";
 import HomeNavbar from "@/Components/layout/HomeNavbar";
 import OfferCard from "@/Components/layout/OfferCard";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { MoveUp, MoveDown } from "lucide-react";
 
 export default function Home() {

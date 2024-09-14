@@ -1,9 +1,7 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
 import axios from "axios";
 
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { useState, useEffect } from "react";
@@ -31,7 +29,7 @@ const ResetPassword = () => {
     }
     try {
       const response = await axios.put(
-        "https://desky-2.onrender.com/auth/changePassword",
+        `${process.env.NEXT_PUBLIC_BackendURL}/auth/changePassword`,
         {
           email,
           password,

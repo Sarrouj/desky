@@ -134,7 +134,7 @@ const BidderBidsList = ({
                         <TableCell className="text-center">
                           <a
                             target="_blank"
-                            href={`http://localhost:3001/uploads/${bid[0].bid.estimate}`}
+                            href={`${process.env.NEXT_PUBLIC_BackendURL}/uploads/${bid[0].bid.estimate}`}
                             className=" mt-2 text-primary hover:text-orange-600"
                           >
                             <Download
