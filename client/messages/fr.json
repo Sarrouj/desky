@@ -46,7 +46,8 @@
       "Home": "Accueil",
       "Offers": "Offres",
       "FAQ": "FAQ",
-      "AboutUs": "À Propos de Nous"
+      "AboutUs": "À propos",
+      "ContactUs": "Contact"
     },
     "Auth": {
       "Login": "Connexion",
@@ -237,12 +238,12 @@
     "Rating": "Note :",
     "of": "de",
     "reviews": "avis",
-    "Company":"Société",
+    "Company": "Société",
     "OfferPosted": "Offres publiée :",
     "ActiveOffers": "Offres Actives :",
     "NoActiveOffers": "Aucune Offre Active",
     "OfferActivity": "Activité dans cette offre :",
-    "NoData":"Aucune Donnée Disponible",
+    "NoData": "Aucune Donnée Disponible",
     "Proposals": "Propositions :",
     "CallToAction": "Postuler maintenant",
     "loggedToApply": "Vous devez être connecté en tant qu'enchérisseur pour postuler à une offre,",

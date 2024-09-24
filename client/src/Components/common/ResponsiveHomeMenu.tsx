@@ -24,7 +24,7 @@ const ResponsiveHomeMenu = ({ Language }: { Language: any }) => {
     <>
       <Sheet>
         <SheetTrigger asChild>
-          <Button size="icon" variant="outline" className="md:hidden">
+          <Button size="icon" variant="outline" className="lg:hidden">
             <AlignJustify className="h-5 w-5" />
             <span className="sr-only">Toggle Menu</span>
           </Button>

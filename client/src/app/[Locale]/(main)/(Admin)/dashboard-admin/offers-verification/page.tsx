@@ -121,3 +121,4 @@ function OffersVerification() {
 }
 
 export default OffersVerification;
+// Routing to Lower Case

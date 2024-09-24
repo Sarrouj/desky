@@ -13,6 +13,7 @@ function AboutUs() {
         Offers={"hover:text-primary"}
         FAQ={"hover:text-primary"}
         AboutUS={"text-primary font-semibold"}
+        Contact={"hover:text-primary"}
       />
       <div className="bg-neutralBg text-secondaryDarkBlue min-h-screen w-full flex flex-col justify-center items-center text-center">
         <p className="text-lg md:text-xl lg:text-2xl font-bold mb-16">{Content('Title')}</p>
@@ -22,3 +23,4 @@ function AboutUs() {
 }
 
 export default AboutUs;
+// Lower Case

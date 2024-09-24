@@ -46,7 +46,8 @@
       "Home": "Home",
       "Offers": "Offers",
       "FAQ": "FAQ",
-      "AboutUs": "About Us"
+      "AboutUs": "About",
+      "ContactUs": "Contact"
     },
     "Auth": {
       "Login": "Login",

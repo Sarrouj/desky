@@ -40,6 +40,7 @@ const ContactUs = () => {
         Offers={"hover:text-primary"}
         FAQ={"hover:text-primary"}
         AboutUS={"hover:text-primary"}
+        Contact={"text-primary font-semibold"}
       />
       <main className="bg-neutralBg space-y-8 px-4 md:px-6 lg:px-8 xl:px-12   pt-10 text-center border-t-2">
         <div className="flex flex-col gap-3 items-center ">
@@ -141,3 +142,4 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
+// Lower Case

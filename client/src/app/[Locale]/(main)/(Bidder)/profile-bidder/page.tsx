@@ -180,3 +180,4 @@ function Profile() {
 }
 
 export default Profile;
+// Routing to Lower Case

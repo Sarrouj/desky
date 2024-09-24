@@ -14,18 +14,18 @@ import {
 import { Button } from "@/Components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/Components/ui/avatar";
 import DropDownDepositor from "@/Components/common/DropDownDepositor";
-import Aside from "@/Components/common/Aside";
+import BidderAside from "@/Components/common/BidderAside";
 import { useBoundStore } from "@/lib/store";
 import { Skeleton } from "@/Components/ui/skeleton";
-import DepositorSheet from "@/Components/common/DepositorSheet";
+import BidderSheet from "@/Components/common/BidderSheet";
 
-const DepositorReviews = () => {
-  const reviewsContent = useTranslations("DepositorDashboard.reviews");
-  const DropDownMenu = useTranslations("DepositorDashboard.DropDownMenu");
+const BidderReviews = () => {
+  const reviewsContent = useTranslations("BidderDashboard.reviews");
+  let DropDownMenuContent = useTranslations("DepositorDashboard.DropDownMenu");
   const BreadcrumbListContent = useTranslations(
-    "DepositorDashboard.BreadcrumbList"
+    "BidderDashboard.BreadcrumbList"
   );
-  const SideBarContent = useTranslations("DepositorDashboard.SideBar");
+  const SideBarContent = useTranslations("BidderDashboard.SideBar");
 
   const [Language, setLanguage] = useState("fr");
   const { data: session } = useSession();
@@ -42,7 +42,7 @@ const DepositorReviews = () => {
     const date : any = new Date(dateString);
     const now : any = new Date();
 
-    const seconds : any = Math.floor((now  - date) / 1000);
+    const seconds = Math.floor((now - date) / 1000);
 
     let interval = Math.floor(seconds / 31536000);
 
@@ -80,46 +80,37 @@ const DepositorReviews = () => {
 
   useEffect(() => {
     const lg = localStorage.getItem("lg");
-    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    const language = lg ? JSON.parse(lg) : "defaultLanguage"; // Replace "defaultLanguage" with your actual default value
     setLanguage(language);
-  }, [Language]);
+  }, []);
 
   useEffect(() => {
-    if (user_role !== "depositor" && user_role !== null) {
+    if (user_role !== "bidder" && user_role !== null) {
       window.location.href = `/${Language}`;
     }
   }, [user_role, Language]);
 
-  const getDepositorID = useBoundStore((state) => state.getDepositorID);
-  const fetchDepositorReview = useBoundStore(
-    (state) => state.fetchDepositorReview
-  );
-  const DepositorReview : any = useBoundStore((state) => state.DepositorReview);
+  const getBidderID = useBoundStore((state) => state.getBidderID);
+  const fetchBidderReview = useBoundStore((state) => state.fetchBidderReview);
+  const BidderReview : any = useBoundStore((state) => state.BidderReview);
 
   useEffect(() => {
-    if (user_id) {
-      getDepositorID(user_id);
-      fetchDepositorReview();
+    if (user_id !== null) {
+      getBidderID(user_id);
+      fetchBidderReview();
     }
-  }, [user_id]);
+  }, [user_id, getBidderID, fetchBidderReview]);
 
   return (
     <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg min-h-screen">
-      <Aside
-        Language={Language}
-        Dashboard=""
-        CreateOffer=""
-        MyOffers=""
-        ManageBids=""
-        Content={SideBarContent}
-      />
+      <BidderAside Language={Language} Content={SideBarContent} />
       <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-        <DepositorSheet
-          Dashboard={"dashboard-d"}
-          Profile={"Profile-D"}
-          ManageBids={"dashboard-d/manage-bids"}
-          MyOffers={"dashboard-d/my-offers"}
-          Reviews={"dashboard-d/my-reviews"}
+        <BidderSheet
+          Dashboard={"Dashboard-B"}
+          Profile={"Profile-B"}
+          MyBids={"Dashboard-B/My-Bids"}
+          AddReview={"Dashboard-B/Add-Review"}
+          Reviews={"Reviews-B"}
           Offers={"offers"}
           Support={"Contact-Us"}
         />
@@ -127,7 +118,7 @@ const DepositorReviews = () => {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href={`/${Language}/dashboard-d`}>
+                <Link href={`/${Language}/Dashboard-B`}>
                   {BreadcrumbListContent("Dashboard")}
                 </Link>
               </BreadcrumbLink>
@@ -137,7 +128,7 @@ const DepositorReviews = () => {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href={`/${Language}/Reviews-D`}>
+                <Link href={`/${Language}/Reviews-B`}>
                   {BreadcrumbListContent("Reviews")}
                 </Link>
               </BreadcrumbLink>
@@ -145,32 +136,35 @@ const DepositorReviews = () => {
           </BreadcrumbList>
         </Breadcrumb>
         <div className="hidden sm:block">
-          <DropDownDepositor content={DropDownMenu} Language={Language} />
+          <DropDownDepositor
+            content={DropDownMenuContent}
+            Language={Language}
+          />
         </div>
       </header>
-      {DepositorReview?.length !== 0 ? (
+      {BidderReview?.length !== 0 ? (
         <main className="flex-1 py-6 px-6 md:px-12 lg:px-24">
           <section className="mb-12">
             <h2 className="text-xl lg:text-2xl font-bold mb-4 text-secondaryDarkBlue">
               {reviewsContent("title")}
             </h2>
             <div className="grid gap-4 lg:gap-6 xl:gap-8">
-              {!DepositorReview ? (
+              {BidderReview == null ? (
                 <>
                   <Skeleton className="h-36 w-full bg-gray-200" />
                   <Skeleton className="h-36 w-full bg-gray-200" />
                   <Skeleton className="h-36 w-full bg-gray-200" />
                 </>
               ) : (
-                DepositorReview?.map((review: any, i: any) => (
+                BidderReview.map((review: any, i: any) => (
                   <div key={i} className="bg-card p-6 rounded-lg shadow-sm">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-3 sm:gap-4">
                         <Avatar className="w-10 h-10 border">
                           <AvatarImage />
                           <AvatarFallback className="text-primary">
-                            {review.bidder_name
-                              .split(" ")
+                            {review.depositor_name
+                              ?.split(" ")
                               .map((n: any) => n[0].toUpperCase())
                               .join("")}
                           </AvatarFallback>
@@ -178,12 +172,15 @@ const DepositorReviews = () => {
                         <div>
                           <h3 className="font-semibold text-secondaryDarkBlue">
                             {review.bidder_name
-                              .split(" ")
-                              .map(
-                                (word: any) =>
-                                  word.charAt(0).toUpperCase() + word.slice(1)
-                              )
-                              .join(" ")}
+                              ? review.bidder_name
+                                  .split(" ")
+                                  .map(
+                                    (word: any) =>
+                                      word.charAt(0).toUpperCase() +
+                                      word.slice(1)
+                                  )
+                                  .join(" ")
+                              : "Anonymous"}
                           </h3>
                           {review.reviews.map((rev: any, i: any) => (
                             <time
@@ -240,7 +237,7 @@ const DepositorReviews = () => {
           </h2>
           <p className="text-gray-600 ">{reviewsContent("NoAvailableDesc")}</p>
           <div className="flex gap-2 items-center justify-center mt-8 ">
-            <Link href={`/${Language}/Create-Offer`}>
+            <Link href={`/${Language}/offers`}>
               <Button className="text-white">
                 {reviewsContent("CallToAction")}
               </Button>
@@ -252,4 +249,5 @@ const DepositorReviews = () => {
   );
 };
 
-export default DepositorReviews;
+export default BidderReviews;
+// Routing to Lower Case

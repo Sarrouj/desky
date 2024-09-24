@@ -388,3 +388,5 @@ const CompanyInfo = () => {
 };
 
 export default CompanyInfo;
+// Lower Case
+

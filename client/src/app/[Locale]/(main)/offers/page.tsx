@@ -147,6 +147,7 @@ const Offers: React.FC = () => {
           Offers={"text-primary font-semibold "}
           FAQ={"hover:text-primary"}
           AboutUS={"hover:text-primary"}
+          Contact={"hover:text-primary"}
         />
       </div>
       <main className="sm:py-4 md:py-5 px-3 sm:px-8 md:px-10 bg-neutralBg text-secondaryDarkBlue h-full">

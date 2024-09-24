@@ -1,19 +1,18 @@
 "use client";
 
-import { Star, Blocks, CopyPlus, CircleCheckBig } from "lucide-react";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
+  BreadcrumbSeparator,
 } from "@/Components/ui/breadcrumb";
-import BidderAside from "@/Components/common/BidderAside";
 import BidderSheet from "@/Components/common/BidderSheet";
 import DropDownDepositor from "@/Components/common/DropDownDepositor";
-import DashboardCard from "@/Components/common/DashboardCard";
-import BidderBidsList from "@/Components/common/BidderBidsList";
+import BidderAside from "@/Components/common/BidderAside";
+import BidderClosedBidsList from "@/Components/common/BidderClosedBidsList";
 import NotFoundDataBidder from "@/Components/common/NotFoundDataBidder";
-import BidderBidsListSkeleton from "@/Components/common/BidderBidsListSkeleton";
+import AddReviewSkeleton from "@/Components/common/AddReviewSkeleton";
 
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
@@ -21,15 +20,14 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import axios from "axios";
 
-const BidderDashboard = () => {
+const AddReview = () => {
   // Content
   const SideBarContent = useTranslations("BidderDashboard.SideBar");
   const BreadcrumbListContent = useTranslations(
     "BidderDashboard.BreadcrumbList"
   );
   let DropDownMenuContent = useTranslations("DepositorDashboard.DropDownMenu");
-  const StatisticContent = useTranslations("BidderDashboard.Statistic");
-  const BidsListContent = useTranslations("BidderDashboard.BidsList");
+  const AddReviewContent = useTranslations("BidderDashboard.AddReview");
   const NotFoundContent = useTranslations("BidderDashboard.NotFound");
 
   // Language
@@ -40,7 +38,7 @@ const BidderDashboard = () => {
     const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
     setLanguage(language);
   }, [Language]);
-  
+
   // Auth
   const { data: session, status } = useSession();
   const user_id = session ? session.user?.id : null;
@@ -58,10 +56,10 @@ const BidderDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (user_id !== null) {
-        const dashboard = await axios.get(
+        const bids = await axios.get(
           `${process.env.NEXT_PUBLIC_BackendURL}/bidder/dashboard/${user_id}`
         );
-        setBids(dashboard.data.success);
+        setBids(bids.data.success);
       }
     };
 
@@ -88,8 +86,17 @@ const BidderDashboard = () => {
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
                   <Link href={`/${Language}/Dashboard-B`}>
-                    {" "}
                     {BreadcrumbListContent("Dashboard")}
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+            </BreadcrumbList>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href={`/${Language}/Dashboard-B/Review`}>
+                    {BreadcrumbListContent("AddReview")}
                   </Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
@@ -102,35 +109,11 @@ const BidderDashboard = () => {
         </header>
         <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
           <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
-            <div className="flex items-center gap-5 h-30">
-              <DashboardCard
-                Logo={Blocks}
-                Content={StatisticContent("TotalBids")}
-                Value={bids !== null ? bids.totalBids : 0}
-              />
-              <DashboardCard
-                Logo={CopyPlus}
-                Content={StatisticContent("WaitingBids")}
-                Value={bids !== null ? bids.totalBidsWaiting : 0}
-              />
-              <DashboardCard
-                Logo={CircleCheckBig}
-                Content={StatisticContent("AcceptedBids")}
-                Value={bids !== null ? bids.totalBidsAccepted : 0}
-              />
-              <DashboardCard
-                Logo={Star}
-                Content={StatisticContent("AccountRating")}
-                Value={bids !== null ? bids.averageRating : "N/A"}
-              />
-            </div>
             {bids !== null ? (
-              bids.totalBidsWaiting !== 0 ? (
-                <BidderBidsList
-                  seeMore={true}
-                  limit={true}
+              bids.totalBidsAccepted !== 0 ? (
+                <BidderClosedBidsList
                   bids={bids.detailedBids}
-                  content={BidsListContent}
+                  content={AddReviewContent}
                 />
               ) : (
                 <NotFoundDataBidder
@@ -139,7 +122,7 @@ const BidderDashboard = () => {
                 />
               )
             ) : (
-              <BidderBidsListSkeleton Content={BidsListContent} amount={6} />
+              <AddReviewSkeleton Content={AddReviewContent} amount={6} />
             )}
           </div>
         </main>
@@ -148,4 +131,5 @@ const BidderDashboard = () => {
   );
 };
 
-export default BidderDashboard;
+export default AddReview;
+// Routing to Lower Case

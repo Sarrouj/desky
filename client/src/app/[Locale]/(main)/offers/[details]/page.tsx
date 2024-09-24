@@ -327,6 +327,7 @@ const Details = ({ params }: { params: any }) => {
           Offers={"hover:text-primary"}
           FAQ={"hover:text-primary"}
           AboutUS={"hover:text-primary"}
+          Contact={"hover:text-primary"}
         />
       </div>
       <main className="py-4 px-6 sm:py-6 sm:px-8 md:py-12 md:px-14 lg:py-14 lg:px-16 xl:pl-20 xl:pr-16  bg-neutralBg text-secondaryDarkBlue">
