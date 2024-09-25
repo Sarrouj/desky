@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { Download, Users } from "lucide-react";
+import { Download } from "lucide-react";
 import { Button } from "@/Components/ui/button";
 import axios from "axios";
 import Image from "next/image";
@@ -56,8 +56,9 @@ const BidsList = ({
 
   // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr";
+    setLanguage(language);
   }, [Language]);
 
   const putAcceptOffer = useBoundStore((state) => state.putAcceptOffer);
@@ -89,13 +90,13 @@ const BidsList = ({
               </CardDescription>
             </div>
             <div className="hidden sm:flex gap-2">
-              <Link href={`/${Language}/Create-Offer`}>
+              <Link href={`/${Language}/create-offer`}>
                 <Button size={"sm"} className="text-xs text-white">
                   {Content("AddOffer")}
                 </Button>
               </Link>
               {seeMore ? (
-                <Link href={`/${Language}/dashboard-d/manage-bids`}>
+                <Link href={`/${Language}/depositor-dashboard/manage-bids`}>
                   <Button size={"sm"} className="text-xs text-white">
                     {Content("SeeMore")}
                   </Button>
@@ -204,10 +205,10 @@ const BidsList = ({
                                   async (review: any, index: number) => {
                                     try {
                                       const response = await axios.get(
-                                        `http://localhost:3001/depositor/${review.depositor_id}`
+                                        `${process.env.NEXT_PUBLIC_BackendURL}/depositor/${review.depositor_id}`
                                       );
                                       const responseOffer = await axios.get(
-                                        `http://localhost:3001/offer/${review.offer_id}`
+                                        `${process.env.NEXT_PUBLIC_BackendURL}/offer/${review.offer_id}`
                                       );
                                       const data = response.data.success;
                                       const dataOffer =
@@ -297,10 +298,10 @@ const BidsList = ({
                                   async (review: any, index: number) => {
                                     try {
                                       const response = await axios.get(
-                                        `http://localhost:3001/depositor/${review.depositor_id}`
+                                        `${process.env.NEXT_PUBLIC_BackendURL}/depositor/${review.depositor_id}`
                                       );
                                       const responseOffer = await axios.get(
-                                        `http://localhost:3001/offer/${review.offer_id}`
+                                        `${process.env.NEXT_PUBLIC_BackendURL}/offer/${review.offer_id}`
                                       );
                                       const data = response.data.success;
                                       const dataOffer =
@@ -385,10 +386,10 @@ const BidsList = ({
                                   async (review: any, index: number) => {
                                     try {
                                       const response = await axios.get(
-                                        `http://localhost:3001/depositor/${review.depositor_id}`
+                                        `${process.env.NEXT_PUBLIC_BackendURL}/depositor/${review.depositor_id}`
                                       );
                                       const responseOffer = await axios.get(
-                                        `http://localhost:3001/offer/${review.offer_id}`
+                                        `${process.env.NEXT_PUBLIC_BackendURL}/offer/${review.offer_id}`
                                       );
                                       const data = response.data.success;
                                       const dataOffer =
@@ -458,7 +459,7 @@ const BidsList = ({
                         <TableCell className="flex justify-center items-center">
                           <a
                             target="_blank"
-                            href={`http://localhost:3001/uploads/${bid.bid_est}`}
+                            href={`${process.env.NEXT_PUBLIC_BackendURL}/uploads/${bid.bid_est}`}
                             className=" mt-2 text-primary hover:text-orange-600"
                           >
                             <Download

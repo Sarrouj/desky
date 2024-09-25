@@ -7,7 +7,7 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import axios from "axios";
 
 // Shadcn UI
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { cn } from "@/lib/utils";
@@ -51,12 +51,12 @@ const AutoEntrepreneurInfo = () => {
   const CitiesEN = useBoundStore((state) => state.CitiesEN);
   const CitiesFR = useBoundStore((state) => state.CitiesFR);
 
-  // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
-
+  
   const [open, setOpen] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
 
@@ -89,7 +89,7 @@ const AutoEntrepreneurInfo = () => {
 
   useEffect(() => {
     if (status === "authenticated") {
-      window.location.href = `/${Language}/dashboard-d`;
+      window.location.href = `/${Language}/depositor-dashboard`;
     }
   }, [status, Language]);
 
@@ -128,7 +128,7 @@ const AutoEntrepreneurInfo = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/add/depositor/AE",
+        `${process.env.NEXT_PUBLIC_BackendURL}/add/depositor/AE`,
         formData,
         {
           headers: {
@@ -178,7 +178,7 @@ const AutoEntrepreneurInfo = () => {
       <div className="w-full text-xs text-end flex justify-between px-5">
         <Link
           className="flex items-center gap-2"
-          href={`/${Language}/Sign-Up/Choose-Type/Depositor-type`}
+          href={`/${Language}/sign-up/choose-type/depositor-type`}
         >
           <Image
             src={"/icons/arrowBack.svg"}
@@ -196,14 +196,18 @@ const AutoEntrepreneurInfo = () => {
       </div>
       <div className="mx-auto grid w-full px-5 sm:px-10 md:px-32 lg:px-14 xl:px-0 xl:w-7/12 gap-6 my-10 lg:my-14">
         <div className="grid gap-2">
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">{Content("title")}</h1>
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-bold">
+            {Content("title")}
+          </h1>
           <p className="text-balance text-muted-foreground text-xs sm:text-sm md:text-base">
             {Content("Description")}
           </p>
         </div>
         <form onSubmit={handleSubmit} className="grid gap-4">
           <div className="grid gap-2 w-full">
-            <Label htmlFor="email" className="text-xs sm:text-sm md:text-base">{Content("Location")}</Label>
+            <Label htmlFor="email" className="text-xs sm:text-sm md:text-base">
+              {Content("Location")}
+            </Label>
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <Button
@@ -250,7 +254,12 @@ const AutoEntrepreneurInfo = () => {
             </Popover>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="password" className="text-xs sm:text-sm md:text-base">{Content("Address")}</Label>
+            <Label
+              htmlFor="password"
+              className="text-xs sm:text-sm md:text-base"
+            >
+              {Content("Address")}
+            </Label>
             <Input
               id="text"
               type="text"
@@ -261,7 +270,9 @@ const AutoEntrepreneurInfo = () => {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email" className="text-xs sm:text-sm md:text-base">{Content("Card")}</Label>
+            <Label htmlFor="email" className="text-xs sm:text-sm md:text-base">
+              {Content("Card")}
+            </Label>
             <Input
               id="picture"
               type="file"
@@ -274,7 +285,9 @@ const AutoEntrepreneurInfo = () => {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="phone" className="text-xs sm:text-sm md:text-base">{Content("PhoneNumber")}</Label>
+            <Label htmlFor="phone" className="text-xs sm:text-sm md:text-base">
+              {Content("PhoneNumber")}
+            </Label>
             <div className="flex border border-black rounded-lg">
               <div className="px-5 py-2 border-r border-black">+212</div>
               <input
@@ -286,7 +299,12 @@ const AutoEntrepreneurInfo = () => {
             </div>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="Activity" className="text-xs sm:text-sm md:text-base">{Content("Activities")}</Label>
+            <Label
+              htmlFor="Activity"
+              className="text-xs sm:text-sm md:text-base"
+            >
+              {Content("Activities")}
+            </Label>
             <div className="flex gap-2">
               <Input
                 id="text"
@@ -328,14 +346,17 @@ const AutoEntrepreneurInfo = () => {
           )}
           {success && <p className="text-green-500 text-sm">{success}</p>}
 
-          <Button type="submit" className="w-full text-white text-xs md:text-sm">
+          <Button
+            type="submit"
+            className="w-full text-white text-xs md:text-sm"
+          >
             {Content("Submit")}
           </Button>
         </form>
       </div>
       <div className="w-full text-center lg:text-start lg:px-10 xl:px-14 text-xs sm:text-sm mb-2">
-          <p>{Content("CopyWrite")}</p>
-        </div>
+        <p>{Content("CopyWrite")}</p>
+      </div>
     </div>
   );
 };

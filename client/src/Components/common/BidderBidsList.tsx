@@ -41,11 +41,12 @@ const BidderBidsList = ({
 }) => {
   const { data: session } = useSession();
   const [Language, setLanguage] = useState("fr");
-  // Language
-  useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
-  }, [Language]);
+ // Language
+ useEffect(() => {
+  const lg = localStorage.getItem("lg");
+  const language = lg ? JSON.parse(lg) : "fr"; 
+  setLanguage(language);
+}, [Language]);
 
   return (
     <Tabs defaultValue="week">
@@ -57,7 +58,7 @@ const BidderBidsList = ({
               <CardDescription>{content("Description")}</CardDescription>
             </div>
             {seeMore ? (
-              <Link href={`/${Language}/Dashboard-B/My-Bids`}>
+              <Link href={`/${Language}/bidder-dashboard/my-bids`}>
                 <Button size={"sm"} className="h-7 gap-1 text-xs text-white">
                   {content("SeeMore")}
                 </Button>
@@ -133,7 +134,7 @@ const BidderBidsList = ({
                         <TableCell className="text-center">
                           <a
                             target="_blank"
-                            href={`http://localhost:3001/uploads/${bid[0].bid.estimate}`}
+                            href={`${process.env.NEXT_PUBLIC_BackendURL}/uploads/${bid[0].bid.estimate}`}
                             className=" mt-2 text-primary hover:text-orange-600"
                           >
                             <Download

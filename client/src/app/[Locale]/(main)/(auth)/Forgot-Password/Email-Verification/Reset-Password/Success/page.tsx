@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 
@@ -10,12 +10,11 @@ const ResetPassword = () => {
   const [Language, setLanguage] = useState();
   const Content = useTranslations("Auth.ForgotPassword.RessetSuccessful");
 
-  // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
-
   return (
     <div className="flex flex-col py-8 justify-between min-h-screen">
       <div className="mx-auto grid w-full px-5 sm:px-10 md:px-32 lg:px-0  lg:w-7/12 gap-16 mt-20 lg:mt-32 xl:mt-56">

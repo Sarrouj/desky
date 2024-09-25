@@ -8,18 +8,19 @@ const ProcessGoogleSignIn = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const googleEmail = urlParams.get("email");
     const googlePassword = urlParams.get("password");
-    let lg = JSON.parse(localStorage.getItem("lg"));
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
 
     if (googleEmail && googlePassword) {
       localStorage.setItem("email", googleEmail);
       localStorage.setItem("password", googlePassword);
-      window.location.replace(`/${lg}/Sign-Up/Choose-Type`);
+      window.location.replace(`/${language}/sign-up/choose-type`);
     }
   }, []);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-neutralBg">
-      <Spinner size={"medium"}/>
+      <Spinner size={"medium"} />
     </div>
   );
 };

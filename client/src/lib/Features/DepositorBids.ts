@@ -22,7 +22,7 @@ export const DepositorBids: StateCreator<DepositorManageBidsData> = (
     const { DepositorManageBidsID } = get();
     try {
       const response = await axios.get(
-        `http://localhost:3001/depositor/dashboard/${DepositorManageBidsID}`
+        `${process.env.NEXT_PUBLIC_BackendURL}/depositor/dashboard/${DepositorManageBidsID}`
       );
       const data = response.data.success;
       set({ DepositorManageBidsData: data, depositorManageBidsIsLoading: false });

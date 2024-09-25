@@ -23,7 +23,7 @@ export const createOfferSlice : StateCreator<addOfferState> = (set, get)=>({
       const { offerDataPosting } = get();
       set({ loading : true});
       try {
-        const response : AxiosResponse = await axios.post('http://localhost:3001/add/offer', offerDataPosting, {
+        const response : AxiosResponse = await axios.post(`${process.env.NEXT_PUBLIC_BackendURL}/add/offer`, offerDataPosting, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

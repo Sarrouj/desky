@@ -57,14 +57,14 @@ const FirstVueResponsiveMenu = ({ Language }: { Language: any }) => {
               {userType == "depositor" ? (
                 <>
                   <Link
-                    href={`/${Language}/dashboard-d`}
+                    href={`/${Language}/depositor-dashboard`}
                     className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary "
                   >
                     <Home className="h-5 w-5" />
                     Dashboard
                   </Link>
                   <Link
-                    href={`/${Language}/Profile-D`}
+                    href={`/${Language}/depositor-profile`}
                     className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
                   >
                     <User className="h-5 w-5" />
@@ -74,14 +74,14 @@ const FirstVueResponsiveMenu = ({ Language }: { Language: any }) => {
               ) : userType == "bidder" ? (
                 <>
                   <Link
-                    href={`/${Language}/Dashboard-B`}
+                    href={`/${Language}/bidder-dashboard`}
                     className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
                   >
                     <Home className="h-5 w-5" />
                     Dashboard
                   </Link>
                   <Link
-                    href={`/${Language}/Profile-B`}
+                    href={`/${Language}/bidder-profile`}
                     className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
                   >
                     <User className="h-5 w-5" />
@@ -90,7 +90,7 @@ const FirstVueResponsiveMenu = ({ Language }: { Language: any }) => {
                 </>
               ) : (
                 <Link
-                  href={`/${Language}/Dashboard-A/Offers-verification`}
+                  href={`/${Language}/dashboard-admin/offers-verification`}
                   className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
                 >
                   <Home className="h-5 w-5" />
@@ -112,21 +112,21 @@ const FirstVueResponsiveMenu = ({ Language }: { Language: any }) => {
                 Offers
               </Link>
               <Link
-                href={`/${Language}/About-Us`}
+                href={`/${Language}/about-us`}
                 className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
               >
                 <Info className="h-5 w-5" />
                 About Us
               </Link>
               <Link
-                href={`/${Language}/FAQ`}
+                href={`/${Language}/faq`}
                 className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
               >
                 <MessagesSquare className="h-5 w-5" />
                 FAQ
               </Link>
               <Link
-                href={`/${Language}/Contact-Us`}
+                href={`/${Language}/contact-us`}
                 className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
               >
                 <LifeBuoy className="h-5 w-5" />
@@ -174,21 +174,21 @@ const FirstVueResponsiveMenu = ({ Language }: { Language: any }) => {
                 Offers
               </Link>
               <Link
-                href={`/${Language}/About-Us`}
+                href={`/${Language}/about-us`}
                 className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
               >
                 <Info className="h-5 w-5" />
                 About Us
               </Link>
               <Link
-                href={`/${Language}/FAQ`}
+                href={`/${Language}/faq`}
                 className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
               >
                 <MessagesSquare className="h-5 w-5" />
                 FAQ
               </Link>
               <Link
-                href={`/${Language}/Contact-Us`}
+                href={`/${Language}/contact-us`}
                 className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
               >
                 <LifeBuoy className="h-5 w-5" />
@@ -203,7 +203,7 @@ const FirstVueResponsiveMenu = ({ Language }: { Language: any }) => {
                   Login
                 </Link>
                 <Link
-                  href={`/${Language}/Sign-Up`}
+                  href={`/${Language}/sign-up`}
                   className="flex items-center  justify-center gap-4 py-1.5 px-3 text-white w-full bg-primary rounded-lg text-sm"
                 >
                   <UserRoundPlus className="h-5 w-5" />

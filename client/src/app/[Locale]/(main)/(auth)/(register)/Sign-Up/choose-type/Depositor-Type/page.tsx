@@ -109,7 +109,7 @@ const DepositorType = () => {
             />
           </div>
           <Link
-            href={`/${Language}/Sign-Up/Choose-Type/Depositor-Type/AutoEntrepreneur-Info`}
+            href={`/${Language}/sign-up/choose-type/depositor-type/autoEntrepreneur-info`}
             className="flex justify-between items-center shadow border hover:border-primary p-5 rounded accounType hover:bg-neutralBg"
           >
             <div className="flex items-center gap-5">
@@ -145,7 +145,7 @@ const DepositorType = () => {
             />
           </Link>
           <Link
-            href={`/${Language}/Sign-Up/Choose-Type/Depositor-Type/Company-Info`}
+            href={`/${Language}/sign-up/choose-type/depositor-type/company-info`}
             className="flex justify-between items-center shadow border hover:border-primary p-5 rounded accounType hover:bg-neutralBg"
           >
             <div className="flex items-center gap-5">

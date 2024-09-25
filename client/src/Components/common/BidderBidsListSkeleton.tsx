@@ -2,7 +2,7 @@
 
 import { Skeleton } from "@/Components/ui/skeleton";
 import { useState, useEffect } from "react";
-import { Button } from "@/Components/ui/Button";
+
 import {
   Card,
   CardContent,
@@ -20,7 +20,7 @@ import {
   TableRow,
 } from "@/Components/ui/table";
 import { Tabs, TabsContent } from "@/Components/ui/tabs";
-import Link from "next/link";
+
 import {
   Tooltip,
   TooltipContent,
@@ -37,12 +37,12 @@ const BidderBidsListSkeleton = ({
 }) => {
   const [Language, setLanguage] = useState("fr");
 
-  // Language
-  useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
-  }, [Language]);
-
+// Language
+useEffect(() => {
+  const lg = localStorage.getItem("lg");
+  const language = lg ? JSON.parse(lg) : "fr"; 
+  setLanguage(language);
+}, [Language]);
   let skeleton = [];
 
   for (let i = 0; i < amount; i++) {

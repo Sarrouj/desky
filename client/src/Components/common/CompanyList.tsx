@@ -1,14 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Download } from "lucide-react";
-
-import { Badge } from "@/Components/ui/badge";
 import { Button } from "@/Components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/Components/ui/card";
@@ -35,8 +31,6 @@ import {
 import { Tabs, TabsContent } from "@/Components/ui/tabs";
 import CompanyDetails from "@/Components/common/CompanyDetails";
 
-import Link from "next/link";
-
 import {
   Tooltip,
   TooltipContent,
@@ -59,7 +53,7 @@ const CompanyList = ({ Company, user_id }: { Company: any; user_id: any }) => {
 
   const handleAccept = async (type: string, id: string) => {
     try {
-      await axios.put(`http://localhost:3001/admin/verify/${type}/${id}`, {
+      await axios.put(`${process.env.NEXT_PUBLIC_BackendURL}/admin/verify/${type}/${id}`, {
         user_id,
       });
       // Reload the current page upon success
@@ -71,7 +65,7 @@ const CompanyList = ({ Company, user_id }: { Company: any; user_id: any }) => {
 
   const handleRefuse = async (type: string, id: string) => {
     try {
-      await axios.put(`http://localhost:3001/admin/refuse/${type}/${id}`, {
+      await axios.put(`${process.env.NEXT_PUBLIC_BackendURL}/admin/refuse/${type}/${id}`, {
         user_id,
         message,
       });

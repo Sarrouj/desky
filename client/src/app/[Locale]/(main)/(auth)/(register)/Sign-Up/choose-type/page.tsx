@@ -45,7 +45,7 @@ useEffect(() => {
     setError("");
     try {
       const response = await axios.post(
-        "http://localhost:3001/auth/register/user",
+        `${process.env.NEXT_PUBLIC_BackendURL}/auth/register/user`,
         {
           email,
           userType,
@@ -54,9 +54,9 @@ useEffect(() => {
 
       if (response && response.data && response.data.success) {
         if (userType === "depositor") {
-          window.location.href = `/${Language}/Sign-Up/Choose-Type/Depositor-Type`;
+          window.location.href = `/${Language}/sign-up/choose-type/depositor-type`;
         } else if (userType === "bidder") {
-          window.location.href = `/${Language}/Sign-Up/Choose-Type/Bidder-Type`;
+          window.location.href = `/${Language}/sign-up/choose-type/bidder-type`;
         }
       } else {
         setError(response.data.error);
@@ -101,14 +101,14 @@ useEffect(() => {
                     width={50}
                     height={50}
                     alt="depositor icon"
-                    className="depositorIcon  h-10 w-10 md:h-12 md:w-12"
+                    className="depositorIcon h-10 w-10 md:h-12 md:w-12"
                   />
                   <Image
                     src="/icons/HoverDepositorIcon.svg"
                     width={50}
                     height={50}
                     alt="hover depositor icon"
-                    className="hidden hoverDepositorIcon  h-10 w-10 md:h-12 md:w-12"
+                    className="hidden hoverDepositorIcon h-10 w-10 md:h-12 md:w-12"
                   />
                   <div>
                     <h3 className="font-semibold text-sm md:text-base">

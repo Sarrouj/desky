@@ -3,7 +3,7 @@
 import Link from "next/link";
 import axios from "axios";
 
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { useEffect, useState } from "react";
@@ -15,12 +15,12 @@ const ForgotPassword = () => {
   const [Language, setLanguage] = useState();
   const [email, setEmail] = useState<any>();
 
-  // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
-
+  
   // Content
   const Content = useTranslations("Auth.ForgotPassword");
 
@@ -28,7 +28,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3001/auth/forgetPassword",
+        `${process.env.NEXT_PUBLIC_BackendURL}/auth/forgetPassword`,
         {
           email,
         }
@@ -36,7 +36,7 @@ const ForgotPassword = () => {
       if (response && response.data && response.data.success) {
         localStorage.setItem("email", email);
         setTimeout(() => {
-          window.location.href = `/${Language}/Forgot-Password/Email-Verification`;
+          window.location.href = `/${Language}/forgot-password/email-verification`;
         }, 500);
       }
     } catch (err) {

@@ -6,7 +6,7 @@ import Link from "next/link";
 import axios from "axios";
 import { signIn, useSession } from "next-auth/react";
 
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 
@@ -28,20 +28,20 @@ const SignUp = () => {
   // Content
   const SignUPContent = useTranslations("Auth.SignUp");
 
-  // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
 
   useEffect(() => {
     if (status === "authenticated") {
       if (userType == "bidder") {
-        window.location.href = `/${Language}/dashboard-B`;
+        window.location.href = `/${Language}/bidder-dashboard`;
       } else if (userType == "depositor") {
-        window.location.href = `/${Language}/dashboard-d`;
+        window.location.href = `/${Language}/depositor-dashboard`;
       } else if (userType == "admin") {
-        window.location.href = `/${Language}/Dashboard-A/Offers-verification`;
+        window.location.href = `/${Language}/dashboard-admin/offers-verification`;
       }
     }
   }, [status, Language, userType]);
@@ -51,7 +51,7 @@ const SignUp = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/auth/register/tempUser",
+        `${process.env.NEXT_PUBLIC_BackendURL}/auth/register/tempUser`,
         {
           name,
           email,
@@ -64,7 +64,7 @@ const SignUp = () => {
         localStorage.setItem("email", email);
         localStorage.setItem("password", password);
         setTimeout(() => {
-          window.location.href = `/${Language}/Sign-Up/verify-email`;
+          window.location.href = `/${Language}/sign-up/verify-email`;
         }, 1000);
       } else {
         setError(response.data.error);

@@ -20,7 +20,7 @@ export const DeleteOfferSlice : StateCreator<deleteOfferState> = (set, get) => (
 
         try {
             await axios.delete(
-              `http://localhost:3001/delete/offer/${DeleteOfferID}`,
+              `${process.env.NEXT_PUBLIC_BackendURL}/delete/offer/${DeleteOfferID}`,
               {
                 data: {
                   user_id: DeleteDepositorID,

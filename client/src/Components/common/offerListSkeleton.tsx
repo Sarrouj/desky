@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import {
   Card,
   CardContent,
@@ -42,10 +42,10 @@ const OffersListSkeleton = ({
   const [Language, setLanguage] = useState("fr");
   // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr";
+    setLanguage(language);
   }, [Language]);
-
   let arr = [];
 
   for (let i = 0; i < 9; i++) {
@@ -83,14 +83,14 @@ const OffersListSkeleton = ({
                 {Content("Desc")}
               </CardDescription>
             </div>
-            <Link href={`/${Language}/Create-Offer`}>
+            <Link href={`/${Language}/create-offer`}>
               <Button size={"sm"} className="text-xs text-white">
                 {Content("AddOffer")}
               </Button>
             </Link>
           </CardHeader>
           <CardContent>
-            <Table >
+            <Table>
               <TableHeader className="">
                 <TableRow className="hover:bg-white">
                   <TableHead>{Content("offerName")}</TableHead>

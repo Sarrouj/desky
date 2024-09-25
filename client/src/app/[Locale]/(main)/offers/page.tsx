@@ -27,7 +27,7 @@ import {
   TooltipProvider,
 } from "@/Components/ui/tooltip";
 
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import Link from "next/link";
 import { Skeleton } from "@/Components/ui/skeleton";
 
@@ -62,10 +62,12 @@ const Offers: React.FC = () => {
   const userRole = session ? session?.user.role : null;
   const [Language, setLanguage] = useState("fr");
 
+
   // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; 
+    setLanguage(language);
     searchedData;
   }, [Language, searchedData]);
 
@@ -116,13 +118,11 @@ const Offers: React.FC = () => {
   }
 
   useEffect(() => {
-    let sortData = [...searchedData];
-    if (selectedValue == "Newest") {
-      sortData.sort(
-        (a: any, b: any) => new Date(b.offer_DoP) - new Date(a.offer_DoP)
-      );
-    } else if (selectedValue == "Oldest") {
-      sortData.sort((a, b) => new Date(a.offer_DoP) - new Date(b.offer_DoP));
+    let sortData: any = [...searchedData];
+    if (selectedValue === "Newest") {
+      sortData.sort((a: any, b: any) => new Date(b.offer_DoP).getTime() - new Date(a.offer_DoP).getTime());
+    } else if (selectedValue === "Oldest") {
+      sortData.sort((a: any, b: any) => new Date(a.offer_DoP).getTime() - new Date(b.offer_DoP).getTime());
     }
     setSortedData(sortData);
   }, [selectedValue, searchedData]);
@@ -147,6 +147,7 @@ const Offers: React.FC = () => {
           Offers={"text-primary font-semibold "}
           FAQ={"hover:text-primary"}
           AboutUS={"hover:text-primary"}
+          Contact={"hover:text-primary"}
         />
       </div>
       <main className="sm:py-4 md:py-5 px-3 sm:px-8 md:px-10 bg-neutralBg text-secondaryDarkBlue h-full">
@@ -158,7 +159,7 @@ const Offers: React.FC = () => {
             <div className="hidden md:block">
               {userRole !== null ? (
                 userRole == "depositor" ? (
-                  <Link href={`/${Language}/Create-Offer`}>
+                  <Link href={`/${Language}/create-offer`}>
                     <Button className="text-white text-xs">
                       {OffersPageContent("CallToAction")}
                     </Button>

@@ -20,7 +20,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/Components/ui/breadcrumb";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
 
 import React, { useState, useEffect } from "react";
@@ -38,10 +38,11 @@ const CreateOffer: React.FC = () => {
 
   // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
-
+  
   // Language
   let SideBarContent = useTranslations("DepositorDashboard.SideBar");
   let BreadcrumbListContent = useTranslations(
@@ -141,7 +142,7 @@ const CreateOffer: React.FC = () => {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${Language}/dashboard-d/`}>
+                  <Link href={`/${Language}/depositor-dashboard/`}>
                     {BreadcrumbListContent("Dashboard")}
                   </Link>
                 </BreadcrumbLink>
@@ -149,7 +150,7 @@ const CreateOffer: React.FC = () => {
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${Language}/Create-Offer`}>
+                  <Link href={`/${Language}/create-offer`}>
                     {BreadcrumbListContent("CreateOffer")}
                   </Link>
                 </BreadcrumbLink>
@@ -214,3 +215,4 @@ const CreateOffer: React.FC = () => {
 };
 
 export default CreateOffer;
+// Routing to Lower Case

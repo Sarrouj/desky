@@ -121,13 +121,13 @@ const FirstVueDropDownMenu = ({
             <DropdownMenuGroup>
               {userType == "depositor" ? (
                 <>
-                  <Link href={`/${Language}/Profile-D`}>
+                  <Link href={`/${Language}/depositor-profile`}>
                     <DropdownMenuItem>
                       <User className="mr-2 h-4 w-4" />
                       <span>{content("User.Profile")}</span>
                     </DropdownMenuItem>
                   </Link>
-                  <Link href={`/${Language}/dashboard-d`}>
+                  <Link href={`/${Language}/depositor-dashboard`}>
                     <DropdownMenuItem>
                       <Package2 className="mr-2 h-4 w-4" />
                       <span>{content("User.Dashboard")}</span>
@@ -136,13 +136,13 @@ const FirstVueDropDownMenu = ({
                 </>
               ) : userType == "bidder" ? (
                 <>
-                  <Link href={`/${Language}/Profile-B`}>
+                  <Link href={`/${Language}/bidder-profile`}>
                     <DropdownMenuItem>
                       <User className="mr-2 h-4 w-4" />
                       <span>{content("User.Profile")}</span>
                     </DropdownMenuItem>
                   </Link>
-                  <Link href={`/${Language}/Dashboard-B`}>
+                  <Link href={`/${Language}/bidder-dashboard`}>
                     <DropdownMenuItem>
                       <Package2 className="mr-2 h-4 w-4" />
                       <span>{content("User.Dashboard")}</span>
@@ -150,7 +150,7 @@ const FirstVueDropDownMenu = ({
                   </Link>
                 </>
               ) : (
-                <Link href={`/${Language}/Dashboard-A/Offers-verification`}>
+                <Link href={`/${Language}/dashboard-admin/offers-verification`}>
                   <DropdownMenuItem>
                     <Package2 className="mr-2 h-4 w-4" />
                     <span>{content("User.Dashboard")}</span>
@@ -160,7 +160,7 @@ const FirstVueDropDownMenu = ({
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <Link href={`/${Language}/Contact-Us`}>
+              <Link href={`/${Language}/contact-us`}>
                 <DropdownMenuItem>
                   <LifeBuoy className="mr-2 h-4 w-4" />
                   <span>{content("User.Support")}</span>
@@ -181,7 +181,7 @@ const FirstVueDropDownMenu = ({
               {content("Auth.Login")}
             </Button>
           </Link>
-          <Link href={`/${Language}/Sign-Up`}>
+          <Link href={`/${Language}/sign-up`}>
             <Button className="text-white px-3 md:px-5 text-xs lg:text-sm xl:text-md">
               {content("Auth.SignUp")}
             </Button>

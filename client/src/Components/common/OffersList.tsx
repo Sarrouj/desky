@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import {
   Card,
   CardContent,
@@ -45,12 +45,12 @@ const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user
   const [Language, setLanguage] = useState("fr");
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    const lg = JSON.parse(localStorage.getItem("lg"));
-    if (lg) {
-      setLanguage(lg);
-    }
-  }, []);
+ // Language
+ useEffect(() => {
+  const lg = localStorage.getItem("lg");
+  const language = lg ? JSON.parse(lg) : "fr"; 
+  setLanguage(language);
+}, [Language]);
 
   return (
     <Tabs defaultValue="week">
@@ -117,7 +117,7 @@ const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user
                   offers.map((offer: any, index: number) => {
                     const handleAccept = async () => {
                       await axios.put(
-                        `http://localhost:3001/admin/offer/verify/${offer._id}`,
+                        `${process.env.NEXT_PUBLIC_BackendURL}/admin/offer/verify/${offer._id}`,
                         {
                           user_id,
                         }
@@ -127,7 +127,7 @@ const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user
 
                     const handleRefuse = async () => {
                        await axios.put(
-                        `http://localhost:3001/admin/offer/refuse/${offer._id}`,
+                        `${process.env.NEXT_PUBLIC_BackendURL}/admin/offer/refuse/${offer._id}`,
                         {
                           user_id,
                           message,
@@ -142,7 +142,7 @@ const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user
                       >
                         <TableCell
                           onClick={() => {
-                            window.location.href = `/${Language}/Dashboard-A/Offers-verification/${offer._id}`;
+                            window.location.href = `/${Language}/dashboard-admin/offers-verification/${offer._id}`;
                           }}
                           className="text-xs md:text-sm "
                         >
@@ -150,7 +150,7 @@ const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user
                         </TableCell>
                         <TableCell
                           onClick={() => {
-                            window.location.href = `/${Language}/Dashboard-A/Offers-verification/${offer._id}`;
+                            window.location.href = `/${Language}/dashboard-admin/offers-verification/${offer._id}`;
                           }}
                           className="text-center text-xs md:text-sm "
                         >
@@ -158,7 +158,7 @@ const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user
                         </TableCell>
                         <TableCell
                           onClick={() => {
-                            window.location.href = `/${Language}/Dashboard-A/Offers-verification/${offer._id}`;
+                            window.location.href = `/${Language}/dashboard-admin/offers-verification/${offer._id}`;
                           }}
                           className="text-center text-xs md:text-sm "
                         >

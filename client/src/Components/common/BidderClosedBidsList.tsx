@@ -1,7 +1,7 @@
 "use client";
 
 import { StarFill } from "react-bootstrap-icons";
-import { Download, Star } from "lucide-react";
+import { Download } from "lucide-react";
 import { Textarea } from "@/Components/ui/textarea";
 import { Button } from "@/Components/ui/button";
 
@@ -77,7 +77,7 @@ const ClosedBidderBidsList = ({
     }
     try {
       const response = await axios.post(
-        `http://localhost:3001/rate/bidder/${depositor_id}/${offer_id}`,
+        `${process.env.NEXT_PUBLIC_BackendURL}/rate/bidder/${depositor_id}/${offer_id}`,
         {
           rating,
           text: review,
@@ -194,7 +194,7 @@ const ClosedBidderBidsList = ({
                           <TableCell className="text-center">
                             <a
                               target="_blank"
-                              href={`http://localhost:3001/uploads/${bid[0].bid.estimate}`}
+                              href={`${process.env.NEXT_PUBLIC_BackendURL}/uploads/${bid[0].bid.estimate}`}
                               className=" mt-2 text-primary hover:text-orange-600"
                             >
                               <Download

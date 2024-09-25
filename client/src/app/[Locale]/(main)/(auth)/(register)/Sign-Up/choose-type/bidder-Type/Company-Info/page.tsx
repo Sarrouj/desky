@@ -7,7 +7,7 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import axios from "axios";
 
 // Shadcn UI
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import {
@@ -62,10 +62,10 @@ const CompanyInfo = () => {
   const CitiesEN = useBoundStore((state) => state.CitiesEN);
   const CitiesFR = useBoundStore((state) => state.CitiesFR);
 
-  // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
 
   // Language
@@ -82,7 +82,7 @@ const CompanyInfo = () => {
 
   useEffect(() => {
     if (status === "authenticated") {
-      window.location.href = `/${Language}/Dashboard-B`;
+      window.location.href = `/${Language}/bidder-dashboard`;
     }
   }, [status, Language]);
 
@@ -96,7 +96,7 @@ const CompanyInfo = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/add/bidder/company",
+        `${process.env.NEXT_PUBLIC_BackendURL}/add/bidder/company`,
         {
           email,
           company_type: type,
@@ -157,7 +157,7 @@ const CompanyInfo = () => {
       <div className="w-full text-xs text-end flex justify-between px-5">
         <Link
           className="flex items-center gap-2"
-          href={`/${Language}/Sign-Up/Choose-Type/Bidder-Type`}
+          href={`/${Language}/sign-up/choose-type/bidder-type`}
         >
           <Image
             src={"/icons/arrowBack.svg"}

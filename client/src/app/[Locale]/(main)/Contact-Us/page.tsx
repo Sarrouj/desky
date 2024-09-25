@@ -6,7 +6,7 @@ import { MapPin, Phone, Mail } from "lucide-react";
 import { Input } from "@/Components/ui/input";
 import { Textarea } from "@/Components/ui/textarea";
 import { Label } from "@/Components/ui/label";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -23,7 +23,7 @@ const ContactUs = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const response = await axios.post("http://localhost:3001/user/send-email", {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_BackendURL}/user/send-email`, {
       name,
       email,
       message,
@@ -40,6 +40,7 @@ const ContactUs = () => {
         Offers={"hover:text-primary"}
         FAQ={"hover:text-primary"}
         AboutUS={"hover:text-primary"}
+        Contact={"text-primary font-semibold"}
       />
       <main className="bg-neutralBg space-y-8 px-4 md:px-6 lg:px-8 xl:px-12   pt-10 text-center border-t-2">
         <div className="flex flex-col gap-3 items-center ">
@@ -141,3 +142,4 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
+// Lower Case

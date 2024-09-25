@@ -1,9 +1,7 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
 import axios from "axios";
 
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { useState, useEffect } from "react";
@@ -13,16 +11,16 @@ const ResetPassword = () => {
   const [Language, setLanguage] = useState();
   const Content = useTranslations("Auth.ForgotPassword.ResetPassword");
 
-  // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
 
   const email = localStorage.getItem("email");
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
-  const [error, setError] = useState();
+  const [password, setPassword] = useState<any>();
+  const [confirmPassword, setConfirmPassword] = useState<any>();
+  const [error, setError] = useState<any>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,14 +29,14 @@ const ResetPassword = () => {
     }
     try {
       const response = await axios.put(
-        "http://localhost:3001/auth/changePassword",
+        `${process.env.NEXT_PUBLIC_BackendURL}/auth/changePassword`,
         {
           email,
           password,
         }
       );
       if (response && response.data && response.data.success) {
-        window.location.href = `/${Language}/Forgot-Password/Email-Verification/Reset-Password/Success`;
+        window.location.href = `/${Language}/forgot-password/email-verification/reset-password/success`;
         localStorage.removeItem("email");
       }
     } catch (err) {

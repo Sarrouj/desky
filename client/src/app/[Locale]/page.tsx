@@ -10,7 +10,7 @@ import CallToAction from "@/Components/common/CallToAction";
 import Footer from "@/Components/layout/footer";
 import HomeNavbar from "@/Components/layout/HomeNavbar";
 import OfferCard from "@/Components/layout/OfferCard";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { MoveUp, MoveDown } from "lucide-react";
 
 export default function Home() {
@@ -22,29 +22,30 @@ export default function Home() {
   const NavbarContent = useTranslations("NavBar");
   const OfferContent = useTranslations("offer");
 
+  // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr";
+    setLanguage(language);
   }, [Language]);
 
   useEffect(() => {
     fetchOffers();
   }, [fetchOffers]);
 
-  
   useEffect(() => {
     // Determine if offersData is available and has at least two items
     const hasOffers = offersData && offersData.length > 0;
     const data = hasOffers ? [...offersData] : [];
     // Filter by status Open
-    let filterData = data ? data.filter((offer)=>
-      offer.offer_state === "open"
-    ) : [];
-    const lastTwoOffers : any = hasOffers ? filterData.slice(-2) : [];
-    if(lastTwoOffers.length > 0){
+    let filterData = data
+      ? data.filter((offer) => offer.offer_state === "open")
+      : [];
+    const lastTwoOffers: any = hasOffers ? filterData.slice(-2) : [];
+    if (lastTwoOffers.length > 0) {
       setLastestOffersData(lastTwoOffers);
     }
-  }, [offersData])
+  }, [offersData]);
 
   return (
     <div className="relative">
@@ -58,9 +59,9 @@ export default function Home() {
       <div className="absolute top-0 left-0 right-0">
         <HomeNavbar NavbarContent={NavbarContent} />
         <main className="text-secondaryDarkBlue">
-          <section className="border-b-2 pb-10 overflow-hidden">
+          <section className="border-b-2 pb-6 md:pb-10 overflow-hidden">
             <div className="px-4 sm:px-6 md:px-8 lg:pl-16 xl:pl-20 flex">
-              <div className="w-full lg:w-2/4 mt-28 flex flex-col justify-center lg:justify-start items-center lg:items-start text-center lg:text-start">
+              <div className="w-full xl:w-2/4 mt-20 md:mt-28 flex flex-col justify-center xl:justify-start items-center xl:items-start text-center xl:text-start">
                 <h2 className="text-sm sm:text-base md:text-lg xl:text-xl text-neutralGray">
                   {Content("Hero.headlineAbove")}
                 </h2>
@@ -77,22 +78,22 @@ export default function Home() {
                 <p className="mt-5 text-xs md:text-sm lg:text-base">
                   {Content("Hero.heroDescription")}
                 </p>
-                <div className="mt-20">
+                <div className="mt-10 md:mt-20">
                   <div className="mb-8">
                     <Link
                       href={`${Language}/login`}
-                      className="bg-primaryOrange text-white px-8 py-3 rounded-md mr-3 text-xs md:text-sm xl:text-base"
+                      className="bg-primaryOrange text-white px-2 md:px-8 py-3 rounded-md mr-3 text-xs md:text-sm xl:text-base hover:bg-primary/90"
                     >
                       {Content("Hero.SubmitCallToAction")}
                     </Link>
                     <Link
                       href={`${Language}/offers`}
-                      className="px-7 py-2 rounded-md border-4 border-primaryOrange text-primaryOrange bg-white font-semibold text-xs md:text-sm xl:text-base"
+                      className="px-2 md:px-7 py-2 rounded-md border-4 border-primaryOrange  text-primaryOrange bg-white hover:bg-gray-100 font-semibold text-xs md:text-sm xl:text-base"
                     >
                       {Content("Hero.SeeCallsCallToAction")}
                     </Link>
                   </div>
-                  <div className="hidden lg:flex gap-5">
+                  <div className="hidden sm:flex gap-5">
                     <div className="flex gap-2">
                       <Image
                         src={"/trustIcon.svg"}
@@ -119,7 +120,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="w-2/4 items-start hidden lg:flex flex-col gap-3   xl:-rotate-45 xl:ml-36 lg:mt-20 xl:mt-12">
+              <div className="w-2/4 items-start hidden xl:flex flex-col gap-3  xl:-rotate-45 xl:ml-36 lg:mt-20 xl:mt-12">
                 <div className="hidden xl:flex items-center gap-5">
                   <div className="p-2 xl:p-3.5 bg-white w-44 xl:w-52 shadow-lg">
                     <p className="text-xs mb-2">Offers Accepted</p>
@@ -442,7 +443,7 @@ export default function Home() {
               </div>
             </div>
           </section>
-          <section className="bg-neutralBg">
+          <section className="bg-neutralBg border-b-2">
             <div className="px-4 sm:px-6 md:px-8 lg:px-14 xl:px-16 py-6 md:py-12 lg:py-16 xl:py-20 flex flex-col items-center gap-4 md:gap-6 lg:gap-14 xl:gap-16">
               <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-center">
                 {Content("LatestSection.title")}
@@ -482,13 +483,15 @@ export default function Home() {
           </section>
           <section>
             <div className="px-4 sm:px-6 md:px-16 lg:px-18 xl:px-32 py-4 md:py-6 lg:py-8 xl:py-10">
-              <div className="py-4 md:py-8 lg:py-12 xl:py-20 flex flex-col justify-center text-center items-center gap-2 md:gap-4 lg:gap-6 xl:gap-8">
+              <div className="py-4 md:py-8 lg:py-12 xl:py-20  flex flex-col justify-center text-center items-center gap-2 md:gap-4 lg:gap-6 xl:gap-8">
                 <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold">
                   {Content("Credibility.title")}
                 </h1>
-                <p className="text-xs md:text-sm lg:text-base">{Content("Credibility.description")}</p>
+                <p className="text-xs md:text-sm lg:text-base">
+                  {Content("Credibility.description")}
+                </p>
               </div>
-              <div className="flex">
+              <div className="flex pt-3 lg:pt-0">
                 <div className="w-2/4 hidden lg:block">
                   <Image
                     src={"/Credibility.svg"}
@@ -498,8 +501,8 @@ export default function Home() {
                   />
                 </div>
                 <div className="w-full lg:w-2/4 flex flex-col gap-2 md:gap-4 lg:gap-6 xl:gap-8">
-                  <div className="p-3 md:p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white transition-colors ease-in-out delay-150	">
-                    <div className="flex items-start justify-between">
+                  <div className="p-3 md:p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white transition-colors ease-in-out ">
+                    <div className="flex items-start justify-center lg:justify-between">
                       <h2 className="font-bold text-base md:text-lg lg:text-xl xl:text-2xl mb-2 xl:mb-5">
                         {Content("Credibility.LegalStatus")}
                       </h2>
@@ -508,14 +511,15 @@ export default function Home() {
                         alt={"icon"}
                         width={28}
                         height={28}
+                        className="hidden lg:block"
                       />
                     </div>
-                    <p className="text-xs md:text-sm w-11/12	">
+                    <p className="text-xs md:text-sm text-center lg:text-start lg:w-11/12	">
                       {Content("Credibility.LegalStatusDesc")}
                     </p>
                   </div>
-                  <div className="p-3 md:p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white transition-colors ease-in-out delay-150	">
-                    <div className="flex items-start justify-between">
+                  <div className="p-3 md:p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white transition-colors ease-in-out ">
+                    <div className="flex items-start justify-center lg:justify-between">
                       <h2 className="font-bold text-base md:text-lg lg:text-xl xl:text-2xl mb-2 xl:mb-5">
                         {Content("Credibility.RatingSystem")}
                       </h2>
@@ -524,14 +528,15 @@ export default function Home() {
                         alt={"icon"}
                         width={28}
                         height={28}
+                        className="hidden lg:block"
                       />
                     </div>
-                    <p className="text-xs md:text-sm w-11/12	">
+                    <p className="text-xs md:text-sm text-center lg:text-start lg:w-11/12	">
                       {Content("Credibility.RatingSystemDesc")}
                     </p>
                   </div>
-                  <div className="p-3 md:p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white transition-colors ease-in-out delay-150	">
-                    <div className="flex items-start justify-between">
+                  <div className="p-3 md:p-5 border rounded-lg cursor-pointer hover:bg-primaryOrange hover:text-white transition-colors ease-in-out ">
+                    <div className="flex items-center lg:items-start justify-center lg:justify-between">
                       <h2 className="font-bold text-base md:text-lg lg:text-xl xl:text-2xl mb-2 xl:mb-5">
                         {Content("Credibility.Statistic")}
                       </h2>
@@ -540,9 +545,10 @@ export default function Home() {
                         alt={"icon"}
                         width={28}
                         height={28}
+                        className="hidden lg:block"
                       />
                     </div>
-                    <p className="text-xs md:text-sm  w-11/12">
+                    <p className="text-xs md:text-sm lg:w-11/12 text-center lg:text-start">
                       {Content("Credibility.StatisticDesc")}
                     </p>
                   </div>

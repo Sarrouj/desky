@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import axios from "axios";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 
@@ -9,17 +9,17 @@ const EmailVerification = () => {
   const [Language, setLanguage] = useState();
   const Content = useTranslations("Auth.ForgotPassword.EmailVerification");
 
-  // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
 
   const email = localStorage.getItem("email");
 
   const handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:3001/auth/forgetPassword", {
+      await axios.post(`${process.env.NEXT_PUBLIC_BackendURL}/auth/forgetPassword`, {
         email,
       });
     } catch (err) {

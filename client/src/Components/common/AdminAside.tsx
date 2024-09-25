@@ -34,7 +34,7 @@ const AdminAside = ({
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href={`/${Language}/Dashboard-A/Offers-verification`}
+                href={`/${Language}/dashboard-admin/offers-verification`}
                 className={`flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors ${OffersVerification} md:h-8 md:w-8`}
               >
                 <GanttChart className="h-5 w-5" />
@@ -48,7 +48,7 @@ const AdminAside = ({
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href={`/${Language}/Dashboard-A/Users-verification`}
+                href={`/${Language}/dashboard-admin/users-verification`}
                 className={`flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors ${UsersVerification} md:h-8 md:w-8`}
               >
                 <Users2 className="h-5 w-5" />

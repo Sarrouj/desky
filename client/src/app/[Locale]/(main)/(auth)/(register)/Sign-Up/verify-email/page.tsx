@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import axios from "axios";
-import { Button } from "@/Components/ui/Button";
+import { Button } from "@/Components/ui/button";
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import React from "react";
@@ -13,25 +13,24 @@ const EmailVerification = () => {
   const [password, setPassword] = useState<any>();
   const Content = useTranslations("Auth.EmailVerification");
 
-
-  // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    setLanguage(language);
   }, [Language]);
 
   useEffect(() => {
     const name = localStorage.getItem("name");
-    if(name) setName(name);
+    if (name) setName(name);
     const email = localStorage.getItem("email");
-    if(email) setEmail(email)
+    if (email) setEmail(email);
     const password = localStorage.getItem("password");
-    if(password) setPassword(password)
+    if (password) setPassword(password);
   }, []);
 
   const handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:3001/auth/register/tempUser", {
+      await axios.post(`${process.env.NEXT_PUBLIC_BackendURL}/auth/register/tempUser`, {
         name,
         email,
         password,

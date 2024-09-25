@@ -2,7 +2,7 @@
 
 import { Skeleton } from "@/Components/ui/skeleton";
 import { useState, useEffect } from "react";
-import { Button } from "@/Components/ui/Button";
+
 import {
   Card,
   CardContent,
@@ -20,7 +20,7 @@ import {
   TableRow,
 } from "@/Components/ui/table";
 import { Tabs, TabsContent } from "@/Components/ui/tabs";
-import Link from "next/link";
+
 import {
   Tooltip,
   TooltipContent,
@@ -30,7 +30,7 @@ import {
 
 const AddReviewSkeleton = ({
   Content,
-  amount,
+  amount
 }: {
   Content: any;
   amount: number;
@@ -39,8 +39,9 @@ const AddReviewSkeleton = ({
 
   // Language
   useEffect(() => {
-    let lg = JSON.parse(localStorage.getItem("lg"));
-    setLanguage(lg);
+    const lg = localStorage.getItem("lg");
+    const language = lg ? JSON.parse(lg) : "en"; 
+    setLanguage(language);
   }, [Language]);
 
   let skeleton = [];
