@@ -111,19 +111,19 @@ const MyBids = () => {
       />
       <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
         <DepositorSheet
-          Dashboard={"dashboard-d"}
+          Dashboard={"depositor-dashboard"}
           Profile={""}
-          ManageBids={"dashboard-d/manage-bids"}
-          MyOffers={"dashboard-d/my-offers"}
-          Reviews={"dashboard-d/my-reviews"}
+          ManageBids={"depositor-dashboard/manage-bids"}
+          MyOffers={"depositor-dashboard/my-offers"}
+          Reviews={"depositor-dashboard/my-reviews"}
           Offers={"offers"}
-          Support={"Contact-Us"}
+          Support={"contact-us"}
         />
         <Breadcrumb className="hidden sm:flex">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href={`/${Language}/dashboard-d`}>
+                <Link href={`/${Language}/depositor-dashboard`}>
                   {BreadcrumbListContent("Dashboard")}
                 </Link>
               </BreadcrumbLink>
@@ -133,7 +133,7 @@ const MyBids = () => {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href={`/${Language}/dashboard-d/manage-bids`}>
+                <Link href={`/${Language}/depositor-dashboard/manage-bids`}>
                   {BreadcrumbListContent("ManageBids")}
                 </Link>
               </BreadcrumbLink>
@@ -149,7 +149,7 @@ const MyBids = () => {
           openBids.length !== 0 ? (
             <>
               <div className="flex sm:hidden gap-2 w-full items-end justify-end">
-                <Link href={`/${Language}/Create-Offer`}>
+                <Link href={`/${Language}/create-offer`}>
                   <Button size={"sm"} className="text-xs text-white">
                     {Content("AddOffer")}
                   </Button>

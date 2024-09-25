@@ -23,7 +23,7 @@ const BidderType = () => {
   return (
     <div className="flex flex-col py-8 justify-between">
       <div className="w-full text-xs text-end flex justify-between px-5">
-        <Link className="flex items-center gap-2" href={`/${Language}/Profile-B`}>
+        <Link className="flex items-center gap-2" href={`/${Language}/bidder-profile`}>
           <Image
             src={"/icons/arrowBack.svg"}
             width={13}
@@ -47,7 +47,7 @@ const BidderType = () => {
         </div>
         <div className="flex flex-col gap-5">
           <Link
-            href={`/${Language}/Profile-B/Add-Info/AutoEntrepreneur-Info`}
+            href={`/${Language}/bidder-profile/add-info/autoEntrepreneur-info`}
             className="flex justify-between items-center shadow border hover:border-primary p-5 rounded accounType hover:bg-neutralBg"
           >
             <div className="flex items-center gap-5">
@@ -83,7 +83,7 @@ const BidderType = () => {
             />
           </Link>
           <Link
-            href={`/${Language}/Profile-B/Add-Info/Company-Info`}
+            href={`/${Language}/bidder-profile/add-info/company-info`}
             className="flex justify-between items-center shadow border hover:border-primary p-5 rounded accounType hover:bg-neutralBg"
           >
             <div className="flex items-center gap-5">

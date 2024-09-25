@@ -142,7 +142,7 @@ const CreateOffer: React.FC = () => {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${Language}/dashboard-d/`}>
+                  <Link href={`/${Language}/depositor-dashboard/`}>
                     {BreadcrumbListContent("Dashboard")}
                   </Link>
                 </BreadcrumbLink>
@@ -150,7 +150,7 @@ const CreateOffer: React.FC = () => {
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${Language}/Create-Offer`}>
+                  <Link href={`/${Language}/create-offer`}>
                     {BreadcrumbListContent("CreateOffer")}
                   </Link>
                 </BreadcrumbLink>

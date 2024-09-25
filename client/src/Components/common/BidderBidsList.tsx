@@ -58,7 +58,7 @@ const BidderBidsList = ({
               <CardDescription>{content("Description")}</CardDescription>
             </div>
             {seeMore ? (
-              <Link href={`/${Language}/Dashboard-B/My-Bids`}>
+              <Link href={`/${Language}/bidder-dashboard/my-bids`}>
                 <Button size={"sm"} className="h-7 gap-1 text-xs text-white">
                   {content("SeeMore")}
                 </Button>

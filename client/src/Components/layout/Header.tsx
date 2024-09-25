@@ -50,9 +50,9 @@ useEffect(() => {
           {NavbarContent("NavLinks.Home")}
         </Link>
         <Link href={`/${Language}/offers`} className={`hover:text-primary ${Offers}`}>{NavbarContent("NavLinks.Offers")}</Link>
-        <Link href={`/${Language}/About-Us`} className={`hover:text-primary ${AboutUS}`}>{NavbarContent("NavLinks.AboutUs")}</Link>
-        <Link href={`/${Language}/Contact-Us`} className={`hover:text-primary ${Contact}`}>{NavbarContent("NavLinks.ContactUs")}</Link>
-        <Link href={`/${Language}/FAQ`} className={`hover:text-primary ${FAQ}`}>{NavbarContent("NavLinks.FAQ")}</Link>
+        <Link href={`/${Language}/about-us`} className={`hover:text-primary ${AboutUS}`}>{NavbarContent("NavLinks.AboutUs")}</Link>
+        <Link href={`/${Language}/contact-us`} className={`hover:text-primary ${Contact}`}>{NavbarContent("NavLinks.ContactUs")}</Link>
+        <Link href={`/${Language}/faq`} className={`hover:text-primary ${FAQ}`}>{NavbarContent("NavLinks.FAQ")}</Link>
       </nav>
       <FirstVueResponsiveMenu
         Language={Language}

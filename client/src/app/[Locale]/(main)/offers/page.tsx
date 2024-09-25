@@ -159,7 +159,7 @@ const Offers: React.FC = () => {
             <div className="hidden md:block">
               {userRole !== null ? (
                 userRole == "depositor" ? (
-                  <Link href={`/${Language}/Create-Offer`}>
+                  <Link href={`/${Language}/create-offer`}>
                     <Button className="text-white text-xs">
                       {OffersPageContent("CallToAction")}
                     </Button>

@@ -8,11 +8,11 @@ import {
   BreadcrumbSeparator,
 } from "@/Components/ui/breadcrumb";
 import BidderSheet from "@/Components/common/BidderSheet";
-import BidderAside from "@/Components/common/BidderAside";
 import DropDownDepositor from "@/Components/common/DropDownDepositor";
-import BidderBidsList from "@/Components/common/BidderBidsList";
+import BidderAside from "@/Components/common/BidderAside";
+import BidderClosedBidsList from "@/Components/common/BidderClosedBidsList";
 import NotFoundDataBidder from "@/Components/common/NotFoundDataBidder";
-import BidderBidsListSkeleton from "@/Components/common/BidderBidsListSkeleton";
+import AddReviewSkeleton from "@/Components/common/AddReviewSkeleton";
 
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
@@ -20,14 +20,14 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import axios from "axios";
 
-const MyBids = () => {
+const AddReview = () => {
   // Content
   const SideBarContent = useTranslations("BidderDashboard.SideBar");
   const BreadcrumbListContent = useTranslations(
     "BidderDashboard.BreadcrumbList"
   );
   let DropDownMenuContent = useTranslations("DepositorDashboard.DropDownMenu");
-  const BidsListContent = useTranslations("BidderDashboard.BidsList");
+  const AddReviewContent = useTranslations("BidderDashboard.AddReview");
   const NotFoundContent = useTranslations("BidderDashboard.NotFound");
 
   // Language
@@ -48,8 +48,7 @@ const MyBids = () => {
     if (user_role !== "bidder" && user_role !== null) {
       window.location.href = `/${Language}`;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user_role]);
+  }, [user_role, Language]);
 
   // Data
   const [bids, setBids] = useState<any>(null);
@@ -74,20 +73,19 @@ const MyBids = () => {
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
         <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <BidderSheet
-            Dashboard={"Dashboard-B"}
-            Profile={"Profile-B"}
-            MyBids={"Dashboard-B/My-Bids"}
-            AddReview={"Dashboard-B/Add-Review"}
-            Reviews={"Reviews-B"}
+            Dashboard={"bidder-dashboard"}
+            Profile={"bidder-profile"}
+            MyBids={"bidder-dashboard/my-bids"}
+            AddReview={"bidder-dashboard/add-review"}
+            Reviews={"bidder-reviews"}
             Offers={"offers"}
-            Support={"Contact-Us"}
+            Support={"contact-us"}
           />
           <Breadcrumb className="hidden md:flex">
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${Language}/Dashboard-B`}>
-                    {" "}
+                  <Link href={`/${Language}/bidder-dashboard`}>
                     {BreadcrumbListContent("Dashboard")}
                   </Link>
                 </BreadcrumbLink>
@@ -97,9 +95,8 @@ const MyBids = () => {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${Language}/Dashboard-B/MyBids`}>
-                    {" "}
-                    {BreadcrumbListContent("MyBids")}
+                  <Link href={`/${Language}/bidder-dashboard/add-review`}>
+                    {BreadcrumbListContent("AddReview")}
                   </Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
@@ -113,12 +110,10 @@ const MyBids = () => {
         <main className="gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
           <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
             {bids !== null ? (
-              bids.totalBidsWaiting !== 0 ? (
-                <BidderBidsList
-                  seeMore={false}
-                  limit={false}
+              bids.totalBidsAccepted !== 0 ? (
+                <BidderClosedBidsList
                   bids={bids.detailedBids}
-                  content={BidsListContent}
+                  content={AddReviewContent}
                 />
               ) : (
                 <NotFoundDataBidder
@@ -127,7 +122,7 @@ const MyBids = () => {
                 />
               )
             ) : (
-              <BidderBidsListSkeleton Content={BidsListContent} amount={6} />
+              <AddReviewSkeleton Content={AddReviewContent} amount={6} />
             )}
           </div>
         </main>
@@ -136,4 +131,5 @@ const MyBids = () => {
   );
 };
 
-export default MyBids;
+export default AddReview;
+// Routing to Lower Case

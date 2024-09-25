@@ -1,7 +1,7 @@
 "use client";
 
 import { StarFill } from "react-bootstrap-icons";
-import { Download, Star } from "lucide-react";
+import { Download } from "lucide-react";
 import { Textarea } from "@/Components/ui/textarea";
 import { Button } from "@/Components/ui/button";
 

@@ -61,14 +61,14 @@ const AdminSheet = () => {
             </div>
           </Link>
           <Link
-            href={`/${Language}/Dashboard-A/Offers-verification/`}
+            href={`/${Language}/dashboard-admin/offers-verification/`}
             className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
           >
             <GanttChart className="h-5 w-5" />
             New Offers
           </Link>
           <Link
-            href={`/${Language}/Dashboard-A/Users-verification/`}
+            href={`/${Language}/dashboard-admin/users-verification/`}
             className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
           >
             <User className="h-5 w-5" />
@@ -82,7 +82,7 @@ const AdminSheet = () => {
             {Content("Offers")}
           </Link>
           <Link
-            href={`/${Language}/Contact-Us/`}
+            href={`/${Language}/contact-us/`}
             className="flex items-center gap-4 px-2.5 text-secondaryDarkBlue hover:text-primary"
           >
             <LifeBuoy className="h-5 w-5" />

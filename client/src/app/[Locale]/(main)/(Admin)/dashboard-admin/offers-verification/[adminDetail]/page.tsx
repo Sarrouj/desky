@@ -61,7 +61,7 @@ const AdminDetails = ({ params }: { params: any }) => {
 
   useEffect(() => {
     const lg = localStorage.getItem("lg");
-    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    const language = lg ? JSON.parse(lg) : "fr"; 
     setLanguage(language);
   }, [Language]);
 
@@ -245,7 +245,7 @@ const AdminDetails = ({ params }: { params: any }) => {
             user_id,
           }
         );
-        window.location.href = `/${Language}/Dashboard-A/Offers-verification`;
+        window.location.href = `/${Language}/dashboard-admin/offers-verification`;
       } catch (error) {
         console.error("Error verifying offer:", error);
       }
@@ -258,7 +258,7 @@ const AdminDetails = ({ params }: { params: any }) => {
         user_id,
         message,
       });
-      window.location.href = `/${Language}/Dashboard-A/Offers-verification`;
+      window.location.href = `/${Language}/dashboard-admin/offers-verification`;
     }catch (error) {
       console.error("Error refusing offer:", error);
     }
@@ -278,7 +278,7 @@ const AdminDetails = ({ params }: { params: any }) => {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href={`/${Language}/Dashboard-A/Offers-verification`}>
+                <Link href={`/${Language}/dashboard-admin/offers-verification`}>
                   New-Offers
                 </Link>
               </BreadcrumbLink>
@@ -289,7 +289,7 @@ const AdminDetails = ({ params }: { params: any }) => {
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
                 <Link
-                  href={`/${Language}/Dashboard-A/Offers-verification/${offer_id}`}
+                  href={`/${Language}/dashboard-admin/offers-verification/${offer_id}`}
                 >
                   Offer-Detail
                 </Link>

@@ -419,7 +419,7 @@ router.post("/auth/forgetPassword", findUserByEmail, async (req, res, next) => {
         </p>
         <div>
           <a
-            href="${URL}/en/Forgot-Password/Email-Verification/Reset-Password"
+            href="${URL}/en/forgot-password/email-verification/reset-password"
           >
             Reset Your Password
           </a>

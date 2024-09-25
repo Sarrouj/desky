@@ -49,7 +49,7 @@ function UsersVerification() {
 
   useEffect(() => {
     const lg = localStorage.getItem("lg");
-    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    const language = lg ? JSON.parse(lg) : "fr"; 
     setLanguage(language);
   }, [Language]);
 
@@ -88,7 +88,7 @@ function UsersVerification() {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href={`/${Language}/Dashboard-A/Users-verification`}>
+                <Link href={`/${Language}/dashboard-admin/users-verification`}>
                   New-Users
                 </Link>
               </BreadcrumbLink>

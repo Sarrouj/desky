@@ -31,11 +31,11 @@ const Login = () => {
   useEffect(() => {
     if (status === "authenticated") {
       if (userType == "bidder") {
-        window.location.href = `/${Language}/Dashboard-B`;
+        window.location.href = `/${Language}/bidder-dashboard`;
       } else if (userType == "depositor") {
-        window.location.href = `/${Language}/dashboard-d`;
+        window.location.href = `/${Language}/depositor-dashboard`;
       } else if (userType == "admin") {
-        window.location.href = `/${Language}/Dashboard-A/Offers-verification`;
+        window.location.href = `/${Language}/dashboard-admin/offers-verification`;
       }
     }
   }, [status, Language, userType]);
@@ -65,15 +65,15 @@ const Login = () => {
       setError(result.error);
     } else if (result?.url) {
       if (result.url.includes("choose-type")) {
-        window.location.href = `/${Language}/(main)/(register)/Sign-Up/choose-type`;
+        window.location.href = `/${Language}/(main)/(register)/sign-up/choose-type`;
       } else {
         if (status === "authenticated") {
           if (userType == "bidder") {
-            window.location.href = `/${Language}/dashboard-b`;
+            window.location.href = `/${Language}/bidder-dashboard`;
           } else if (userType == "depositor") {
-            window.location.href = `/${Language}/dashboard-d`;
+            window.location.href = `/${Language}/depositor-dashboard`;
           } else if (userType == "admin") {
-            window.location.href = `/${Language}/Dashboard-A/Offers-verification`;
+            window.location.href = `/${Language}/dashboard-admin/offers-verification`;
           }
         }
       }
@@ -168,7 +168,7 @@ const Login = () => {
           </Button>
           <div className="mt-4 text-center text-xs sm:text-sm">
             {LoginContent("Dont")}{" "}
-            <Link href={`/${Language}/Sign-Up`} className="underline">
+            <Link href={`/${Language}/sign-up`} className="underline">
               {LoginContent("SignUP")}
             </Link>
           </div>

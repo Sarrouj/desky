@@ -14,7 +14,7 @@ const ProcessGoogleSignIn = () => {
     if (googleEmail && googlePassword) {
       localStorage.setItem("email", googleEmail);
       localStorage.setItem("password", googlePassword);
-      window.location.replace(`/${language}/Sign-Up/choose-type`);
+      window.location.replace(`/${language}/sign-up/choose-type`);
     }
   }, []);
 

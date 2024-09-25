@@ -106,7 +106,7 @@ const CompanyInfo = () => {
 
       if (response && response.data && response.data.success) {
         setSuccess(response.data.success);
-        window.location.href = `/${Language}/Profile-D`;
+        window.location.href = `/${Language}/depositor-profile`;
       } else {
         setError(response.data.error);
       }
@@ -142,7 +142,7 @@ const CompanyInfo = () => {
       <div className="w-full text-xs text-end flex justify-between px-5">
         <Link
           className="flex items-center gap-2"
-          href={`/${Language}/Profile-D/Add-Info`}
+          href={`/${Language}/depositor-profile/add-info`}
         >
           <Image
             src={"/icons/arrowBack.svg"}

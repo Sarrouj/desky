@@ -42,7 +42,7 @@ function OffersVerification() {
 
   useEffect(() => {
     const lg = localStorage.getItem("lg");
-    const language = lg ? JSON.parse(lg) : "fr"; // Replace "defaultLanguage" with your actual default value
+    const language = lg ? JSON.parse(lg) : "fr"; 
     setLanguage(language);
   }, [Language]);
 
@@ -86,7 +86,7 @@ function OffersVerification() {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href={`/${Language}/Dashboard-A/Offers-verification`}>
+                <Link href={`/${Language}/dashboard-admin/offers-verification`}>
                   {BreadcrumbContent('Dashboard')}
                 </Link>
               </BreadcrumbLink>
@@ -96,7 +96,7 @@ function OffersVerification() {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href={`/${Language}/Dashboard-A/Offers-verification`}>
+                <Link href={`/${Language}/dashboard-admin/offers-verification`}>
                   {BreadcrumbContent('OffersVerification')}
                 </Link>
               </BreadcrumbLink>

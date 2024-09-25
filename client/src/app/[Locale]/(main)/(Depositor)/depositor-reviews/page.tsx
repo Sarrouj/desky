@@ -115,13 +115,13 @@ const DepositorReviews = () => {
       />
       <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
         <DepositorSheet
-          Dashboard={"dashboard-d"}
-          Profile={"Profile-D"}
-          ManageBids={"dashboard-d/manage-bids"}
-          MyOffers={"dashboard-d/my-offers"}
-          Reviews={"dashboard-d/my-reviews"}
+          Dashboard={"depositor-dashboard"}
+          Profile={"depositor-profile"}
+          ManageBids={"depositor-dashboard/manage-bids"}
+          MyOffers={"depositor-dashboard/my-offers"}
+          Reviews={"depositor-dashboard/my-reviews"}
           Offers={"offers"}
-          Support={"Contact-Us"}
+          Support={"contact-us"}
         />
         <Breadcrumb className="hidden sm:flex">
           <BreadcrumbList>
@@ -137,7 +137,7 @@ const DepositorReviews = () => {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href={`/${Language}/Reviews-D`}>
+                <Link href={`/${Language}/depositor-reviews`}>
                   {BreadcrumbListContent("Reviews")}
                 </Link>
               </BreadcrumbLink>
@@ -240,7 +240,7 @@ const DepositorReviews = () => {
           </h2>
           <p className="text-gray-600 ">{reviewsContent("NoAvailableDesc")}</p>
           <div className="flex gap-2 items-center justify-center mt-8 ">
-            <Link href={`/${Language}/Create-Offer`}>
+            <Link href={`/${Language}/create-offer`}>
               <Button className="text-white">
                 {reviewsContent("CallToAction")}
               </Button>

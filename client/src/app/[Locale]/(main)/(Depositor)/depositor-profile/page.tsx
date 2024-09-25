@@ -124,7 +124,7 @@ function Profile() {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${Language}/dashboard-d`}>
+                  <Link href={`/${Language}/depositor-dashboard`}>
                     {BreadcrumbListContent("Dashboard")}
                   </Link>
                 </BreadcrumbLink>
@@ -134,7 +134,7 @@ function Profile() {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${Language}/Profile-D`}>
+                  <Link href={`/${Language}/depositor-profile`}>
                     {BreadcrumbListContent("Profile")}
                   </Link>
                 </BreadcrumbLink>

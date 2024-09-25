@@ -106,19 +106,19 @@ function Profile() {
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
         <header className="sticky top-0 z-30 flex justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
         <BidderSheet
-            Dashboard={"Dashboard-B"}
-            Profile={"Profile-B"}
-            MyBids={"Dashboard-B/My-Bids"}
-            AddReview={"Dashboard-B/Add-Review"}
-            Reviews={"Reviews-B"}
+            Dashboard={"bidder-dashboard"}
+            Profile={"bidder-profile"}
+            MyBids={"bidder-dashboard/my-bids"}
+            AddReview={"bidder-dashboard/add-review"}
+            Reviews={"bidder-reviews"}
             Offers={"offers"}
-            Support={"Contact-Us"}
+            Support={"contact-us"}
           />
           <Breadcrumb className="hidden md:flex">
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${Language}/Dashboard-B`}>
+                  <Link href={`/${Language}/bidder-dashboard`}>
                     {BreadcrumbListContent("Dashboard")}
                   </Link>
                 </BreadcrumbLink>
@@ -128,7 +128,7 @@ function Profile() {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${Language}/Profile-B`}>
+                  <Link href={`/${Language}/bidder-profile`}>
                     {BreadcrumbListContent("Profile")}
                   </Link>
                 </BreadcrumbLink>
@@ -180,4 +180,4 @@ function Profile() {
 }
 
 export default Profile;
-// Routing to Lower Case
+// Lower Case Routing to bidder-profile

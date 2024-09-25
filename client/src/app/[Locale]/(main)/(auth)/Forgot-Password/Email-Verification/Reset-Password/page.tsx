@@ -36,7 +36,7 @@ const ResetPassword = () => {
         }
       );
       if (response && response.data && response.data.success) {
-        window.location.href = `/${Language}/Forgot-Password/Email-Verification/Reset-Password/Success`;
+        window.location.href = `/${Language}/forgot-password/email-verification/reset-password/success`;
         localStorage.removeItem("email");
       }
     } catch (err) {

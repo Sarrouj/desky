@@ -82,7 +82,7 @@ const CompanyInfo = () => {
 
   useEffect(() => {
     if (status === "authenticated") {
-      window.location.href = `/${Language}/dashboard-d`;
+      window.location.href = `/${Language}/depositor-dashboard`;
     }
   }, [status, Language]);
 
@@ -159,7 +159,7 @@ const CompanyInfo = () => {
       <div className="w-full text-xs text-end flex justify-between px-5">
         <Link
           className="flex items-center gap-2"
-          href={`/${Language}/Sign-Up/Choose-Type/Depositor-type`}
+          href={`/${Language}/sign-up/choose-type/depositor-type`}
         >
           <Image
             src={"/icons/arrowBack.svg"}

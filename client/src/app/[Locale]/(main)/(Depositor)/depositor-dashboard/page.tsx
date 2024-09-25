@@ -155,19 +155,19 @@ const DepositorDashboard = () => {
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-neutralBg h-screen">
         <header className="sticky top-0 z-30 flex justify-end sm:justify-between h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <DepositorSheet
-            Dashboard={"dashboard-d"}
-            Profile={"Profile-D"}
-            ManageBids={"dashboard-d/manage-bids"}
-            MyOffers={"dashboard-d/my-offers"}
-            Reviews={"Reviews-D"}
+            Dashboard={"depositor-dashboard"}
+            Profile={"depositor-profile"}
+            ManageBids={"depositor-dashboard/manage-bids"}
+            MyOffers={"depositor-dashboard/my-offers"}
+            Reviews={"depositor-reviews"}
             Offers={"offers"}
-            Support={"Contact-Us"}
+            Support={"contact-us"}
           />
           <Breadcrumb className="hidden sm:flex">
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={`/${Language}/dashboard-d`}>
+                  <Link href={`/${Language}/depositor-dashboard`}>
                     {BreadcrumbListContent("Dashboard")}
                   </Link>
                 </BreadcrumbLink>
@@ -215,12 +215,12 @@ const DepositorDashboard = () => {
                 openBids.length !== 0 ? (
                   <>
                     <div className="flex sm:hidden gap-2 w-full items-end justify-end mt-2">
-                      <Link href={`/${Language}/Create-Offer`}>
+                      <Link href={`/${Language}/create-offer`}>
                         <Button size={"sm"} className="text-xs text-white">
                           {Content("AddOffer")}
                         </Button>
                       </Link>
-                      <Link href={`/${Language}/dashboard-d/manage-bids`}>
+                      <Link href={`/${Language}/depositor-dashboard/manage-bids`}>
                         <Button size={"sm"} className="text-xs text-white">
                           {Content("SeeMore")}
                         </Button>

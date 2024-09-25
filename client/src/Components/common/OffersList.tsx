@@ -142,7 +142,7 @@ const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user
                       >
                         <TableCell
                           onClick={() => {
-                            window.location.href = `/${Language}/Dashboard-A/Offers-verification/${offer._id}`;
+                            window.location.href = `/${Language}/dashboard-admin/offers-verification/${offer._id}`;
                           }}
                           className="text-xs md:text-sm "
                         >
@@ -150,7 +150,7 @@ const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user
                         </TableCell>
                         <TableCell
                           onClick={() => {
-                            window.location.href = `/${Language}/Dashboard-A/Offers-verification/${offer._id}`;
+                            window.location.href = `/${Language}/dashboard-admin/offers-verification/${offer._id}`;
                           }}
                           className="text-center text-xs md:text-sm "
                         >
@@ -158,7 +158,7 @@ const OffersList = ({Content, offers, user_id }: {Content:any, offers: any, user
                         </TableCell>
                         <TableCell
                           onClick={() => {
-                            window.location.href = `/${Language}/Dashboard-A/Offers-verification/${offer._id}`;
+                            window.location.href = `/${Language}/dashboard-admin/offers-verification/${offer._id}`;
                           }}
                           className="text-center text-xs md:text-sm "
                         >

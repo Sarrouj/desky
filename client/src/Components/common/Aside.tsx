@@ -39,7 +39,7 @@ const Aside = ({
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href={`/${Language}/dashboard-d`}
+                href={`/${Language}/depositor-dashboard`}
                 className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8 text-muted-foreground hover:text-foreground ${Dashboard}`}
               >
                 <Home className="h-5 w-5" />
@@ -49,25 +49,11 @@ const Aside = ({
             <TooltipContent side="right">{Content("Dashboard")}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        {/* <TooltipProvider>
-          <Tooltip>
-              <TooltipTrigger asChild>
-              <Link
-                  href={`/${Language}/Create-Offer`}
-                  className={`flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8 ${CreateOffer}`}
-              >
-                  <PackagePlus className="h-5 w-5" />
-                  <span className="sr-only">{Content("CreateOffer")}</span>
-              </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">{Content("CreateOffer")}</TooltipContent>
-          </Tooltip> 
-        </TooltipProvider> */}
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href={`/${Language}/dashboard-d/my-offers`}
+                href={`/${Language}/depositor-dashboard/my-offers`}
                 className={`flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8 ${MyOffers}`}
               >
                 <LayoutList className="h-5 w-5" />
@@ -81,7 +67,7 @@ const Aside = ({
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href={`/${Language}/dashboard-d/manage-bids`}
+                href={`/${Language}/depositor-dashboard/manage-bids`}
                 className={`flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8 ${ManageBids}`}
               >
                 <GanttChart className="h-5 w-5" />
@@ -93,51 +79,7 @@ const Aside = ({
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        {/* <TooltipProvider>
-          <Tooltip>
-              <TooltipTrigger asChild>
-              <Link
-                  href="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                  <Users2 className="h-5 w-5" />
-                  <span className="sr-only">Bidders</span>
-              </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Bidders</TooltipContent>
-          </Tooltip>
-        </TooltipProvider> */}
-        {/* <TooltipProvider>
-          <Tooltip>
-              <TooltipTrigger asChild>
-              <Link
-                  href="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                  <Waypoints className="h-5 w-5" />
-                  <span className="sr-only">Connects</span>
-              </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Manage Connects</TooltipContent>
-          </Tooltip>
-        </TooltipProvider> */}
       </nav>
-      {/* <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Link
-              href="#"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-            >
-              <Settings className="h-5 w-5" />
-              <span className="sr-only">{Content("Settings")}</span>
-            </Link>
-          </TooltipTrigger>
-          <TooltipContent side="right">{Content("Settings")}</TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      </nav> */}
     </aside>
   );
 };
