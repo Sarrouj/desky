@@ -36,7 +36,7 @@ const ForgotPassword = () => {
       if (response && response.data && response.data.success) {
         localStorage.setItem("email", email);
         setTimeout(() => {
-          window.location.href = `/${Language}/Forgot-Password/Email-Verification`;
+          window.location.href = `/${Language}/forgot-password/email-verification`;
         }, 500);
       }
     } catch (err) {

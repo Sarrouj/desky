@@ -54,9 +54,9 @@ useEffect(() => {
 
       if (response && response.data && response.data.success) {
         if (userType === "depositor") {
-          window.location.href = `/${Language}/Sign-Up/Choose-Type/Depositor-Type`;
+          window.location.href = `/${Language}/sign-up/choose-type/depositor-type`;
         } else if (userType === "bidder") {
-          window.location.href = `/${Language}/Sign-Up/Choose-Type/Bidder-Type`;
+          window.location.href = `/${Language}/sign-up/choose-type/bidder-type`;
         }
       } else {
         setError(response.data.error);

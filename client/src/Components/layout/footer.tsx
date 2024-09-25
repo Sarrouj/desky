@@ -26,13 +26,13 @@ const Footer = () => {
             <Link href={`/${Language}/`}>Home</Link>
           </li>
           <li>
-            <Link href={`/${Language}/About-Us`}>About</Link>
+            <Link href={`/${Language}/about-us`}>About</Link>
           </li>
           <li>
-            <Link href={`/${Language}/Contact-Us`}>Contact</Link>
+            <Link href={`/${Language}/contact-us`}>Contact</Link>
           </li>
           <li>
-            <Link href={`/${Language}/FAQ`}>FAQ</Link>
+            <Link href={`/${Language}/faq`}>FAQ</Link>
           </li>
         </ul>
       </div>

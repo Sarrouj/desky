@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { Download, Users } from "lucide-react";
+import { Download } from "lucide-react";
 import { Button } from "@/Components/ui/button";
 import axios from "axios";
 import Image from "next/image";
@@ -90,13 +90,13 @@ const BidsList = ({
               </CardDescription>
             </div>
             <div className="hidden sm:flex gap-2">
-              <Link href={`/${Language}/Create-Offer`}>
+              <Link href={`/${Language}/create-offer`}>
                 <Button size={"sm"} className="text-xs text-white">
                   {Content("AddOffer")}
                 </Button>
               </Link>
               {seeMore ? (
-                <Link href={`/${Language}/dashboard-d/manage-bids`}>
+                <Link href={`/${Language}/depositor-dashboard/manage-bids`}>
                   <Button size={"sm"} className="text-xs text-white">
                     {Content("SeeMore")}
                   </Button>

@@ -22,6 +22,7 @@ const FAQ = () => {
         Offers={"hover:text-primary"}
         FAQ={"text-primary font-semibold"}
         AboutUS={"hover:text-primary"}
+        Contact={"hover:text-primary"}
       />
       <main className="bg-neutralBg text-secondaryDarkBlue border-t-2">
         <div className="flex flex-col gap-10 justify-around items-center p-5 md:p-10">
@@ -99,3 +100,4 @@ const FAQ = () => {
 };
 
 export default FAQ;
+// Lower Case Routing

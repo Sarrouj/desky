@@ -37,11 +37,11 @@ const SignUp = () => {
   useEffect(() => {
     if (status === "authenticated") {
       if (userType == "bidder") {
-        window.location.href = `/${Language}/dashboard-B`;
+        window.location.href = `/${Language}/bidder-dashboard`;
       } else if (userType == "depositor") {
-        window.location.href = `/${Language}/dashboard-d`;
+        window.location.href = `/${Language}/depositor-dashboard`;
       } else if (userType == "admin") {
-        window.location.href = `/${Language}/Dashboard-A/Offers-verification`;
+        window.location.href = `/${Language}/dashboard-admin/offers-verification`;
       }
     }
   }, [status, Language, userType]);
@@ -64,7 +64,7 @@ const SignUp = () => {
         localStorage.setItem("email", email);
         localStorage.setItem("password", password);
         setTimeout(() => {
-          window.location.href = `/${Language}/Sign-Up/verify-email`;
+          window.location.href = `/${Language}/sign-up/verify-email`;
         }, 1000);
       } else {
         setError(response.data.error);

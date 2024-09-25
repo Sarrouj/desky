@@ -15,7 +15,7 @@ const NotFoundDataDepositor = ({
       <h2 className="text-2xl font-bold mb-1">{Content("title")}</h2>
       <p className="text-gray-600 ">{Content("Desc")}</p>
       <div className="flex gap-2 items-center justify-center mt-8">
-        <Link href={`/${Language}/Create-Offer`}>
+        <Link href={`/${Language}/create-offer`}>
           <Button className="text-white">
             {Content("CreateOfferCallToAction")}
           </Button>

@@ -116,25 +116,25 @@ const DropDownDepositor = ({
         <DropdownMenuGroup>
           {userType == "depositor" ? (
             <>
-          <Link href={`/${Language}/Profile-D`}>
+          <Link href={`/${Language}/depositor-profile`}>
             <DropdownMenuItem>
               <User className="mr-2 h-4 w-4" />
               <span>{content("Profile")}</span>
             </DropdownMenuItem>
           </Link>
-          <Link href={`/${Language}/Reviews-D`}>
+          <Link href={`/${Language}/depositor-reviews`}>
             <DropdownMenuItem>
               <CircleCheck className="mr-2 h-4 w-4" />
               <span>{content("Reviews")}</span>
             </DropdownMenuItem>
           </Link></>) :(  <>
-          <Link href={`/${Language}/Profile-B`}>
+          <Link href={`/${Language}/bidder-profile`}>
             <DropdownMenuItem>
               <User className="mr-2 h-4 w-4" />
               <span>{content("Profile")}</span>
             </DropdownMenuItem>
           </Link>
-          <Link href={`/${Language}/Reviews-B`}>
+          <Link href={`/${Language}/bidder-reviews`}>
             <DropdownMenuItem>
               <CircleCheck className="mr-2 h-4 w-4" />
               <span>{content("Reviews")}</span>
@@ -149,7 +149,7 @@ const DropDownDepositor = ({
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href={`/${Language}/Contact-Us`}>
+          <Link href={`/${Language}/contact-us`}>
             <DropdownMenuItem>
               <LifeBuoy className="mr-2 h-4 w-4" />
               <span>{content("Support")}</span>

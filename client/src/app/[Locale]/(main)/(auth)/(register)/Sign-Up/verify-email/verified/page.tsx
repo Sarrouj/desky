@@ -20,7 +20,6 @@ const ResetPassword = () => {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    console.log(urlParams);
     if (urlParams) {
       const token = urlParams.get("token");
       if (token) setToken(token);
@@ -56,7 +55,7 @@ const ResetPassword = () => {
               {Content("title")}
             </h1>
           </div>
-          <Link href={`/${Language}/Sign-Up/Choose-Type`}>
+          <Link href={`/${Language}/sign-up/choose-type`}>
             <Button
               type="submit"
               className="w-full text-white text-xs sm:text-sm"

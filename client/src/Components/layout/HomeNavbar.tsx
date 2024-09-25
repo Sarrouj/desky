@@ -64,19 +64,20 @@ const HomeNavbar: React.FC<HomeNavbarProps>  = ({NavbarContent}) => {
     <header className="flex items-center py-3 px-5 md:px-12 lg:px-18 xl:px-20 justify-between text-secondaryDarkBlue ">
       <Link href={"/"} className="text-xl lg:text-2xl font-bold text-primaryOrange">Desky</Link>
       <ResponsiveHomeMenu Language={rout}/>
-      <nav className="hidden md:flex gap-4 lg:ga-6 xl:gap-8 text-sm font-medium  xl:ml-44">
+      <nav className="hidden lg:flex gap-4 lg:gap-8 xl:gap-10 text-sm font-medium lg:ml-20 xl:ml-44">
         <Link href={"/"} className="text-primaryOrange font-bold text-xs lg:text-sm ">
           {NavbarContent("NavLinks.Home")}
         </Link>
         <Link href={`/${rout}/offers`} className="hover:text-primary text-xs lg:text-sm ">{NavbarContent("NavLinks.Offers")}</Link>
-        <Link href={`/${rout}/FAQ`} className="hover:text-primary text-xs lg:text-sm ">{NavbarContent("NavLinks.FAQ")}</Link>
-        <Link href={`/${rout}/About-Us`} className="hover:text-primary text-xs lg:text-sm ">{NavbarContent("NavLinks.AboutUs")}</Link>
+        <Link href={`/${rout}/about-us`} className="hover:text-primary text-xs lg:text-sm ">{NavbarContent("NavLinks.AboutUs")}</Link>
+        <Link href={`/${rout}/contact-us`} className="hover:text-primary text-xs lg:text-sm ">{NavbarContent("NavLinks.ContactUs")}</Link>
+        <Link href={`/${rout}/faq`} className="hover:text-primary text-xs lg:text-sm ">{NavbarContent("NavLinks.FAQ")}</Link>
       </nav>
-      <div className="items-center gap-2 hidden md:flex">
+      <div className="items-center gap-2 hidden lg:flex">
         <Link href={`/${rout}/login`}>
             <Button className="px-5 bg-white border text-secondaryDarkBlue hover:bg-neutralBg text-xs lg:text-sm ">{NavbarContent("Auth.Login")}</Button>
         </Link>
-        <Link href={`/${rout}/Sign-Up`}>
+        <Link href={`/${rout}/sign-up`}>
             <Button className="text-white px-5 text-xs lg:text-sm">{NavbarContent("Auth.SignUp")}</Button>
         </Link>
         <Select onValueChange={changeSelectedValue}>

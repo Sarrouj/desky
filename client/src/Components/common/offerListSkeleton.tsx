@@ -83,7 +83,7 @@ const OffersListSkeleton = ({
                 {Content("Desc")}
               </CardDescription>
             </div>
-            <Link href={`/${Language}/Create-Offer`}>
+            <Link href={`/${Language}/create-offer`}>
               <Button size={"sm"} className="text-xs text-white">
                 {Content("AddOffer")}
               </Button>

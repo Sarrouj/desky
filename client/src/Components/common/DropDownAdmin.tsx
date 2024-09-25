@@ -130,7 +130,7 @@ const DropDownAdmin = ({
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href={`/${Language}/Contact-Us`}>
+          <Link href={`/${Language}/contact-us`}>
             <DropdownMenuItem>
               <LifeBuoy className="mr-2 h-4 w-4" />
               <span>{content("Support")}</span>
