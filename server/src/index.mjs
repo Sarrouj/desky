@@ -31,7 +31,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: `${process.env.URL}`, // Replace with your actual Vercel app URL
+  origin: 'https://desky-eight.vercel.app', // Replace with your actual Vercel app URL
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
