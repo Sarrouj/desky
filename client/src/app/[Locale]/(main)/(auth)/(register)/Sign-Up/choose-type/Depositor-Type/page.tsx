@@ -109,7 +109,7 @@ const DepositorType = () => {
             />
           </div>
           <Link
-            href={`/${Language}/sign-Up/choose-type/depositor-type/autoEntrepreneur-info`}
+            href={`/${Language}/sign-up/choose-type/depositor-type/autoEntrepreneur-info`}
             className="flex justify-between items-center shadow border hover:border-primary p-5 rounded accounType hover:bg-neutralBg"
           >
             <div className="flex items-center gap-5">

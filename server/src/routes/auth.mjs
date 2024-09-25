@@ -166,7 +166,7 @@ router.post(
         </p>
         <div>
           <a
-            href="${URL}/en/Sign-Up/verify-email/verified?token=${token}"
+            href="${URL}/en/sign-up/verify-email/verified?token=${token}"
           >
             Confirm Your Email
           </a>

@@ -127,7 +127,7 @@ const Login = () => {
                   {LoginContent("Password")}
                 </Label>
                 <Link
-                  href={`/${Language}/Forgot-Password`}
+                  href={`/${Language}/forgot-password`}
                   className="ml-auto inline-block  text-xs sm:text-sm underline"
                 >
                   {LoginContent("Forgot")}
