@@ -677,5 +677,14 @@
   },
   "AboutUs": {
     "Title": "Vol en cours..."
+  },
+  "Footer": {
+    "Home": "Accueil",
+    "About": "À propos",
+    "Contact": "Contact",
+    "FAQ": "FAQ",
+    "RightReserver": "Tous droits réservés ® Desky.ma | Les conditions générales s'appliquent!",
+    "Terms": "Conditions d'utilisation",
+    "Privacy": "Politique de confidentialité"
   }
 }

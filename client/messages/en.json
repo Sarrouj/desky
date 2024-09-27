@@ -678,5 +678,14 @@
   },
   "AboutUs" : {
     "Title" : "Steal In Progress..."
+  },
+  "Footer" : {
+    "Home" : "Home",
+    "About":"About",
+    "Contact":"Contact",
+    "FAQ":"FAQ",
+    "RightReserver" : "All rights reserved ® Desky.ma | Terms and conditions apply!",
+    "Terms" : "Terms of Service",
+    "Privacy" : "Privacy Policy"
   }
 }

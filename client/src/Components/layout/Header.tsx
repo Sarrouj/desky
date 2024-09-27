@@ -49,10 +49,10 @@ useEffect(() => {
         <Link href={`/${Language}`} className={`${HomePage}`}>
           {NavbarContent("NavLinks.Home")}
         </Link>
-        <Link href={`/${Language}/offers`} className={`hover:text-primary ${Offers}`}>{NavbarContent("NavLinks.Offers")}</Link>
-        <Link href={`/${Language}/about-us`} className={`hover:text-primary ${AboutUS}`}>{NavbarContent("NavLinks.AboutUs")}</Link>
-        <Link href={`/${Language}/contact-us`} className={`hover:text-primary ${Contact}`}>{NavbarContent("NavLinks.ContactUs")}</Link>
-        <Link href={`/${Language}/faq`} className={`hover:text-primary ${FAQ}`}>{NavbarContent("NavLinks.FAQ")}</Link>
+        <Link href={`/${Language}/offers`} className={`hover:text-primary transition ease-in-out ${Offers}`}>{NavbarContent("NavLinks.Offers")}</Link>
+        <Link href={`/${Language}/about-us`} className={`hover:text-primary transition ease-in-out ${AboutUS}`}>{NavbarContent("NavLinks.AboutUs")}</Link>
+        <Link href={`/${Language}/contact-us`} className={`hover:text-primary transition ease-in-out ${Contact}`}>{NavbarContent("NavLinks.ContactUs")}</Link>
+        <Link href={`/${Language}/faq`} className={`hover:text-primary transition ease-in-out ${FAQ}`}>{NavbarContent("NavLinks.FAQ")}</Link>
       </nav>
       <FirstVueResponsiveMenu
         Language={Language}

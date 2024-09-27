@@ -68,10 +68,10 @@ const HomeNavbar: React.FC<HomeNavbarProps>  = ({NavbarContent}) => {
         <Link href={"/"} className="text-primaryOrange font-bold text-xs lg:text-sm ">
           {NavbarContent("NavLinks.Home")}
         </Link>
-        <Link href={`/${rout}/offers`} className="hover:text-primary text-xs lg:text-sm ">{NavbarContent("NavLinks.Offers")}</Link>
-        <Link href={`/${rout}/about-us`} className="hover:text-primary text-xs lg:text-sm ">{NavbarContent("NavLinks.AboutUs")}</Link>
-        <Link href={`/${rout}/contact-us`} className="hover:text-primary text-xs lg:text-sm ">{NavbarContent("NavLinks.ContactUs")}</Link>
-        <Link href={`/${rout}/faq`} className="hover:text-primary text-xs lg:text-sm ">{NavbarContent("NavLinks.FAQ")}</Link>
+        <Link href={`/${rout}/offers`} className="hover:text-primary transition ease-in-out text-xs lg:text-sm ">{NavbarContent("NavLinks.Offers")}</Link>
+        <Link href={`/${rout}/about-us`} className="hover:text-primary transition ease-in-out text-xs lg:text-sm ">{NavbarContent("NavLinks.AboutUs")}</Link>
+        <Link href={`/${rout}/contact-us`} className="hover:text-primary transition ease-in-out text-xs lg:text-sm ">{NavbarContent("NavLinks.ContactUs")}</Link>
+        <Link href={`/${rout}/faq`} className="hover:text-primary transition ease-in-out text-xs lg:text-sm ">{NavbarContent("NavLinks.FAQ")}</Link>
       </nav>
       <div className="items-center gap-2 hidden lg:flex">
         <Link href={`/${rout}/login`}>
